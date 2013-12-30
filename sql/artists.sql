@@ -19,3 +19,6 @@ CREATE TABLE IF NOT EXISTS artistPseudonyms (
     FOREIGN KEY (canonicalID) REFERENCES artists (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (pseudonymID) REFERENCES artists (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+--unique index to prevent duplicate pseudonym links
+CREATE UNIQUE INDEX IF NOT EXISTS artistPseudonymIndex ON artistPseudonyms (canonicalID, pseudonymID);
