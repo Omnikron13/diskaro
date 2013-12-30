@@ -42,3 +42,8 @@ CREATE TABLE IF NOT EXISTS trackArtists (
     FOREIGN KEY (trackID) REFERENCES tracks (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (artistID) REFERENCES artists (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+--indexes to prevent duplicate genre/remixer/feat links
+CREATE UNIQUE INDEX IF NOT EXISTS trackGenresIndex ON trackGenres (trackID, genreID);
+CREATE UNIQUE INDEX IF NOT EXISTS trackRemixerIndex ON trackRemixer (trackID, artistID);
+CREATE UNIQUE INDEX IF NOT EXISTS trackArtistsIndex ON trackArtists (trackID, artistID);
