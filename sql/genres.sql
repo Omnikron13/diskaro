@@ -3,7 +3,7 @@
 *============*/
 CREATE TABLE IF NOT EXISTS genres (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
+    name TEXT UNIQUE NOT NULL
 );
 
 /*====================*
