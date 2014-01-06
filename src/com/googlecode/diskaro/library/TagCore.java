@@ -117,17 +117,11 @@ public abstract class TagCore extends DataCore {
 	}
 	
 	protected TagCore(int id) throws SQLException {
-		getByIDStatements.fetch(getTable()).setInt(1, id);
-		ResultSet rs = getByIDStatements.fetch(getTable()).executeQuery();
-		this.name = rs.getString("name");
-		this.id = id;
+		super(id);
 	}
 	
 	protected TagCore(String name) throws SQLException {
-		getByNameStatements.fetch(getTable()).setString(1, name);
-		ResultSet rs = getByNameStatements.fetch(getTable()).executeQuery();
-		this.name = name;
-		this.id = rs.getInt("id");
+		super(name);
 	}
 	
 	//Adds a new tag/genre/etc. to the database
