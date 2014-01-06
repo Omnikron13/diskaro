@@ -36,9 +36,17 @@ public class Release extends DataCore {
 		}
 	}
 	
+	protected static PreparedStatement addStatement = null;
+	protected static PreparedStatement addStatement() throws SQLException {
+		if(addStatement == null) {
+			addStatement = Library.getDB().prepareStatement("INSERT INTO releases (name, year, labelID) VALUES (?, ?, ?);",
+					Statement.RETURN_GENERATED_KEYS);
+		}
+		return addStatement;
+	}
+	
 	public static Release add(String name, Integer year, Label label) throws SQLException {
-		PreparedStatement ps = Library.getDB().prepareStatement("INSERT INTO releases (name, year, labelID) VALUES (?, ?, ?);",
-				Statement.RETURN_GENERATED_KEYS);
+		PreparedStatement ps = addStatement();
 		ps.setString(1, name);
 		if(year != null) {
 			ps.setInt(2, year);
