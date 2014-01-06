@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * @author S4T4N
@@ -28,6 +29,14 @@ public class Track extends DataCore {
 			addGenreStatement.setInt(1, id);
 		}
 		return addGenreStatement;
+	}
+	protected PreparedStatement getGenresStatement = null;
+	protected PreparedStatement getGenresStatement() throws SQLException {
+		if(getGenresStatement == null) {
+			getGenresStatement = Library.getDB().prepareStatement("SELECT genreID FROM trackGenres WHERE trackID = ? ORDER BY id;");
+			getGenresStatement.setInt(1, id);
+		}
+		return getGenresStatement;
 	}
 	
 	/**
@@ -106,6 +115,15 @@ public class Track extends DataCore {
 		PreparedStatement ps = addGenreStatement();
 		ps.setInt(2, genre.getID());
 		ps.executeUpdate();
+	}
+	
+	public ArrayList<Genre> getGenres() throws SQLException {
+		ArrayList<Genre> genres = new ArrayList<Genre>(5);
+		ResultSet rs = getGenresStatement().executeQuery();
+		while(rs.next()) {
+			genres.add(new Genre(rs.getInt("genreID")));
+		}
+		return genres;
 	}
 	
 	//Stored SQL statement used to INSERT new track entries to the db, created JIT
