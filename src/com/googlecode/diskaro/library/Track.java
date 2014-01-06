@@ -117,6 +117,12 @@ public class Track extends DataCore {
 		ps.executeUpdate();
 	}
 	
+	/**
+	 * Returns an ArrayList of Genre objects representing the genres that the track
+	 * is labelled as being.
+	 * @return ArrayList of Genre objects
+	 * @throws SQLException
+	 */
 	public ArrayList<Genre> getGenres() throws SQLException {
 		ArrayList<Genre> genres = new ArrayList<Genre>(5);
 		ResultSet rs = getGenresStatement().executeQuery();
