@@ -152,7 +152,6 @@ public abstract class TagCore extends DataCore {
 		return parents;
 	}
 	
-	//protected TagCore(int id, String table) throws SQLException {
 	protected TagCore(int id) throws SQLException {
 		getByIDStatements.fetch(getTable()).setInt(1, id);
 		ResultSet rs = getByIDStatements.fetch(getTable()).executeQuery();
@@ -160,7 +159,6 @@ public abstract class TagCore extends DataCore {
 		this.id = id;
 	}
 	
-	//protected TagCore(String name, String table) throws SQLException {
 	protected TagCore(String name) throws SQLException {
 		getByNameStatements.fetch(getTable()).setString(1, name);
 		ResultSet rs = getByNameStatements.fetch(getTable()).executeQuery();
