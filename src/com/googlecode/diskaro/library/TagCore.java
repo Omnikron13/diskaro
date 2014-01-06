@@ -22,8 +22,6 @@ public abstract class TagCore extends DataCore {
 		DIRECT, RECURSIVE
 	}
 	
-	//Allows sub-classes to identify their main db table
-	protected abstract String getTable();
 	//Allows sub-classes to identify their relationship db table
 	protected abstract String getRelationshipTable();
 	

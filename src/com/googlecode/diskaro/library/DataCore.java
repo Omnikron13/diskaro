@@ -62,6 +62,9 @@ public abstract class DataCore {
 		return id;
 	}
 	
+	//Allows sub-classes to identify their main db table
+	protected abstract String getTable();
+	
 	//Class for creating and holding PreparedStatements generated from templates
 	//to allow sub-classes to at more elegantly
 	protected static class Statements extends HashMap<String, PreparedStatement> { //No serialVersionUID, but probably doesn't need to be serialised
