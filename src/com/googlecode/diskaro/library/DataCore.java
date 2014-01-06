@@ -66,6 +66,18 @@ public abstract class DataCore {
 	//Allows sub-classes to identify their main db table
 	protected abstract String getTable();
 	
+	protected DataCore() {
+		
+	}
+	
+	protected DataCore(int id) throws SQLException {
+		getByID(id);
+	}
+	
+	protected DataCore(String name) throws SQLException {
+		getByName(name);
+	}
+	
 	//Pulls a single row from the relevant table by its id and returns the ResultSet, for constructors etc.
 	protected ResultSet getByID(int id) throws SQLException {
 		getByIDStatements.fetch(getTable()).setInt(1, id);
