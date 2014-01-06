@@ -155,12 +155,22 @@ public class Track extends DataCore {
 		ps.executeUpdate();
 	}
 	
+	/**
+	 * Removes a genre from the track in the trackGenres table.
+	 * @param genre Genre object representing the genre to remove
+	 * @throws SQLException
+	 */
 	public void removeGenre(Genre genre) throws SQLException {
 		PreparedStatement ps = removeGenreStatement();
 		ps.setInt(2, genre.getID());
 		ps.executeUpdate();
 	}
 	
+	/**
+	 * Removes a generic tag from the track in the trackTags table.
+	 * @param tag Tag object representing the tag to remove
+	 * @throws SQLException
+	 */
 	public void removeTag(Tag tag) throws SQLException {
 		PreparedStatement ps = removeTagStatement();
 		ps.setInt(2, tag.getID());
