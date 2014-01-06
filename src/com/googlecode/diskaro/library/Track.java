@@ -31,7 +31,7 @@ public class Track extends DataCore {
 		}
 		return addGenreStatement;
 	}
-	//Statment for pulling records from trackGenres
+	//Statement for pulling records from trackGenres
 	protected PreparedStatement getGenresStatement = null;
 	protected PreparedStatement getGenresStatement() throws SQLException {
 		if(getGenresStatement == null) {
