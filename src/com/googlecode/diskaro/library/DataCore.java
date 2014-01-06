@@ -69,13 +69,19 @@ public abstract class DataCore {
 	//Pulls a single row from the relevant table by its id and returns the ResultSet, for constructors etc.
 	protected ResultSet getByID(int id) throws SQLException {
 		getByIDStatements.fetch(getTable()).setInt(1, id);
-		return getByIDStatements.fetch(getTable()).executeQuery();
+		ResultSet rs = getByIDStatements.fetch(getTable()).executeQuery();
+		this.id = id;
+		this.name = rs.getString("name");
+		return rs;
 	}
 		
 	//As above, but by name - only useful in constructors when that is unique!
 	protected ResultSet getByName(String name) throws SQLException {
 		getByNameStatements.fetch(getTable()).setString(1, name);
-		return getByNameStatements.fetch(getTable()).executeQuery();
+		ResultSet rs = getByNameStatements.fetch(getTable()).executeQuery();
+		this.id = rs.getInt("id");
+		this.name = name;
+		return rs;
 	}
 	
 	//Class for creating and holding PreparedStatements generated from templates
