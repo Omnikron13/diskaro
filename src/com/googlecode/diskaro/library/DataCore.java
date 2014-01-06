@@ -81,4 +81,7 @@ public abstract class DataCore {
 			return get(tables[0]);
 		}
 	}
+	
+	protected static Statements getByIDStatements = new Statements("SELECT * FROM <t0> WHERE id = ?;");
+	protected static Statements getByNameStatements = new Statements("SELECT * FROM <t0> WHERE name = ?;");
 }

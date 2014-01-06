@@ -28,8 +28,6 @@ public abstract class TagCore extends DataCore {
 	protected abstract String getRelationshipTable();
 	
 	protected static Statements addStatements = new Statements("INSERT INTO <t0> (name) VALUES (?);");
-	protected static Statements getByIDStatements = new Statements("SELECT * FROM <t0> WHERE id = ?;");
-	protected static Statements getByNameStatements = new Statements("SELECT * FROM <t0> WHERE name = ?;");
 		
 	//Prepared SQL Statement for easily adding parent links - perhaps refactor to reuse Statements class logic above
 	protected PreparedStatement addParentStatement = null;
