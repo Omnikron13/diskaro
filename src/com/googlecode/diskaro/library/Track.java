@@ -40,6 +40,15 @@ public class Track extends DataCore {
 		}
 		return getGenresStatement;
 	}
+	//Statement to remove a genre from trackGenres
+	protected PreparedStatement removeGenreStatement = null;
+	protected PreparedStatement removeGenreStatement() throws SQLException {
+		if(removeGenreStatement == null) {
+			removeGenreStatement = Library.getDB().prepareStatement("DELETE FROM trackGenres WHERE trackID = ? AND genreID = ?;");
+			removeGenreStatement.setInt(1, id);
+		}
+		return removeGenreStatement;
+	}
 	//Statement for adding records to trackTags
 	protected PreparedStatement addTagStatement = null;
 	protected PreparedStatement addTagStatement() throws SQLException {
@@ -133,6 +142,12 @@ public class Track extends DataCore {
 	 */
 	public void addGenre(Genre genre) throws SQLException {
 		PreparedStatement ps = addGenreStatement();
+		ps.setInt(2, genre.getID());
+		ps.executeUpdate();
+	}
+	
+	public void removeGenre(Genre genre) throws SQLException {
+		PreparedStatement ps = removeGenreStatement();
 		ps.setInt(2, genre.getID());
 		ps.executeUpdate();
 	}
