@@ -20,6 +20,16 @@ public class Track extends DataCore {
 	protected Release release = null;
 	protected Integer trackNumber = null;
 	
+	//Stored SQL statements, created JIT
+	protected PreparedStatement addGenreStatement = null;
+	protected PreparedStatement addGenreStatement() throws SQLException {
+		if(addGenreStatement == null) {
+			addGenreStatement = Library.getDB().prepareStatement("INSERT INTO trackGenres (trackID, genreID) VALUES (?, ?);");
+			addGenreStatement.setInt(1, id);
+		}
+		return addGenreStatement;
+	}
+	
 	/**
 	 * Returns the path to the track's audio file as a File object.
 	 * @return the path.
@@ -85,6 +95,17 @@ public class Track extends DataCore {
 		if(!rs.wasNull()) {
 			this.trackNumber = trackNumber;
 		}
+	}
+	
+	/**
+	 * Label a track with a genre.
+	 * @param genre valid Genre object
+	 * @throws SQLException
+	 */
+	public void addGenre(Genre genre) throws SQLException {
+		PreparedStatement ps = addGenreStatement();
+		ps.setInt(2, genre.getID());
+		ps.executeUpdate();
 	}
 	
 	//Stored SQL statement used to INSERT new track entries to the db, created JIT
