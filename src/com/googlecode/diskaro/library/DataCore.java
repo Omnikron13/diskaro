@@ -4,6 +4,7 @@
 package com.googlecode.diskaro.library;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -64,6 +65,18 @@ public abstract class DataCore {
 	
 	//Allows sub-classes to identify their main db table
 	protected abstract String getTable();
+	
+	//Pulls a single row from the relevant table by its id and returns the ResultSet, for constructors etc.
+	protected ResultSet getByID() throws SQLException {
+		getByIDStatements.fetch(getTable()).setInt(1, id);
+		return getByIDStatements.fetch(getTable()).executeQuery();
+	}
+		
+	//As above, but by name - only useful in constructors when that is unique!
+	protected ResultSet getByName() throws SQLException {
+		getByNameStatements.fetch(getTable()).setString(1, name);
+		return getByNameStatements.fetch(getTable()).executeQuery();
+	}
 	
 	//Class for creating and holding PreparedStatements generated from templates
 	//to allow sub-classes to at more elegantly
