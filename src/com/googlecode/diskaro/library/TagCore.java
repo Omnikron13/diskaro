@@ -152,25 +152,6 @@ public abstract class TagCore extends DataCore {
 		return parents;
 	}
 	
-	/**
-	 * TagCore objects are compared by both their specific subclass and their uid
-	 */
-	public boolean equals(Object obj) {
-		if(this.getClass() != obj.getClass()) {
-			return false;
-		}
-		TagCore tc = (TagCore) obj;
-		if(id == tc.getID()) {
-			return true;
-		}
-		return false;
-	}
-	
-	//Not sure if this is the ideal hash code - not sure when exactly it is used
-	public int hashCode() {
-		return id;
-	}
-	
 	//protected TagCore(int id, String table) throws SQLException {
 	protected TagCore(int id) throws SQLException {
 		getByIDStatements.fetch(getTable()).setInt(1, id);

@@ -36,4 +36,25 @@ public abstract class DataCore {
 	public String toString() {
 		return getName();
 	}
+	
+	/**
+	 * DataCore objects are compared by both their specific subclass and their uid
+	 */
+	public boolean equals(Object obj) {
+		if(this.getClass() != obj.getClass()) {
+			return false;
+		}
+		DataCore dc = (DataCore) obj;
+		if(id == dc.getID()) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * DataCore hash codes are merely their uid
+	 */
+	public int hashCode() {
+		return id;
+	}
 }
