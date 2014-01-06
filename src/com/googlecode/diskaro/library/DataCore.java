@@ -6,6 +6,7 @@ package com.googlecode.diskaro.library;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 /**
@@ -102,9 +103,14 @@ public abstract class DataCore {
 	//to allow sub-classes to at more elegantly
 	protected static class Statements extends HashMap<String, PreparedStatement> { //No serialVersionUID, but probably doesn't need to be serialised
 		protected String template;
+		protected int returnKeys;
 		public Statements(String template) {
+			this(template, Statement.NO_GENERATED_KEYS);
+		}
+		public Statements(String template, int returnKeys) {
 			super();
 			this.template = template;
+			this.returnKeys = returnKeys;
 		}
 		public PreparedStatement fetch(String... tables) throws SQLException {
 			if(!containsKey(tables[0])) {
@@ -112,7 +118,7 @@ public abstract class DataCore {
 				for(int x=0; x < tables.length; x++) {
 					sql = sql.replaceAll("<t"+x+">", tables[x]);
 				}
-				put(tables[0], Library.getDB().prepareStatement(sql));
+				put(tables[0], Library.getDB().prepareStatement(sql, returnKeys));
 			}
 			return get(tables[0]);
 		}
