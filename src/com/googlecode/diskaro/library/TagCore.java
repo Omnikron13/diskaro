@@ -126,9 +126,11 @@ public abstract class TagCore extends DataCore {
 	}
 	
 	//Adds a new tag/genre/etc. to the database
-	protected static void add(String name, String table) throws SQLException {
-		addStatements.fetch(table).setString(1, name);
-		addStatements.fetch(table).executeUpdate();
+	protected static int add(String name, String table) throws SQLException {
+		PreparedStatement ps = addStatements.fetch(table);
+		ps.setString(1, name);
+		ps.executeUpdate();
+		return ps.getGeneratedKeys().getInt(1);
 	}
 	
 	/**
