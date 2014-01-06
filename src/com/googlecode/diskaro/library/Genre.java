@@ -22,7 +22,6 @@ public class Genre extends TagCore {
 	 * Adds a new genre entry to the database
 	 */
 	public static Genre add(String name) throws SQLException {
-		add(name, "genres");
-		return new Genre(name);
+		return new Genre(add(name, "genres"));
 	}
 }

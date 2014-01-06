@@ -36,7 +36,6 @@ public class Tag extends TagCore {
 	 * @return Tag object representing the newly added tag
 	 */
 	public static Tag add(String name) throws SQLException {
-		add(name, "tags");
-		return new Tag(name);
+		return new Tag(add(name, "tags"));
 	}
 }

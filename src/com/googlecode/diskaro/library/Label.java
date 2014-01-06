@@ -22,7 +22,6 @@ public class Label extends TagCore {
 	 * Adds a new Label entry to the database
 	 */
 	public static Label add(String name) throws SQLException {
-		add(name, "labels");
-		return new Label(name);
+		return new Label(add(name, "labels"));
 	}
 }
