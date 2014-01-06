@@ -19,6 +19,10 @@ public class Release extends DataCore {
 		return label;
 	}
 	
+	public String getTable() {
+		return "releases";
+	}
+	
 	public Release(String name) throws SQLException {
 		PreparedStatement ps = Library.getDB().prepareStatement("SELECT * FROM releases WHERE name = ?;");
 		ps.setString(1, name);
