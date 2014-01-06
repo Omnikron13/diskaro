@@ -17,6 +17,10 @@ public class Release {
 	protected Integer year = null;
 	protected Label label = null;
 	
+	public Label getLabel() {
+		return label;
+	}
+	
 	public Release(String name) throws SQLException {
 		PreparedStatement ps = Library.getDB().prepareStatement("SELECT * FROM releases WHERE name = ?;");
 		ps.setString(1, name);
