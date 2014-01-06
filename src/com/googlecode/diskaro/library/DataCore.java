@@ -66,10 +66,12 @@ public abstract class DataCore {
 	//Allows sub-classes to identify their main db table
 	protected abstract String getTable();
 	
+	//Empty constructor for subclasses which wish to handle their entire construction
 	protected DataCore() {
 		
 	}
 	
+	//Basic constructors for subclasses which only need to setup id & name
 	protected DataCore(int id) throws SQLException {
 		getByID(id);
 	}

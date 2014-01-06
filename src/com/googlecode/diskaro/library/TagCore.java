@@ -116,6 +116,7 @@ public abstract class TagCore extends DataCore {
 		return getParents(ParentMode.DIRECT);
 	}
 	
+	//Basic constructors which merely defer to DataCore
 	protected TagCore(int id) throws SQLException {
 		super(id);
 	}
