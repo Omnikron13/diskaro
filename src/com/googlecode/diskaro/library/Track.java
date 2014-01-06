@@ -67,6 +67,15 @@ public class Track extends DataCore {
 		}
 		return getTagsStatement;
 	}
+	//Statement to remove a tag from trackTags
+	protected PreparedStatement removeTagStatement = null;
+	protected PreparedStatement removeTagStatement() throws SQLException {
+		if(removeTagStatement == null) {
+			removeTagStatement = Library.getDB().prepareStatement("DELETE FROM trackTags WHERE trackID = ? AND tagID = ?;");
+			removeTagStatement.setInt(1, id);
+		}
+		return removeTagStatement;
+	}
 	
 	/**
 	 * Returns the path to the track's audio file as a File object.
@@ -149,6 +158,12 @@ public class Track extends DataCore {
 	public void removeGenre(Genre genre) throws SQLException {
 		PreparedStatement ps = removeGenreStatement();
 		ps.setInt(2, genre.getID());
+		ps.executeUpdate();
+	}
+	
+	public void removeTag(Tag tag) throws SQLException {
+		PreparedStatement ps = removeTagStatement();
+		ps.setInt(2, tag.getID());
 		ps.executeUpdate();
 	}
 	
