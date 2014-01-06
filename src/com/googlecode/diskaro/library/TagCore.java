@@ -27,26 +27,6 @@ public abstract class TagCore extends DataCore {
 	//Allows sub-classes to identify their relationship db table
 	protected abstract String getRelationshipTable();
 	
-	//Class for creating and holding PreparedStatements generated from templates
-	//to allow sub-classes to at more elegantly
-	protected static class Statements extends HashMap<String, PreparedStatement> { //No serialVersionUID, but probably doesn't need to be serialised
-		protected String template;
-		public Statements(String template) {
-			super();
-			this.template = template;
-		}
-		public PreparedStatement fetch(String... tables) throws SQLException {
-			if(!containsKey(tables[0])) {
-				String sql = template;
-				for(int x=0; x < tables.length; x++) {
-					sql = sql.replaceAll("<t"+x+">", tables[x]);
-				}
-				put(tables[0], Library.getDB().prepareStatement(sql));
-			}
-			return get(tables[0]);
-		}
-	}
-	
 	protected static Statements addStatements = new Statements("INSERT INTO <t0> (name) VALUES (?);");
 	protected static Statements getByIDStatements = new Statements("SELECT * FROM <t0> WHERE id = ?;");
 	protected static Statements getByNameStatements = new Statements("SELECT * FROM <t0> WHERE name = ?;");
