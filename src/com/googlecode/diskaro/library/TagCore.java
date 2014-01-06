@@ -17,15 +17,10 @@ import javax.swing.table.TableStringConverter;
  * This class provides core functionality shared by tags and
  * tag-like (genre, label, etc.) library data.
  */
-public abstract class TagCore {
+public abstract class TagCore extends DataCore {
 	public enum ParentMode {
 		DIRECT, RECURSIVE
 	}
-	
-	//Databse UID
-	protected int id;
-	//Human name
-	protected String name;
 	
 	//Allows sub-classes to identify their main db table
 	protected abstract String getTable();
@@ -86,22 +81,6 @@ public abstract class TagCore {
 			getParentsStatement.setInt(1, id);
 		}
 		return getParentsStatement;
-	}
-	
-	/**
-	 * Returns the internal database uid of the underlying db entry.
-	 * @return the uid
-	 */
-	public int getID() {
-		return id;
-	}
-	
-	/**
-	 * Returns the 'human' name of the... thing.
-	 * @return the 'human' name
-	 */
-	public String getName() {
-		return name;
 	}
 	
 	/**
@@ -171,14 +150,6 @@ public abstract class TagCore {
 			System.out.println("Foo: " + getClass());
 		}
 		return parents;
-	}
-	
-	/**
-	 * By default the String representation of TagCore objects is
-	 * simply their unqualified human-readable name
-	 */
-	public String toString() {
-		return getName();
 	}
 	
 	/**
