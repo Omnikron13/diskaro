@@ -116,18 +116,6 @@ public abstract class TagCore extends DataCore {
 		return getParents(ParentMode.DIRECT);
 	}
 	
-	//Generates an ArrayList of the uids of parents, either direct or recursively,
-	//eliminating duplicates to the left.
-	protected ArrayList<Integer> getParentIDs() throws SQLException {
-		ResultSet rs = getParentsStatement().executeQuery();
-		ArrayList<Integer> parents = new ArrayList<Integer>(5);
-		while(rs.next()) {
-			parents.add(rs.getInt("id"));
-			System.out.println("Foo: " + getClass());
-		}
-		return parents;
-	}
-	
 	protected TagCore(int id) throws SQLException {
 		getByIDStatements.fetch(getTable()).setInt(1, id);
 		ResultSet rs = getByIDStatements.fetch(getTable()).executeQuery();
