@@ -15,6 +15,15 @@ CREATE TABLE IF NOT EXISTS tracks (
     --perhaps cascade deletes for easy removal of artists/release from the db?
 );
 
+--table for tagging generic tags
+CREATE TABLE IF NOT EXISTS trackTags (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    trackID INTEGER NOT NULL,
+    tagID INTEGER NOT NULL,
+    FOREIGN KEY (trackID) REFERENCES tracks (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tagID) REFERENCES tags (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 --table for tagging genres
 CREATE TABLE IF NOT EXISTS trackGenres (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -44,6 +53,7 @@ CREATE TABLE IF NOT EXISTS trackArtists (
 );
 
 --indexes to prevent duplicate genre/remixer/feat links
+CREATE UNIQUE INDEX IF NOT EXISTS trackTagsIndex ON trackTags (trackID, tagID);
 CREATE UNIQUE INDEX IF NOT EXISTS trackGenresIndex ON trackGenres (trackID, genreID);
 CREATE UNIQUE INDEX IF NOT EXISTS trackRemixerIndex ON trackRemixer (trackID, artistID);
 CREATE UNIQUE INDEX IF NOT EXISTS trackArtistsIndex ON trackArtists (trackID, artistID);
