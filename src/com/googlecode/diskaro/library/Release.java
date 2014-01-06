@@ -6,6 +6,7 @@ package com.googlecode.diskaro.library;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author S4T4N
@@ -36,7 +37,8 @@ public class Release extends DataCore {
 	}
 	
 	public static Release add(String name, Integer year, Label label) throws SQLException {
-		PreparedStatement ps = Library.getDB().prepareStatement("INSERT INTO releases (name, year, labelID) VALUES (?, ?, ?);");
+		PreparedStatement ps = Library.getDB().prepareStatement("INSERT INTO releases (name, year, labelID) VALUES (?, ?, ?);",
+				Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, name);
 		if(year != null) {
 			ps.setInt(2, year);
@@ -45,6 +47,6 @@ public class Release extends DataCore {
 			ps.setInt(3, label.getID());
 		}
 		ps.executeUpdate();
-		return new Release(name);
+		return new Release(ps.getGeneratedKeys().getInt(1));
 	}
 }
