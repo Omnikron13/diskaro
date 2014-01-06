@@ -14,6 +14,7 @@ import java.sql.Statement;
  *
  */
 public class Track extends DataCore {
+	//Basic information about a track
 	protected File path;
 	protected Artist artist = null;		//Primary/main artist
 	protected Release release = null;
