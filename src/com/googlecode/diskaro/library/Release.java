@@ -23,6 +23,18 @@ public class Release extends DataCore {
 		return "releases";
 	}
 	
+	public Release(int id) throws SQLException {
+		ResultSet rs = getByID(id);
+		int year = rs.getInt("year");
+		if(!rs.wasNull()) {
+			this.year = year;
+		}
+		int labelID = rs.getInt("labelID");
+		if(!rs.wasNull()) {
+			this.label = new Label(labelID);
+		}
+	}
+	
 	public Release(String name) throws SQLException {
 		PreparedStatement ps = Library.getDB().prepareStatement("SELECT * FROM releases WHERE name = ?;");
 		ps.setString(1, name);
