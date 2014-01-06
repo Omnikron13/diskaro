@@ -4,8 +4,8 @@
 *=======================*/
 CREATE TABLE IF NOT EXISTS tracks (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    path TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL, --maybe null for untitled?
+    path TEXT NOT NULL UNIQUE,
     --possible subtitle column?
     artistID INTEGER,-- NOT NULL, --what about unknown/incomplete? also, remixers/etc?
     releaseID INTEGER,-- NOT NULL, --ditto ^
