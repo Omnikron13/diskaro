@@ -21,7 +21,8 @@ public class Track extends DataCore {
 	protected Release release = null;
 	protected Integer trackNumber = null;
 	
-	//Stored SQL statements, created JIT
+	//--Stored SQL statements, created JIT--
+	//Statement for adding records to trackGenres
 	protected PreparedStatement addGenreStatement = null;
 	protected PreparedStatement addGenreStatement() throws SQLException {
 		if(addGenreStatement == null) {
@@ -30,6 +31,7 @@ public class Track extends DataCore {
 		}
 		return addGenreStatement;
 	}
+	//Statment for pulling records from trackGenres
 	protected PreparedStatement getGenresStatement = null;
 	protected PreparedStatement getGenresStatement() throws SQLException {
 		if(getGenresStatement == null) {
