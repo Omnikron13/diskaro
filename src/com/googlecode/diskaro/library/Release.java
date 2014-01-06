@@ -27,8 +27,14 @@ public class Release {
 		ResultSet rs = ps.executeQuery();
 		this.id = rs.getInt("id");
 		this.name = rs.getString("name");
-		this.year = rs.getInt("year");
-		this.label = new Label(rs.getInt("labelID"));
+		int year = rs.getInt("year");
+		if(!rs.wasNull()) {
+			this.year = year;
+		}
+		int labelID = rs.getInt("labelID");
+		if(!rs.wasNull()) {
+			this.label = new Label(labelID);
+		}
 	}
 	
 	public static Release add(String name, Integer year, Label label) throws SQLException {
