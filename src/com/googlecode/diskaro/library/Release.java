@@ -11,9 +11,7 @@ import java.sql.SQLException;
  * @author S4T4N
  *
  */
-public class Release {
-	protected int id;
-	protected String name;
+public class Release extends DataCore {
 	protected Integer year = null;
 	protected Label label = null;
 	
