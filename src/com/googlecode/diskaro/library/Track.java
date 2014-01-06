@@ -167,23 +167,23 @@ public class Track extends DataCore {
 	}
 	
 	/**
-	 * Removes a generic tag from the track in the trackTags table.
-	 * @param tag Tag object representing the tag to remove
-	 * @throws SQLException
-	 */
-	public void removeTag(Tag tag) throws SQLException {
-		PreparedStatement ps = removeTagStatement();
-		ps.setInt(2, tag.getID());
-		ps.executeUpdate();
-	}
-	
-	/**
 	 * Label a track with a generic tag.
 	 * @param tag valid Tag object
 	 * @throws SQLException
 	 */
 	public void addTag(Tag tag) throws SQLException {
 		PreparedStatement ps = addTagStatement();
+		ps.setInt(2, tag.getID());
+		ps.executeUpdate();
+	}
+	
+	/**
+	 * Removes a generic tag from the track in the trackTags table.
+	 * @param tag Tag object representing the tag to remove
+	 * @throws SQLException
+	 */
+	public void removeTag(Tag tag) throws SQLException {
+		PreparedStatement ps = removeTagStatement();
 		ps.setInt(2, tag.getID());
 		ps.executeUpdate();
 	}
