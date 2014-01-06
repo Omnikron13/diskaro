@@ -40,6 +40,24 @@ public class Track extends DataCore {
 		}
 		return getGenresStatement;
 	}
+	//Statement for adding records to trackTags
+	protected PreparedStatement addTagStatement = null;
+	protected PreparedStatement addTagStatement() throws SQLException {
+		if(addTagStatement == null) {
+			addTagStatement = Library.getDB().prepareStatement("INSERT INTO trackTags (trackID, tagID) VALUES (?, ?);");
+			addTagStatement.setInt(1, id);
+		}
+		return addTagStatement;
+	}
+	//Statement for pulling records from trackTags
+	protected PreparedStatement getTagsStatement = null;
+	protected PreparedStatement getTagsStatement() throws SQLException {
+		if(getTagsStatement == null) {
+			getTagsStatement = Library.getDB().prepareStatement("SELECT tagID FROM trackTags WHERE trackID = ? ORDER BY id;");
+			getTagsStatement.setInt(1, id);
+		}
+		return getTagsStatement;
+	}
 	
 	/**
 	 * Returns the path to the track's audio file as a File object.
@@ -120,6 +138,17 @@ public class Track extends DataCore {
 	}
 	
 	/**
+	 * Label a track with a generic tag.
+	 * @param tag valid Tag object
+	 * @throws SQLException
+	 */
+	public void addTag(Tag tag) throws SQLException {
+		PreparedStatement ps = addTagStatement();
+		ps.setInt(2, tag.getID());
+		ps.executeUpdate();
+	}
+	
+	/**
 	 * Returns an ArrayList of Genre objects representing the genres that the track
 	 * is labelled as being.
 	 * @return ArrayList of Genre objects
@@ -132,6 +161,21 @@ public class Track extends DataCore {
 			genres.add(new Genre(rs.getInt("genreID")));
 		}
 		return genres;
+	}
+	
+	/**
+	 * Returns an ArrayList of Tag objects representing the generic tags that the track
+	 * is labelled with.
+	 * @return ArrayList of Tag objects
+	 * @throws SQLException
+	 */
+	public ArrayList<Tag> getTags() throws SQLException {
+		ArrayList<Tag> tags = new ArrayList<Tag>(5);
+		ResultSet rs = getTagsStatement().executeQuery();
+		while(rs.next()) {
+			tags.add(new Tag(rs.getInt("tagID")));
+		}
+		return tags;
 	}
 	
 	//Stored SQL statement used to INSERT new track entries to the db, created JIT
