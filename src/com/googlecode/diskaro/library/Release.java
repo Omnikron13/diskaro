@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * @author S4T4N
@@ -64,5 +65,14 @@ public class Release extends DataCore {
 		}
 		ps.executeUpdate();
 		return new Release(ps.getGeneratedKeys().getInt(1));
+	}
+	
+	/**
+	 * Returns an ArrayList of Release objects of all the releases in the database.
+	 * @return the list
+	 * @throws Exception
+	 */
+	public static ArrayList<Release> get() throws Exception {
+		return (ArrayList<Release>)get(Release.class);
 	}
 }

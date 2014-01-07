@@ -1,6 +1,7 @@
 package com.googlecode.diskaro.library;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Genre extends TagCore {
 	/**
@@ -31,5 +32,14 @@ public class Genre extends TagCore {
 	 */
 	public static Genre add(String name) throws SQLException {
 		return new Genre(add(name, table()));
+	}
+	
+	/**
+	 * Returns an ArrayList of Genre objects of all the genres in the database.
+	 * @return the list
+	 * @throws Exception
+	 */
+	public static ArrayList<Genre> get() throws Exception {
+		return (ArrayList<Genre>)get(Genre.class);
 	}
 }

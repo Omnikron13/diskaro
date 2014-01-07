@@ -1,6 +1,7 @@
 package com.googlecode.diskaro.library;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Artist extends TagCore {
 	/**
@@ -35,5 +36,14 @@ public class Artist extends TagCore {
 	 */
 	public static Artist add(String name) throws SQLException {
 		return new Artist(add(name, table()));
+	}
+	
+	/**
+	 * Returns an ArrayList of Artist objects of all the artists in the database.
+	 * @return the list
+	 * @throws Exception
+	 */
+	public static ArrayList<Artist> get() throws Exception {
+		return (ArrayList<Artist>)get(Artist.class);
 	}
 }

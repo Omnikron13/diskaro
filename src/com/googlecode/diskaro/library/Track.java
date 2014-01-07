@@ -263,4 +263,13 @@ public class Track extends DataCore {
 		ps.executeUpdate();
 		return new Track(ps.getGeneratedKeys().getInt(1));
 	}
+	
+	/**
+	 * Returns an ArrayList of Track objects of all the tracks in the database.
+	 * @return the list
+	 * @throws Exception
+	 */
+	public static ArrayList<Track> get() throws Exception {
+		return (ArrayList<Track>)get(Track.class);
+	}
 }

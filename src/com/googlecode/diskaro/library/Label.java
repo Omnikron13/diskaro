@@ -1,6 +1,7 @@
 package com.googlecode.diskaro.library;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Label extends TagCore {
 	/**
@@ -31,5 +32,14 @@ public class Label extends TagCore {
 	 */
 	public static Label add(String name) throws SQLException {
 		return new Label(add(name, table()));
+	}
+	
+	/**
+	 * Returns an ArrayList of Label objects of all the labels in the database.
+	 * @return the list
+	 * @throws Exception
+	 */
+	public static ArrayList<Label> get() throws Exception {
+		return (ArrayList<Label>)get(Label.class);
 	}
 }
