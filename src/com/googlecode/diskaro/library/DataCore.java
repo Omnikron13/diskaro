@@ -39,6 +39,27 @@ public abstract class DataCore {
 		return this.name;
 	}
 	
+	//SQL Statement needed by setName()
+	protected PreparedStatement setNameStatement = null;
+	protected PreparedStatement setNameStatement() throws SQLException {
+		if(setNameStatement == null) {
+			setNameStatement = Library.getDB().prepareStatement("UPDATE "+getTable()+" SET name = ? WHERE id = ?;");
+			setNameStatement.setInt(2, id);
+		}
+		return setNameStatement;
+	}
+	/**
+	 * Sets the name of the tag/genre/track/etc. in the database.
+	 * @param name new name of the tag/genre/track/etc.
+	 * @throws SQLException
+	 */
+	public void setName(String name) throws SQLException {
+		PreparedStatement ps = setNameStatement();
+		ps.setString(1, name);
+		ps.executeUpdate();
+		this.name = name;
+	}
+	
 	/**
 	 * @see getName()
 	 */
