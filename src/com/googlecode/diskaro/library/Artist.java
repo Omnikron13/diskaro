@@ -3,8 +3,16 @@ package com.googlecode.diskaro.library;
 import java.sql.SQLException;
 
 public class Artist extends TagCore {
-	protected String getTable() {
+	/**
+	 * Returns the name of the primary table used to store artists.
+	 * This is primarily so methods such as DataCore.get() can be used.
+	 * @return primary table name - "artists"
+	 */
+	public static String table() {
 		return "artists";
+	}
+	protected String getTable() {
+		return table();
 	}
 	protected String getRelationshipTable() {
 		return "artistPseudonyms";
@@ -26,6 +34,6 @@ public class Artist extends TagCore {
 	 * @return Artist object representing the newly added artist
 	 */
 	public static Artist add(String name) throws SQLException {
-		return new Artist(add(name, "artists"));
+		return new Artist(add(name, table()));
 	}
 }
