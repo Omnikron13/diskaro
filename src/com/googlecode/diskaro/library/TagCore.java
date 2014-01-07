@@ -65,7 +65,7 @@ public abstract class TagCore extends DataCore {
 	 * @throws Exception
 	 */
 	public String getFullName() throws Exception {
-		String fullName = name;
+		String fullName = getName();
 		for(TagCore parent : getParents(ParentMode.RECURSIVE)) {
 			fullName += '/' + parent.getName();
 		}
