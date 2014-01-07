@@ -36,6 +36,15 @@ public abstract class TagCore extends DataCore {
 		}
 		return addParentStatement;
 	}
+	//Prepared SQL Statement for easily adding child links - as above ^
+	protected PreparedStatement addChildStatement = null;
+	protected PreparedStatement addChildStatement() throws SQLException {
+		if(addChildStatement == null) {
+			addChildStatement = Library.getDB().prepareStatement("INSERT INTO "+getRelationshipTable()+" (parentID, childID) VALUES (?, ?);");
+			addChildStatement.setInt(1, this.id);
+		}
+		return addChildStatement;
+	}
 	//Prepared SQL statement for counting parents - as above ^
 	protected PreparedStatement countParentsStatement = null;
 	protected PreparedStatement countParentsStatement() throws SQLException {
@@ -159,6 +168,16 @@ public abstract class TagCore extends DataCore {
 	public void addParent(TagCore parent) throws SQLException {
 		addParentStatement().setInt(1, parent.getID());
 		addParentStatement().executeUpdate();
+	}
+	
+	/**
+	 * Adds a child reference to the tag/genre/etc.
+	 * @param child TagCore (or sub-class) object representing the child tag/genre/etc.
+	 * @throws SQLException
+	 */
+	public void addChild(TagCore child) throws SQLException {
+		addChildStatement().setInt(2, child.getID());
+		addChildStatement().executeUpdate();
 	}
 	
 	//Returns the id-based constructor of the calling subclass - may not be needed?
