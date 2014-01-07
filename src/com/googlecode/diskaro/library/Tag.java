@@ -3,6 +3,14 @@ package com.googlecode.diskaro.library;
 import java.sql.SQLException;
 
 public class Tag extends TagCore {
+	/**
+	 * Returns the name of the primary table used to store tags.
+	 * This is primarily so methods such as DataCore.get() can be used.
+	 * @return primary table name - "tags"
+	 */
+	public static String table() {
+		return "tags";
+	}
 	protected String getTable() {
 		return "tags";
 	}
