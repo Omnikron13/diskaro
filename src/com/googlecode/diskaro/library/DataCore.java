@@ -105,7 +105,7 @@ public abstract class DataCore {
 	//Method that allows subclasses to easily implement a static get() method for
 	//pulling all rows from their associated database table and returning an ArrayList
 	//holding instances of their particular subclass
-	public static ArrayList<?> get(Class<?> cl) throws Exception {
+	protected static ArrayList<?> get(Class<?> cl) throws Exception {
 		Constructor<?> con = cl.getConstructor(int.class);
 		ResultSet rs = getStatements.fetch((String)cl.getMethod("table").invoke(null)).executeQuery();
 		ArrayList<Object> objs = new ArrayList<Object>(20);
