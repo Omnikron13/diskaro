@@ -20,8 +20,16 @@ public class Release extends DataCore {
 		return label;
 	}
 	
-	public String getTable() {
+	/**
+	 * Returns the name of the primary table used to store releases.
+	 * This is primarily so methods such as DataCore.get() can be used.
+	 * @return primary table name - "releases"
+	 */
+	public static String table() {
 		return "releases";
+	}
+	public String getTable() {
+		return table();
 	}
 	
 	public Release(int id) throws SQLException {

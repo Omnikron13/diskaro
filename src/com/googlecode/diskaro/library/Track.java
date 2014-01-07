@@ -114,12 +114,20 @@ public class Track extends DataCore {
 		return trackNumber;
 	}
 
+	/**
+	 * Returns the name of the primary table used to store tracks.
+	 * This is primarily so methods such as DataCore.get() can be used.
+	 * @return primary table name - "tracks"
+	 */
+	public static String table() {
+		return "tracks";
+	}
 	/* (non-Javadoc)
 	 * @see com.googlecode.diskaro.library.DataCore#getTable()
 	 */
 	@Override
 	protected String getTable() {
-		return "tracks";
+		return table();
 	}
 
 	/**
