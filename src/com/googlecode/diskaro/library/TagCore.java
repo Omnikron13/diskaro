@@ -56,6 +56,16 @@ public abstract class TagCore extends DataCore {
 		return removeParentStatement;
 	}
 	
+	//Prepared SQL statement for removing child links
+	protected PreparedStatement removeChildStatement = null;
+	protected PreparedStatement removeChildStatement() throws SQLException {
+		if(removeChildStatement == null) {
+			removeChildStatement = Library.getDB().prepareStatement("DELETE FROM "+getRelationshipTable()+" WHERE parentID = ? AND childID = ?;");
+			removeChildStatement.setInt(1, this.id);
+		}
+		return removeChildStatement;
+	}
+	
 	//Prepared SQL statement for counting parents - as above ^
 	protected PreparedStatement countParentsStatement = null;
 	protected PreparedStatement countParentsStatement() throws SQLException {
@@ -248,6 +258,16 @@ public abstract class TagCore extends DataCore {
 	public void removeParent(TagCore parent) throws SQLException {
 		removeParentStatement().setInt(1, parent.getID());
 		removeParentStatement().executeUpdate();
+	}
+	
+	/**
+	 * Removes a child reference from the tag/genre/etc.
+	 * @param child TagCore (or sub-class) object representing the child tag/genre/etc.
+	 * @throws SQLException
+	 */
+	public void removeChild(TagCore child) throws SQLException {
+		removeChildStatement().setInt(2, child.getID());
+		removeChildStatement().executeUpdate();
 	}
 	
 	//Returns the id-based constructor of the calling subclass - may not be needed?
