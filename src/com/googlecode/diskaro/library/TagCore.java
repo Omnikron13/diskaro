@@ -112,18 +112,13 @@ public abstract class TagCore extends DataCore {
 			return parents;
 		}
 		ArrayList<TagCore> grandparents = new ArrayList<TagCore>(5);
-		//Load all grandparents, including duplicates
+		//Load all grandparents, removing duplicates
 		for(TagCore parent : parents) {
-			grandparents.addAll(parent.getParents(ParentMode.RECURSIVE));
+			ArrayList<TagCore> tcs = parent.getParents(ParentMode.RECURSIVE);
+			grandparents.removeAll(tcs);
+			grandparents.addAll(tcs);
 		}
-		//Merge all grandparents into the parents array, removing duplicates from the left
-		for(TagCore grandparent : grandparents) {
-			int x = parents.indexOf(grandparent);
-			if(x != -1) {
-				parents.remove(x);
-			}
-			parents.add(grandparent);
-		}
+		parents.addAll(grandparents);
 		return parents;
 	}
 	
@@ -156,18 +151,13 @@ public abstract class TagCore extends DataCore {
 			return children;
 		}
 		ArrayList<TagCore> grandchildren = new ArrayList<TagCore>(5);
-		//Load all grandparents, including duplicates
+		//Load all grandchildren, removing duplicates
 		for(TagCore child : children) {
-			grandchildren.addAll(child.getChildren(ParentMode.RECURSIVE));
+			ArrayList<TagCore> tcs = child.getChildren(ParentMode.RECURSIVE);
+			grandchildren.removeAll(tcs);
+			grandchildren.addAll(tcs);
 		}
-		//Merge all grandparents into the parents array, removing duplicates from the left
-		for(TagCore grandchild : grandchildren) {
-			int x = children.indexOf(grandchild);
-			if(x != -1) {
-				children.remove(x);
-			}
-			children.add(grandchild);
-		}
+		children.addAll(grandchildren);
 		return children;
 	}
 	
