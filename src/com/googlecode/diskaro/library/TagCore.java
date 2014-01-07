@@ -166,6 +166,7 @@ public abstract class TagCore extends DataCore {
 	 * @throws SQLException
 	 */
 	public void addParent(TagCore parent) throws SQLException {
+		//check exact sub-class matches or throw
 		addParentStatement().setInt(1, parent.getID());
 		addParentStatement().executeUpdate();
 	}
@@ -176,6 +177,7 @@ public abstract class TagCore extends DataCore {
 	 * @throws SQLException
 	 */
 	public void addChild(TagCore child) throws SQLException {
+		//check exact sub-class matches or throw
 		addChildStatement().setInt(2, child.getID());
 		addChildStatement().executeUpdate();
 	}
