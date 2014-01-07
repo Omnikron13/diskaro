@@ -3,10 +3,13 @@
  */
 package com.googlecode.diskaro.library;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -99,6 +102,19 @@ public abstract class DataCore {
 		return rs;
 	}
 	
+	//Method that allows subclasses to easily implement a static get() method for
+	//pulling all rows from their associated database table and returning an ArrayList
+	//holding instances of their particular subclass
+	public static ArrayList<?> get(Class<?> cl) throws Exception {
+		Constructor<?> con = cl.getConstructor(int.class);
+		ResultSet rs = getStatements.fetch((String)cl.getMethod("table").invoke(null)).executeQuery();
+		ArrayList<Object> objs = new ArrayList<Object>(20);
+		while(rs.next()) {
+			objs.add(con.newInstance(rs.getInt(1)));
+		}
+		return objs;
+	}
+	
 	//Class for creating and holding PreparedStatements generated from templates
 	//to allow sub-classes to at more elegantly
 	protected static class Statements extends HashMap<String, PreparedStatement> { //No serialVersionUID, but probably doesn't need to be serialised
@@ -126,4 +142,5 @@ public abstract class DataCore {
 	
 	protected static Statements getByIDStatements = new Statements("SELECT * FROM <t0> WHERE id = ?;");
 	protected static Statements getByNameStatements = new Statements("SELECT * FROM <t0> WHERE name = ?;");
+	protected static Statements getStatements = new Statements("SELECT id from <t0> ORDER BY name;");
 }
