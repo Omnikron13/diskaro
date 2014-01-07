@@ -17,6 +17,7 @@ public class Library {
 	protected static void openDB() throws SQLException {
 		if(dbConnection == null) {
 			dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+			dbConnection.prepareStatement("PRAGMA foreign_keys = ON;").executeUpdate();
 		}
 	}
 	
