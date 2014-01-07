@@ -1,6 +1,7 @@
 package com.googlecode.diskaro.library;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Tag extends TagCore {
 	/**
@@ -45,5 +46,14 @@ public class Tag extends TagCore {
 	 */
 	public static Tag add(String name) throws SQLException {
 		return new Tag(add(name, table()));
+	}
+	
+	/**
+	 * Returns an ArrayList of Tag objects of all the tags in the database.
+	 * @return the list
+	 * @throws Exception
+	 */
+	public static ArrayList<Tag> get() throws Exception {
+		return (ArrayList<Tag>)get(Tag.class);
 	}
 }
