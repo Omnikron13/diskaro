@@ -115,6 +115,16 @@ public abstract class DataCore {
 		return objs;
 	}
 	
+	/**
+	 * Removes the tag/genre/track/etc. from the database.
+	 * @throws SQLException
+	 */
+	public void remove() throws SQLException {
+		PreparedStatement ps = removeByIDStatements.fetch(getTable());
+		ps.setInt(1, getID());
+		ps.executeUpdate();
+	}
+	
 	//Class for creating and holding PreparedStatements generated from templates
 	//to allow sub-classes to at more elegantly
 	protected static class Statements extends HashMap<String, PreparedStatement> { //No serialVersionUID, but probably doesn't need to be serialised
@@ -143,4 +153,5 @@ public abstract class DataCore {
 	protected static Statements getByIDStatements = new Statements("SELECT * FROM <t0> WHERE id = ?;");
 	protected static Statements getByNameStatements = new Statements("SELECT * FROM <t0> WHERE name = ?;");
 	protected static Statements getStatements = new Statements("SELECT id from <t0> ORDER BY name;");
+	protected static Statements removeByIDStatements = new Statements("DELETE FROM <t0> WHERE id = ?;");
 }
