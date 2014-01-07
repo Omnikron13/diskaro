@@ -68,6 +68,19 @@ public abstract class TagCore extends DataCore {
 		return getParentsStatement;
 	}
 	
+	//Prepared SQL statement for fetching children from the db - as above ^, especially for this one!
+	protected PreparedStatement getChildrenStatement = null;
+	protected PreparedStatement getChildrenStatement() throws SQLException {
+		if(getChildrenStatement == null) {
+			getChildrenStatement = Library.getDB().prepareStatement(
+					"SELECT " + getTable() + ".id, name FROM " +getTable() + ", " + getRelationshipTable() + 
+					" WHERE " + getRelationshipTable() + ".parentID = ? AND " + getRelationshipTable() +
+					".childID = " + getTable() + ".id;");
+			getChildrenStatement.setInt(1, id);
+		}
+		return getChildrenStatement;
+	}
+	
 	/**
 	 * Returns the fully qualified name of the tag/genre/etc.
 	 * @return String of the fully qualified name
@@ -123,6 +136,50 @@ public abstract class TagCore extends DataCore {
 	 */
 	public ArrayList<TagCore> getParents() throws SQLException, Exception {
 		return getParents(ParentMode.DIRECT);
+	}
+	
+	/**
+	 * Returns an ArrayList of TagCore objects representing the tag/genre/etc's. children
+	 * @return ArrayList<TagCore> holding unique children/grandchildren/etc. objects
+	 * @throws SQLException
+	 * @throws NoSuchMethodException
+	 * @throws Exception
+	 */
+	public ArrayList<TagCore> getChildren(ParentMode mode) throws SQLException, NoSuchMethodException, Exception {
+		ResultSet rs = getChildrenStatement().executeQuery();
+		ArrayList<TagCore> children = new ArrayList<TagCore>(5);
+		while(rs.next()) {
+			TagCore child = newInstanceByID(rs.getInt("id"));
+			children.add(child);
+		}
+		if(mode == ParentMode.DIRECT) {
+			return children;
+		}
+		ArrayList<TagCore> grandchildren = new ArrayList<TagCore>(5);
+		//Load all grandparents, including duplicates
+		for(TagCore child : children) {
+			grandchildren.addAll(child.getChildren(ParentMode.RECURSIVE));
+		}
+		//Merge all grandparents into the parents array, removing duplicates from the left
+		for(TagCore grandchild : grandchildren) {
+			int x = children.indexOf(grandchild);
+			if(x != -1) {
+				children.remove(x);
+			}
+			children.add(grandchild);
+		}
+		return children;
+	}
+	
+	/**
+	 * Equivalent of getChildren(ParentMode.DIRECT)
+	 * @see getChildren(ParentMode mode)
+	 * @return ArrayList<TagCore> holding child objects
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public ArrayList<TagCore> getChildren() throws SQLException, Exception {
+		return getChildren(ParentMode.DIRECT);
 	}
 	
 	//Basic constructors which merely defer to DataCore
