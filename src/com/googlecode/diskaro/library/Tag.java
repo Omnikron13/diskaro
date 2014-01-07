@@ -12,7 +12,7 @@ public class Tag extends TagCore {
 		return "tags";
 	}
 	protected String getTable() {
-		return "tags";
+		return table();
 	}
 	protected String getRelationshipTable() {
 		return "subTags";
@@ -44,6 +44,6 @@ public class Tag extends TagCore {
 	 * @return Tag object representing the newly added tag
 	 */
 	public static Tag add(String name) throws SQLException {
-		return new Tag(add(name, "tags"));
+		return new Tag(add(name, table()));
 	}
 }
