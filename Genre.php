@@ -1,8 +1,9 @@
 <?php
 
+require_once('DB.php');
+
 class Genre {
     const SCHEMA = './sql/genres.sql';
-    const DB = 'diskaro.db';
 
     protected $id = NULL;
     protected $name = NULL;
@@ -109,12 +110,7 @@ class Genre {
     }
 
     public static function getDB() {
-		if(self::$db === NULL) {
-			self::$db = new PDO('sqlite:'.self::DB);
-			self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			self::$db->exec('PRAGMA foreign_keys = ON');
-		}
-		return self::$db;
+        return DB::get();
     }
 
     public static function setupDB() {
