@@ -4,7 +4,7 @@ require_once('DB.php');
 require_once('Artist.php');
 require_once('Genre.php');
 
-class Track {
+class Track implements JsonSerializable {
     const SCHEMA = './sql/tracks.sql';
 
     protected $id = NULL;
@@ -51,6 +51,19 @@ class Track {
     }
     public function getTrackNumber() {
         return $this->trackNumber;
+    }
+
+    //Required by JsonSerializable
+    //Serialises id, name, path, artist, release ID & track number
+    public function jsonSerialize() {
+        return [
+            'id'          => $this->getID(),
+            'name'        => $this->getName(),
+            'path'        => $this->getPath(),
+            'artist'      => $this->getArtist(),
+            'releaseID'   => $this->getReleaseID(),
+            'trackNumber' => $this->getTrackNumber(),
+        ];
     }
 
     public function setName($name) {
