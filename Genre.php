@@ -35,6 +35,10 @@ class Genre {
         return $this->name;
     }
 
+    public function __toString() {
+        return $this->getName();
+    }
+
     public function setName($name) {
         $db = self::getDB();
         $query = $db->prepare('UPDATE genres SET name=:name WHERE id=:id;');
