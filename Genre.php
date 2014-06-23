@@ -8,8 +8,6 @@ class Genre {
     protected $id = NULL;
     protected $name = NULL;
 
-    protected static $db = NULL;
-
     public function __construct($uid, $mode = 0) {
         $db = self::getDB();
         //mode
