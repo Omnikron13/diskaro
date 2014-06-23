@@ -74,6 +74,7 @@ class Genre {
         $query = $db->prepare('INSERT INTO genres(name) VALUES(:name);');
 		$query->bindParam(':name', $name, PDO::PARAM_STR);
 		$query->execute();
+        return new self($db->lastInsertId());
     }
 
     //
