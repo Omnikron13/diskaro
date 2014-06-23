@@ -2,7 +2,7 @@
 
 require_once('DB.php');
 
-class Artist {
+class Artist implements JsonSerializable {
     const SCHEMA = './sql/artists.sql';
 
     protected $id = NULL;
@@ -27,6 +27,15 @@ class Artist {
 
     public function __toString() {
         return $this->getName();
+    }
+
+    //Required by JsonSerializable
+    //Serialises id & name
+    public function jsonSerialize() {
+        return [
+            'id'    => $this->getID(),
+            'name'  => $this->getName(),
+        ];
     }
 
     public function setName($name) {
