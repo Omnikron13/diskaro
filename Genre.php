@@ -2,7 +2,7 @@
 
 require_once('DB.php');
 
-class Genre {
+class Genre implements JsonSerializable {
     const SCHEMA = './sql/genres.sql';
 
     protected $id = NULL;
@@ -36,6 +36,15 @@ class Genre {
 
     public function __toString() {
         return $this->getName();
+    }
+
+    //Required by JsonSerializable
+    //Serialises id & name
+    public function jsonSerialize() {
+        return [
+            'id'    => $this->getID(),
+            'name'  => $this->getName(),
+        ];
     }
 
     public function setName($name) {
