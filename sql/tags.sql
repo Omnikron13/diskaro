@@ -3,7 +3,7 @@
 *===================*/
 CREATE TABLE IF NOT EXISTS tags (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE NOT NULL --should this be unique?
+    name TEXT UNIQUE NOT NULL
 );
 
 /*====================*
