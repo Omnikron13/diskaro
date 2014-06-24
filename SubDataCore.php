@@ -30,6 +30,20 @@ abstract class SubDataCore extends DataCore {
         return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
+    public function getChildren() {
+        return array_map(function($cid) {
+            return new static($cid);
+        }, $this->getChildIDs());
+    }
+
+    protected function getChildIDs() {
+        $db = static::getDB();
+        $query = $db->prepare('SELECT childID FROM '.static::getSubTable().' WHERE parentID=:pid;');
+        $query->bindParam(':pid', $this->getID(), PDO::PARAM_INT);
+        $query->execute();
+        return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
+    }
+
     //Override jsonSerialize to include parent IDs (should perhaps
     // [optionally] be parents objects?
     public function jsonSerialize() {
