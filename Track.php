@@ -60,29 +60,17 @@ class Track extends DataCore {
     }
 
     public function setPath($path) {
-        $db = self::getDB();
-        $query = $db->prepare('UPDATE tracks SET path=:path WHERE id=:id;');
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':path', $path, PDO::PARAM_STR);
-		$query->execute();
+        $this->setField('path', $path, PDO::PARAM_STR);
         $this->path = $path;
     }
 
     public function setArtist($artist) {
-        $db = self::getDB();
-        $query = $db->prepare('UPDATE tracks SET artistID=:artistID WHERE id=:id;');
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':artistID', $artist->getID(), PDO::PARAM_INT);
-		$query->execute();
+        $this->setField('artistID', $artist->getID(), PDO::PARAM_INT);
         $this->artist = $artist;
     }
 
     public function setTrackNumber($trackNumber) {
-        $db = self::getDB();
-        $query = $db->prepare('UPDATE tracks SET trackNumber=:trackNumber WHERE id=:id;');
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':trackNumber', $trackNumber, PDO::PARAM_STR);
-		$query->execute();
+        $this->setField('trackNumber', $trackNumber, PDO::PARAM_INT);
         $this->trackNumber = $trackNumber;
     }
 
