@@ -1,14 +1,13 @@
 <?php
 
-require_once('DB.php');
+require_once('DataCore.php');
 require_once('Artist.php');
 require_once('Genre.php');
+require_once('Label.php');
+require_once('Release.php');
+require_once('Tag.php');
 
-class Track implements JsonSerializable {
-    const SCHEMA = './sql/tracks.sql';
-
-    protected $id = NULL;
-    protected $name = NULL;
+class Track extends DataCore {
     protected $path = NULL;
     protected $artist = NULL;
     //should replace with object...
@@ -33,12 +32,6 @@ class Track implements JsonSerializable {
             $this->artist = new Artist($artistID);
     }
 
-    public function getID() {
-        return $this->id;
-    }
-    public function getName() {
-        return $this->name;
-    }
     public function getPath() {
         return $this->path;
     }
@@ -64,15 +57,6 @@ class Track implements JsonSerializable {
             'releaseID'   => $this->getReleaseID(),
             'trackNumber' => $this->getTrackNumber(),
         ];
-    }
-
-    public function setName($name) {
-        $db = self::getDB();
-        $query = $db->prepare('UPDATE tracks SET name=:name WHERE id=:id;');
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':name', $name, PDO::PARAM_STR);
-		$query->execute();
-        $this->name = $name;
     }
 
     public function setPath($path) {
@@ -102,10 +86,6 @@ class Track implements JsonSerializable {
         $this->trackNumber = $trackNumber;
     }
 
-    public function __toString() {
-        return $this->getName();
-    }
-
     public static function add($name, $path) {
         $db = self::getDB();
         $query = $db->prepare('INSERT INTO tracks(name, path) VALUES(:name, :path);');
@@ -115,31 +95,22 @@ class Track implements JsonSerializable {
         return new self($db->lastInsertId());
     }
 
-    //
-    public static function getAll() {
-        $db = self::getDB();
-        $query = $db->prepare('SELECT id FROM tracks;');
-        $query->execute();
-        $query->bindColumn('id', $id, PDO::PARAM_INT);
-        $tracks = [];
-        while($query->fetch(PDO::FETCH_BOUND)) {
-            $tracks[] = new self($id);
-        }
-        return $tracks;
+    //Implement abstract static methods from DataCore
+    public static function getMainTable() {
+        return 'tracks';
+    }
+    public static function getSchema() {
+        return './sql/tracks.sql';
     }
 
-    public static function getDB() {
-        return DB::get();
-    }
-
+    //Override setupDB from DataCore to setup dependencies first
     public static function setupDB() {
         Artist::setupDB();
         Genre::setupDB();
-        $db = self::getDB();
-        $db->exec(file_get_contents('./sql/labels.sql'));
-        $db->exec(file_get_contents('./sql/releases.sql'));
-        $db->exec(file_get_contents('./sql/tags.sql'));
-        $db->exec(file_get_contents(self::SCHEMA));
+        Label::setupDB();
+        Release::setupDB();
+        Tag::setupDB();
+        parent::setupDB();
     }
 }
 
