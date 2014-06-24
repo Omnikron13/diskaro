@@ -7,10 +7,20 @@ abstract class DataCore implements JsonSerializable {
     protected $name = NULL;
 
     //Constructor
-    public function __construct($uid) {
+    public function __construct($uid, $mode = 0) {
         $db = static::getDB();
-		$query = $db->prepare('SELECT * FROM '.static::getMainTable().' WHERE id = :id;');
-		$query->bindParam(':id', $uid, PDO::PARAM_INT);
+        switch($mode) {
+            case 0:
+		        $query = $db->prepare('SELECT * FROM '.static::getMainTable().' WHERE id = :id;');
+		        $query->bindParam(':id', $uid, PDO::PARAM_INT);
+                break;
+            case 1:
+                if(!static::nameUnique())
+                    throw new Exception('Cannot construct from name; not a unique identifier');
+		        $query = $db->prepare('SELECT * FROM '.static::getMainTable().' WHERE name = :name;');
+		        $query->bindParam(':name', $uid, PDO::PARAM_STR);
+                break;
+        }
 		$query->execute();
 		$query->bindColumn('id', $this->id, PDO::PARAM_INT);
 		$query->bindColumn('name', $this->name, PDO::PARAM_STR);
@@ -77,6 +87,12 @@ abstract class DataCore implements JsonSerializable {
     public static function setupDB() {
         $db = static::getDB();
         $db->exec(file_get_contents(static::getSchema()));
+    }
+
+    //By default the 'name' column is considered non-unique;
+    //override this to return true if name should be unique
+    protected static function nameUnique() {
+        return false;
     }
 
     //Abstract static methods
