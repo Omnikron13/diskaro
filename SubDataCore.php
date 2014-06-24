@@ -29,6 +29,14 @@ abstract class SubDataCore extends DataCore {
         return $parents;
     }
 
+    protected function getParentIDs() {
+        $db = static::getDB();
+        $query = $db->prepare('SELECT parentID FROM '.static::getSubTable().' WHERE childID=:cid;');
+        $query->bindParam(':cid', $this->getID(), PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
+
     //Static methods
     public static function getLeaves() {
         $mainTable = static::getMainTable();
