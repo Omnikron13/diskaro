@@ -71,6 +71,11 @@ class Track extends DataCore {
         $this->artist = $artist;
     }
 
+    public function setRelease($release) {
+        $this->setField('releaseID', $release->getID(), PDO::PARAM_INT);
+        $this->release = $release;
+    }
+
     public function setTrackNumber($trackNumber) {
         $this->setField('trackNumber', $trackNumber, PDO::PARAM_INT);
         $this->trackNumber = $trackNumber;
