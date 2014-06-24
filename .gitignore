@@ -1,2 +1,7 @@
 # Database files generated when testing
 *.db
+
+# Audio files that may be used when testing
+*.mp3
+*.ogg
+*.wav
