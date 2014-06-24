@@ -81,11 +81,15 @@ class Track extends DataCore {
         $this->trackNumber = $trackNumber;
     }
 
-    public static function add($name, $path) {
+    public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
-        $query = $db->prepare('INSERT INTO tracks(name, path) VALUES(:name, :path);');
+        $query = $db->prepare('INSERT INTO tracks(name, path, artistID, releaseID, trackNumber)
+            VALUES(:name, :path, :artistID, :releaseID, :trackNumber);');
 		$query->bindParam(':name', $name, PDO::PARAM_STR);
 		$query->bindParam(':path', $path, PDO::PARAM_STR);
+		$query->bindParam(':artistID', ($artist===NULL)?NULL:$artist->getID(), PDO::PARAM_INT);
+		$query->bindParam(':releaseID', ($release===NULL)?NULL:$release->getID(), PDO::PARAM_INT);
+		$query->bindParam(':trackNumber', $trackNumber, PDO::PARAM_INT);
 		$query->execute();
         return new self($db->lastInsertId());
     }
