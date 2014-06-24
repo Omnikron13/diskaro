@@ -45,6 +45,15 @@ abstract class DataCore implements JsonSerializable {
         $this->name = $name;
     }
 
+    //Generic utility method for setting database fields
+    protected function setField($field, $value, $type) {
+        $db = static::getDB();
+        $query = $db->prepare('UPDATE '.static::getMainTable()." SET $field=:value WHERE id=:id;");
+        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $query->bindParam(':value', $value, $type);
+		$query->execute();
+    }
+
     //Magic methods
     public function __toString() {
         return $this->getName();
