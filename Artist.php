@@ -1,50 +1,14 @@
 <?php
 
-require_once('DB.php');
+require_once('DataCore.php');
 
-class Artist implements JsonSerializable {
-    const SCHEMA = './sql/artists.sql';
-
-    protected $id = NULL;
-    protected $name = NULL;
-
-    public function __construct($uid) {
-        $db = self::getDB();
-		        $query = $db->prepare('SELECT * FROM artists WHERE id = :id;');
-		        $query->bindParam(':id', $uid, PDO::PARAM_INT);
-		$query->execute();
-		$query->bindColumn('id', $this->id, PDO::PARAM_INT);
-		$query->bindColumn('name', $this->name, PDO::PARAM_STR);
-		$query->fetch(PDO::FETCH_BOUND);
+class Artist extends DataCore {
+    //Implement abstract methods from DataCore
+    public static function getMainTable() {
+        return 'artists';
     }
-
-    public function getID() {
-        return $this->id;
-    }
-    public function getName() {
-        return $this->name;
-    }
-
-    public function __toString() {
-        return $this->getName();
-    }
-
-    //Required by JsonSerializable
-    //Serialises id & name
-    public function jsonSerialize() {
-        return [
-            'id'    => $this->getID(),
-            'name'  => $this->getName(),
-        ];
-    }
-
-    public function setName($name) {
-        $db = self::getDB();
-        $query = $db->prepare('UPDATE artists SET name=:name WHERE id=:id;');
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':name', $name, PDO::PARAM_STR);
-		$query->execute();
-        $this->name = $name;
+    public static function getSchema() {
+        return './sql/artists.sql';
     }
 
     public function addParent($artist) {
@@ -72,27 +36,6 @@ class Artist implements JsonSerializable {
         return $parents;
     }
 
-    public static function add($name) {
-        $db = self::getDB();
-        $query = $db->prepare('INSERT INTO artists(name) VALUES(:name);');
-		$query->bindParam(':name', $name, PDO::PARAM_STR);
-		$query->execute();
-        return new self($db->lastInsertId());
-    }
-
-    //
-    public static function getAll() {
-        $db = self::getDB();
-        $query = $db->prepare('SELECT id FROM artists;');
-        $query->execute();
-        $query->bindColumn('id', $id, PDO::PARAM_INT);
-        $artists = [];
-        while($query->fetch(PDO::FETCH_BOUND)) {
-            $artists[] = new self($id);
-        }
-        return $artists;
-    }
-
     //
     public static function getLeaves() {
         $sql = 'SELECT artists.id FROM artists LEFT JOIN artistPseudonyms ON artists.id = artistPseudonyms.parentID WHERE artistPseudonyms.parentID IS NULL;';
@@ -105,15 +48,6 @@ class Artist implements JsonSerializable {
             $artists[] = new self($id);
         }
         return $artists;
-    }
-
-    public static function getDB() {
-        return DB::get();
-    }
-
-    public static function setupDB() {
-        $db = self::getDB();
-        $db->exec(file_get_contents(self::SCHEMA));
     }
 }
 
