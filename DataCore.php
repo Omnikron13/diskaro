@@ -37,11 +37,7 @@ abstract class DataCore implements JsonSerializable {
 
     //Set methods
     public function setName($name) {
-        $db = static::getDB();
-        $query = $db->prepare('UPDATE '.static::getMainTable().' SET name=:name WHERE id=:id;');
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':name', $name, PDO::PARAM_STR);
-		$query->execute();
+        static::setField('name', $name, PDO::PARAM_STR);
         $this->name = $name;
     }
 
