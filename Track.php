@@ -10,26 +10,29 @@ require_once('Tag.php');
 class Track extends DataCore {
     protected $path = NULL;
     protected $artist = NULL;
-    //should replace with object...
-    protected $releaseID = NULL;
+    protected $release = NULL;
     protected $trackNumber = NULL;
 
-    //
-    public function __construct($uid) {
-        $db = self::getDB();
-		$query = $db->prepare('SELECT * FROM tracks WHERE id = :id;');
-		$query->bindParam(':id', $uid, PDO::PARAM_INT);
-		$query->execute();
-		$query->bindColumn('id', $this->id, PDO::PARAM_INT);
-		$query->bindColumn('name', $this->name, PDO::PARAM_STR);
+    //Override constructor to convert artistID & releaseID into objects
+    public function __construct($uid, $mode = 0) {
+        parent::__construct($uid, $mode);
+        if($this->artist != NULL)
+            $this->artist = new Artist($this->artist);
+        else
+            $this->artist = NULL;
+        if($this->release != NULL)
+            $this->release = new Release($this->release);
+        else
+            $this->release = NULL;
+    }
+
+    //Override constructorBindings from DataCore to add path, artist, release
+    // & track number bindings
+    protected function constructorBindings($query) {
 		$query->bindColumn('path', $this->path, PDO::PARAM_STR);
-		$query->bindColumn('artistID', $artistID, PDO::PARAM_INT);
-        //should replace with object...
-		$query->bindColumn('releaseID', $this->releaseID, PDO::PARAM_INT);
+		$query->bindColumn('artistID', $this->artist, PDO::PARAM_INT);
+		$query->bindColumn('releaseID', $this->release, PDO::PARAM_INT);
 		$query->bindColumn('trackNumber', $this->trackNumber, PDO::PARAM_INT);
-		$query->fetch(PDO::FETCH_BOUND);
-        if($artistID != NULL)
-            $this->artist = new Artist($artistID);
     }
 
     public function getPath() {
