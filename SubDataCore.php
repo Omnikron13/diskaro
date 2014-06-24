@@ -30,7 +30,8 @@ abstract class SubDataCore extends DataCore {
         return $query->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
-    //Override jsonSerialize to include parent IDs
+    //Override jsonSerialize to include parent IDs (should perhaps
+    // [optionally] be parents objects?
     public function jsonSerialize() {
         $json = parent::jsonSerialize();
         $json['parentIDs'] = $this->getParentIDs();
