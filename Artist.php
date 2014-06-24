@@ -11,6 +11,7 @@ class Artist extends DataCore {
         return './sql/artists.sql';
     }
 
+    //Methods dealing with parent/child relationships
     public function addParent($artist) {
         foreach($this->getParents() as $p) {
             if($p->getID() == $artist->getID())
