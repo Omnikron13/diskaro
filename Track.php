@@ -41,9 +41,8 @@ class Track extends DataCore {
     public function getArtist() {
         return $this->artist;
     }
-    //should replace with object...
-    public function getReleaseID() {
-        return $this->releaseID;
+    public function getRelease() {
+        return $this->release;
     }
     public function getTrackNumber() {
         return $this->trackNumber;
