@@ -5,3 +5,6 @@
 *.mp3
 *.ogg
 *.wav
+
+# Test scripts
+test*
