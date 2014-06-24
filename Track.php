@@ -48,17 +48,19 @@ class Track extends DataCore {
         return $this->trackNumber;
     }
 
-    //Required by JsonSerializable
-    //Serialises id, name, path, artist, release ID & track number
+    //Override jsonSerialize to include artist, release & track number
     public function jsonSerialize() {
-        return [
-            'id'          => $this->getID(),
-            'name'        => $this->getName(),
-            'path'        => $this->getPath(),
-            'artist'      => $this->getArtist(),
-            'releaseID'   => $this->getReleaseID(),
-            'trackNumber' => $this->getTrackNumber(),
-        ];
+        $json = parent::jsonSerialize();
+        if($this->artist != NULL)
+            $json['artist'] = $this->artist->jsonSerialize();
+        else
+            $json['artist'] = NULL;
+        if($this->release != NULL)
+            $json['release'] = $this->release->jsonSerialize();
+        else
+            $json['release'] = NULL;
+        $json['trackNumber'] = $this->trackNumber;
+        return $json;
     }
 
     public function setPath($path) {
