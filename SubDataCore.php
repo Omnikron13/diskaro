@@ -30,6 +30,13 @@ abstract class SubDataCore extends DataCore {
         return $query->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
+    //Override jsonSerialize to include parent IDs
+    public function jsonSerialize() {
+        $json = parent::jsonSerialize();
+        $json['parentIDs'] = $this->getParentIDs();
+        return $json;
+    }
+
     //Static methods
     public static function getLeaves() {
         $mainTable = static::getMainTable();
