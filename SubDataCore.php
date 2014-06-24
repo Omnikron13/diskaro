@@ -27,7 +27,7 @@ abstract class SubDataCore extends DataCore {
         $query = $db->prepare('SELECT parentID FROM '.static::getSubTable().' WHERE childID=:cid;');
         $query->bindParam(':cid', $this->getID(), PDO::PARAM_INT);
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_COLUMN, 0);
+        return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
     //Override jsonSerialize to include parent IDs (should perhaps
