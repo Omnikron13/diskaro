@@ -24,7 +24,12 @@ abstract class DataCore implements JsonSerializable {
 		$query->execute();
 		$query->bindColumn('id', $this->id, PDO::PARAM_INT);
 		$query->bindColumn('name', $this->name, PDO::PARAM_STR);
+        $this->constructorBindings($query);
 		$query->fetch(PDO::FETCH_BOUND);
+    }
+
+    //Placeholder method which can be overridden to add extra column bindings
+    protected function constructorBindings($query) {
     }
 
     //Get methods
