@@ -16,14 +16,8 @@ class Track extends DataCore {
     //Override constructor to convert artistID & releaseID into objects
     public function __construct($uid, $mode = 0) {
         parent::__construct($uid, $mode);
-        if($this->artist != NULL)
-            $this->artist = new Artist($this->artist);
-        else
-            $this->artist = NULL;
-        if($this->release != NULL)
-            $this->release = new Release($this->release);
-        else
-            $this->release = NULL;
+        $this->artist = $this->artist==NULL?NULL:new Artist($this->artist);
+        $this->release = $this->release==NULL?NULL:new Release($this->release);
     }
 
     //Override constructorBindings from DataCore to add path, artist, release
