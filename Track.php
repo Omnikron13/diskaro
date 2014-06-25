@@ -95,6 +95,17 @@ class Track extends DataCore {
         $this->genres[] = $genre;
     }
 
+    //Method for removing a genre tag from the track
+    public function removeGenre($genre) {
+        $db = static::getDB();
+        $query = $db->prepare('DELETE FROM trackGenres WHERE trackID=:tid AND genreID=:gid;');
+        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindParam(':gid', $genre->getID(), PDO::PARAM_INT);
+        $query->execute();
+        unset($this->genres[array_Search($genre, $this->genres)]);
+        $this->genres = array_values($this->genres);
+    }
+
     public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
         $query = $db->prepare('INSERT INTO tracks(name, path, artistID, releaseID, trackNumber)
