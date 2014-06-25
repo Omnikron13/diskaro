@@ -12,12 +12,21 @@ class Track extends DataCore {
     protected $artist = NULL;
     protected $release = NULL;
     protected $trackNumber = NULL;
+    protected $genres = [];
 
     //Override constructor to convert artistID & releaseID into objects
     public function __construct($uid, $mode = 0) {
         parent::__construct($uid, $mode);
         $this->artist = $this->artist==NULL?NULL:new Artist($this->artist);
         $this->release = $this->release==NULL?NULL:new Release($this->release);
+        //Load genres
+        $db = static::getDB();
+		$query = $db->prepare('SELECT genreID FROM trackGenres WHERE trackID = :id;');
+		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
+		$query->execute();
+        $this->genres = array_map(function($gid) {
+            return new Genre(intval($gid));
+        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
     //Override constructorBindings from DataCore to add path, artist, release
