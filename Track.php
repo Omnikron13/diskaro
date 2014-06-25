@@ -63,6 +63,7 @@ class Track extends DataCore {
         return $json;
     }
 
+    //Set methods
     public function setPath($path) {
         $this->setField('path', $path, PDO::PARAM_STR);
         $this->path = $path;
