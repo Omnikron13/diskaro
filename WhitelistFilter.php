@@ -10,7 +10,7 @@ abstract class WhitelistFilter {
         if(is_array($items))
             $this->list = $items;
         else
-            $this->list[] = $genre;
+            $this->list[] = $items;
         $this->recursive = $recursive;
     }
 
