@@ -106,6 +106,7 @@ class Track extends DataCore {
         $this->genres = array_values($this->genres);
     }
 
+    //Override DataCore->add() to allow optional artist, release, trackNumber
     public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
         $query = $db->prepare('INSERT INTO tracks(name, path, artistID, releaseID, trackNumber)
