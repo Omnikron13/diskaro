@@ -83,6 +83,15 @@ class Track extends DataCore {
         $this->trackNumber = $trackNumber;
     }
 
+    public function addGenre($genre) {
+        $db = static::getDB();
+        $query = $db->prepare('INSERT INTO trackGenres(trackID, genreID) VALUES(:tid, :gid);');
+        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindParam(':gid', $genre->getID(), PDO::PARAM_INT);
+        $query->execute();
+        $this->genres[] = $genre;
+    }
+
     public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
         $query = $db->prepare('INSERT INTO tracks(name, path, artistID, releaseID, trackNumber)
