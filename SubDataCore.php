@@ -30,10 +30,16 @@ abstract class SubDataCore extends DataCore {
         return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
-    public function getChildren() {
-        return array_map(function($cid) {
+    public function getChildren($recursive = false) {
+        $children = array_map(function($cid) {
             return new static($cid);
         }, $this->getChildIDs());
+        if(!$recursive)
+            return $children;
+        foreach($children as $c) {
+            $children = array_unique(array_merge($children, $c->getChildren(true)));
+        }
+        return $children;
     }
 
     protected function getChildIDs() {
