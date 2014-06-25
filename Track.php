@@ -60,6 +60,7 @@ class Track extends DataCore {
         $json['artist'] = $this->artist==NULL?NULL:$this->artist->jsonSerialize();
         $json['release'] = $this->release==NULL?NULL:$this->release->jsonSerialize();
         $json['trackNumber'] = $this->trackNumber;
+        $json['genres'] = $this->genres;
         return $json;
     }
 
