@@ -50,6 +50,9 @@ class Track extends DataCore {
     public function getTrackNumber() {
         return $this->trackNumber;
     }
+    public function getGenres() {
+        return $this->genres;
+    }
 
     //Override jsonSerialize to include artist, release & track number
     public function jsonSerialize() {
