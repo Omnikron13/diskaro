@@ -7,6 +7,7 @@ require_once('Label.php');
 require_once('Release.php');
 require_once('Role.php');
 require_once('Tag.php');
+require_once('ArtistLink.php');
 
 class Track extends DataCore {
     protected $path = NULL;
@@ -27,15 +28,7 @@ class Track extends DataCore {
         //Load tags
         $this->loadLinks('trackTags', 'tagID', $this->tags, 'Tag');
         //Load artists
-        $db = static::getDB();
-		$query = $db->prepare('SELECT artistID, roleID FROM trackArtists WHERE trackID = :id;');
-		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
-		$query->execute();
-        $query->bindColumn('artistID', $aid, PDO::PARAM_INT);
-        $query->bindColumn('roleID', $rid, PDO::PARAM_INT);
-        while($query->fetch(PDO::FETCH_BOUND)) {
-            $this->artists[] = ['artist'=>new Artist($aid), 'role'=>new Role($rid)];
-        }
+        $this->loadLinks('trackArtists', 'id', $this->artists, 'ArtistLink');
     }
 
     //Override constructorBindings from DataCore to add path, artist, release
@@ -137,30 +130,15 @@ class Track extends DataCore {
     //Method for adding a new artist tag to the track
     public function addArtist($artist, $role = NULL) {
         $this->addLink($artist, 'trackArtists', 'artistID', $this->artists);
-        $this->artists[array_Search($artist, $this->artists)] = ['artist'=>$artist, 'role'=>$role];
-        if($role === NULL)
-            return;
         $db = static::getDB();
-        $query = $db->prepare('UPDATE trackArtists SET roleID=:rid WHERE id=:id;');
-        $query->bindParam(':id', $db->lastInsertId(), PDO::PARAM_INT);
-        $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
-        $query->execute();
+        $link = new ArtistLink($db->lastInsertId());
+        $this->artists[array_Search($artist, $this->artists)] = $link;
+        $link->setRole($role);
     }
 
     //Method for removing an artist tag from the track
     public function removeArtist($artist, $role = NULL) {
-        $db = static::getDB();
-        if($role===NULL)
-            $query = $db->prepare("DELETE FROM trackArtists WHERE trackID=:tid AND artistID=:aid AND roleID ISNULL;");
-        else {
-            $query = $db->prepare("DELETE FROM trackArtists WHERE trackID=:tid AND artistID=:aid AND roleID=:rid;");
-            $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
-        }
-        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
-        $query->bindParam(':aid', $artist->getID(), PDO::PARAM_INT);
-        $query->execute();
-        unset($this->artists[array_Search(['artist'=>$artist, 'role'=>$role], $this->artists)]);
-        $this->artists = array_values($this->artists);
+        $this->removeLink(ArtistLink::get($this, $artist, $role), 'trackArtists', 'id', $this->artists);
     }
 
     //Utility method for adding db links (e.g. genre, generic tag)
