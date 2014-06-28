@@ -15,6 +15,7 @@ class Track extends DataCore {
     protected $trackNumber = NULL;
     protected $genres = [];
     protected $tags = [];
+    protected $artists = [];
 
     //Override constructor to convert artistID & releaseID into objects
     public function __construct($uid, $mode = 0) {
@@ -25,6 +26,16 @@ class Track extends DataCore {
         $this->loadLinks('trackGenres', 'genreID', $this->genres, 'Genre');
         //Load tags
         $this->loadLinks('trackTags', 'tagID', $this->tags, 'Tag');
+        //Load artists
+        $db = static::getDB();
+		$query = $db->prepare('SELECT artistID, roleID FROM trackArtists WHERE trackID = :id;');
+		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
+		$query->execute();
+        $query->bindColumn('artistID', $aid, PDO::PARAM_INT);
+        $query->bindColumn('roleID', $rid, PDO::PARAM_INT);
+        while($query->fetch(PDO::FETCH_BOUND)) {
+            $this->artists[] = ['artist'=>new Artist($aid), 'role'=>new Role($rid)];
+        }
     }
 
     //Override constructorBindings from DataCore to add path, artist, release
@@ -66,6 +77,9 @@ class Track extends DataCore {
     public function getTags() {
         return $this->tags;
     }
+    public function getArtists() {
+        return $this->artists;
+    }
 
     //Override jsonSerialize to include artist, release & track number
     public function jsonSerialize() {
@@ -75,6 +89,7 @@ class Track extends DataCore {
         $json['trackNumber'] = $this->trackNumber;
         $json['genres'] = $this->genres;
         $json['tags'] = $this->tags;
+        $json['artists'] = $this->artists;
         return $json;
     }
 
@@ -117,6 +132,35 @@ class Track extends DataCore {
     //Method for removing a generic tag from the track
     public function removeTag($tag) {
         $this->removeLink($tag, 'trackTags', 'tagID', $this->tags);
+    }
+
+    //Method for adding a new artist tag to the track
+    public function addArtist($artist, $role = NULL) {
+        $this->addLink($artist, 'trackArtists', 'artistID', $this->artists);
+        $this->artists[array_Search($artist, $this->artists)] = ['artist'=>$artist, 'role'=>$role];
+        if($role === NULL)
+            return;
+        $db = static::getDB();
+        $query = $db->prepare('UPDATE trackArtists SET roleID=:rid WHERE id=:id;');
+        $query->bindParam(':id', $db->lastInsertId(), PDO::PARAM_INT);
+        $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
+        $query->execute();
+    }
+
+    //Method for removing an artist tag from the track
+    public function removeArtist($artist, $role = NULL) {
+        $db = static::getDB();
+        if($role===NULL)
+            $query = $db->prepare("DELETE FROM trackArtists WHERE trackID=:tid AND artistID=:aid AND roleID ISNULL;");
+        else {
+            $query = $db->prepare("DELETE FROM trackArtists WHERE trackID=:tid AND artistID=:aid AND roleID=:rid;");
+            $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
+        }
+        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindParam(':aid', $artist->getID(), PDO::PARAM_INT);
+        $query->execute();
+        unset($this->artists[array_Search(['artist'=>$artist, 'role'=>$role], $this->artists)]);
+        $this->artists = array_values($this->artists);
     }
 
     //Utility method for adding db links (e.g. genre, generic tag)
