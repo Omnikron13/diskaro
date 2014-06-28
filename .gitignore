@@ -8,3 +8,6 @@
 
 # Test scripts
 test*
+
+# Vi(m) files
+*.swo
