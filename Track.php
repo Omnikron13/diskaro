@@ -87,11 +87,7 @@ class Track extends DataCore {
 
     //Method for adding a new genre tag to the track
     public function addGenre($genre) {
-        $db = static::getDB();
-        $query = $db->prepare('INSERT INTO trackGenres(trackID, genreID) VALUES(:tid, :gid);');
-        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
-        $query->bindParam(':gid', $genre->getID(), PDO::PARAM_INT);
-        $query->execute();
+        $this->addLink($genre, 'trackGenres', 'genreID');
         $this->genres[] = $genre;
     }
 
