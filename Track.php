@@ -106,6 +106,15 @@ class Track extends DataCore {
         $this->genres = array_values($this->genres);
     }
 
+    //Utility method for adding db links (e.g. genre, generic tag)
+    protected function addLink($link, $table, $idField) {
+        $db = static::getDB();
+        $query = $db->prepare("INSERT INTO $table(trackID, $idField) VALUES(:tid, :lid);");
+        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindParam(':lid', $link->getID(), PDO::PARAM_INT);
+        $query->execute();
+    }
+
     //Override DataCore->add() to allow optional artist, release, trackNumber
     public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
