@@ -13,6 +13,7 @@ class Track extends DataCore {
     protected $release = NULL;
     protected $trackNumber = NULL;
     protected $genres = [];
+    protected $tags = [];
 
     //Override constructor to convert artistID & releaseID into objects
     public function __construct($uid, $mode = 0) {
@@ -26,6 +27,14 @@ class Track extends DataCore {
 		$query->execute();
         $this->genres = array_map(function($gid) {
             return new Genre(intval($gid));
+        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+        //Load tags
+        $db = static::getDB();
+		$query = $db->prepare('SELECT tagID FROM trackTags WHERE trackID = :id;');
+		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
+		$query->execute();
+        $this->tags = array_map(function($tid) {
+            return new Tag(intval($tid));
         }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
@@ -53,6 +62,9 @@ class Track extends DataCore {
     public function getGenres() {
         return $this->genres;
     }
+    public function getTags() {
+        return $this->tags;
+    }
 
     //Override jsonSerialize to include artist, release & track number
     public function jsonSerialize() {
@@ -61,6 +73,7 @@ class Track extends DataCore {
         $json['release'] = $this->release==NULL?NULL:$this->release->jsonSerialize();
         $json['trackNumber'] = $this->trackNumber;
         $json['genres'] = $this->genres;
+        $json['tags'] = $this->tags;
         return $json;
     }
 
@@ -93,6 +106,16 @@ class Track extends DataCore {
     //Method for removing a genre tag from the track
     public function removeGenre($genre) {
         $this->removeLink($genre, 'trackGenres', 'genreID', $this->genres);
+    }
+
+    //Method for adding a new generic tag to the track
+    public function addTag($tag) {
+        $this->addLink($tag, 'trackTags', 'tagID', $this->tags);
+    }
+
+    //Method for removing a generic tag from the track
+    public function removeTag($tag) {
+        $this->removeLink($tag, 'trackTags', 'tagID', $this->tags);
     }
 
     //Utility method for adding db links (e.g. genre, generic tag)
