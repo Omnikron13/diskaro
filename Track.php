@@ -111,6 +111,17 @@ class Track extends DataCore {
         $query->execute();
     }
 
+    //Utility method for removing tags (e.g. genre, generic tag, etc.)
+    protected function removeLink($link, $table, $idField, &$array) {
+        $db = static::getDB();
+        $query = $db->prepare("DELETE FROM $table WHERE trackID=:tid AND $idField=:lid;");
+        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindParam(':lid', $link->getID(), PDO::PARAM_INT);
+        $query->execute();
+        unset($array[array_Search($link, $array)]);
+        $array = array_values($array);
+    }
+
     //Override DataCore->add() to allow optional artist, release, trackNumber
     public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
