@@ -5,6 +5,7 @@ require_once('Artist.php');
 require_once('Genre.php');
 require_once('Label.php');
 require_once('Release.php');
+require_once('Role.php');
 require_once('Tag.php');
 
 class Track extends DataCore {
@@ -168,6 +169,7 @@ class Track extends DataCore {
         Label::setupDB();
         Release::setupDB();
         Tag::setupDB();
+        Role::setupDB();
         parent::setupDB();
     }
 }
