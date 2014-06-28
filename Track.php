@@ -21,21 +21,9 @@ class Track extends DataCore {
         $this->artist = $this->artist==NULL?NULL:new Artist($this->artist);
         $this->release = $this->release==NULL?NULL:new Release($this->release);
         //Load genres
-        $db = static::getDB();
-		$query = $db->prepare('SELECT genreID FROM trackGenres WHERE trackID = :id;');
-		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
-		$query->execute();
-        $this->genres = array_map(function($gid) {
-            return new Genre(intval($gid));
-        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+        $this->loadLinks('trackGenres', 'genreID', $this->genres, 'Genre');
         //Load tags
-        $db = static::getDB();
-		$query = $db->prepare('SELECT tagID FROM trackTags WHERE trackID = :id;');
-		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
-		$query->execute();
-        $this->tags = array_map(function($tid) {
-            return new Tag(intval($tid));
-        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+        $this->loadLinks('trackTags', 'tagID', $this->tags, 'Tag');
     }
 
     //Override constructorBindings from DataCore to add path, artist, release
