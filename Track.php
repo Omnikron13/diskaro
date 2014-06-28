@@ -47,6 +47,18 @@ class Track extends DataCore {
 		$query->bindColumn('trackNumber', $this->trackNumber, PDO::PARAM_INT);
     }
 
+    //Utility method to load tag liks (e.g. genre, generic tag) in the constructor
+    protected function loadLinks($table, $idField, &$array, $type) {
+        $db = static::getDB();
+		$query = $db->prepare("SELECT $idField FROM $table WHERE trackID = :id;");
+		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
+		$query->execute();
+        $array = array_map(function($id) use($type) {
+            $reflection = new ReflectionClass($type);
+            return $reflection->newInstanceArgs([intval($id)]);
+        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+    }
+
     public function getPath() {
         return $this->path;
     }
