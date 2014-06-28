@@ -87,8 +87,7 @@ class Track extends DataCore {
 
     //Method for adding a new genre tag to the track
     public function addGenre($genre) {
-        $this->addLink($genre, 'trackGenres', 'genreID');
-        $this->genres[] = $genre;
+        $this->addLink($genre, 'trackGenres', 'genreID', $this->genres);
     }
 
     //Method for removing a genre tag from the track
