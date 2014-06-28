@@ -97,12 +97,13 @@ class Track extends DataCore {
     }
 
     //Utility method for adding db links (e.g. genre, generic tag)
-    protected function addLink($link, $table, $idField) {
+    protected function addLink($link, $table, $idField, &$array) {
         $db = static::getDB();
         $query = $db->prepare("INSERT INTO $table(trackID, $idField) VALUES(:tid, :lid);");
         $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
         $query->bindParam(':lid', $link->getID(), PDO::PARAM_INT);
         $query->execute();
+        $array[] = $link;
     }
 
     //Utility method for removing tags (e.g. genre, generic tag, etc.)
