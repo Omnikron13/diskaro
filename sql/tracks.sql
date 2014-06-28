@@ -47,4 +47,4 @@ CREATE TABLE IF NOT EXISTS trackArtists (
 --indexes to prevent duplicate genre/tag/artist links
 CREATE UNIQUE INDEX IF NOT EXISTS trackTagsIndex ON trackTags (trackID, tagID);
 CREATE UNIQUE INDEX IF NOT EXISTS trackGenresIndex ON trackGenres (trackID, genreID);
-CREATE UNIQUE INDEX IF NOT EXISTS trackArtistsIndex ON trackArtists (trackID, artistID);
+CREATE UNIQUE INDEX IF NOT EXISTS trackArtistsIndex ON trackArtists (trackID, artistID, roleID);
