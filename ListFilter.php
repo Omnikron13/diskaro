@@ -69,6 +69,14 @@ abstract class ListFilter extends Filter {
         $this->recursive = $r;
     }
 
+    //Human-friendly accessors to $negate
+    public function isWhitelist() {
+        return !$this->negate;
+    }
+    public function isBlacklist() {
+        return $this->negate;
+    }
+
     //Override Filter::load() to unserialise a saved ListFilter
     public static function load($json) {
         $json = json_decode($json);
