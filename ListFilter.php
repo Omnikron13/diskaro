@@ -77,6 +77,12 @@ abstract class ListFilter extends Filter {
         return $this->negate;
     }
 
+    //Set negate and/or recursive with flags
+    public function setMode($flags) {
+        $this->negate = $flags&static::BLACKLIST?true:false;
+        $this->recursive = $flags&static::RECURSIVE?true:false;
+    }
+
     //Override Filter::load() to unserialise a saved ListFilter
     public static function load($json) {
         $json = json_decode($json);
