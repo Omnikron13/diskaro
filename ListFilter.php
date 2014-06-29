@@ -18,8 +18,7 @@ abstract class ListFilter extends Filter {
             $this->list = $items;
         else
             $this->list[] = $items;
-        $this->negate = $flags&static::BLACKLIST?true:false;
-        $this->recursive = $flags&static::RECURSIVE?true:false;
+        $this->setMode($flags);
     }
 
     public function __invoke($track) {
