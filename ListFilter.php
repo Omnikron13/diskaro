@@ -5,28 +5,31 @@ require_once('Track.php');
 
 abstract class ListFilter extends Filter {
     protected $list = [];
+    protected $negate = false;
     protected $recursive = false;
 
-    public function __construct($items, $recursive = false) {
+    public function __construct($items, $negate = false, $recursive = false) {
         if(is_array($items))
             $this->list = $items;
         else
             $this->list[] = $items;
+        $this->negate = $negate;
         $this->recursive = $recursive;
     }
 
     public function __invoke($track) {
         foreach($this->getList() as $i) {
             if(static::check($i, $track))
-                return static::match();
+                return true xor $this->negate;
         }
-        return !static::match();
+        return false xor $this->negate;
     }
     
     //Required by JsonSerializable, inherited from Filter
     public function jsonSerialize() {
         return [
             'list'      => $this->list,
+            'negate'    => $this->negate,
             'recursive' => $this->recursive,
         ];
     }
@@ -64,20 +67,14 @@ abstract class ListFilter extends Filter {
     //Override Filter::load() to unserialise a saved ListFilter
     public static function load($json) {
         $json = json_decode($json);
-        return new static(array_map('static::loadItem', $json->list), $json->recursive);
+        return new static(array_map('static::loadItem', $json->list), $json->negate, $json->recursive);
     }
     
     //Should return a 'live' version of a list item from the (decoded) json
     protected abstract static function loadItem($item);
 
-    //Should return an array of items to check the list against
-    protected abstract static function getTags($track);
-
     //Should check a single item in the list and return true for a match, otherwise false
     protected abstract static function check($item, $track);
-
-    //Should return true or false, depending on how the list should respond to matches
-    protected abstract static function match();
 }
 
 ?>
