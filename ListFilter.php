@@ -4,17 +4,22 @@ require_once('Filter.php');
 require_once('Track.php');
 
 abstract class ListFilter extends Filter {
+    //Mode Flags
+    const WHITELIST = 0b00;
+    const BLACKLIST = 0b01;
+    const RECURSIVE = 0b10;
+
     protected $list = [];
     protected $negate = false;
     protected $recursive = false;
 
-    public function __construct($items, $negate = false, $recursive = false) {
+    public function __construct($items, $flags = 0) {
         if(is_array($items))
             $this->list = $items;
         else
             $this->list[] = $items;
-        $this->negate = $negate;
-        $this->recursive = $recursive;
+        $this->negate = $flags&static::BLACKLIST?true:false;
+        $this->recursive = $flags&static::RECURSIVE?true:false;
     }
 
     public function __invoke($track) {
@@ -67,7 +72,9 @@ abstract class ListFilter extends Filter {
     //Override Filter::load() to unserialise a saved ListFilter
     public static function load($json) {
         $json = json_decode($json);
-        return new static(array_map('static::loadItem', $json->list), $json->negate, $json->recursive);
+        $flags = $json->negate?static::BLACKLIST:0;
+        $flags |= $json->recursive?static::RECURSIVE:0;
+        return new static(array_map('static::loadItem', $json->list), $flags);
     }
     
     //Should return a 'live' version of a list item from the (decoded) json
