@@ -52,6 +52,11 @@ abstract class ListFilter extends Filter {
         return $list;
     }
 
+    //Basically getRecursive() but this name will probably be clearer
+    public function isRecursive() {
+        return $this->recursive;
+    }
+
     //Override Filter::load() to unserialise a saved ListFilter
     public static function load($json) {
         $json = json_decode($json);
