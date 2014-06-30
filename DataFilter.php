@@ -54,11 +54,18 @@ abstract class DataFilter extends Filter {
         return new static(static::loadData($json->data), $json->recursive);
     }
 
+    //Check a single data item against an arbitrary checklist
+    // May prove useful for overriding for unusual filters?
     protected static function check($data, $checklist) {
         return in_array($data, $checklist);
     }
 
+    //Should return an array of onjects the same type as $data to be checked.
+    // If check is overridden then the type could be different
     protected abstract static function getChecklist($track);
+
+    //Should return a new object of the relevant type for $data from the
+    // decoded json from load()
     protected abstract static function loadData($data);
 }
 
