@@ -45,6 +45,7 @@ abstract class Filter implements jsonSerializable {
         $json = json_decode($json);
         $ref = new ReflectionClass($json->class);
         $filter = $ref->getMethod('load')->invoke(null, $json->data);
+        $json = json_decode($json->data);
         $filter->negates($json->negate);
         return $filter;
     }

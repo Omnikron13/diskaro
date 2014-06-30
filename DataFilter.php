@@ -27,10 +27,10 @@ abstract class DataFilter extends Filter {
 
     //Required by JsonSerializable, inherited from Filter
     public function jsonSerialize() {
-        return [
-            'data'      => $this->getData(),
-            'recursive' => $this->isRecursive(),
-        ];
+        $json = parent::jsonSerialize();
+        $json['data'] = $this->getData();
+        $json['recursive'] = $this->isRecursive();
+        return $json;
     }
 
     //Getters

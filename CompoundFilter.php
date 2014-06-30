@@ -34,12 +34,12 @@ class CompoundFilter extends Filter {
 
     //Required by JsonSerializable, inherited from Filter
     public function jsonSerialize() {
-        return [
-            'operator' => $this->getOperator(),
-            'filters'  => array_map(function($filter) {
-                return $filter->save();
-            }, $this->getFilters()),
-        ];
+        $json = parent::jsonSerialize();
+        $json['operator'] = $this->getOperator();
+        $json['filters'] = array_map(function($filter) {
+            return $filter->save();
+        }, $this->getFilters());
+        return $json;
     }
 
     //Getters
