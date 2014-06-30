@@ -13,10 +13,16 @@ class RegexFilter extends Filter {
 
     //Required by Filter
     protected function filter($track) {
-        $match = preg_match($this->getRegex(), $track->getName());
+        $match = preg_match($this->getRegex(), $this->getSubject($track));
         if($match === FALSE)
             throw new Exception('Regex error');
         return $match==1?:false;
+    }
+
+    //Returns the subject string to be used by preg_match() in filter()
+    // This is a separate method so it can be potentially overridden
+    protected function getSubject($track) {
+        return $track->getName();
     }
 
     //Override Filter->jsonSerialize() to serialize the regex
