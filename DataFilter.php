@@ -48,11 +48,18 @@ abstract class DataFilter extends Filter {
         $this->recursive = $recursive;
     }
 
+    //Override Filter::load()
+    public static function load($json) {
+        $json = json_decode($json);
+        return new static(static::loadData($json->data), $json->recursive);
+    }
+
     protected static function check($data, $checklist) {
         return in_array($data, $checklist);
     }
 
     protected abstract static function getChecklist($track);
+    protected abstract static function loadData($data);
 }
 
 ?>
