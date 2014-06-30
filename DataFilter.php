@@ -18,7 +18,7 @@ abstract class DataFilter extends Filter {
         if($this->isRecursive())
             $data = array_merge($data, $this->getData()->getChildren(true));
         foreach($data as $d) {
-            if(static::check($d, $checklist)
+            if(static::check($d, $checklist))
                 return true;
         }
         return false;
