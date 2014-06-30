@@ -15,7 +15,7 @@ abstract class DataFilter extends Filter {
     public function __invoke($track) {
         $checklist = static::getChecklist($track);
         $data[] = $this->getData();
-        if(!$this->isRecursive())
+        if($this->isRecursive())
             $data = array_merge($data, $this->getData()->getChildren(true));
         foreach($data as $d) {
             if(static::check($d, $checklist)
