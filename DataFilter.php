@@ -6,13 +6,14 @@ abstract class DataFilter extends Filter {
     protected $data = NULL;
     protected $recursive = false; //Subclass?
     
-    public function __construct($data, $recursive = false) {
+    public function __construct($data, $recursive = false, $negate = false) {
+        parent::__construct($negate);
         $this->setData($data);
         $this->setRecursive($recursive);
     }
 
     //required by Filter
-    public function __invoke($track) {
+    protected function filter($track) {
         $checklist = static::getChecklist($track);
         $data[] = $this->getData();
         if($this->isRecursive())

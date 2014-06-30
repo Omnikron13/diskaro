@@ -11,7 +11,8 @@ class CompoundFilter extends Filter {
     //Array of arbitrary Filter objects
     protected $filters = [];
 
-    public function __construct($filters, $operator) {
+    public function __construct($filters, $operator, $negate = false) {
+        parent::__construct($negate);
         $this->setFilters($filters);
         $this->setOperator($operator);
     }
@@ -20,7 +21,7 @@ class CompoundFilter extends Filter {
     //Delegate to relevant opX() method based on $operator
     // Could perhaps be more extensible by constructing the relevant method
     // name from the operator string so a subclass wouldn't need to override?
-    public function __invoke($track) {
+    protected function filter($track) {
         switch($this->getOperator()) {
             case static::OP_AND:
                 return $this->opAnd($track);
