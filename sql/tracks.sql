@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS tracks (
     name TEXT NOT NULL, --maybe null for untitled?
     path TEXT UNIQUE,
     --possible subtitle column?
-    artistID INTEGER,-- NOT NULL, --what about unknown/incomplete? also, remixers/etc?
     releaseID INTEGER,-- NOT NULL, --ditto ^
     trackNumber INTEGER,
     FOREIGN KEY (artistID) REFERENCES artists (id) ON DELETE SET NULL ON UPDATE CASCADE,

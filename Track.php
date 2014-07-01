@@ -11,17 +11,15 @@ require_once('ArtistLink.php');
 
 class Track extends DataCore {
     protected $path = NULL;
-    protected $artist = NULL;
     protected $release = NULL;
     protected $trackNumber = NULL;
     protected $genres = [];
     protected $tags = [];
     protected $artists = [];
 
-    //Override constructor to convert artistID & releaseID into objects
+    //Override constructor to convert releaseID into object
     public function __construct($uid, $mode = 0) {
         parent::__construct($uid, $mode);
-        $this->artist = $this->artist==NULL?NULL:new Artist($this->artist);
         $this->release = $this->release==NULL?NULL:new Release($this->release);
         //Load genres
         $this->loadLinks('trackGenres', 'genreID', $this->genres, 'Genre');
@@ -31,11 +29,10 @@ class Track extends DataCore {
         $this->loadLinks('trackArtists', 'id', $this->artists, 'ArtistLink');
     }
 
-    //Override constructorBindings from DataCore to add path, artist, release
+    //Override constructorBindings from DataCore to add path, release
     // & track number bindings
     protected function constructorBindings($query) {
 		$query->bindColumn('path', $this->path, PDO::PARAM_STR);
-		$query->bindColumn('artistID', $this->artist, PDO::PARAM_INT);
 		$query->bindColumn('releaseID', $this->release, PDO::PARAM_INT);
 		$query->bindColumn('trackNumber', $this->trackNumber, PDO::PARAM_INT);
     }
@@ -55,9 +52,6 @@ class Track extends DataCore {
     public function getPath() {
         return $this->path;
     }
-    public function getArtist() {
-        return $this->artist;
-    }
     public function getRelease() {
         return $this->release;
     }
@@ -74,10 +68,9 @@ class Track extends DataCore {
         return $this->artists;
     }
 
-    //Override jsonSerialize to include artist, release & track number
+    //Override jsonSerialize to include release & track number
     public function jsonSerialize() {
         $json = parent::jsonSerialize();
-        $json['artist'] = $this->artist==NULL?NULL:$this->artist->jsonSerialize();
         $json['release'] = $this->release==NULL?NULL:$this->release->jsonSerialize();
         $json['trackNumber'] = $this->trackNumber;
         $json['genres'] = $this->genres;
@@ -90,11 +83,6 @@ class Track extends DataCore {
     public function setPath($path) {
         $this->setField('path', $path, PDO::PARAM_STR);
         $this->path = $path;
-    }
-
-    public function setArtist($artist) {
-        $this->setField('artistID', $artist->getID(), PDO::PARAM_INT);
-        $this->artist = $artist;
     }
 
     public function setRelease($release) {
@@ -162,14 +150,13 @@ class Track extends DataCore {
         $array = array_values($array);
     }
 
-    //Override DataCore->add() to allow optional artist, release, trackNumber
-    public static function add($name, $path, $artist = NULL, $release = NULL, $trackNumber = NULL) {
+    //Override DataCore->add() to allow optional release & trackNumber
+    public static function add($name, $path, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
-        $query = $db->prepare('INSERT INTO tracks(name, path, artistID, releaseID, trackNumber)
-            VALUES(:name, :path, :artistID, :releaseID, :trackNumber);');
+        $query = $db->prepare('INSERT INTO tracks(name, path, releaseID, trackNumber)
+            VALUES(:name, :path, :releaseID, :trackNumber);');
 		$query->bindParam(':name', $name, PDO::PARAM_STR);
 		$query->bindParam(':path', $path, PDO::PARAM_STR);
-		$query->bindParam(':artistID', ($artist===NULL)?NULL:$artist->getID(), PDO::PARAM_INT);
 		$query->bindParam(':releaseID', ($release===NULL)?NULL:$release->getID(), PDO::PARAM_INT);
 		$query->bindParam(':trackNumber', $trackNumber, PDO::PARAM_INT);
 		$query->execute();
