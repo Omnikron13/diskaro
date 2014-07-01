@@ -64,8 +64,13 @@ class Track extends DataCore {
     public function getTags() {
         return $this->tags;
     }
-    public function getArtists() {
+    public function getArtistLinks() {
         return $this->artistLinks;
+    }
+    public function getArtists() {
+        return array_values(array_unique(array_map(function($link) {
+            return $link->getArtist();
+        }$this->getArtistLinks())));
     }
 
     //Override jsonSerialize to include release & track number
