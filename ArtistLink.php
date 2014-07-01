@@ -41,6 +41,7 @@ class ArtistLink implements JsonSerializable {
         else
             $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
         $query->execute();
+        $this->role = $role;
     }
 
     //Required by JsonSerializable
