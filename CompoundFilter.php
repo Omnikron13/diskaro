@@ -8,62 +8,53 @@ class CompoundFilter extends Filter {
     const OP_OR  = 'OR';
     const OP_XOR = 'XOR';
 
-    protected $left = NULL;
-    protected $right = NULL;
-    protected $operator = NULL;
+    //Array of arbitrary Filter objects
+    protected $filters = [];
 
-    //left & right should be Filter objects, operator should be one of the
-    // operators that setOperator() can parse
-    public function __construct($left, $right, $operator) {
-        $this->left = $left;
-        $this->right = $right;
+    public function __construct($filters, $operator, $negate = false) {
+        parent::__construct($negate);
+        $this->setFilters($filters);
         $this->setOperator($operator);
     }
 
     //Required by Filter
-    public function __invoke($track) {
-        $left = $this->left;
-        $right = $this->right;
-        switch($this->operator) {
+    //Delegate to relevant opX() method based on $operator
+    // Could perhaps be more extensible by constructing the relevant method
+    // name from the operator string so a subclass wouldn't need to override?
+    protected function filter($track) {
+        switch($this->getOperator()) {
             case static::OP_AND:
-                return $left($track) && $right($track);
-                break;
+                return $this->opAnd($track);
             case static::OP_OR:
-                return $left($track) || $right($track);
-                break;
+                return $this->opOr($track);
             case static::OP_XOR:
-                return $left($track) xor $right($track);
-                break;
+                return $this->opXor($track);
         }
     }
 
     //Required by JsonSerializable, inherited from Filter
     public function jsonSerialize() {
-        return [
-            'operator' => $this->operator,
-            'left'     => $this->left->save(),
-            'right'    => $this->right->save(),
-        ];
+        $json = parent::jsonSerialize();
+        $json['operator'] = $this->getOperator();
+        $json['filters'] = array_map(function($filter) {
+            return $filter->save();
+        }, $this->getFilters());
+        return $json;
     }
 
     //Getters
-    public function getLeft() {
-        return $this->left;
-    }
-    public function getRight() {
-        return $this->right;
+    public function getFilters() {
+        return $this->filters;
     }
     public function getOperator() {
         return $this->operator;
     }
 
     //Setters
-    public function setLeft($left) {
-        $this->left = $left;
+    public function setFilters($filters) {
+        $this->filters = is_array($filters)?$filters:[$filters];
     }
-    public function setRight($right) {
-        $this->right = $right;
-    }
+
     //Parse various possible names of each operator to canonical ones
     public function setOperator($operator) {
         switch(strtoupper($operator)) {
@@ -82,10 +73,54 @@ class CompoundFilter extends Filter {
         }
     }
 
-    //Override from Filter
+    //Add new filter to the array, throwing an exception if non-unique
+    public function addFilter($filter) {
+        if(in_array($filter, $this->getFilters()))
+            throw new Exception('Filter already in list');
+        $this->filters[] = $filter;
+    }
+
+    //Remove given filter from the array, has no effect and throws no
+    // exception (currently) if the filter isn't in the array
+    public function removeFilter($filter) {
+        unset($this->filters[array_search($filter, $this->filters)]);
+        $this->filters = array_values($this->filters);
+    }
+
+    //Check if /all/ filters match $track
+    protected function opAnd($track) {
+        foreach($this->getFilters() as $filter) {
+            if(!$filter($track))
+                return false;
+        }
+        return true;
+    }
+
+    //Check if /any/ filters match $track
+    protected function opOr($track) {
+        foreach($this->getFilters() as $filter) {
+            if($filter($track))
+                return true;
+        }
+        return false;
+    }
+
+    //Check if /one-and-only-one/ filter matches $track
+    protected function opXor($track) {
+        $matches = 0;
+        foreach($this->getFilters() as $filter) {
+            if($filter($track))
+                $matches++;
+            if($matches > 1)
+                return false;
+        }
+        return $matches==1?:false;
+    }
+
+    //Override Filter::load() to unserialise all filters & operator
     public static function load($json) {
         $json = json_decode($json);
-        return new static(Filter::load($json->left), Filter::load($json->right), $json->operator);
+        return new static(array_map(Filter::load($json), $json->filters), $json->operator);
     }
 }
 
