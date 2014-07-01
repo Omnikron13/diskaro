@@ -15,7 +15,7 @@ class Track extends DataCore {
     protected $trackNumber = NULL;
     protected $genres = [];
     protected $tags = [];
-    protected $artists = [];
+    protected $artistLinks = [];
 
     //Override constructor to convert releaseID into object
     public function __construct($uid, $mode = 0) {
@@ -25,8 +25,8 @@ class Track extends DataCore {
         $this->loadLinks('trackGenres', 'genreID', $this->genres, 'Genre');
         //Load tags
         $this->loadLinks('trackTags', 'tagID', $this->tags, 'Tag');
-        //Load artists
-        $this->loadLinks('trackArtists', 'id', $this->artists, 'ArtistLink');
+        //Load artist links
+        $this->loadLinks('trackArtists', 'id', $this->artistLinks, 'ArtistLink');
     }
 
     //Override constructorBindings from DataCore to add path, release
@@ -65,7 +65,7 @@ class Track extends DataCore {
         return $this->tags;
     }
     public function getArtists() {
-        return $this->artists;
+        return $this->artistLinks;
     }
 
     //Override jsonSerialize to include release & track number
@@ -75,7 +75,7 @@ class Track extends DataCore {
         $json['trackNumber'] = $this->trackNumber;
         $json['genres'] = $this->genres;
         $json['tags'] = $this->tags;
-        $json['artists'] = $this->artists;
+        $json['artistsLinks'] = $this->artistLinks;
         return $json;
     }
 
@@ -117,16 +117,16 @@ class Track extends DataCore {
 
     //Method for adding a new artist tag to the track
     public function addArtist($artist, $role = NULL) {
-        $this->addLink($artist, 'trackArtists', 'artistID', $this->artists);
+        $this->addLink($artist, 'trackArtists', 'artistID', $this->artistLinks);
         $db = static::getDB();
         $link = new ArtistLink($db->lastInsertId());
-        $this->artists[array_Search($artist, $this->artists)] = $link;
+        $this->artistLinks[array_Search($artist, $this->artistLinks)] = $link;
         $link->setRole($role);
     }
 
     //Method for removing an artist tag from the track
     public function removeArtist($artist, $role = NULL) {
-        $this->removeLink(ArtistLink::get($this, $artist, $role), 'trackArtists', 'id', $this->artists);
+        $this->removeLink(ArtistLink::get($this, $artist, $role), 'trackArtists', 'id', $this->artistLinks);
     }
 
     //Utility method for adding db links (e.g. genre, generic tag)
