@@ -11,7 +11,7 @@ class ReleaseFilter extends DataFilter {
     }
 
     //Required by DataFilter
-    protected static function getChecklist($track) {
+    protected function getChecklist($track) {
         return [$track->getRelease()];
     }
 

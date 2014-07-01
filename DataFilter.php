@@ -14,7 +14,7 @@ abstract class DataFilter extends Filter {
 
     //required by Filter
     protected function filter($track) {
-        $checklist = static::getChecklist($track);
+        $checklist = $this->getChecklist($track);
         $data[] = $this->getData();
         if($this->isRecursive())
             $data = array_merge($data, $this->getData()->getChildren(true));
@@ -63,7 +63,7 @@ abstract class DataFilter extends Filter {
 
     //Should return an array of onjects the same type as $data to be checked.
     // If check is overridden then the type could be different
-    protected abstract static function getChecklist($track);
+    protected abstract function getChecklist($track);
 
     //Should return a new object of the relevant type for $data from the
     // decoded json from load()

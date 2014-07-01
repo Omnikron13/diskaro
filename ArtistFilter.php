@@ -4,7 +4,7 @@ require_once('DataFilter.php');
 
 class ArtistFilter extends DataFilter {
     //Required by DataFilter
-    protected static function getChecklist($track) {
+    protected function getChecklist($track) {
         return $track->getArtists();
     }
 

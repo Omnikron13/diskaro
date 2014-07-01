@@ -4,7 +4,7 @@ require_once('DataFilter.php');
 
 class GenreFilter extends DataFilter {
     //Required by DataFilter
-    protected static function getChecklist($track) {
+    protected function getChecklist($track) {
         return $track->getGenres();
     }
 
