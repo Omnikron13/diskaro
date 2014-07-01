@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS tracks (
     --possible subtitle column?
     releaseID INTEGER,-- NOT NULL, --ditto ^
     trackNumber INTEGER,
-    FOREIGN KEY (artistID) REFERENCES artists (id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (releaseID) REFERENCES releases (id) ON DELETE SET NULL ON UPDATE CASCADE
     --perhaps cascade deletes for easy removal of artists/release from the db?
 );
