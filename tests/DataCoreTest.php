@@ -7,7 +7,7 @@ trait DataCoreTest {
         DB::delete();
         $class = static::getClass();
         $class::setupDB();
-        $this->assertFileExists('diskaro.db');
+        $this->assertFileExists(DB::PATH);
     }
 
     /**
