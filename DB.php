@@ -13,6 +13,12 @@ class DB {
 		}
 		return self::$db;
     }
+
+    public static function delete() {
+        static::$db = NULL;
+        if(file_exists(static::PATH))
+            unlink(static::PATH);
+    }
 }
 
 ?>
