@@ -80,7 +80,7 @@ class Track extends DataCore {
         $json['trackNumber'] = $this->trackNumber;
         $json['genres'] = $this->genres;
         $json['tags'] = $this->tags;
-        $json['artistsLinks'] = $this->artistLinks;
+        $json['artistLinks'] = $this->artistLinks;
         return $json;
     }
 
