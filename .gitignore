@@ -9,5 +9,8 @@
 # Test scripts
 test*
 
+# JSON files (generally will be dummy/test files)
+*.json
+
 # Vi(m) files
 *.swo
