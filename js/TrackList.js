@@ -55,3 +55,8 @@ TrackList.method('play', function(index) {
     $('#audioPlayer').trigger('load');
     $('#audioPlayer').trigger('play');
 });
+
+//Method to update the browser output
+TrackList.method('update', function() {
+    $('#trackList').replaceWith(this.getElement());
+});
