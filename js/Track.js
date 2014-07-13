@@ -23,6 +23,7 @@ function Track(json) {
 Track.method('renderTR', function(columns) {
     var tr = document.createElement('tr');
     tr.setAttribute('class', 'trackItem');
+    tr.setAttribute('title', this.getTitleString());
     var that = this;
     columns.forEach(function(c) {
         tr.appendChild(c.renderTD(that));
