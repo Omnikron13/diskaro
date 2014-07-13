@@ -10,6 +10,27 @@ function TrackList(json, columns) {
     this.active = null; //Index of currently active/playing Track
 };
 
+//Renders a <table> element of the track list
+TrackList.method('renderTable', function() {
+    var that = this;
+    var table = document.createElement('table');
+    table.setAttribute('id', 'trackList');
+    //Render headings
+    var tr = table.appendChild(document.createElement('tr'));
+    tr.setAttribute('id', 'trackListHeadings');
+    this.columns.forEach(function(c) {
+        tr.appendChild(c.renderTH());
+    });
+    //Render track rows
+    this.list.forEach(function(t, i) {
+        var tr = table.appendChild(t.renderTR(that.columns));
+        tr.ondblclick = function() {
+            that.trackDblClick(i)
+        };
+    });
+    return table;
+});
+
 //Method to create a HTML element
 TrackList.method('getElement', function() {
     var tl = this;
