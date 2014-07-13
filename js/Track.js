@@ -8,6 +8,7 @@
 function Track(json) {
     this.id = json.id;
     this.name = json.name;
+    this.path = json.path;
     this.release = new Release(json.release);
     this.trackNumber = json.trackNumber===null?'':json.trackNumber;
     this.genres = json.genres.map(function(g) {
