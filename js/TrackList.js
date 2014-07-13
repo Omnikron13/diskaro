@@ -85,8 +85,5 @@ TrackList.defaultColumns = [
     new TrackColumn('Title', TrackColumn.renderTitle, TrackColumn.sortTitle),
     new TrackColumn('Artists', TrackColumn.renderRole('Artist'), TrackColumn.sortRole('Artist')),
     new TrackColumn('Release', TrackColumn.renderRelease, TrackColumn.sortRelease),
-    new TrackColumn('Genres', TrackColumn.renderGenres, TrackColumn.sortGenres),
-    new TrackColumn('Path', function(t) {
-        return TrackColumn.renderTD(t.path);
-    })
+    new TrackColumn('Genres', TrackColumn.renderGenres, TrackColumn.sortGenres)
 ];
