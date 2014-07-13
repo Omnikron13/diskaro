@@ -19,6 +19,17 @@ function Track(json) {
     });
 };
 
+//Generate a <tr> element of the track from given TrackColumns
+Track.method('renderTR', function(columns) {
+    var tr = document.createElement('tr');
+    tr.setAttribute('class', 'trackItem');
+    var that = this;
+    columns.forEach(function(c) {
+        tr.appendChild(c.renderTD(that));
+    });
+    return tr;
+});
+
 //Generates a DOM element object to display the Track
 Track.method('getElement', function() {
     var element = document.createElement('tr');
