@@ -81,11 +81,11 @@ TrackList.method('update', function() {
 
 //Static member defining a default set of TrackColumns to render
 TrackList.defaultColumns = [
-    new TrackColumn('#', TrackColumn.renderNumber),
-    new TrackColumn('Title', TrackColumn.renderTitle),
-    new TrackColumn('Artists', TrackColumn.renderRole('Artist')),
-    new TrackColumn('Release', TrackColumn.renderRelease),
-    new TrackColumn('Genres', TrackColumn.renderGenres),
+    new TrackColumn('#', TrackColumn.renderNumber, TrackColumn.sortNumber),
+    new TrackColumn('Title', TrackColumn.renderTitle, TrackColumn.sortTitle),
+    new TrackColumn('Artists', TrackColumn.renderRole('Artist'), TrackColumn.sortRole('Artist')),
+    new TrackColumn('Release', TrackColumn.renderRelease, TrackColumn.sortRelease),
+    new TrackColumn('Genres', TrackColumn.renderGenres, TrackColumn.sortGenres),
     new TrackColumn('Path', function(t) {
         return TrackColumn.renderTD(t.path);
     })
