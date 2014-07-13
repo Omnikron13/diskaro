@@ -61,3 +61,12 @@ TrackList.method('play', function(index) {
 TrackList.method('update', function() {
     $('#trackList').replaceWith(this.getElement());
 });
+
+//Static member defining a default set of TrackColumns to render
+TrackList.defaultColumns = [
+    new TrackColumn('#', TrackColumn.renderNumber),
+    new TrackColumn('Title', TrackColumn.renderTitle),
+    new TrackColumn('Artists', TrackColumn.renderArtists),
+    new TrackColumn('Release', TrackColumn.renderRelease),
+    new TrackColumn('Genres', TrackColumn.renderGenres)
+];
