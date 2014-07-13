@@ -39,8 +39,10 @@ TrackColumn.renderGenres = function(track) {
     }).join(', '));
 };
 
-TrackColumn.renderArtists = function(track) {
-    return TrackColumn.renderTD(track.getArtistsByRole('Artist').map(function(a) {
-        return a.name;
-    }).join(', '));
+TrackColumn.renderRole = function(role) {
+    return function(track) {
+        return TrackColumn.renderTD(track.getArtistsByRole(role).map(function(a) {
+            return a.name;
+        }).join(', '));
+    }
 };

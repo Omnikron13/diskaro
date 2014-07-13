@@ -63,7 +63,7 @@ TrackList.method('update', function() {
 TrackList.defaultColumns = [
     new TrackColumn('#', TrackColumn.renderNumber),
     new TrackColumn('Title', TrackColumn.renderTitle),
-    new TrackColumn('Artists', TrackColumn.renderArtists),
+    new TrackColumn('Artists', TrackColumn.renderRole('Artist')),
     new TrackColumn('Release', TrackColumn.renderRelease),
     new TrackColumn('Genres', TrackColumn.renderGenres)
 ];
