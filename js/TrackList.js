@@ -8,7 +8,9 @@ function TrackList(json, columns) {
     });
     this.columns = columns || TrackList.defaultColumns;
     this.active = null; //Index of currently active/playing Track
-    this.lastSort = null; //Stores last sort callback
+    //Currently sorted column & sort order flag
+    this.sortColumn = null;
+    this.sortAsc = true;
 };
 
 //Renders a <table> element of the track list
@@ -24,6 +26,8 @@ TrackList.method('renderTable', function() {
         th.onclick = function() {
             that.headingClick(i);
         };
+        if(i === that.sortColumn)
+            th.setAttribute('class', that.sortAsc?'sortAsc':'sortDesc');
     });
     //Render track rows
     this.list.forEach(function(t, i) {
@@ -44,18 +48,20 @@ TrackList.method('trackDblClick', function(index) {
 
 //Method to process heading (<th>) clicks
 TrackList.method('headingClick', function(i) {
-    if(this.lastSort == this.columns[i].sort)
+    if(this.sortColumn == i) {
         this.list.reverse();
-    else
+        this.sortAsc = !this.sortAsc;
+    } else {
         this.sort(this.columns[i].sort);
+        this.sortColumn = i;
+        this.sortAsc = true;
+    }
     this.update();
 });
 
-//Method to sort the track list & store the sort callback (so repeated sorts
-//attempts can be either ignored or replaced with a .reverse() call)
+//Method to sort the tracklist - just defers to list.sort()
 TrackList.method('sort', function(sort) {
     this.list.sort(sort);
-    this.lastSort = sort;
 });
 
 //Method to set the active track index
