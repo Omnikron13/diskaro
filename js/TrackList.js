@@ -2,10 +2,11 @@
 //require_once(Track.js)
 //require_once(TrackColumn.js)
 
-function TrackList(json) {
+function TrackList(json, columns) {
     this.list = json.map(function(t) {
         return new Track(t);
     });
+    this.columns = columns || TrackList.defaultColumns;
     this.active = null; //Index of currently active/playing Track
 };
 
