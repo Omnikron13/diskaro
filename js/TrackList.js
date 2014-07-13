@@ -31,31 +31,6 @@ TrackList.method('renderTable', function() {
     return table;
 });
 
-//Method to create a HTML element
-TrackList.method('getElement', function() {
-    var tl = this;
-    var element = document.createElement('table');
-    element.setAttribute('id', 'trackList');
-    //Add table headers
-    var head = document.createElement('tr');
-    head.setAttribute('id', 'trackListHeadings');
-    head.appendChild(document.createElement('th')).innerHTML = 'Track #';
-    head.appendChild(document.createElement('th')).innerHTML = 'Title';
-    head.appendChild(document.createElement('th')).innerHTML = 'Artist';
-    head.appendChild(document.createElement('th')).innerHTML = 'Release';
-    head.appendChild(document.createElement('th')).innerHTML = 'Genre';
-    element.appendChild(head);
-    //Add track rows
-    this.list.forEach(function(t, index) {
-        var trackElement = t.getElement();
-        trackElement.ondblclick = function() {
-            tl.trackDblClick(index);
-        };
-        element.appendChild(trackElement);
-    });
-    return element;
-});
-
 //Method to process track double clicks
 TrackList.method('trackDblClick', function(index) {
     this.setActive(index);
