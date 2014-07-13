@@ -81,7 +81,7 @@ TrackList.method('play', function(index) {
 
 //Method to update the browser output
 TrackList.method('update', function() {
-    $('#trackList').replaceWith(this.getElement());
+    $('#trackList').replaceWith(this.renderTable());
 });
 
 //Static member defining a default set of TrackColumns to render
