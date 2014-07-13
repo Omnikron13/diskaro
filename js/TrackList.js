@@ -49,7 +49,7 @@ TrackList.method('setActive', function(index) {
 //Method to play given track
 TrackList.method('play', function(index) {
     if(typeof(index)==='undefined') index = this.active;
-    $('#audioPlayer>source').attr('src', '0'+this.list[index].id+'.ogg');
+    $('#audioPlayer>source').attr('src', this.list[index].path);
     $('#audioPlayer').trigger('load');
     $('#audioPlayer').trigger('play');
 });
@@ -65,5 +65,8 @@ TrackList.defaultColumns = [
     new TrackColumn('Title', TrackColumn.renderTitle),
     new TrackColumn('Artists', TrackColumn.renderRole('Artist')),
     new TrackColumn('Release', TrackColumn.renderRelease),
-    new TrackColumn('Genres', TrackColumn.renderGenres)
+    new TrackColumn('Genres', TrackColumn.renderGenres),
+    new TrackColumn('Path', function(t) {
+        return TrackColumn.renderTD(t.path);
+    })
 ];
