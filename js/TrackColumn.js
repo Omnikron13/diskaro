@@ -1,9 +1,10 @@
 //require_once(CrockfordSugar.js)
 
 //'Class' defining an output column for displaying tracks
-function TrackColumn(heading, renderTD) {
+function TrackColumn(heading, renderTD, sort) {
     this.heading = heading;
     this.renderTD = renderTD;
+    this.sort = sort || TrackColumn.sortNull;
 };
 
 //Method to render the columns <th> heading
@@ -45,4 +46,41 @@ TrackColumn.renderRole = function(role) {
             return a.name;
         }).join(', '));
     }
+};
+
+//--Pre-defined sort functions--
+TrackColumn.sortNumber = function(a, b) {
+    return a.trackNumber - b.trackNumber;
+    return a.name.localeCompare(b.name);
+};
+
+TrackColumn.sortTitle = function(a, b) {
+    return a.name.localeCompare(b.name);
+};
+
+TrackColumn.sortRelease = function(a, b) {
+    return a.release.name.localeCompare(b.release.name);
+};
+
+TrackColumn.sortGenres = function(a, b) {
+    return a.genres.map(function(g) {
+        return g.name;
+    }).join(', ').localeCompare(b.genres.map(function(g) {
+        return g.name;
+    }).join(', '));
+};
+
+TrackColumn.sortRole = function(role) {
+    return function(a, b) {
+        return a.getArtistsByRole('Artist').map(function(artist) {
+            return artist.name;
+        }).join(', ').localeCompare(b.getArtistsByRole('Artist').map(function(artist) {
+            return artist.name;
+        }).join(', '));
+    };
+};
+
+//Default sort method - sorts nothing
+TrackColumn.sortNull = function() {
+    return 0;
 };
