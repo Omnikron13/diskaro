@@ -16,8 +16,7 @@ const REGEX_Q   = '[\'"]?';
 const REGEX_SRC = '[\w-\/]+\.js';
 
 // Array of previously parsed scripts (for *_once cmds)
-//$parsed = [];
-$parsed = array();
+$parsed = [];
 
 // Assembles the full regex from the REGEX_* constants
 function genRegex($r = REGEX_TEMPLATE) {
@@ -33,8 +32,7 @@ function parse($file) {
     $js = preg_replace_callback(genRegex(), function($m) {
         global $parsed;
         if(substr_count($m['cmd'], 'once') == 0 || !in_array($m['src'], $parsed)) {
-            //$parsed[] = $m['src'];
-            array_push($parsed, $m['src']);
+            $parsed[] = $m['src'];
             return parse($m['src']);
         }
         return '';
