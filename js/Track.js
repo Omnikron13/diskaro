@@ -2,6 +2,7 @@
 //require_once(Release.js)
 //require_once(Genre.js)
 //require_once(ArtistLink.js)
+//require_once(TrackColumn.js)
 
 //Track constructor - constructs a usable Track object from serialised form
 function Track(json) {
