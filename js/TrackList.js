@@ -8,6 +8,7 @@ function TrackList(json, columns) {
     });
     this.columns = columns || TrackList.defaultColumns;
     this.active = null; //Index of currently active/playing Track
+    this.lastSort = null; //Stores last sort callback
 };
 
 //Renders a <table> element of the track list
@@ -18,8 +19,11 @@ TrackList.method('renderTable', function() {
     //Render headings
     var tr = table.appendChild(document.createElement('tr'));
     tr.setAttribute('id', 'trackListHeadings');
-    this.columns.forEach(function(c) {
-        tr.appendChild(c.renderTH());
+    this.columns.forEach(function(c, i) {
+        var th = tr.appendChild(c.renderTH());
+        th.onclick = function() {
+            that.headingClick(i);
+        };
     });
     //Render track rows
     this.list.forEach(function(t, i) {
@@ -36,6 +40,22 @@ TrackList.method('trackDblClick', function(index) {
     this.setActive(index);
     this.play();
     $("#output").html(this.list[index].name);
+});
+
+//Method to process heading (<th>) clicks
+TrackList.method('headingClick', function(i) {
+    if(this.lastSort == this.columns[i].sort)
+        this.list.reverse();
+    else
+        this.sort(this.columns[i].sort);
+    this.update();
+});
+
+//Method to sort the track list & store the sort callback (so repeated sorts
+//attempts can be either ignored or replaced with a .reverse() call)
+TrackList.method('sort', function(sort) {
+    this.list.sort(sort);
+    this.lastSort = sort;
 });
 
 //Method to set the active track index
