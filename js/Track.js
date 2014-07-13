@@ -30,53 +30,6 @@ Track.method('renderTR', function(columns) {
     return tr;
 });
 
-//Generates a DOM element object to display the Track
-Track.method('getElement', function() {
-    var element = document.createElement('tr');
-    element.setAttribute('class', 'trackItem');
-    element.setAttribute('title', this.getTitleString());
-    //Add column data 
-    element.appendChild(this.getTrackNumberTD());
-    element.appendChild(this.getTitleTD());
-    element.appendChild(this.getRoleTD('Artist'));
-    element.appendChild(this.getReleaseTD());
-    element.appendChild(this.getGenresTD());
-    return element;
-});
-
-//Methods for generating <td> DOM elements for various kinds of track info
-//These may need to be replaced with a more configurable system
-Track.method('getTrackNumberTD', function() {
-    return this.getTDElement(this.trackNumber);
-});
-
-Track.method('getTitleTD', function() {
-    return this.getTDElement(this.name);
-});
-
-Track.method('getReleaseTD', function() {
-    return this.getTDElement(this.release.name);
-});
-
-Track.method('getGenresTD', function() {
-    return this.getTDElement(this.genres.map(function(g) {
-        return g.name;
-    }).join(', '));
-});
-
-Track.method('getRoleTD', function(role) {
-    return this.getTDElement(this.getArtistsByRole(role).map(function(a) {
-        return a.name;
-    }).join(', '));
-});
-
-//Method for generating <td> elements with arbitrary innerHTML
-Track.method('getTDElement', function(html) {
-    var element = document.createElement('td');
-    element.innerHTML = html;
-    return element;
-});
-
 //Should probably be more flexible/configurable
 Track.method('getTitleString', function() {
     var that = this;
