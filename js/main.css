@@ -20,6 +20,17 @@ audio {
     background-color: rgb(240, 240, 255);
 }
 
+/**/
+th:not(.sortAsc):not(.sortDesc)::after {
+    content: ' -';
+}
+.sortAsc::after {
+    content: ' ↑';
+}
+.sortDesc::after {
+    content: ' ↓';
+}
+
 .trackItem {
     padding: 0.1em 0;
     user-select:none;
