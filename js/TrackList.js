@@ -48,7 +48,6 @@ TrackList.method('renderTable', function() {
 //Method to process track double clicks
 TrackList.method('trackDblClick', function(index) {
     this.play(index);
-    $("#output").html(this.list[index].name);
 });
 
 //Method to process heading (<th>) clicks
