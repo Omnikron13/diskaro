@@ -103,6 +103,13 @@ TrackList.method('playNext', function() {
     return this.play((this.trackIndex(this.active)+1)%this.list.length);
 });
 
+//Method to play a random track from .list (excluding .active)
+TrackList.method('playRandom', function() {
+    var i = Math.floor(Math.random()*this.list.length);
+    if(i === this.trackIndex(this.active)) i = (i+1)%this.list.length;
+    return this.play(i);
+});
+
 //Method to update the browser output
 TrackList.method('update', function() {
     $('#trackList').replaceWith(this.renderTable());
