@@ -9,9 +9,9 @@ function TrackColumn(heading, renderTD, sort) {
 
 //Method to render the columns <th> heading
 TrackColumn.method('renderTH', function() {
-    var th = document.createElement('th');
-    th.innerHTML = this.heading;
-    return th;
+    return $('<th>')
+        .html(this.heading)
+    ;
 });
 
 //Static method to render a simple <td> with given innerHTML
