@@ -16,9 +16,9 @@ TrackColumn.method('renderTH', function() {
 
 //Static method to render a simple <td> with given innerHTML
 TrackColumn.renderTD = function(innerHTML) {
-    var td = document.createElement('td');
-    td.innerHTML = innerHTML;
-    return td;
+    return $('<td>')
+        .html(innerHTML)
+    ;
 };
 
 //--Pre-defined renderTD functions--
