@@ -1,4 +1,5 @@
 //require_once(CrockfordSugar.js)
+//require_once(Player.js)
 //require_once(Track.js)
 //require_once(TrackColumn.js)
 
@@ -88,9 +89,7 @@ TrackList.method('trackIndex', function() {
 //Method to play given track
 TrackList.method('play', function(index) {
     this.setActive(index);
-    $('#audioPlayer>source').attr('src', this.list[index].path);
-    $('#audioPlayer').trigger('load');
-    $('#audioPlayer').trigger('play');
+    Player.play(this.list[index]);
 });
 
 //Method to play the next track in the list
