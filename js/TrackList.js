@@ -7,7 +7,7 @@ function TrackList(json, columns) {
         return new Track(t);
     });
     this.columns = columns || TrackList.defaultColumns;
-    this.active = null; //Index of currently active/playing Track
+    this.active = null; //id of active/playing track
     //Currently sorted column & sort order flag
     this.sortColumn = null;
     this.sortAsc = true;
@@ -35,6 +35,7 @@ TrackList.method('renderTable', function() {
         tr.ondblclick = function() {
             that.trackDblClick(i)
         };
+        if(t.id === that.active) $(tr).addClass('trackActive');
     });
     return table;
 });
@@ -42,7 +43,7 @@ TrackList.method('renderTable', function() {
 //Method to process track double clicks
 TrackList.method('trackDblClick', function(index) {
     this.setActive(index);
-    this.play();
+    this.play(index);
     $("#output").html(this.list[index].name);
 });
 
@@ -66,15 +67,13 @@ TrackList.method('sort', function(sort) {
 
 //Method to set the active track index
 TrackList.method('setActive', function(index) {
-    if(this.active !== null)
-        $('.trackItem:nth-child('+(this.active+2)+')').removeClass('trackActive');
+    this.active = this.list[index].id;
+    $('.trackActive').removeClass('trackActive');
     $('.trackItem:nth-child('+(index+2)+')').addClass('trackActive');
-    this.active = index;
 });
 
 //Method to play given track
 TrackList.method('play', function(index) {
-    if(typeof(index)==='undefined') index = this.active;
     $('#audioPlayer>source').attr('src', this.list[index].path);
     $('#audioPlayer').trigger('load');
     $('#audioPlayer').trigger('play');
