@@ -42,7 +42,6 @@ TrackList.method('renderTable', function() {
 
 //Method to process track double clicks
 TrackList.method('trackDblClick', function(index) {
-    this.setActive(index);
     this.play(index);
     $("#output").html(this.list[index].name);
 });
@@ -88,6 +87,7 @@ TrackList.method('trackIndex', function() {
 
 //Method to play given track
 TrackList.method('play', function(index) {
+    this.setActive(index);
     $('#audioPlayer>source').attr('src', this.list[index].path);
     $('#audioPlayer').trigger('load');
     $('#audioPlayer').trigger('play');
