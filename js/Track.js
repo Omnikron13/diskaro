@@ -22,14 +22,14 @@ function Track(json) {
 
 //Generate a <tr> element of the track from given TrackColumns
 Track.method('renderTR', function(columns) {
-    var tr = document.createElement('tr');
-    tr.setAttribute('class', 'trackItem');
-    tr.setAttribute('title', this.getTitleString());
     var that = this;
-    columns.forEach(function(c) {
-        tr.appendChild(c.renderTD(that));
-    });
-    return tr;
+    return $('<tr>')
+        .addClass('trackItem')
+        .attr('title', this.getTitleString())
+        .append($.map(columns, function(c) {
+            return c.renderTD(that);
+        }))
+    ;
 });
 
 //Should probably be more flexible/configurable
