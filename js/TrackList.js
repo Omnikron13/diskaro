@@ -63,6 +63,7 @@ TrackList.method('headingClick', function(i) {
 //Method to sort the tracklist - just defers to list.sort()
 TrackList.method('sort', function(sort) {
     this.list.sort(sort);
+    return this;
 });
 
 //Method to set the active track index
@@ -70,6 +71,7 @@ TrackList.method('setActive', function(index) {
     this.active = this.list[index].id;
     $('.trackActive').removeClass('trackActive');
     $('.trackItem:nth-child('+(index+2)+')').addClass('trackActive');
+    return this;
 });
 
 //Method to find a .list index from a track id.
@@ -90,6 +92,7 @@ TrackList.method('trackIndex', function() {
 TrackList.method('play', function(index) {
     this.setActive(index);
     Player.play(this.list[index]);
+    return this;
 });
 
 //Method to play the next track in the list
@@ -101,6 +104,7 @@ TrackList.method('playNext', function() {
 //Method to update the browser output
 TrackList.method('update', function() {
     $('#trackList').replaceWith(this.renderTable());
+    return this;
 });
 
 //Static member defining a default set of TrackColumns to render
