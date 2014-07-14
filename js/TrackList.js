@@ -93,6 +93,11 @@ TrackList.method('play', function(index) {
     $('#audioPlayer').trigger('play');
 });
 
+//Method to play the next track in the list
+TrackList.method('playNext', function() {
+    this.play((this.trackIndex(this.active)+1)%this.list.length);
+});
+
 //Method to update the browser output
 TrackList.method('update', function() {
     $('#trackList').replaceWith(this.renderTable());
