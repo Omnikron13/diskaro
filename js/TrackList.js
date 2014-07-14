@@ -94,7 +94,8 @@ TrackList.method('play', function(index) {
 
 //Method to play the next track in the list
 TrackList.method('playNext', function() {
-    this.play((this.trackIndex(this.active)+1)%this.list.length);
+    if(this.active === null) return this.play(0);
+    return this.play((this.trackIndex(this.active)+1)%this.list.length);
 });
 
 //Method to update the browser output
