@@ -17,28 +17,30 @@ function TrackList(json, columns) {
 //Renders a <table> element of the track list
 TrackList.method('renderTable', function() {
     var that = this;
-    var table = document.createElement('table');
-    table.setAttribute('id', 'trackList');
-    //Render headings
-    var tr = table.appendChild(document.createElement('tr'));
-    tr.setAttribute('id', 'trackListHeadings');
-    this.columns.forEach(function(c, i) {
-        var th = tr.appendChild(c.renderTH());
-        th.onclick = function() {
-            that.headingClick(i);
-        };
-        if(i === that.sortColumn)
-            th.setAttribute('class', that.sortAsc?'sortAsc':'sortDesc');
-    });
-    //Render track rows
-    this.list.forEach(function(t, i) {
-        var tr = table.appendChild(t.renderTR(that.columns));
-        tr.ondblclick = function() {
-            that.trackDblClick(i)
-        };
-        if(t.id === that.active) $(tr).addClass('trackActive');
-    });
-    return table;
+    return $('<table>')
+        .attr('id', 'trackList')
+        //Render headings row
+        .append($('<tr>')
+            .attr('id', 'trackListHeadings')
+            .append($.map(this.columns, function(c, i) {
+                return $(c.renderTH())
+                    .on('click', function() {
+                        that.headingClick(i);
+                    })
+                    .addClass(i === that.sortColumn?(that.sortAsc?'sortAsc':'sortDesc'):'')
+                ;
+            }))
+        )
+        //Render track rows
+        .append($.map(this.list, function(t, i) {
+            return $(t.renderTR(that.columns))
+                .on('dblclick', function() {
+                    that.trackDblClick(i);
+                })
+                .addClass(t.id === that.active?'trackActive':'')
+            ;
+        }))
+    ;
 });
 
 //Method to process track double clicks
