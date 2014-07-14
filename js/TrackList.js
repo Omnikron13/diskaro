@@ -23,7 +23,7 @@ TrackList.method('renderTable', function() {
         .append($('<tr>')
             .attr('id', 'trackListHeadings')
             .append($.map(this.columns, function(c, i) {
-                return $(c.renderTH())
+                return c.renderTH()
                     .on('click', function() {
                         that.headingClick(i);
                     })
@@ -33,7 +33,7 @@ TrackList.method('renderTable', function() {
         )
         //Render track rows
         .append($.map(this.list, function(t, i) {
-            return $(t.renderTR(that.columns))
+            return t.renderTR(that.columns)
                 .on('dblclick', function() {
                     that.trackDblClick(i);
                 })
