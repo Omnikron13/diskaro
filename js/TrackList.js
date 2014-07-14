@@ -72,6 +72,20 @@ TrackList.method('setActive', function(index) {
     $('.trackItem:nth-child('+(index+2)+')').addClass('trackActive');
 });
 
+//Method to find a .list index from a track id.
+//Returns null if the id can't be found.
+TrackList.method('trackIndex', function() {
+    var that = this;
+    var index = null;
+    this.list.some(function(t, i) {
+        if(t.id === that.active) {
+            index = i;
+            return true;
+        }
+    });
+    return index;
+});
+
 //Method to play given track
 TrackList.method('play', function(index) {
     $('#audioPlayer>source').attr('src', this.list[index].path);
