@@ -12,6 +12,8 @@ function TrackList(json, columns) {
     //Currently sorted column & sort order flag
     this.sortColumn = null;
     this.sortAsc = true;
+    //Shuffle flag
+    this.shuffle = false;
 };
 
 //Renders a <table> element of the track list
@@ -99,6 +101,7 @@ TrackList.method('play', function(index) {
 
 //Method to play the next track in the list
 TrackList.method('playNext', function() {
+    if(this.shuffle) return this.playRandom();
     if(this.active === null) return this.play(0);
     return this.play((this.trackIndex(this.active)+1)%this.list.length);
 });
