@@ -120,7 +120,7 @@ class CompoundFilter extends Filter {
     //Override Filter::load() to unserialise all filters & operator
     public static function load($json) {
         $json = json_decode($json);
-        return new static(array_map(Filter::load($json), $json->filters), $json->operator);
+        return new static(array_map('Filter::load', $json->filters), $json->operator);
     }
 }
 
