@@ -95,6 +95,24 @@ abstract class DataCore implements JsonSerializable {
         return array_values(array_filter(static::getAll(), $callback));
     }
 
+    //Processes a request for serialised data from the DB
+    public static function jsonRequest($class, $constraint) {
+        switch($constraint['type']) {
+            case null:
+                $data = $class::getAll();
+                break;
+            case 'id':
+                $data = new $class($constraint['data']);
+                break;
+            case 'filter':
+                $data = $class::getFiltered(Filter::load($constraint['data']));
+                break;
+            default:
+                throw new Exception('Unknown request constraint');
+        }
+        return json_encode($data);
+    }
+
     public static function getDB() {
         return DB::get();
     }
