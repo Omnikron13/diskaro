@@ -9,8 +9,8 @@ class GenreFilter extends DataFilter {
     }
 
     //Required by DataFilter
-    protected static function loadData($data) {
-        return new Genre($data->id);
+    protected static function loadData($id) {
+        return new Genre($id);
     }
 }
 

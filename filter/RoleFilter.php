@@ -9,8 +9,8 @@ class RoleFilter extends DataFilter {
     }
 
     //Required by DataFilter
-    protected static function loadData($data) {
-        return new Role($data->id);
+    protected static function loadData($id) {
+        return new Role($id);
     }
 }
 

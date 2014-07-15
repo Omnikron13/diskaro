@@ -28,7 +28,7 @@ abstract class DataFilter extends Filter {
     //Required by JsonSerializable, inherited from Filter
     public function jsonSerialize() {
         $json = parent::jsonSerialize();
-        $json['data'] = $this->getData();
+        $json['id'] = $this->getData()->getID();
         $json['recursive'] = $this->isRecursive();
         return $json;
     }
@@ -52,7 +52,7 @@ abstract class DataFilter extends Filter {
     //Override Filter::load()
     public static function load($json) {
         $json = json_decode($json);
-        return new static(static::loadData($json->data), $json->recursive);
+        return new static(static::loadData($json->id), $json->recursive);
     }
 
     //Check a single data item against an arbitrary checklist
@@ -67,7 +67,7 @@ abstract class DataFilter extends Filter {
 
     //Should return a new object of the relevant type for $data from the
     // decoded json from load()
-    protected abstract static function loadData($data);
+    protected abstract static function loadData($id);
 }
 
 ?>

@@ -9,8 +9,8 @@ class ArtistFilter extends DataFilter {
     }
 
     //Required by DataFilter
-    protected static function loadData($data) {
-        return new Artist($data->id);
+    protected static function loadData($id) {
+        return new Artist($id);
     }
 }
 

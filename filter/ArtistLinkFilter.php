@@ -39,7 +39,7 @@ class ArtistLinkFilter extends ArtistFilter {
     //Override DataFilter::load() to load saved role filter
     public static function load($json) {
         $json = json_decode($json);
-        return new static(static::loadData($json->data),
+        return new static(static::loadData($json->id),
                           Filter::load($json->roleFilter),
                           $json->recursive
         );
