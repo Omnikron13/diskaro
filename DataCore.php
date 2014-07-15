@@ -92,7 +92,7 @@ abstract class DataCore implements JsonSerializable {
 
     //Convenience method for returning an arbitrarily filtered subset of getAll()
     public static function getFiltered($callback) {
-        return array_filter(static::getAll(), $callback);
+        return array_values(array_filter(static::getAll(), $callback));
     }
 
     public static function getDB() {
