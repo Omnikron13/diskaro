@@ -26,7 +26,6 @@ Filter.data = function(type, data, recursive, negate) {
     var f = new Filter(type, negate);
     f.data = data;
     f.recursive = typeof recursive=='undefined'?false:recursive;
-    //f.negate = negate;
     f.getData = function() {
         return {
             id: this.data.id,
