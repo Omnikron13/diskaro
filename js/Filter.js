@@ -13,6 +13,14 @@ Filter.method('encode', function() {
     });
 });
 
+//Convert the filter to a constraint understood by DataCore::jsonRequest()
+Filter.method('constraint', function() {
+    return {
+        type: 'filter',
+        data: this.encode()
+    };
+});
+
 //Static method to create arbitrary DataFilter objects
 Filter.data = function(type, data, recursive, negate) {
     var f = new Filter(type, negate);
