@@ -19,17 +19,9 @@ function TrackList(json, columns) {
 //Pull a list of tracks from the DB with optional filter
 TrackList.method('load', function(f) {
     var that = this;
-    var rq = {
-        class: 'Track',
-        constraint: typeof f=='undefined'?
-            {type:null}:
-            f.constraint()
-    };
-    return $.getJSON('getjson.php', rq, function(json) {
-        that.list = json.map(function(t) {
-            return new Track(t);
-        });
-    });
+    return Track.load(function(tracks) {
+        that.list = tracks;
+    }, f);
 });
 
 //Renders a <table> element of the track list
