@@ -1,4 +1,5 @@
 //require_once(CrockfordSugar.js)
+//require_once(Request.js)
 //require_once(Release.js)
 //require_once(Genre.js)
 //require_once(ArtistLink.js)
