@@ -1,4 +1,5 @@
 //require_once(CrockfordSugar.js)
+//require_once(Request.js)
 
 function Genre(json) {
     this.id = json.id;
