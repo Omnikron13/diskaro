@@ -5,7 +5,7 @@ function Filter(type, negate) {
     this.negate = typeof negate=='undefined'?false:negate;
 };
 
-//
+//Encode the filter as JSON in a format understood by Filter::load()
 Filter.method('encode', function() {
     return JSON.stringify({
         'class': this.type,
