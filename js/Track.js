@@ -71,3 +71,15 @@ Track.method('getArtistsByRole', function(role) {
         return link.artist;
     });
 });
+
+//Static method which requests an (optionally filtered) list of tracks from
+//the DB and passes a list of Track objects to the provided callback
+Track.load = function(cb, f) {
+    return new Request('Track', f?f.constraint():null)
+        .pull(function(json) {
+            cb(json.map(function(t) {
+                return new Track(t);
+            }));
+        })
+    ;
+};
