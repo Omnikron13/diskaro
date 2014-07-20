@@ -15,14 +15,7 @@ Genre.method('renderLI', function() {
     ;
 });
 
-//Static method which requests an (optionally filtered) list of genres from
-//the DB and passes a list of Genre objects to the provided callback
+//Shorthand for using Request.load() to load Genre data
 Genre.load = function(cb, f) {
-    return new Request('Genre', f?f.constraint():null)
-        .pull(function(json) {
-            cb(json.map(function(g) {
-                return new Genre(g);
-            }));
-        })
-    ;
+    return Request.load('Genre', cb, f);
 };
