@@ -3,9 +3,12 @@
 //require_once(DataList.js)
 //require_once(Request.js)
 
+//Static property which defines which HTML tag a QuickFilter should be
+QuickFilter.mainTag = '<div>';
+
 //Base function for creating (empty) QuickFilter elements
 function QuickFilter(head) {
-    return $('<div>')
+    return $(QuickFilter.mainTag)
         .addClass('quickFilter')
         .append(
             $('<header>')
