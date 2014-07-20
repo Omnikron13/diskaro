@@ -7,6 +7,14 @@ function Genre(json) {
     this.parentIDs = json.parentIDs;
 };
 
+//Render the Genre as an <li> DOM element
+Genre.method('renderLI', function() {
+    return $('<li>')
+        .addClass('genreItem')
+        .html(this.name)
+    ;
+});
+
 //Static method which requests an (optionally filtered) list of genres from
 //the DB and passes a list of Genre objects to the provided callback
 Genre.load = function(cb, f) {
