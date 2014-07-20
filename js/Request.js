@@ -23,3 +23,15 @@ Request.method('raw', function() {
         constraint: this.constraint
     };
 });
+
+//Static method which requests an (optionally filtered) list of 'type' data
+//from the DB and passes a list of 'type' objects to the provided callback
+Request.load = function(type, cb, f) {
+    return new Request(type, f?f.constraint():null)
+        .pull(function(json) {
+            cb(json.map(function(d) {
+                return new window[type](d);
+            }));
+        })
+    ;
+};
