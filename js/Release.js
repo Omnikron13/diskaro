@@ -7,3 +7,11 @@ function Release(json) {
     this.year = json.year;
     this.label = json.label===null?null:new Label(json.label);
 };
+
+//Render the Release as an <li> DOM element
+Release.method('renderLI', function() {
+    return $('<li>')
+        .addClass('releaseItem')
+        .html(this.name)
+    ;
+});
