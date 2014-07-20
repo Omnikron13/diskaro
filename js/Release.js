@@ -15,3 +15,8 @@ Release.method('renderLI', function() {
         .html(this.name)
     ;
 });
+
+//Shorthand for using Request.load() to load Release data
+Release.load = function(cb, f) {
+    return Request.load('Release', cb, f);
+};
