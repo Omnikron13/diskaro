@@ -1,0 +1,35 @@
+/*----------------------------*
+ | Main QuickFilter container |
+ *----------------------------*/
+.quickFilter {
+    border: thin solid black;
+    margin: 0.5em 0em;
+}
+    /*--------------------*
+     | QuickFilter Header |
+     *--------------------*/
+    .quickFilter>header {
+        font-size: 0.6em;
+    }
+        .quickFilter>header>h1 {
+            margin: 0;
+        }
+    /*-------------------------*
+     | 'Data' QuickFilter list |
+     *-------------------------*/
+    .quickFilter>.dataList {
+        padding:0;
+        list-style-type: none;
+    }
+        /* List items */
+        .quickFilter>.dataList>li {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            margin: 0.1em;
+            border: thin solid rgb(150, 200, 150);
+            background-color: rgb(240, 255, 240);
+            cursor: default;
+        }
+            .quickFilter>.dataList>li:hover {
+                background-color: rgb(220, 255, 220);
+            }
