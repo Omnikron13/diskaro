@@ -1,0 +1,48 @@
+/*--------------------------------------*
+ | QuickFilter.UI.Tabs Widget Container |
+ *--------------------------------------*/
+.quickFilterTabs {
+}
+    /*----------------------*
+     * Main/Tab-Bar Heading *
+     *----------------------*/
+    .quickFilterTabs>h1 {
+        /* Move into the tab bar */
+        float: left;
+        /* Add a litte space at the sides */
+        margin: 0em 0.4em;
+        /* Push the heading into better vertical alignment with the tabs */
+        margin-top: 0.6em;
+        /* Scale, colour & prettify the text */
+        font-size: 0.9em;
+        color: white;
+        text-shadow:
+            -0.07em -0.07em 0.20em black,
+             0.10em  0.10em 0.00em black
+        ;
+    }
+    /* Tab Bar */
+    .quickFilterTabs>ul {
+    }
+        /* Tabs */
+        .quickFilterTabs>ul>li {
+        }
+            .quickFilterTabs>ul>li>a {
+                /* Scale down the tabs a touch */
+                font-size: 0.8em;
+                padding: 0.3em 0.8em !important;
+            }
+    /*------------------------------*
+     | Tabbed QuickFilter Container |
+     *------------------------------*/
+    .quickFilterTabs>.quickFilter {
+        font-size: 0.9em;
+        padding: 0em;
+    }
+        /*---------------------------*
+         | Tabbed QuickFilter Header |
+         *---------------------------*/
+        .quickFilterTabs>.quickFilter>header {
+            /* Headers not required due to Tab names */
+            display: none;
+        }
