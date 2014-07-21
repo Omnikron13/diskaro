@@ -13,7 +13,7 @@ const REGEX_CMD = 'require(?:_once)?';
 // Regex for matching acceptable quote characters
 const REGEX_Q   = '[\'"]?';
 // Regex for matching acceptable script paths
-const REGEX_SRC = '[\w-\/]+\.js';
+const REGEX_SRC = '[\w-\.\/]+\.js';
 
 // Array of previously parsed scripts (for *_once cmds)
 $parsed = [];
