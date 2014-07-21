@@ -12,6 +12,10 @@ QuickFilter.UI = {
             return $(QuickFilter.UI.Tabs.mainTag)
                 .addClass('quickFilterTabs')
                 .append(
+                    $('<h1>')
+                        .html('QuickFilter:')
+                )
+                .append(
                     $('<ul>')
                         .append(
                             qfs.map(function(qf) {
