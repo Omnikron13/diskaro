@@ -88,3 +88,12 @@ QuickFilter.Genre = function(cb) {
 QuickFilter.Release = function(cb) {
     return QuickFilter.data('Release', cb);
 };
+
+//Shorthand static method to create an array of all predefined QuickFilters
+QuickFilter.All = function(cb) {
+    return [
+        QuickFilter.Genre(cb),
+        QuickFilter.Release(cb),
+        QuickFilter.Regex(cb)
+    ];
+};
