@@ -7,14 +7,20 @@
 QuickFilter.mainTag = '<div>';
 
 //Base function for creating (empty) QuickFilter elements
-function QuickFilter(head) {
+function QuickFilter(name) {
     return $(QuickFilter.mainTag)
         .addClass('quickFilter')
+        .attr('id', 'quickFilter'+name)
         .append(
             $('<header>')
                 .append(
                     $('<h1>')
-                    .html(head)
+                        .html('QuickFilter: ')
+                        .append(
+                            $('<span>')
+                                .addClass('quickFilterName')
+                                .html(name)
+                        )
                 )
         )
     ;
@@ -23,7 +29,7 @@ function QuickFilter(head) {
 //Static method for generating simple QuickFilter elements that filter by
 //given type (which can be Genre, Artist, Release, etc.)
 QuickFilter.data = function(type, cb) {
-    var qf = QuickFilter('Quick '+type+' Filter');
+    var qf = QuickFilter(type);
     Request.load(type, function(d) {
         qf.append(
             new DataList(type, d)
@@ -38,7 +44,7 @@ QuickFilter.data = function(type, cb) {
 
 //Static method for generating regex QuickFilter elements
 QuickFilter.Regex = function(cb) {
-    var qf = new QuickFilter('Quick Regex Filter');
+    var qf = new QuickFilter('Regex');
     qf
         .append(
             $('<form>')
