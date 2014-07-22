@@ -11,6 +11,7 @@ function Data(type, json) {
 //Render the Data as an <li> DOM element
 Data.method('renderLI', function() {
     return $('<li>')
+        .addClass('dataItem')
         .addClass(this.type.toLowerCase()+'Item')
         .html(this.name)
     ;
