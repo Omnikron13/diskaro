@@ -1,7 +1,8 @@
 //require_once(CrockfordSugar.js)
 //require_once(Request.js)
-//require_once(Release.js)
-//require_once(Genre.js)
+//require_once(Data.Release.js)
+//require_once(Data.Genre.js)
+//require_once(Data.Tag.js)
 //require_once(ArtistLink.js)
 //require_once(TrackColumn.js)
 
@@ -10,12 +11,14 @@ function Track(json) {
     this.id = json.id;
     this.name = json.name;
     this.path = json.path;
-    this.release = new Release(json.release);
+    this.release = Data.Release(json.release);
     this.trackNumber = json.trackNumber===null?'':json.trackNumber;
     this.genres = json.genres.map(function(g) {
-        return new Genre(g);
+        return Data.Genre(g);
     });
-    this.tags = json.tags; //should be objects
+    this.tags = json.tags.map(function(t) {
+        return Data.Tag(t);
+    });
     this.artistLinks = json.artistLinks.map(function(link) {
         return new ArtistLink(link);
     });
