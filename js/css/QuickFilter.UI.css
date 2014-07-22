@@ -34,6 +34,8 @@
             -0.07em -0.07em 0.20em black,
              0.10em  0.10em 0.00em black
         ;
+        /* Replace text selection cursor */
+        cursor: default;
     }
     /* Tab Bar */
     .quickFilterTabs>ul {
