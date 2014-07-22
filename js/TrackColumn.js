@@ -48,6 +48,14 @@ TrackColumn.renderRole = function(role) {
     }
 };
 
+TrackColumn.renderTags = function(track) {
+    return $('<td>')
+        .append(
+            track.tags.renderUL()
+        )
+    ;
+};
+
 //--Pre-defined sort functions--
 TrackColumn.sortNumber = function(a, b) {
     return a.trackNumber - b.trackNumber;
