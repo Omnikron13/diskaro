@@ -55,3 +55,8 @@ DataList.Release = function(releases) {
 DataList.Label = function(labels) {
     return new DataList('Label', labels);
 };
+
+//Shorthand static to create Tag DataList objects
+DataList.Tag = function(tags) {
+    return new DataList('Tag', tags);
+};
