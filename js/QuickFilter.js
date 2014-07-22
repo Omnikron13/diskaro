@@ -1,7 +1,7 @@
 //require_once(CrockfordSugar.js)
 //require_once(Filter.js)
 //require_once(DataList.js)
-//require_once(Request.js)
+//require_once(Data.js)
 
 //Static property which defines which HTML tag a QuickFilter should be
 QuickFilter.mainTag = '<div>';
@@ -30,7 +30,7 @@ function QuickFilter(name) {
 //given type (which can be Genre, Artist, Release, etc.)
 QuickFilter.data = function(type, cb) {
     var qf = QuickFilter(type);
-    Request.load(type, function(d) {
+    Data.load(type, function(d) {
         qf.append(
             new DataList(type, d)
                 .addCallback('itemClick', function(d) {
