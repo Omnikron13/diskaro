@@ -64,6 +64,7 @@
         /* Remove bullets & indent */
         list-style-type: none;
         padding: 0;
+        margin: 0;
     }
         .trackList .dataList>.dataItem {
             /* Render on a single line */
