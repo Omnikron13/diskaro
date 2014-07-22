@@ -3,6 +3,7 @@
 //require_once(Data.Release.js)
 //require_once(Data.Genre.js)
 //require_once(Data.Tag.js)
+//require_once(DataList.js)
 //require_once(ArtistLink.js)
 //require_once(TrackColumn.js)
 
@@ -16,9 +17,11 @@ function Track(json) {
     this.genres = json.genres.map(function(g) {
         return Data.Genre(g);
     });
-    this.tags = json.tags.map(function(t) {
-        return Data.Tag(t);
-    });
+    this.tags = DataList.Tag(
+        json.tags.map(function(t) {
+            return Data.Tag(t);
+        })
+    );
     this.artistLinks = json.artistLinks.map(function(link) {
         return new ArtistLink(link);
     });
