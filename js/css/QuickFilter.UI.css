@@ -13,6 +13,9 @@
     box-shadow: 0.08em 0.08em 0.2em rgba(20, 20, 60, 0.5);
     /* A little breathing room for the shadow */
     margin-bottom: 0.5em;
+    /* Disable text selection */
+    -moz-user-select:none;
+    user-select:none;
 }
     /*----------------------*
      * Main/Tab-Bar Heading *
