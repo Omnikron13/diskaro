@@ -57,3 +57,19 @@
             .trackList .trackItem>td:hover {
                 font-style: italic;
             }
+    /*-----------------------------*
+     * Embedded Rendered DataLists *
+     *-----------------------------*/
+    .trackList .dataList {
+        /* Remove bullets & indent */
+        list-style-type: none;
+        padding: 0;
+    }
+        .trackList .dataList>.dataItem {
+            /* Render on a single line */
+            display: inline;
+        }
+            .trackList .dataList>.dataItem:not(:last-child)::after {
+                /* Insert spacer between each item */
+                content: ', ';
+            }
