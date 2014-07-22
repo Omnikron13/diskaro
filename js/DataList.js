@@ -40,3 +40,18 @@ DataList.method('processCallbacks', function(e, i) {
     });
     return this;
 });
+
+//Shorthand static to create Genre DataList objects
+DataList.Genre = function(genres) {
+    return new DataList('Genre', genres);
+};
+
+//Shorthand static to create Release DataList objects
+DataList.Release = function(releases) {
+    return new DataList('Release', releases);
+};
+
+//Shorthand static to create Label DataList objects
+DataList.Label = function(labels) {
+    return new DataList('Label', labels);
+};
