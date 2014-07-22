@@ -31,7 +31,8 @@ QuickFilter.UI = {
                 )
                 .append(qfs)
                 .tabs({
-                    collapsible: true
+                    collapsible: true,
+                    active: false
                 })
             ;
         }
