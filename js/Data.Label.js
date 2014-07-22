@@ -3,7 +3,6 @@
 //Pseudo-constructor for creating label Data objects
 Data.Label = function(json) {
     var l = new Data('Label', json);
-    l.parentIDs = json.parentIDs;
     return l;
 };
 

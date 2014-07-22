@@ -1,11 +1,13 @@
 //require_once(CrockfordSugar.js)
 //require_once(Request.js)
 
-//Base constructor for Data (PHP DataCore) objects
+//Base constructor for Data (PHP [Sub]DataCore) objects
 function Data(type, json) {
     this.type = type;
     this.id = json.id;
     this.name = json.name;
+    if(json.hasOwnProperty('parentIDs'))
+        this.parentIDs = json.parentIDs;
 };
 
 //Render the Data as an <li> DOM element
