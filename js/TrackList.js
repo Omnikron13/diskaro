@@ -29,8 +29,10 @@ TrackList.method('renderTable', function() {
     var that = this;
     return $('<table>')
         .attr('id', 'trackList')
+        .addClass('trackList')
         //Render headings row
         .append($('<tr>')
+            .addClass('trackListHeadings')
             .attr('id', 'trackListHeadings')
             .append($.map(this.columns, function(c, i) {
                 return c.renderTH()
