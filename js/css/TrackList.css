@@ -1,0 +1,59 @@
+/*----------------------*
+ * Main TrackList table *
+ *----------------------*/
+.trackList {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    -moz-user-select:none;
+    user-select:none;
+}
+    /* Table headings row */
+    .trackListHeadings {
+        text-align:left;
+        border-bottom: thin solid rgb(150,150,255);
+        cursor: pointer;
+    }
+        /* Column heading cells */
+        .trackListHeadings>th {
+        }
+            .trackListHeadings>th:hover {
+                background-color: rgb(240, 240, 255);
+            }
+            /* Column headings sort rules */
+            .trackListHeadings>th:not(.sortAsc):not(.sortDesc)::after {
+                content: ' -';
+            }
+            .trackListHeadings>th.sortAsc::after {
+                content: ' ↑';
+            }
+            .trackListHeadings>th.sortDesc::after {
+                content: ' ↓';
+            }
+    /* Track rows */
+    .trackList .trackItem {
+        padding: 0.1em 0;
+    }
+        /* Active track row */
+        .trackList .trackActive {
+            font-weight: bold;
+        }
+        /* Alternating track row rules */
+        .trackList .trackItem:nth-child(odd) {
+            background-color: rgb(250, 250, 255);
+        }
+            .trackList .trackItem:nth-child(odd):hover {
+                background-color: rgb(230, 230, 255);
+            }
+        .trackList .trackItem:nth-child(even) {
+            background-color: rgb(240, 240, 255);
+        }
+            .trackList .trackItem:nth-child(even):hover {
+                background-color: rgb(230, 230, 255);
+            }
+        /* Track row cells */
+        .trackList .trackItem>td {
+        }
+            .trackList .trackItem>td:hover {
+                font-style: italic;
+            }
