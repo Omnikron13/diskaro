@@ -35,9 +35,11 @@ TrackColumn.renderRelease = function(track) {
 };
 
 TrackColumn.renderGenres = function(track) {
-    return TrackColumn.renderTD(track.genres.map(function(g) {
-        return g.name;
-    }).join(', '));
+    return $('<td>')
+        .append(
+            track.genres.renderUL()
+        )
+    ;
 };
 
 TrackColumn.renderTags = function(track) {
@@ -71,11 +73,12 @@ TrackColumn.sortRelease = function(a, b) {
 };
 
 TrackColumn.sortGenres = function(a, b) {
-    return a.genres.map(function(g) {
-        return g.name;
-    }).join(', ').localeCompare(b.genres.map(function(g) {
-        return g.name;
-    }).join(', '));
+    return a.genres
+        .toString()
+        .localeCompare(
+            b.genres.toString()
+        )
+    ;
 };
 
 TrackColumn.sortTags = function(a, b) {

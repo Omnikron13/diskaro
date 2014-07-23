@@ -14,9 +14,11 @@ function Track(json) {
     this.path = json.path;
     this.release = Data.Release(json.release);
     this.trackNumber = json.trackNumber===null?'':json.trackNumber;
-    this.genres = json.genres.map(function(g) {
-        return Data.Genre(g);
-    });
+    this.genres = DataList.Genre(
+        json.genres.map(function(g) {
+            return Data.Genre(g);
+        })
+    );
     this.tags = DataList.Tag(
         json.tags.map(function(t) {
             return Data.Tag(t);
