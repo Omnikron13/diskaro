@@ -30,7 +30,14 @@ DataList.UI = {
                 )
                 .append(
                     $.map(dl.list, function(d, i) {
-                        return d.renderRadio(prefix);
+                        return d.renderRadio(prefix)
+                            .on('click', function() {
+                                dl.processCallbacks('itemClick', i);
+                            })
+                            .on('change', function() {
+                                dl.processCallbacks('itemChange', i);
+                            })
+                        ;
                     })
                 )
                 .buttonset()
