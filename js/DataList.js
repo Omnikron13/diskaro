@@ -9,6 +9,14 @@ function DataList(type, items) {
     };
 };
 
+//Default toString() - join names, optionally with glue
+DataList.method('toString', function(glue) {
+    glue = glue || '';
+    return this.list.map(function(d) {
+        return d.name;
+    }).join(glue);
+});
+
 //Render the list as a <ul> DOM element
 DataList.method('renderUL', function() {
     var that = this;
