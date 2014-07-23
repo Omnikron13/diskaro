@@ -40,20 +40,20 @@ TrackColumn.renderGenres = function(track) {
     }).join(', '));
 };
 
-TrackColumn.renderRole = function(role) {
-    return function(track) {
-        return TrackColumn.renderTD(track.getArtistsByRole(role).map(function(a) {
-            return a.name;
-        }).join(', '));
-    }
-};
-
 TrackColumn.renderTags = function(track) {
     return $('<td>')
         .append(
             track.tags.renderUL()
         )
     ;
+};
+
+TrackColumn.renderRole = function(role) {
+    return function(track) {
+        return TrackColumn.renderTD(track.getArtistsByRole(role).map(function(a) {
+            return a.name;
+        }).join(', '));
+    }
 };
 
 //--Pre-defined sort functions--
