@@ -78,6 +78,15 @@ TrackColumn.sortGenres = function(a, b) {
     }).join(', '));
 };
 
+TrackColumn.sortTags = function(a, b) {
+    return a.tags
+        .toString()
+        .localeCompare(
+            b.tags.toString()
+        )
+    ;
+};
+
 TrackColumn.sortRole = function(role) {
     return function(a, b) {
         return a.getArtistsByRole('Artist').map(function(artist) {
