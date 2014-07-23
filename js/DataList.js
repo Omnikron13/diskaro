@@ -35,6 +35,8 @@ DataList.method('renderUL', function() {
 
 //Register a new callback function in the .callbacks array
 DataList.method('addCallback', function(e, cb) {
+    if(!this.callbacks.hasOwnProperty(e))
+        this.callbacks[e] = [];
     this.callbacks[e].push(cb);
     return this;
 });
