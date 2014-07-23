@@ -4,10 +4,10 @@
 .quickFilterTabs {
     /* Cool grey gradient bg to add a little 'presence' */
     background: linear-gradient(
-        rgb(230, 230, 240) 0%,
-        rgb(250, 250, 255) 25%,
-        rgb(250, 250, 255) 70%,
-        rgb(220, 220, 230) 100%
+        var(--bgc-desat-02) 0%,
+        var(--bgc-desat-00) 25%,
+        var(--bgc-desat-00) 70%,
+        var(--bgc-desat-03) 100%
     );
     /* Faint drop-shadow to bump up the presence a touch */
     box-shadow: 0.08em 0.08em 0.2em rgba(20, 20, 60, 0.5);
@@ -41,10 +41,10 @@
     .quickFilterTabs>ul {
         /* Slightly cooler bg gradient */
         background: linear-gradient(
-            rgb(200, 200, 210) 0%,
-            rgb(215, 215, 225) 40%,
-            rgb(215, 215, 225) 60%,
-            rgb(195, 195, 200) 100%
+            var(--bgc-desat-05) 0%,
+            var(--bgc-desat-03) 40%,
+            var(--bgc-desat-03) 60%,
+            var(--bgc-desat-06) 100%
         );
     }
         /* All Tabs */
@@ -72,9 +72,9 @@
         .quickFilterTabs>ul>li.ui-tabs-active {
             /* Prettify/Match main bg */
             background: linear-gradient(
-                /*rgb(230, 230, 240) -25%,*/ /* Roughly match the main gradient */
-                rgb(210, 210, 220) 0%,       /* Add a little presence */
-                rgb(250, 250, 255) 60%
+                /*var(--bgc-desat-02) -25%,*/ /* Roughly match the main gradient */
+                var(--bgc-desat-04) 0%,       /* Add a little presence */
+                var(--bgc-desat-00) 60%
             ) !important;
         }
     /*------------------------------*
