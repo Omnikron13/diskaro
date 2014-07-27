@@ -27,6 +27,7 @@ Filter.UI = {
                         .buttonset()
                 )
             ;
+
             //Method to check the value of a UI option
             e.getOption = function(o) {
                 var i = e.find('.options>.filterOption-' + o + ' input');
