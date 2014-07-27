@@ -44,6 +44,7 @@ DataList.method('addCallback', function(e, cb) {
 //Process the registered callbacks for a given event, passing each a .type 
 //object and the internal index of the object
 DataList.method('processCallbacks', function(e, i) {
+    if(!this.callbacks.hasOwnProperty(e)) return this;
     var that = this;
     this.callbacks[e].forEach(function(cb) {
         cb(that.list[i], i);
