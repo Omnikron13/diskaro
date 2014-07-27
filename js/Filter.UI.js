@@ -95,7 +95,4 @@ Filter.UI = {
             return e;
         }
     }
-
-        }
-    }
 };
