@@ -41,6 +41,18 @@ Filter.UI = {
                 return null;
             };
 
+            //Generic method to convert a filter UI element into a 'quick'
+            //filter (all changes are immediately passed to a callback)
+            e.quick = function(cb) {
+                return e
+                    .find('input')
+                    .on('change', function() {
+                        cb(e.getFilter());
+                    })
+                    .end()
+                ;
+            };
+
             return e;
         },
 
