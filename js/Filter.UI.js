@@ -34,6 +34,12 @@ Filter.UI = {
                     return i.is(':checked');
                 return i.val();
             };
+
+            //'Abstract' method ensuring .getFilter calls always 'work'
+            e.getFilter = function() {
+                return null;
+            };
+
             return e;
         },
 
