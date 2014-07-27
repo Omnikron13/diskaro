@@ -22,24 +22,11 @@ Filter.UI = {
                             $('<legend>')
                                 .html('Options')
                         )
-                        .append(
-                            $('<input>')
-                                .attr('id', prefix + type + 'FilterNegate')
-                                .attr('type', 'checkbox')
-                        )
-                        .append(
-                            $('<label>')
-                                .attr('for', prefix + type + 'FilterNegate')
-                                .html('Negate')
-                        )
+                        .append(Filter.UI.core.optionCheckbox(prefix, 'Negate'))
                         .append(options)
                         .buttonset()
                 )
             ;
-            //Method to check if the filter should be negated
-            e.isNegated = function() {
-                return e.find('#' + prefix + type + 'FilterNegate')
-                    .is(':checked');
             //Method to check the value of a UI option
             e.getOption = function(o) {
                 var i = e.find('.options>.filterOption-' + o + ' input');
@@ -77,7 +64,7 @@ Filter.UI = {
             //Create element from base template
             var e = Filter.UI.core.render(
                 dl.type,
-                Filter.UI.Data.getOptions(prefix, dl.type),
+                Filter.UI.core.optionCheckbox(prefix, 'Recursive'),
                 prefix
             )
                 //Add generic filter type class
@@ -103,21 +90,12 @@ Filter.UI = {
                 ;
                 return typeof id === 'undefined'?
                     null:
-                    Filter[dl.type]({id: id}, e.isRecursive(), e.isNegated());
+                    Filter[dl.type]({id: id}, e.getOption('Recursive'), e.getOption('Negate'));
             };
             return e;
-        },
+        }
+    }
 
-        //Function to generate additional filter options
-        getOptions: function(prefix, type) {
-            return [
-                $('<input>')
-                    .attr('id', prefix + type + 'FilterRecursive')
-                    .attr('type', 'checkbox'),
-                $('<label>')
-                    .attr('for', prefix + type + 'FilterRecursive')
-                    .html('Recursive')
-            ];
         }
     }
 };
