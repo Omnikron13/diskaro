@@ -42,6 +42,25 @@ Filter.UI = {
                     .is(':checked');
             };
             return e;
+        },
+
+        //Utility function for generating checkboxes for Filter options
+        optionCheckbox: function(prefix, name, label) {
+            label = label || name;
+            return $('<span>')
+                .addClass('option')
+                .addClass('filterOption-' + name)
+                .append(
+                    $('<input>')
+                        .attr('id', prefix + 'FilterOption-' + name)
+                        .attr('type', 'checkbox')
+                )
+                .append(
+                    $('<label>')
+                        .attr('for', prefix + 'FilterOption-' + name)
+                        .html(label)
+                )
+            ;
         }
     },
 
