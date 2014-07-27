@@ -40,6 +40,12 @@ Filter.UI = {
             e.isNegated = function() {
                 return e.find('#' + prefix + type + 'FilterNegate')
                     .is(':checked');
+            //Method to check the value of a UI option
+            e.getOption = function(o) {
+                var i = e.find('.options>.filterOption-' + o + ' input');
+                if(i.attr('type') == 'checkbox')
+                    return i.is(':checked');
+                return i.val();
             };
             return e;
         },
