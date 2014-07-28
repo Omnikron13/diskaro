@@ -12,7 +12,12 @@ Filter.UI = {
                 .addClass(type.toLowerCase() + 'Filter')
                 .append(
                     $('<legend>')
-                        .html(type + 'Filter')
+                        .html(' Filter')
+                        .prepend(
+                            $('<span>')
+                                .addClass('filterType')
+                                .html(type)
+                        )
                 )
                 //Options section
                 .append(
