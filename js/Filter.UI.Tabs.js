@@ -58,7 +58,8 @@ Filter.UI.Tabs = {
                             f
                                 //Pass on filterUpdate events
                                 .on('filterUpdate', function(ev, f) {
-                                    e.trigger('filterUpdate', f)
+                                    e.data('filter', f);
+                                    e.trigger('filterUpdate', f);
                                 })
                         )
                     ;
@@ -71,7 +72,10 @@ Filter.UI.Tabs = {
             })
             //Trigger filterUpdate events when opening/switching/closing tabs
             .on('tabsactivate', function(ev, u) {
-                e.trigger('filterUpdate', u.newPanel.find('.filter').data('filter'));
+                var f = u.newPanel.find('.filter').data('filter');
+                //Store new Filter on open/switch, null on close
+                e.data('filter', typeof f == 'undefined'?null:f);
+                e.trigger('filterUpdate', f);
             })
         ;
         //Rendering done
