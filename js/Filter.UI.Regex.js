@@ -28,6 +28,10 @@ Filter.UI.Regex = {
                             .attr('name', 'regexField')
                             .attr('type', 'text')
                             .attr('placeholder', 'Enter regex...')
+                            //Pass on /actual/ changes to the regex as a change event
+                            .on('input', function() {
+                                e.trigger('change');
+                            })
                     )
             )
         ;
