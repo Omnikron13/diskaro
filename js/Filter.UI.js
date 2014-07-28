@@ -31,6 +31,10 @@ Filter.UI = {
                         .append(options)
                         .buttonset()
                 )
+                //Update stored Filter on (bubbled) change events
+                .on('change', function() {
+                    e.data('filter', e.getFilter());
+                })
             ;
 
             //Method to check the value of a UI option
@@ -44,19 +48,6 @@ Filter.UI = {
             //'Abstract' method ensuring .getFilter calls always 'work'
             e.getFilter = function() {
                 return null;
-            };
-
-            //Generic method to convert a filter UI element into a 'quick'
-            //filter (all changes are immediately passed on as an event)
-            e.quick = function() {
-                return e
-                    .find('input')
-                    .on('change', function() {
-                        e.data('filter', e.getFilter());
-                        e.trigger('filterUpdate', e.getFilter());
-                    })
-                    .end()
-                ;
             };
 
             return e;

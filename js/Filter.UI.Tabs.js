@@ -56,10 +56,9 @@ Filter.UI.Tabs = {
                         .addClass('filterTab')
                         .append(
                             f
-                                //Pass on filterUpdate events
-                                .on('filterUpdate', function(ev, f) {
-                                    e.data('filter', f);
-                                    e.trigger('filterUpdate', f);
+                                //Update Tabs stored Filter on Filter.UI change
+                                .on('change', function() {
+                                    e.data('filter', f.data('filter'));
                                 })
                         )
                     ;
@@ -70,12 +69,15 @@ Filter.UI.Tabs = {
                 collapsible: true,
                 active: false,
             })
-            //Trigger filterUpdate events when opening/switching/closing tabs
+            //Update stored Filter & trigger change event on open/close/switch
             .on('tabsactivate', function(ev, u) {
-                var f = u.newPanel.find('.filter').data('filter');
-                //Store new Filter on open/switch, null on close
-                e.data('filter', typeof f == 'undefined'?null:f);
-                e.trigger('filterUpdate', f);
+                //Store new Filter||null on open/switch, null on close
+                if(Object.keys(u.newPanel).length == 0)
+                    e.data('filter', null);
+                else
+                    e.data('filter', u.newPanel.find('.filter').data('filter')||null);
+                //Retrigger as a change event
+                e.trigger('change');
             })
         ;
         //Rendering done
