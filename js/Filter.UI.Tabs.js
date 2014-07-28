@@ -3,8 +3,9 @@
 //Namespace for creating jQuery UI Tabs of Filter.UI elements
 Filter.UI.Tabs = {
     //Tag types used for the main container & each tab container
-    mainTag: '<div>',
-    tabTag:  '<section>',
+    mainTag:   '<div>',
+    headerTag: '<h1>',
+    tabTag:    '<section>',
 
     //Used to construct tab id strings (along with a prefix & index)
     tabID: 'filterTabs-',
@@ -12,15 +13,26 @@ Filter.UI.Tabs = {
     //Prefix used to construct tab ids if none is specified
     defaultPrefix: '',
 
+    //String used for the main header if none is specified
+    defaultHeader: 'Filters:',
+
     //Function to create Tabs widget from array of Filter.UI elements
-    render: function(filters, prefix) {
+    render: function(filters, prefix, header) {
         //Set default values
         prefix = prefix || Filter.UI.Tabs.defaultPrefix;
+        header = header || Filter.UI.Tabs.defaultHeader;
+
         //Construct tab id string
         var tabID = prefix + Filter.UI.Tabs.tabID;
+
         //Create main container element
         var e = $(Filter.UI.Tabs.mainTag)
             .addClass('filterTabs')
+            //Create header
+            .append(
+                $(Filter.UI.Tabs.headerTag)
+                    .html(header)
+            )
             //Create Tabs list
             .append(
                 $('<ul>')
