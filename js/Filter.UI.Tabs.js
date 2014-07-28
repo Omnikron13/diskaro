@@ -56,6 +56,7 @@ Filter.UI.Tabs = {
                         .addClass('filterTab')
                         .append(
                             f
+                                //Pass on filterUpdate events
                                 .on('filterUpdate', function(ev, f) {
                                     e.trigger('filterUpdate', f)
                                 })
