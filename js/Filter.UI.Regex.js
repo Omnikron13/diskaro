@@ -24,7 +24,7 @@ Filter.UI.Regex = {
                     )
                     .append(
                         $('<input>')
-                            .addClass('regex')
+                            .addClass('regexField')
                             .attr('name', 'regexField')
                             .attr('type', 'text')
                             .attr('placeholder', 'Enter regex...')
@@ -38,7 +38,7 @@ Filter.UI.Regex = {
 
         //Method to generate the PCRE/PHP regex str
         e.getRegex = function() {
-            return '/' + e.find('.regex').val() + '/'
+            return '/' + e.find('.regexField').val() + '/'
                 + (e.getOption('CaseSensitive')?'':'i')
             ;
         };
