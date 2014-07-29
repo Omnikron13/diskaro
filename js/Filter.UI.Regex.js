@@ -34,6 +34,12 @@ Filter.UI.Regex = {
                             })
                     )
             )
+            //Store human-readable filterStr on changes
+            .on('change', function() {
+                var s = e.getRegex();
+                if(e.getOption('Negate')) s = '!' + s;
+                e.data('filterStr', s);
+            })
         ;
 
         //Method to generate the PCRE/PHP regex str
