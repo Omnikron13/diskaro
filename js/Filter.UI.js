@@ -59,6 +59,7 @@ Filter.UI = {
             label = label || name;
             return $('<span>')
                 .addClass('option')
+                .addClass('optionCheckbox')
                 .addClass('filterOption-' + name)
                 .append(
                     $('<input>')
