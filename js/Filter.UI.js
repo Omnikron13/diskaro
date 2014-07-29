@@ -40,10 +40,17 @@ Filter.UI = {
 
             //Method to check the value of a UI option
             e.getOption = function(o) {
-                var i = e.find('.options>.filterOption-' + o + ' input');
-                if(i.attr('type') == 'checkbox')
-                    return i.is(':checked');
-                return i.val();
+                //Find option container element
+                o = e.children('.options')
+                    .find('.filterOption-' + o);
+                //Process checkbox options
+                if(o.hasClass('optionCheckbox'))
+                    return o.find('input').is(':checked');
+                //Process radio options
+                if(o.hasClass('optionRadio'))
+                    return o.find(':checked').val();
+                //Process all other options
+                return o.find('input').val();
             };
 
             //'Abstract' method ensuring .getFilter calls always 'work'
@@ -72,6 +79,32 @@ Filter.UI = {
                         .html(label)
                 )
             ;
-        }
+        },
+
+        //Utility function for generating radio buttons for Filter options
+        optionRadio: function(prefix, name, buttons) {
+            return $('<fieldset>')
+                //Set classes
+                .addClass('option')
+                .addClass('optionRadio')
+                .addClass('filterOption-' + name)
+                //Render buttons from buttons - array of value/label strings
+                .append(
+                    $.map(buttons, function(b, i) {
+                        return [
+                            $('<input>')
+                                .attr('id', prefix + 'FilterOption-' + name + '-' + i)
+                                .attr('type', 'radio')
+                                .attr('name', prefix + name)
+                                .val(b.value)
+                            ,
+                            $('<label>')
+                                .attr('for', prefix + 'FilterOption-' + name + '-' + i)
+                                .html(b.label)
+                        ];
+                    })
+                )
+            ;
+        },
     }
 };
