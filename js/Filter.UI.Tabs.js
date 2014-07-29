@@ -56,9 +56,13 @@ Filter.UI.Tabs = {
                         .addClass('filterTab')
                         .append(
                             f
-                                //Update Tabs stored Filter on Filter.UI change
+                                //Update stored Filter, type str & human-readable str on Filter.UI change
                                 .on('change', function() {
-                                    e.data('filter', f.data('filter'));
+                                    e.data({
+                                        filter: f.data('filter'),
+                                        filterType: f.data('type'),
+                                        filterStr: f.data('filterStr'),
+                                    });
                                 })
                         )
                     ;
@@ -69,13 +73,32 @@ Filter.UI.Tabs = {
                 collapsible: true,
                 active: false,
             })
-            //Update stored Filter & trigger change event on open/close/switch
+            //Update stored Filter, type str & human-readable str and trigger
+            //change event on open/close/switch tab
             .on('tabsactivate', function(ev, u) {
-                //Store new Filter||null on open/switch, null on close
+                //Tab was closed...
                 if(Object.keys(u.newPanel).length == 0)
-                    e.data('filter', null);
-                else
-                    e.data('filter', u.newPanel.find('.filter').data('filter')||null);
+                    e.data({
+                        filter: null,
+                        filterType: null,
+                    });
+                //Tab was opened/switched
+                else {
+                    var f = u.newPanel.find('.filter');
+                    //...but there is no Filter stored
+                    if(typeof f.data('filter') == 'undefined')
+                        e.data({
+                            filter: null,
+                            filterType: null,
+                        });
+                    //...and there is a Filter stored
+                    else
+                        e.data({
+                            filter: f.data('filter'),
+                            filterType: f.data('type'),
+                            filterStr: f.data('filterStr'),
+                        });
+                }
                 //Retrigger as a change event
                 e.trigger('change');
             })
