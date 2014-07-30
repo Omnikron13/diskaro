@@ -73,6 +73,12 @@ Filter.UI.Compound = {
                         }
                     })
             )
+            //Store human-readable string on changes
+            .on('change', function() {
+                var s = e.getOption('Operator');
+                if(e.getOption('Negate')) s = '!' + s;
+                e.data('filterStr', s);
+            })
         ;
 
         //Add method to create Filter obj from UI state
