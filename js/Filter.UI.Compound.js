@@ -165,5 +165,28 @@ Filter.UI.Compound = {
                 })
             ;
         },
+
+        //Render a remove button that can be used to remove an atom/row
+        renderRemove: function(f, u) {
+            return $('<button>')
+                .addClass('compoundFilterAtomRemove')
+                .attr('type', 'button')
+                .html('Remove')
+                //Process remove
+                .on('click', function(ev) {
+                    //Prevent click bubbling to accordion header
+                    ev.stopPropagation();
+                    //Remove header & content
+                    u.newHeader
+                        .next()
+                            .remove()
+                            .end()
+                        .remove()
+                    ;
+                    //Trigger change/filter updates
+                    f.trigger('change');
+                })
+            ;
+        },
     },
 };
