@@ -39,12 +39,32 @@ Filter.UI.Compound = {
                         //Do nothing if it was a tab closed
                         if(Object.keys(u.newHeader).length == 0) return;
                         if(u.newHeader.data('new')) {
+                            //Switch the header from new to empty
                             u.newHeader
+                                //Prevent retriggering
                                 .data('new', false)
                                 .find('.compoundFilterAtomHeader')
                                     .html('Empty Filter')
                             ;
-                            e.addAtom();
+                            //Replace placeholder with Filter.UI.Tabs
+                            u.newPanel
+                                .replaceWith(
+                                    Filter.UI.Compound.Atom.renderBody(
+                                        prefix,
+                                        index++,
+                                        atoms
+                                    )
+                                )
+                            ;
+                            //Update accordion
+                            e.children('.compoundFilterAtoms')
+                                //Fix stuck panels
+                                .accordion('option', 'active', false)
+                                .accordion('option', 'active', -1)
+                                .end()
+                                //Add next 'New Filter' placeholder
+                                .addAtom()
+                            ;
                         }
                     })
             )
@@ -73,16 +93,14 @@ Filter.UI.Compound = {
             );
         };
 
-        //Method to add Filter.UI.Tabs rows
+        //Method to add Filter.UI.Tabs placeholder rows
         e.addAtom = function() {
             return e.children('.compoundFilterAtoms')
+                //Add new placeholder to the end
                 .append(
-                    Filter.UI.Compound.renderAtom(
-                        prefix,
-                        index++,
-                        atoms
-                    )
+                    Filter.UI.Compound.Atom.renderPlaceholder()
                 )
+                //Update the accordion
                 .accordion('refresh')
                 .end()
             ;
@@ -95,20 +113,35 @@ Filter.UI.Compound = {
         return e;
     },
 
-    //Create new Filter.UI.Tabs from filters array of constructor/args
-    renderAtom: function(prefix, index, filters) {
-        return [
-            //Render header
-            $('<h2>')
+    //Subnamespace for atom/row functionality
+    Atom: {
+        //Function to render Atom/Accordion header
+        renderHeader: function() {
+            return $('<h2>')
                 .append(
                     $('<span>')
                         .addClass('compoundFilterAtomHeader')
                         .html('New Filter')
                 )
                 .data('new', true)
-            ,
-            //Render tabs
-            Filter.UI.Tabs.render(
+            ;
+        },
+
+        //Function to render a placeholder atom/row so actual Filter.UI.Tabs
+        //elements can be created Just In Time (which /should/ prevent
+        //infinite recursion...)
+        renderPlaceholder: function() {
+            return [
+                Filter.UI.Compound.Atom.renderHeader(),
+                $('<p>')
+                    .addClass('placeholder')
+                    .html('Loading...')
+            ];
+        },
+
+        //Render actual Filter.UI.Tabs element (to replace placeholder)
+        renderBody: function(prefix, index, filters) {
+            return Filter.UI.Tabs.render(
                 $.map(filters, function(f, i) {
                     return f.render.apply(
                         null,
@@ -130,6 +163,7 @@ Filter.UI.Compound = {
                             )
                     ;
                 })
-        ];
+            ;
+        },
     },
 };
