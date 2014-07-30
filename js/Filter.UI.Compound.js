@@ -45,6 +45,11 @@ Filter.UI.Compound = {
                                 .data('new', false)
                                 .find('.compoundFilterAtomHeader')
                                     .html('Empty Filter')
+                                    .end()
+                                //Add remove button
+                                .append(
+                                    Filter.UI.Compound.Atom.renderRemove(e, u)
+                                )
                             ;
                             //Replace placeholder with Filter.UI.Tabs
                             u.newPanel
