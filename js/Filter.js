@@ -66,6 +66,11 @@ Filter.Compound = function(filters, operator, negate) {
     return f;
 };
 
+//Shorthand to create TagFilter objects
+Filter.Tag = function(t, r, n) {
+    return Filter.data('TagFilter', t, r, n);
+};
+
 //Shorthand to create GenreFilter objects
 Filter.Genre = function(g, r, n) {
     return Filter.data('GenreFilter', g, r, n);
