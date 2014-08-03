@@ -31,8 +31,6 @@ Filter.UI.Compound = {
                     .addClass('body')
                     //Add class for specific selection (e.g. .compoundFilter>.body.atoms)
                     .addClass('atoms')
-                    //Add class for specific selection
-                    .addClass('compoundFilterAtoms')
                     //Setup widget
                     .accordion({
                         collapsible: true,
@@ -67,7 +65,7 @@ Filter.UI.Compound = {
                                 )
                             ;
                             //Update accordion
-                            e.children('.compoundFilterAtoms')
+                            e.children('.body.atoms')
                                 //Fix stuck panels
                                 .accordion('option', 'active', false)
                                 .accordion('option', 'active', -1)
@@ -111,7 +109,7 @@ Filter.UI.Compound = {
 
         //Method to add Filter.UI.Tabs placeholder rows
         e.addAtom = function() {
-            return e.children('.compoundFilterAtoms')
+            return e.children('.body.atoms')
                 //Add new placeholder to the end
                 .append(
                     Filter.UI.Compound.Atom.renderPlaceholder()
