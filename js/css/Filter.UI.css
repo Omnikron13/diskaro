@@ -88,8 +88,6 @@
                 .filter>.options>.optionCheckbox .ui-button {
                     /* Space buttons a little */
                     margin-right: var(--control-spacing);
-                    /* Round corners */
-                    border-radius: var(--border-radius);
                 }
             /* Radio Specific Button Options */
             .filter>.options>.optionRadio {
