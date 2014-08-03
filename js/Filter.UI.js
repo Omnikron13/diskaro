@@ -27,6 +27,8 @@ Filter.UI = {
                         .addClass('options')
                         .append(
                             $('<legend>')
+                                //Add class for unambiguous selection
+                                .addClass('header')
                                 .html('Options')
                         )
                         .append(Filter.UI.core.optionCheckbox(prefix, 'Negate'))
