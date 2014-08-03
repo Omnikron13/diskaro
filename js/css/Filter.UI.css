@@ -1,0 +1,108 @@
+/*-----------*
+ * Variables *
+ *-----------*/
+ /* Filter Button Widgets */
+.filter .ui-button {
+    /* Button Rounding Amount */
+    --border-radius: 0.3em;
+}
+
+/*---------------------------------*
+ * Common Filtet.UI Main Container *
+ *---------------------------------*/
+.filter {
+    /* Remove pointless tiny default margin */
+    margin: 0;
+}
+    /*----------------------*
+     * Options/Meta Section *
+     *----------------------*/
+    .filter>.options {
+        /* Allow main Filter settings to sit next to options */
+        float: left;
+        /* Remove pointless border & bloat */
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+        /* Options section main header */
+        .filter>.options>.header {
+            /* Hide by default */
+            display: none;
+        }
+        .filter>.options>.option {
+            /* Remove pointless (potential) bloat */
+            padding: 0;
+        }
+        /*----------------*
+         * Option Buttons *
+         *----------------*/
+        .filter>.options .ui-button {
+            /* Apply global theme colours */
+            background: var(--bgc-desat-03);
+            border: thin solid var(--bgc-desat-09);
+        }
+            /* Mouseover */
+            .filter>.options .ui-button.ui-state-hover {
+                /* Apply global theme colours */
+                background: var(--bgc-desat-02);
+                border: thin solid var(--bgc-desat-08);
+            }
+            /* Selected/Active */
+            .filter>.options .ui-button.ui-state-active {
+                /* Apply global theme colours */
+                background: var(--bgc-desat-01);
+                border: thin solid var(--bgc-desat-10);
+            }
+            /* Checkbox Specific Button Options */
+            .filter>.options>.optionCheckbox {
+            }
+                /* Actual Button */
+                .filter>.options>.optionCheckbox .ui-button {
+                    /* Space buttons a little */
+                    margin-right: 0.3em; 
+                    /* Round corners */
+                    border-radius: var(--border-radius);
+                }
+            /* Radio Specific Button Options */
+            .filter>.options>.optionRadio {
+                /* Pull inline with other options */
+                display: inline-block;
+                /* Remove (fieldset) border */
+                border: none;
+            }
+                /* Actual Buttons */
+                .filter>.options>.optionRadio .ui-button {
+                    /* Fix margin overlapping too far left */
+                    margin-right:-0.05em;
+                }
+                /* First Button in group */
+                .filter>.options>.optionRadio .ui-button:first-of-type {
+                    /* Round left corners */
+                    border-top-left-radius:    var(--border-radius);
+                    border-bottom-left-radius: var(--border-radius);
+                }
+                /* Last Button in group */
+                .filter>.options>.optionRadio .ui-button:last-of-type {
+                    /* Round right corners */
+                    border-top-right-radius:    var(--border-radius);
+                    border-bottom-right-radius: var(--border-radius);
+                }
+        /* Actual Button text */
+        .filter>.options .ui-button-text {
+            /* Slim button down/remove bloat */
+            padding: 0.2em 0.4em;
+        }
+    /*---------------------------*
+     * Generic 'body' section(s) *
+     *---------------------------*/
+    .filter>.body {
+        /* Strip border & padding by default (primarily for <fieldset>s) */
+        border: none;
+        padding: 0;
+    }
+        /* Generic 'body' section headers */
+        .filter>.body>.header {
+            /* Hide by default */
+            display: none;
+        }
