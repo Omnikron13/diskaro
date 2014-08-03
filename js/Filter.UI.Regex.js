@@ -19,6 +19,8 @@ Filter.UI.Regex = {
                     .addClass('regex')
                     .append(
                         $('<legend>')
+                            //Add class for generic selection (e.g. .filter>.body>.header)
+                            .addClass('header')
                             .html('Regex')
                     )
                     .append(
