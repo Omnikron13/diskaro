@@ -18,6 +18,8 @@ Filter.UI.Data = {
                     dl,
                     prefix
                 )
+                    //Add class for generic selection (e.g. .filter>.body)
+                    .addClass('body')
             )
             //Store human-readable filterStr on changes
             .on('change', function() {

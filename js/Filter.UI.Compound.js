@@ -27,6 +27,8 @@ Filter.UI.Compound = {
             //Add accordion container
             .append(
                 $('<div>') //Shouldn't be hard coded
+                    //Add class for generic selection (e.g. .filter>.body)
+                    .addClass('body')
                     .addClass('compoundFilterAtoms')
                     //Setup widget
                     .accordion({

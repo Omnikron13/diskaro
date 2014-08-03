@@ -13,6 +13,8 @@ Filter.UI.Regex = {
             //Add regex specific UI fields/controls
             .append(
                 $('<fieldset>')
+                    //Add class for generic selection (e.g. .filter>.body)
+                    .addClass('body')
                     .append(
                         $('<legend>')
                             .html('Regex')
