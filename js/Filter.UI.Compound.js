@@ -189,7 +189,8 @@ Filter.UI.Compound = {
         //Render a remove button that can be used to remove an atom/row
         renderRemove: function(f, u) {
             return $('<button>')
-                .addClass('compoundFilterAtomRemove')
+                //Add class to allow easy selection
+                .addClass('remove')
                 .attr('type', 'button')
                 .html('Remove')
                 //Process remove
