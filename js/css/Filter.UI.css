@@ -51,6 +51,8 @@
         border: none;
         margin: 0;
         padding: 0;
+        /* Add -slight- space after options to hint at separation of sections */
+        margin-right: calc(var(--control-spacing) / 2);
     }
         /* Options section main header */
         .filter>.options>.header {
