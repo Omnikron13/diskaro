@@ -20,6 +20,8 @@ Filter.UI.Data = {
                 )
                     //Add class for generic selection (e.g. .filter>.body)
                     .addClass('body')
+                    //Add class for specific selection (e.g. .dataFilter>.body.buttons)
+                    .addClass('buttons')
             )
             //Store human-readable filterStr on changes
             .on('change', function() {
