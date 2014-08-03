@@ -1,0 +1,34 @@
+/*--------------------------------*
+ * Filter.UI.Regex Main Container *
+ *--------------------------------*/
+.regexFilter {
+}
+    /* Body/Main controls section */
+    .regexFilter>.body.regex {
+    }
+        .regexFilter>.body.regex label {
+            /* Mostly redundant with placeholder */
+            display: none;
+        }
+        /* Actual regex entry field */
+        .regexFilter>.body.regex>.regexField {
+            /* Left/right padding variable */
+            --padding-x: 0.2em;
+            /* Apply global theme colours */
+            background: var(--bgc-02);
+            /* Round corners a little */
+            border-radius: 0.3em;
+            /* A little breathing room around content (left/right) */
+            padding: 0 var(--padding-x);
+            /* Match button heights a little better & trim margin this adds */
+            height: 1.5em;
+            margin-bottom: -1em;
+            /* Fill available horizontal space */
+            /*width: calc(100% - calc(var(--padding-x) * 2));*/
+            width: calc(100% - 0.5em); /* calc with var fails..? */
+        }
+            /* Has focus/typing */
+            .regexFilter>.body.regex>.regexField:focus {
+                /* Apply global theme colours */
+                background: var(--bgc-01);
+            }
