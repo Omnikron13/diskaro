@@ -23,6 +23,7 @@ Filter.UI = {
                 //Options section
                 .append(
                     $('<fieldset>')
+                        //Add class for unambiguous selection
                         .addClass('options')
                         .append(
                             $('<legend>')
