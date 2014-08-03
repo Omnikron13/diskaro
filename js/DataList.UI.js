@@ -5,6 +5,8 @@ DataList.UI = {
     Buttonset: {
         //Determines which HTML tag the Buttonset container should be
         mainTag: '<fieldset>',
+        //Determines which HTML tag the Buttonset header should be
+        headerTag: '<legend>',
 
         //id/name prefix to use if none is specified
         defaultPrefix: '',
@@ -25,7 +27,7 @@ DataList.UI = {
                 .addClass('dataButtonset')
                 .addClass(dl.type.toLowerCase() + 'Buttonset')
                 .append(
-                    $('<legend>')
+                    $(DataList.UI.Buttonset.headerTag)
                         .html(legend)
                 )
                 .append(
