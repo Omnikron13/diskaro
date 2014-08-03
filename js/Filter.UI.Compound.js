@@ -29,6 +29,8 @@ Filter.UI.Compound = {
                 $('<div>') //Shouldn't be hard coded
                     //Add class for generic selection (e.g. .filter>.body)
                     .addClass('body')
+                    //Add class for specific selection (e.g. .compoundFilter>.body.atoms)
+                    .addClass('atoms')
                     //Add class for specific selection
                     .addClass('compoundFilterAtoms')
                     //Setup widget
