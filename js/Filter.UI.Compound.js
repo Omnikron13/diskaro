@@ -46,7 +46,8 @@ Filter.UI.Compound = {
                             u.newHeader
                                 //Prevent retriggering
                                 .data('new', false)
-                                .find('.compoundFilterAtomHeader')
+                                //Find actual header text & update it
+                                .find('.text')
                                     .html('Empty Filter')
                                     .end()
                                 //Add remove button
@@ -132,9 +133,12 @@ Filter.UI.Compound = {
         //Function to render Atom/Accordion header
         renderHeader: function() {
             return $('<h2>')
+                //Add class for generic selection (e.g. .compoundFilter>.body.atoms>.atomHeader)
+                .addClass('atomHeader')
                 .append(
                     $('<span>')
-                        .addClass('compoundFilterAtomHeader')
+                        //Add class to allow easy selection
+                        .addClass('text')
                         .html('New Filter')
                 )
                 .data('new', true)
@@ -170,7 +174,8 @@ Filter.UI.Compound = {
                 .tabs('option', 'collapsible', false)
                 .on('change', function() {
                     $(this).prev()
-                        .find('.compoundFilterAtomHeader')
+                        //Find actual header text & update it
+                        .find('.text')
                             .html(
                                 $(this).data('filter') === null?
                                     'Empty Filter':
