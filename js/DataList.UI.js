@@ -28,6 +28,7 @@ DataList.UI = {
                 .addClass(dl.type.toLowerCase() + 'Buttonset')
                 .append(
                     $(DataList.UI.Buttonset.headerTag)
+                        .addClass('header')
                         .html(legend)
                 )
                 .append(
