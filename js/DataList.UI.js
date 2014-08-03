@@ -4,9 +4,9 @@
 DataList.UI = {
     Buttonset: {
         //Determines which HTML tag the Buttonset container should be
-        mainTag: '<fieldset>',
+        mainTag: '<div>',
         //Determines which HTML tag the Buttonset header should be
-        headerTag: '<legend>',
+        headerTag: '<h1>',
 
         //id/name prefix to use if none is specified
         defaultPrefix: '',
