@@ -1,11 +1,16 @@
 /*-----------*
  * Variables *
  *-----------*/
- /* Filter Button Widgets */
-.filter .ui-button {
-    /* Button Rounding Amount */
-    --border-radius: 0.3em;
+/* Pseudo-Global */
+.filter {
+    /* Main control spacing amount */
+    --control-spacing: 0.3em;
 }
+    /* Filter Button Widgets */
+    .filter .ui-button {
+        /* Button Rounding Amount */
+        --border-radius: 0.3em;
+    }
 
 /*---------------------------------*
  * Common Filter.UI Main Container *
@@ -60,7 +65,7 @@
                 /* Actual Button */
                 .filter>.options>.optionCheckbox .ui-button {
                     /* Space buttons a little */
-                    margin-right: 0.3em; 
+                    margin-right: var(--control-spacing);
                     /* Round corners */
                     border-radius: var(--border-radius);
                 }
