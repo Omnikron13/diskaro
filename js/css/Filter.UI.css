@@ -28,6 +28,19 @@
     /* Remove pointless tiny default margin */
     margin: 0;
 }
+    /*-------------------------------*
+     * Filter Button Widget Defaults *
+     *-------------------------------*/
+    /* Actual Button Widget */
+    .filter .ui-button {
+        /* Round corners */
+        border-radius: var(--border-radius);
+    }
+        /* Button Widget Text/Label */
+        .filter .ui-button-text {
+            /* Slim button down/remove bloat */
+            padding: var(--padding);
+        }
     /*----------------------*
      * Options/Meta Section *
      *----------------------*/
@@ -92,21 +105,21 @@
                 }
                 /* First Button in group */
                 .filter>.options>.optionRadio .ui-button:first-of-type {
-                    /* Round left corners */
-                    border-top-left-radius:    var(--border-radius);
-                    border-bottom-left-radius: var(--border-radius);
+                    /* Unround right corners */
+                    border-top-right-radius:    0;
+                    border-bottom-right-radius: 0;
+                }
+                /* Middle Buttons in group */
+                .filter>.options>.optionRadio .ui-button:not(:first-of-type):not(:last-of-type) {
+                    /* Unround all corners */
+                    border-radius: 0;
                 }
                 /* Last Button in group */
                 .filter>.options>.optionRadio .ui-button:last-of-type {
-                    /* Round right corners */
-                    border-top-right-radius:    var(--border-radius);
-                    border-bottom-right-radius: var(--border-radius);
+                    /* Unround left corners */
+                    border-top-left-radius:    0;
+                    border-bottom-left-radius: 0;
                 }
-        /* Actual Button text */
-        .filter>.options .ui-button-text {
-            /* Slim button down/remove bloat */
-            padding: 0.2em 0.4em;
-        }
     /*---------------------------*
      * Generic 'body' section(s) *
      *---------------------------*/
