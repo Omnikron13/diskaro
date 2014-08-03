@@ -164,7 +164,8 @@ Filter.UI.Compound = {
                 }),
                 prefix + 'Atom-' + index
             )
-                .addClass('compoundFilterAtom')
+                //Add class for generic selection (e.g. .compoundFilter>.body.atoms>.atom)
+                .addClass('atom')
                 //Disable collapsing - would null the filter
                 .tabs('option', 'collapsible', false)
                 .on('change', function() {
