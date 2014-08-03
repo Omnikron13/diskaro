@@ -11,6 +11,15 @@
         /* Button Rounding Amount */
         --border-radius: 0.3em;
     }
+        /* Filter Button Widget Text/Label */
+        .filter .ui-button-text {
+            /* Default left/right padding amount */
+            --padding-x: 0.4em;
+            /* Default top/bottom padding amount */
+            --padding-y: 0.2em;
+            /* All default padding shorthand (reduces size/bloat) */
+            --padding: var(--padding-y) var(--padding-x);
+        }
 
 /*---------------------------------*
  * Common Filter.UI Main Container *
