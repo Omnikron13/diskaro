@@ -81,7 +81,9 @@
                 background: var(--bgc-desat-01);
                 border: thin solid var(--bgc-desat-10);
             }
-            /* Checkbox Specific Button Options */
+            /*----------------------------------*
+             * Checkbox Specific Button Options *
+             *----------------------------------*/
             .filter>.options>.optionCheckbox {
             }
                 /* Actual Button */
@@ -89,7 +91,9 @@
                     /* Space buttons a little */
                     margin-right: var(--control-spacing);
                 }
-            /* Radio Specific Button Options */
+            /*-------------------------------*
+             * Radio Specific Button Options *
+             *-------------------------------*/
             .filter>.options>.optionRadio {
                 /* Pull inline with other options */
                 display: inline-block;
