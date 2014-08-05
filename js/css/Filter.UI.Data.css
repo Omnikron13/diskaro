@@ -32,6 +32,8 @@
             border-radius: 0.3em;
             /* Apply global theme colours */
             background: var(--bgc-02);
+            border-bottom: thin solid var(--bgc-desat-07);
+            border-right:  thin solid var(--bgc-desat-07);
             /* Add a little space left/right of content */
             padding: 0 0.2em;
             /* Height defined by container; fill all available space */
@@ -50,6 +52,8 @@
             .dataFilter>.search>input:focus {
                 /* Apply global theme colours */
                 background: var(--bgc-01);
+                border-bottom: thin solid var(--bgc-desat-09);
+                border-right:  thin solid var(--bgc-desat-09);
             }
     /*-------------------------------------*
      * Buttons Section/Buttonset Container *
