@@ -4,7 +4,7 @@
 /* Pseudo-Global */
 .filter {
     /* Main control spacing amount */
-    --control-spacing: 0.3em;
+    --control-spacing: inherit;
 }
     /* Filter Button Widgets */
     .filter .ui-button {

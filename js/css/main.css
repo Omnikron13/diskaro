@@ -1,3 +1,11 @@
+/*------------------*
+ * Global Variables *
+ *------------------*/
+:root {
+    /* Default/Global spacing for UI controls */
+    --control-spacing: 0.3em;
+}
+
 /*------------------------*
  * Global/Default styling *
  *------------------------*/
