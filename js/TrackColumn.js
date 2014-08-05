@@ -31,7 +31,12 @@ TrackColumn.renderTitle = function(track) {
 };
 
 TrackColumn.renderRelease = function(track) {
-    return TrackColumn.renderTD(track.release.name);
+    //Render release name or null/unknown
+    return TrackColumn.renderTD(
+        track.release===null?
+            'Unknown':
+            track.release.name
+    );
 };
 
 TrackColumn.renderGenres = function(track) {
