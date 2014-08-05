@@ -43,4 +43,6 @@
             border-top-right-radius: 0;
             /* Remove shadow to look better inside accordion */
             box-shadow: none;
+            /* Override margin added to tabs to add space for shadow */
+            margin-bottom: var(--control-spacing);
         }
