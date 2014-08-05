@@ -29,6 +29,8 @@ Data.method('renderRadio', function(prefix) {
     var idStr = prefix + this.type + 'Radio-' + this.id;
     //Render element
     return $('<span>')
+        //Add class for generic selection
+        .addClass('dataRadio')
         .addClass(this.type.toLowerCase()+'Radio')
         .append(
             $('<input>')
