@@ -23,7 +23,12 @@ TrackColumn.renderTD = function(innerHTML) {
 
 //--Pre-defined renderTD functions--
 TrackColumn.renderNumber = function(track) {
-    return TrackColumn.renderTD(track.trackNumber);
+    //Render track number/position or null/unknown
+    return TrackColumn.renderTD(
+        track.trackNumber===null?
+            '':
+            track.trackNumber
+    );
 };
 
 TrackColumn.renderTitle = function(track) {
