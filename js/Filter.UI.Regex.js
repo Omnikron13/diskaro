@@ -2,6 +2,9 @@
 
 //Namespace for regex filter UI elements
 Filter.UI.Regex = {
+    //Input type for the regex field tag (probably text or search)
+    fieldType: 'search',
+
     //Function for creating RegexFilter/Filter.Regex UI elements
     render: function(prefix) {
         //Create element from base template
@@ -32,7 +35,7 @@ Filter.UI.Regex = {
                         $('<input>')
                             .addClass('regexField')
                             .attr('name', 'regexField')
-                            .attr('type', 'text')
+                            .attr('type', Filter.UI.Regex.fieldType)
                             .attr('placeholder', 'Enter regex...')
                             //Pass on /actual/ changes to the regex as a change event
                             .on('input', function() {
