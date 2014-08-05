@@ -41,6 +41,11 @@
             /* Slim/set width (relative to font-size) */
             width: 11em;
         }
+            /* Mouseover */
+            .dataFilter>.search>input:hover {
+                /* Apply global theme colours */
+                background: var(--bgc-01);
+            }
             /* Has focus/typing */
             .dataFilter>.search>input:focus {
                 /* Apply global theme colours */
