@@ -3,6 +3,49 @@
  *-------------------------------*/
 .dataFilter {
 }
+    /*----------------*
+     * Search Section *
+     *----------------*/
+    .dataFilter>.search {
+        /* Position inline with options section */
+        float: left;
+        /* Match button heights a little better */
+        height: 1.6em;
+        /* Strip bloat & border */
+        margin: 0;
+        padding: 0;
+        border: none;
+        /* Add some space after the section */
+        margin-right: calc(var(--control-spacing) + 0.1em);
+    }
+        .dataFilter>.search>legend {
+            /* Redundant with placeholder */
+            display: none;
+        }
+        .dataFilter>.search>label {
+            /* Redundant with placeholder */
+            display: none;
+        }
+        /* Actual field/input */
+        .dataFilter>.search>input {
+            /* Round corners */
+            border-radius: 0.3em;
+            /* Apply global theme colours */
+            background: var(--bgc-02);
+            /* Add a little space left/right of content */
+            padding: 0 0.2em;
+            /* Height defined by container; fill all available space */
+            height: 100%;
+            /* Scale down text a little */
+            font-size: 0.8em;
+            /* Slim/set width (relative to font-size) */
+            width: 11em;
+        }
+            /* Has focus/typing */
+            .dataFilter>.search>input:focus {
+                /* Apply global theme colours */
+                background: var(--bgc-01);
+            }
     /*-------------------------------------*
      * Buttons Section/Buttonset Container *
      *-------------------------------------*/
