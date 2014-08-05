@@ -3,7 +3,9 @@
  *-------------------------------*/
 .dataFilter {
 }
-    /* Buttons Section/Buttonset Container */
+    /*-------------------------------------*
+     * Buttons Section/Buttonset Container *
+     *-------------------------------------*/
     .dataFilter>.body.buttons {
         /* Counter extra margin from bottom row of buttons */
         margin-bottom: calc(0em - var(--control-spacing));
