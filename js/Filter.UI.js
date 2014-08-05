@@ -13,6 +13,7 @@ Filter.UI = {
                 .addClass(type.toLowerCase() + 'Filter')
                 .append(
                     $('<legend>')
+                        .addClass('header')
                         .html(' Filter')
                         .prepend(
                             $('<span>')
