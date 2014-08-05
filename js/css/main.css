@@ -14,9 +14,15 @@ body {
     background-color: var(--bgc-00);
 }
 
+/*----------------------*
+ * Audio Player styling *
+ *----------------------*/
 #audioPlayer {
+    /* Fill horizontal space */
     width: 100%;
+    /* 'Stick' to bottom of window */
     position: fixed;
     bottom: 0;
+    /* Fix weird indent repositioning adds */
     left: 0;
 }
