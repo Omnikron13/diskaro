@@ -12,7 +12,10 @@ function Track(json) {
     this.id = json.id;
     this.name = json.name;
     this.path = json.path;
-    this.release = Data.Release(json.release);
+    //Set release or null/unknown
+    this.release = json.release === null?
+        null:
+        Data.Release(json.release);
     this.trackNumber = json.trackNumber===null?'':json.trackNumber;
     this.genres = DataList.Genre(
         json.genres.map(function(g) {
