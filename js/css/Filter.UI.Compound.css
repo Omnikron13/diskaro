@@ -1,0 +1,46 @@
+/*-----------------------------------*
+ * Filter.UI.Compound Main Container *
+ *-----------------------------------*/
+.compoundFilter {
+}
+    /* Filter List/Accordion Container */
+    .compoundFilter>.body.atoms {
+        /* Can't wrap/float next to .options */
+        clear: left;
+        /* Add a little space between .options and the filter list */
+        margin-top: calc(var(--control-spacing) + 2.0em);
+    }
+        /*-------------------------*
+         * Filter Row/Panel/Header *
+         *-------------------------*/
+        .compoundFilter>.body.atoms>.atomHeader {
+            /* Cut down bloat */
+            padding: var(--control-spacing);
+            /* Add space back for collapse arrow/indicator thing */
+            padding-left: 2em;
+            /* Apply global colour theme */
+            background: linear-gradient(
+                var(--bgc-desat-03),
+                var(--bgc-desat-01),
+                var(--bgc-desat-03)
+            );
+            border: thin solid var(--bgc-desat-06);
+        }
+            /* Remove Filter Button */
+            .compoundFilter>.body.atoms>.atomHeader>.remove {
+                float: right;
+                /* Scale down a touch to be less distracting */
+                font-size: 0.7em;
+            }
+        /*---------------------*
+         * Filter Element/Body *
+         *---------------------*/
+        .compoundFilter>.body.atoms>.atom {
+            /* Roughly match unnested tabs padding */
+            padding: 0.24em;
+            /* Unround top corners to 'attach' to header better */
+            border-top-left-radius:  0;
+            border-top-right-radius: 0;
+            /* Remove shadow to look better inside accordion */
+            box-shadow: none;
+        }
