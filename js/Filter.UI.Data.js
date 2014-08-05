@@ -50,5 +50,5 @@ Filter.UI.Data = {
                 Filter[dl.type]({id: id}, e.getOption('Recursive'), e.getOption('Negate'));
         };
         return e;
-    }
+    },
 };
