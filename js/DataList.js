@@ -76,7 +76,7 @@ DataList.Tag = function(tags) {
 DataList.All = {
     //Function to check (using $.when()) if a list is loaded & load it if not
     loaded: function(type) {
-        //If type has been loaded previously return the loaded list (for .done() arg)
+        //If type has been loaded previously return the loaded /array/
         if(DataList.All.hasOwnProperty(type)) return DataList.All[type];
         //Request all [type] records from the DB
         return Data.load(type, function(ds) {
