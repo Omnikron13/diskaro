@@ -83,7 +83,7 @@ DataList.All = {
             //Late check to see if another async request got there first
             if(DataList.All.hasOwnProperty(type)) return DataList.All[type];
             //Create list from loaded data & return it
-            DataList.All[type] = DataList[type](ds);
+            DataList.All[type] = new DataList(type, ds);
             return DataList.All[type];
         });
     },
