@@ -10,7 +10,8 @@ function TrackColumn(heading, renderTD, sort) {
 //Method to render the columns <th> heading
 TrackColumn.method('renderTH', function() {
     return $('<th>')
-        .html(this.heading)
+        //Output localised heading
+        .html(_(this.heading))
     ;
 });
 
