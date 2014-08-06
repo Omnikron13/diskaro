@@ -55,6 +55,17 @@
                 border-bottom: thin solid var(--bgc-desat-09);
                 border-right:  thin solid var(--bgc-desat-09);
             }
+    /*-----------------------------*
+     * Buttons Section Placeholder *
+     *-----------------------------*/
+    .dataFilter>.placeholder.buttons {
+        /* Remove bloat */
+        margin:0;
+        /* Align a little better with other controls */
+        padding-top: var(--control-spacing);
+        /* Strip bloat added by the top padding */
+        margin-bottom: -1em;
+    }
     /*-------------------------------------*
      * Buttons Section/Buttonset Container *
      *-------------------------------------*/
