@@ -71,3 +71,20 @@ DataList.Label = function(labels) {
 DataList.Tag = function(tags) {
     return new DataList('Tag', tags);
 };
+
+//Namespace for accessing DataList objects holding complete lists of a given type
+DataList.All = {
+    //Function to check (using $.when()) if a list is loaded & load it if not
+    loaded: function(type) {
+        //If type has been loaded previously return the loaded list (for .done() arg)
+        if(DataList.All.hasOwnProperty(type)) return DataList.All[type];
+        //Request all [type] records from the DB
+        return Data.load(type, function(ds) {
+            //Late check to see if another async request got there first
+            if(DataList.All.hasOwnProperty(type)) return DataList.All[type];
+            //Create list from loaded data & return it
+            DataList.All[type] = DataList[type](ds);
+            return DataList.All[type];
+        });
+    },
+};
