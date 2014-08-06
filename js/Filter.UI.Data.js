@@ -3,10 +3,10 @@
 //Subnamespace for Data[List] Filter UI elements (e.g. GenreFilter)
 Filter.UI.Data = {
     //Function for creating Data[List] UI elements of arbitrary type
-    render: function(dl, prefix) {
+    render: function(type, prefix) {
         //Create element from base template
         var e = Filter.UI.core.render(
-            dl.type,
+            type,
             Filter.UI.core.optionCheckbox(prefix, 'Recursive'),
             prefix
         )
@@ -14,16 +14,14 @@ Filter.UI.Data = {
             .addClass('dataFilter')
             //Add search section element
             .append(Filter.UI.Data.renderSearch())
-            //Add main DataList selection element
+            //Add placeholder for main DataList selection element
             .append(
-                DataList.UI.Buttonset.render(
-                    dl,
-                    prefix
-                )
-                    //Add class for generic selection (e.g. .filter>.body)
-                    .addClass('body')
-                    //Add class for specific selection (e.g. .dataFilter>.body.buttons)
+                $('<p>')
+                    //Add class for generic placeholder selection
+                    .addClass('placeholder')
+                    //Add class for specific selection (e.g. for replacing)
                     .addClass('buttons')
+                    .html(type + ' list loading...')
             )
             //Store human-readable filterStr on changes
             .on('change', function() {
@@ -36,9 +34,21 @@ Filter.UI.Data = {
                 e.data('filterStr', s);
             })
         ;
+        //Replace placeholder when complete DataList of [type] is loaded
+        $.when(DataList.All.loaded(type)).done(function() {
+            e.find('.placeholder.buttons')
+                .replaceWith(
+                    DataList.UI.Buttonset.render(DataList.All[type], prefix)
+                        //Add class for generic selection (e.g. .filter>.body)
+                        .addClass('body')
+                        //Add class for specific selection (e.g. .dataFilter>.body.buttons)
+                        .addClass('buttons')
+                )
+            ;
+        });
         //Add method to check recursive option
         e.isRecursive = function() {
-            return e.find('#' + prefix + dl.type + 'FilterRecursive')
+            return e.find('#' + prefix + type + 'FilterRecursive')
                 .is(':checked');
         };
         //Add method to get Filter object
@@ -49,7 +59,7 @@ Filter.UI.Data = {
             ;
             return typeof id === 'undefined'?
                 null:
-                Filter[dl.type]({id: id}, e.getOption('Recursive'), e.getOption('Negate'));
+                Filter[type]({id: id}, e.getOption('Recursive'), e.getOption('Negate'));
         };
         return e;
     },
