@@ -1,8 +1,9 @@
 //require_once(CrockfordSugar.js)
+//require_once(Data.Artist.js)
 
 function ArtistLink(json) {
-    //should convert these to objects...
-    this.artist = json.artist;
+    this.artist = Data.Artist(json.artist);
+    //should convert this to objects...
     this.role = json.role;
 }
 
