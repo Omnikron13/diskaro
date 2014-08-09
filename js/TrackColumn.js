@@ -108,9 +108,11 @@ TrackColumn.sortTags = function(a, b) {
 
 TrackColumn.sortRole = function(role) {
     return function(a, b) {
-        return a.getArtistsByRole(role).toString()
-            .localeCompare(b.getArtistsByRole(role).toString());
-    };
+        return TrackColumn.sortDataList(
+            a.getArtistsByRole(role),
+            b.getArtistsByRole(role)
+        );
+    }
 };
 
 //Default sort method - sorts nothing
