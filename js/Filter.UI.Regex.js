@@ -5,6 +5,12 @@ Filter.UI.Regex = {
     //Input type for the regex field tag (probably text or search)
     fieldType: 'search',
 
+    //Default UI strings
+    caseSensitiveStr   : _('Case Sensitive'),
+    regexHeaderStr     : _('Regex'),
+    regexLabelStr      : _('Regex'),
+    regexPlaceholderStr: _('Enter regex') + '...',
+
     //Function for creating RegexFilter/Filter.Regex UI elements
     render: function(prefix) {
         //Create element from base template
