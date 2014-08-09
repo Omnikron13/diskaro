@@ -51,9 +51,7 @@ Track.method('getTitleString', function() {
     this.getRoles().forEach(function(r) {
         str += _(r.name)
             + ': '
-            + that.getArtistsByRole(r).map(function(a) {
-                return a.name;
-              }).join(', ')
+            + that.getArtistsByRole(r).toString(', ')
             + '\n';
     });
     return str;
@@ -82,11 +80,16 @@ Track.method('getRoles', function() {
 
 //Returns an array of artist objects filtered by role
 Track.method('getArtistsByRole', function(role) {
-    return this.artistLinks.filter(function(link) {
+    return DataList.Artist(
+        //Filter down ArtistLink objects
+        this.artistLinks.filter(function(link) {
             return link.isRole(role);
-        }).map(function(link) {
-        return link.artist;
-    });
+        })
+            //Extract Artist objects from ArtistLinks
+            .map(function(link) {
+                return link.artist;
+            })
+    );
 });
 
 //Static method which requests an (optionally filtered) list of tracks from
