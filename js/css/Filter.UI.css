@@ -64,6 +64,11 @@
             padding: 0;
             margin: 0;
         }
+            /* Option header */
+            .filter>.options>.option>.header {
+                /* Hide by default - should be obvious */
+                display: none;
+            }
         /*----------------*
          * Option Buttons *
          *----------------*/
