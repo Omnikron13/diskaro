@@ -49,7 +49,7 @@ Track.method('getTitleString', function() {
     var that = this;
     var str = '';
     this.getRoles().forEach(function(r) {
-        str += r.name
+        str += _(r.name)
             + ': '
             + that.getArtistsByRole(r).map(function(a) {
                 return a.name;
