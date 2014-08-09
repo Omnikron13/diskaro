@@ -7,6 +7,10 @@ function TrackColumn(heading, renderTD, sort) {
     this.sort = sort || TrackColumn.sortNull;
 };
 
+//Default sort order for null/non-null sorting
+//where -1 puts nulls first & 1 puts them last
+TrackColumn.nullSort = 1;
+
 //Default str for null/unknown release output
 TrackColumn.nullReleaseStr = _('Unknown');
 
@@ -77,6 +81,10 @@ TrackColumn.sortTitle = function(a, b) {
 };
 
 TrackColumn.sortRelease = function(a, b) {
+    //Sort nulls
+    if(a.release === null) return b.release===null?0:TrackColumn.nulLSort;
+    if(b.release === null) return TrackColumn.nullSort - TrackColumn.nullSort * 2;
+    //Sort non-nulls
     return a.release.name.localeCompare(b.release.name);
 };
 
