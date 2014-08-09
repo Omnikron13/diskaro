@@ -42,11 +42,11 @@ TrackColumn.renderTitle = function(track) {
 
 TrackColumn.renderRelease = function(track) {
     //Render release name or null/unknown
-    return TrackColumn.renderTD(
-        track.release===null?
-            TrackColumn.nullReleaseStr:
-            track.release.name
-    );
+    return track.release===null?
+        TrackColumn.renderTD(TrackColumn.nullReleaseStr)
+            .addClass('null')
+        :TrackColumn.renderTD(track.release.name)
+    ;
 };
 
 TrackColumn.renderGenres = function(track) {
