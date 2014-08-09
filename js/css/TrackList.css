@@ -52,9 +52,9 @@
                 background-color: var(--bgc-02);
             }
         /* Track row cells */
-        .trackList .trackItem>td {
+        .trackList .trackItem>.cell {
         }
-            .trackList .trackItem>td:hover {
+            .trackList .trackItem>.cell:hover {
                 font-style: italic;
             }
     /*-----------------------------*
