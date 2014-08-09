@@ -59,11 +59,17 @@ Track.method('getTitleString', function() {
     return str;
 });
 
-//Method to get array of unique artists (no role info...)
+//Method to get DataList of unique artists (no role info...)
 Track.method('getArtists', function() {
-    return $.unique(this.artistLinks.map(function(item) {
-        return item.artist;
-    }));
+    return DataList.Artist(
+        //Remove duplicates
+        $.unique(
+            //Extract Artist objects from ArtistLinks
+            this.artistLinks.map(function(link) {
+                return link.artist;
+            })
+        )
+    );
 });
 
 //Method to get array of unique roles (no artist info...)
