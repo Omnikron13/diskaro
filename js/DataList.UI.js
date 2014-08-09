@@ -13,7 +13,7 @@ DataList.UI = {
 
         //Function to generate <legend> html str if none is specified
         defaultLegend: function(type) {
-            return 'Select ' + type;
+            return _('Select ' + type);
         },
 
         //Function to render a Buttonset widget from a DataList object
