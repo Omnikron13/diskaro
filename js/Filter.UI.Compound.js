@@ -9,6 +9,13 @@ Filter.UI.Compound = {
         {label: _('Xor'), value: 'XOR'},
     ],
 
+    //Default UI strings
+    operatorStr   : _('Operator'),
+    newFilterStr  : _('New Filter'),
+    emptyFilterStr: _('Empty Filter'),
+    placeholderStr: _('Loading') + '...',
+    removeStr     : _('Remove'),
+
     //Function for creating new/empty Compound Filter UI elements
     render: function(atoms, prefix) {
         //Index to disambiguate constituent Filter.UI ids
@@ -20,7 +27,8 @@ Filter.UI.Compound = {
             Filter.UI.core.optionRadio(
                 prefix,
                 'Operator',
-                Filter.UI.Compound.operators
+                Filter.UI.Compound.operators,
+                Filter.UI.Compound.operatorStr
             ),
             prefix
         )
@@ -48,7 +56,7 @@ Filter.UI.Compound = {
                                 .data('new', false)
                                 //Find actual header text & update it
                                 .find('.text')
-                                    .html('Empty Filter')
+                                    .html(Filter.UI.Compound.emptyFilterStr)
                                     .end()
                                 //Add remove button
                                 .append(
@@ -139,7 +147,7 @@ Filter.UI.Compound = {
                     $('<span>')
                         //Add class to allow easy selection
                         .addClass('text')
-                        .html('New Filter')
+                        .html(Filter.UI.Compound.newFilterStr)
                 )
                 .data('new', true)
             ;
@@ -153,7 +161,7 @@ Filter.UI.Compound = {
                 Filter.UI.Compound.Atom.renderHeader(),
                 $('<p>')
                     .addClass('placeholder')
-                    .html('Loading...')
+                    .html(Filter.UI.Compound.placeholderStr)
             ];
         },
 
@@ -178,7 +186,7 @@ Filter.UI.Compound = {
                         .find('.text')
                             .html(
                                 $(this).data('filter') === null?
-                                    'Empty Filter':
+                                    Filter.UI.Compound.emptyFilterStr:
                                     $(this).data('filterType') + ': ' + $(this).data('filterStr')
                             )
                     ;
@@ -192,7 +200,7 @@ Filter.UI.Compound = {
                 //Add class to allow easy selection
                 .addClass('remove')
                 .attr('type', 'button')
-                .html('Remove')
+                .html(Filter.UI.Compound.removeStr)
                 //Process remove
                 .on('click', function(ev) {
                     //Prevent click bubbling to accordion header
