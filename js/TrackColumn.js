@@ -50,19 +50,11 @@ TrackColumn.renderRelease = function(track) {
 };
 
 TrackColumn.renderGenres = function(track) {
-    return $('<td>')
-        .append(
-            track.genres.renderUL()
-        )
-    ;
+    return TrackColumn.renderTD(track.genres.renderUL());
 };
 
 TrackColumn.renderTags = function(track) {
-    return $('<td>')
-        .append(
-            track.tags.renderUL()
-        )
-    ;
+    return TrackColumn.renderTD(track.tags.renderUL());
 };
 
 TrackColumn.renderRole = function(role) {
