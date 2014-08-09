@@ -187,7 +187,7 @@ Filter.UI.Compound = {
                             .html(
                                 $(this).data('filter') === null?
                                     Filter.UI.Compound.emptyFilterStr:
-                                    $(this).data('filterType') + ': ' + $(this).data('filterStr')
+                                    _($(this).data('filterType')) + ': ' + $(this).data('filterStr')
                             )
                     ;
                 })
