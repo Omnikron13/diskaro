@@ -21,6 +21,7 @@ TrackColumn.method('renderTH', function() {
 //Static method to render a simple <td> with given innerHTML
 TrackColumn.renderTD = function(innerHTML) {
     return $('<td>')
+        .addClass('cell')
         .html(innerHTML)
     ;
 };
