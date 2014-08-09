@@ -22,13 +22,13 @@ function Track(json) {
         json.genres.map(function(g) {
             return Data.Genre(g);
         })
-    );
+    ).sort();
     //Convert tags to DataList
     this.tags = DataList.Tag(
         json.tags.map(function(t) {
             return Data.Tag(t);
         })
-    );
+    ).sort();
     this.artistLinks = json.artistLinks.map(function(link) {
         return new ArtistLink(link);
     });
