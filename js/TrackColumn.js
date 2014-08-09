@@ -99,21 +99,11 @@ TrackColumn.sortDataList = function(a, b) {
 };
 
 TrackColumn.sortGenres = function(a, b) {
-    return a.genres
-        .toString()
-        .localeCompare(
-            b.genres.toString()
-        )
-    ;
+    return TrackColumn.sortDataList(a.genres, b.genres);
 };
 
 TrackColumn.sortTags = function(a, b) {
-    return a.tags
-        .toString()
-        .localeCompare(
-            b.tags.toString()
-        )
-    ;
+    return TrackColumn.sortDataList(a.tags, b.tags);
 };
 
 TrackColumn.sortRole = function(role) {
