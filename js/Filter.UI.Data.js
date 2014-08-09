@@ -72,6 +72,7 @@ Filter.UI.Data = {
             //Render legend/header
             .append(
                 $('<legend>')
+                    .addClass('header')
                     .html('Search')
             )
             //Render field label
