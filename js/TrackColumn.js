@@ -82,7 +82,7 @@ TrackColumn.sortTitle = function(a, b) {
 
 TrackColumn.sortRelease = function(a, b) {
     //Sort nulls
-    if(a.release === null) return b.release===null?0:TrackColumn.nulLSort;
+    if(a.release === null) return b.release===null?0:TrackColumn.nullSort;
     if(b.release === null) return TrackColumn.nullSort - TrackColumn.nullSort * 2;
     //Sort non-nulls
     return a.release.name.localeCompare(b.release.name);
