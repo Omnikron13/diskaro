@@ -16,7 +16,7 @@ Filter.UI.Regex = {
         //Create element from base template
         var e = Filter.UI.core.render(
             'Regex',
-            Filter.UI.core.optionCheckbox(prefix, 'CaseSensitive', 'Case Sensitive'),
+            Filter.UI.core.optionCheckbox(prefix, 'CaseSensitive', Filter.UI.Regex.caseSensitiveStr),
             prefix
         )
             //Add regex specific UI fields/controls
@@ -30,19 +30,19 @@ Filter.UI.Regex = {
                         $('<legend>')
                             //Add class for generic selection (e.g. .filter>.body>.header)
                             .addClass('header')
-                            .html('Regex')
+                            .html(Filter.UI.Regex.regexHeaderStr)
                     )
                     .append(
                         $('<label>')
                             .attr('for', 'regexField')
-                            .html('Regex')
+                            .html(Filter.UI.Regex.regexLabelStr)
                     )
                     .append(
                         $('<input>')
                             .addClass('regexField')
                             .attr('name', 'regexField')
                             .attr('type', Filter.UI.Regex.fieldType)
-                            .attr('placeholder', 'Enter regex...')
+                            .attr('placeholder', Filter.UI.Regex.regexPlaceholderStr)
                             //Pass on /actual/ changes to the regex as a change event
                             .on('input', function() {
                                 e.trigger('change');
