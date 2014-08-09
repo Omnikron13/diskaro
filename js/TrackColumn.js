@@ -88,6 +88,16 @@ TrackColumn.sortRelease = function(a, b) {
     return a.release.name.localeCompare(b.release.name);
 };
 
+//Utility function for sorting DataList cells
+TrackColumn.sortDataList = function(a, b) {
+    //Sort null/empty
+    if(a.list.length == 0) return b.list.length==0?0:TrackColumn.nullSort;
+    if(b.list.length == 0) return TrackColumn.nullSort - TrackColumn.nullSort * 2;
+    //Sort non-null/not-empty
+    return a.toString()
+        .localeCompare(b.toString());
+};
+
 TrackColumn.sortGenres = function(a, b) {
     return a.genres
         .toString()
