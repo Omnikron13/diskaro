@@ -17,11 +17,13 @@ function Track(json) {
         null:
         Data.Release(json.release);
     this.trackNumber = json.trackNumber===null?'':json.trackNumber;
+    //Convert genres to DataList
     this.genres = DataList.Genre(
         json.genres.map(function(g) {
             return Data.Genre(g);
         })
     );
+    //Convert tags to DataList
     this.tags = DataList.Tag(
         json.tags.map(function(t) {
             return Data.Tag(t);
