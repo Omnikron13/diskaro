@@ -59,9 +59,10 @@ TrackColumn.renderTags = function(track) {
 
 TrackColumn.renderRole = function(role) {
     return function(track) {
-        return TrackColumn.renderTD(track.getArtistsByRole(role).map(function(a) {
-            return a.name;
-        }).join(', '));
+        return TrackColumn.renderTD(
+            track.getArtistsByRole(role)
+                .renderUL()
+        );
     }
 };
 
@@ -99,11 +100,8 @@ TrackColumn.sortTags = function(a, b) {
 
 TrackColumn.sortRole = function(role) {
     return function(a, b) {
-        return a.getArtistsByRole('Artist').map(function(artist) {
-            return artist.name;
-        }).join(', ').localeCompare(b.getArtistsByRole('Artist').map(function(artist) {
-            return artist.name;
-        }).join(', '));
+        return a.getArtistsByRole(role).toString()
+            .localeCompare(b.getArtistsByRole(role).toString());
     };
 };
 
