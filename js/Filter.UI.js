@@ -81,12 +81,20 @@ Filter.UI = {
         },
 
         //Utility function for generating radio buttons for Filter options
-        optionRadio: function(prefix, name, buttons) {
+        optionRadio: function(prefix, name, buttons, header) {
+            //Set defaults - header same as name if not specified
+            header = header || name;
             return $('<fieldset>')
                 //Set classes
                 .addClass('option')
                 .addClass('optionRadio')
                 .addClass('filterOption-' + name)
+                //Render header/legend
+                .append(
+                    $('<legend>')
+                        .addClass('header')
+                        .html(header)
+                )
                 //Render buttons from buttons - array of value/label strings
                 .append(
                     $.map(buttons, function(b, i) {
