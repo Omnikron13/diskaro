@@ -4,9 +4,9 @@
 Filter.UI.Compound = {
     //Default/valid operators for options section
     operators: [
-        {label: 'Or',  value: 'OR'},
-        {label: 'And', value: 'AND'},
-        {label: 'Xor', value: 'XOR'},
+        {label: _('Or'),  value: 'OR'},
+        {label: _('And'), value: 'AND'},
+        {label: _('Xor'), value: 'XOR'},
     ],
 
     //Function for creating new/empty Compound Filter UI elements
