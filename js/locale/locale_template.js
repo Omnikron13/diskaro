@@ -13,6 +13,13 @@ $.extend(_._strings, {
     'Roles':    '',
     'Tag':      '',
     'Tags':     '',
+    //DataList.UI default legend/header
+    'Select Artist'  : '',
+    'Select Genre'   : '',
+    'Select Label'   : '',
+    'Select Release' : '',
+    'Select Role'    : '',
+    'Select Tag'     : '',
     //TrackList/TrackColumn headings (excluding Data type/class)
     '#':     '',
     'Title': '',
