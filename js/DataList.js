@@ -17,6 +17,14 @@ DataList.method('toString', function(glue) {
     }).join(glue);
 });
 
+//Sort the underlying array, optionally with arbitrary sort
+DataList.method('sort', function(cb) {
+    this.list.sort(cb || function(a, b) {
+        return a.name.localeCompare(b.name);
+    });
+    return this;
+});
+
 //Render the list as a <ul> DOM element
 DataList.method('renderUL', function() {
     var that = this;
