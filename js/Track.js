@@ -48,7 +48,7 @@ Track.method('renderTR', function(columns) {
 Track.method('getTitleString', function() {
     var that = this;
     var str = '';
-    this.getRoles().forEach(function(r) {
+    this.getRoles().list.forEach(function(r) {
         str += _(r.name)
             + ': '
             + that.getArtistsByRole(r).toString(', ')
@@ -70,12 +70,18 @@ Track.method('getArtists', function() {
     );
 });
 
-//Method to get array of unique roles (no artist info...)
+//Method to get DataList of unique roles (no artist info...)
 // breaks $.unique() on nulls!
 Track.method('getRoles', function() {
-    return $.unique(this.artistLinks.map(function(item) {
-        return item.role;
-    }));
+    return DataList.Role(
+        //Remove duplicates
+        $.unique(
+            //Extract Role objects from ArtistLinks
+            this.artistLinks.map(function(link) {
+                return link.role;
+            })
+        )
+    );
 });
 
 //Returns an array of artist objects filtered by role
