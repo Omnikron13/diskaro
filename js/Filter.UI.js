@@ -27,7 +27,7 @@ Filter.UI = {
                                 .addClass('header')
                                 .html(_('Options'))
                         )
-                        .append(Filter.UI.core.optionCheckbox(prefix, 'Negate'))
+                        .append(Filter.UI.core.optionCheckbox(prefix, _('Negate')))
                         .append(options)
                         .buttonset()
                 )
