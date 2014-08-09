@@ -67,6 +67,11 @@ DataList.Release = function(releases) {
     return new DataList('Release', releases);
 };
 
+//Shorthand static to create Role DataList objects
+DataList.Role = function(roles) {
+    return new DataList('Role', roles);
+};
+
 //Shorthand static to create Label DataList objects
 DataList.Label = function(labels) {
     return new DataList('Label', labels);
