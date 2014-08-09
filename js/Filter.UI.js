@@ -14,12 +14,7 @@ Filter.UI = {
                 .append(
                     $('<legend>')
                         .addClass('header')
-                        .html(' Filter')
-                        .prepend(
-                            $('<span>')
-                                .addClass('filterType')
-                                .html(type)
-                        )
+                        .html(_(type + ' Filter'))
                 )
                 //Options section
                 .append(

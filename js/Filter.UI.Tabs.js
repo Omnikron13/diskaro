@@ -42,7 +42,7 @@ Filter.UI.Tabs = {
                                 .append(
                                     $('<a>')
                                         .attr('href', '#' + tabID + i)
-                                        .html(f.find('.filterType').html())
+                                        .html(_(f.data('type')))
                                 )
                             ;
                         })
