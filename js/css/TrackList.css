@@ -57,6 +57,11 @@
             .trackList .trackItem>.cell:hover {
                 font-style: italic;
             }
+            /* Null/unknown cells */
+            .trackList .trackItem>.cell.null {
+                /* Fade a little to indicate non-literal */
+                opacity: 0.5;
+            }
     /*-----------------------------*
      * Embedded Rendered DataLists *
      *-----------------------------*/
