@@ -14,7 +14,7 @@ Filter.UI.Tabs = {
     defaultPrefix: '',
 
     //String used for the main header if none is specified
-    defaultHeader: 'Filters:',
+    defaultHeader: _('Filters') + ':',
 
     //Function to create Tabs widget from array of Filter.UI elements
     render: function(filters, prefix, header) {
