@@ -2,12 +2,20 @@
 
 //Subnamespace for Data[List] Filter UI elements (e.g. GenreFilter)
 Filter.UI.Data = {
+    //Default recursive option human name
+    recursiveStr: _('Recursive'),
+
+    //Default UI strings for search section
+    searchHeaderStr     : _('Search'),
+    searchLabelStr      : _('Search'),
+    searchPlaceholderStr: _('Search') + '...',
+
     //Function for creating Data[List] UI elements of arbitrary type
     render: function(type, prefix) {
         //Create element from base template
         var e = Filter.UI.core.render(
             type,
-            Filter.UI.core.optionCheckbox(prefix, 'Recursive'),
+            Filter.UI.core.optionCheckbox(prefix, 'Recursive', Filter.UI.Data.recursiveStr),
             prefix
         )
             //Add generic filter type class
@@ -21,7 +29,7 @@ Filter.UI.Data = {
                     .addClass('placeholder')
                     //Add class for specific selection (e.g. for replacing)
                     .addClass('buttons')
-                    .html(type + ' list loading...')
+                    .html(_(type + ' list loading') + '...')
             )
             //Store human-readable filterStr on changes
             .on('change', function() {
@@ -73,20 +81,20 @@ Filter.UI.Data = {
             .append(
                 $('<legend>')
                     .addClass('header')
-                    .html('Search')
+                    .html(Filter.UI.Data.searchHeaderStr)
             )
             //Render field label
             .append(
                 $('<label>')
                     .attr('for', 'search')
-                    .html('Search')
+                    .html(Filter.UI.Data.searchLabelStr)
             )
             //Render actual search box/field
             .append(
                 $('<input>')
                     .attr('type', 'search')
                     .attr('name', 'search')
-                    .attr('placeholder', 'Search...')
+                    .attr('placeholder', Filter.UI.Data.searchPlaceholderStr)
                     //Show/Hide DataList Buttons on search string changes
                     .on('input', function() {
                         //Create regex from entered string
