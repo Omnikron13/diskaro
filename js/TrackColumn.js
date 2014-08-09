@@ -7,6 +7,9 @@ function TrackColumn(heading, renderTD, sort) {
     this.sort = sort || TrackColumn.sortNull;
 };
 
+//Default str for null/unknown release output
+TrackColumn.nullReleaseStr = _('Unknown');
+
 //Method to render the columns <th> heading
 TrackColumn.method('renderTH', function() {
     return $('<th>')
@@ -40,7 +43,7 @@ TrackColumn.renderRelease = function(track) {
     //Render release name or null/unknown
     return TrackColumn.renderTD(
         track.release===null?
-            'Unknown':
+            TrackColumn.nullReleaseStr:
             track.release.name
     );
 };
