@@ -54,11 +54,6 @@ Filter.UI.Data = {
                 )
             ;
         });
-        //Add method to check recursive option
-        e.isRecursive = function() {
-            return e.find('#' + prefix + type + 'FilterRecursive')
-                .is(':checked');
-        };
         //Add method to get Filter object
         e.getFilter = function() {
             var id = e
