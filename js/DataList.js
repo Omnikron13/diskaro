@@ -52,6 +52,11 @@ DataList.method('processCallbacks', function(e, i) {
     return this;
 });
 
+//Shorthand static to create Artist DataList objects
+DataList.Artist = function(artists) {
+    return new DataList('Artist', artists);
+};
+
 //Shorthand static to create Genre DataList objects
 DataList.Genre = function(genres) {
     return new DataList('Genre', genres);
