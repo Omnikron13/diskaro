@@ -68,6 +68,8 @@ Filter.UI = {
                 .addClass('option')
                 .addClass('optionCheckbox')
                 .addClass('filterOption-' + name)
+                //Set default value/state
+                .data('value', false)
                 //Render actual control & label
                 .append(
                     $('<input>')
