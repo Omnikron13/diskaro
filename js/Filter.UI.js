@@ -64,9 +64,11 @@ Filter.UI = {
         optionCheckbox: function(prefix, name, label) {
             label = label || name;
             return $('<span>')
+                //Add generic, semi-specific & very specific classes
                 .addClass('option')
                 .addClass('optionCheckbox')
                 .addClass('filterOption-' + name)
+                //Render actual control & label
                 .append(
                     $('<input>')
                         .attr('id', prefix + 'FilterOption-' + name)
