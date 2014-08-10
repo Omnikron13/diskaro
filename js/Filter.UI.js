@@ -8,6 +8,7 @@ Filter.UI = {
         //Function for creating core (empty) Filter UI elements
         render: function(type, options, prefix) {
             var e = $('<fieldset>')
+                //Store filter type string
                 .data('type', type)
                 .addClass('filter')
                 .addClass(type.toLowerCase() + 'Filter')
