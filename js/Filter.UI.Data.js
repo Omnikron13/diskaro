@@ -56,13 +56,10 @@ Filter.UI.Data = {
         });
         //Add method to get Filter object
         e.getFilter = function() {
-            var id = e
-                .find('.dataButtonset :radio:checked')
-                    .val()
-            ;
-            return typeof id === 'undefined'?
+            var d = e.find('.dataButtonset').data('data');
+            return typeof d === 'undefined'?
                 null:
-                Filter[type]({id: id}, e.getOption('Recursive'), e.getOption('Negate'));
+                Filter[type](d, e.getOption('Recursive'), e.getOption('Negate'));
         };
         return e;
     },
