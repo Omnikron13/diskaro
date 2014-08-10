@@ -75,6 +75,8 @@ Filter.UI = {
                 //Store option value/state on changes
                 .on('change', function() {
                     $(this).data('value', $(this).find('input').is(':checked'));
+                    //Trigger custom event & pass the handler internal option name
+                    $(this).trigger('optionUpdate', name);
                 })
             ;
         },
@@ -113,6 +115,8 @@ Filter.UI = {
                 //Store option value/state on changes
                 .on('change', function() {
                     $(this).data('value', $(this).find(':checked').val());
+                    //Trigger custom event & pass the handler internal option name
+                    $(this).trigger('optionUpdate', name);
                 })
             ;
         },
