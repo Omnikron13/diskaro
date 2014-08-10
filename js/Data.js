@@ -41,6 +41,12 @@ Data.method('renderRadio', function(prefix) {
                 .attr('type', 'radio')
                 .attr('name', prefix + this.type)
                 .val(this.id)
+                //Catch input change & retarget it to the main span (which
+                //will allow cleaner .data('data') access downstream)
+                .on('change', function(ev) {
+                    ev.stopPropagation();
+                    $(this).parent().trigger('change');
+                })
         )
         //Render label
         .append(
