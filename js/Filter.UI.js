@@ -79,6 +79,10 @@ Filter.UI = {
                         .attr('for', prefix + 'FilterOption-' + name)
                         .html(label)
                 )
+                //Store option value/state on changes
+                .on('change', function() {
+                    $(this).data('value', $(this).find('input').is(':checked'));
+                })
             ;
         },
 
