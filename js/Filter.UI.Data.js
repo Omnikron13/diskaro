@@ -33,10 +33,10 @@ Filter.UI.Data = {
             )
             //Store human-readable filterStr on changes
             .on('change', function() {
-                var s =
-                    e.find('.dataButtonset .ui-button.ui-state-active>.ui-button-text')
-                        .html()
-                ;
+                //Abort string generation if no Data obj selected
+                if(typeof e.data('data') === 'undefined') return;
+                //Generate string
+                var s = e.data('data').name;
                 if(e.getOption('Negate')) s = '!' + s;
                 if(e.getOption('Recursive')) s += '*';
                 e.data('filterStr', s);
