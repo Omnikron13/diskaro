@@ -40,6 +40,8 @@ Track.method('renderTR', function(columns) {
     return $('<tr>')
         //Add generic selection class
         .addClass('trackItem')
+        //Store original Track obj
+        .data('track', this)
         //Render mouseover text
         .attr('title', this.getTitleString())
         //Render cells
