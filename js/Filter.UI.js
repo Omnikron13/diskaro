@@ -10,6 +10,8 @@ Filter.UI = {
             var e = $('<fieldset>')
                 //Store filter type string
                 .data('type', type)
+                //Create options object for later use
+                .data('options', {})
                 .addClass('filter')
                 .addClass(type.toLowerCase() + 'Filter')
                 .append(
@@ -32,6 +34,13 @@ Filter.UI = {
                         .append(options)
                         .buttonset()
                 )
+                //Catch option value/state updates
+                .on('optionUpdate', function(ev, name) {
+                    //Kill event
+                    ev.stopPropagation();
+                    //Store new value/state in main .filter element
+                    $(this).data('options')[name] = $(ev.target).data('value');
+                })
                 //Update stored Filter on (bubbled) change events
                 .on('change', function() {
                     e.data('filter', e.getFilter());
