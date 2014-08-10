@@ -32,6 +32,8 @@ Data.method('renderRadio', function(prefix) {
         //Add class for generic selection
         .addClass('dataRadio')
         .addClass(this.type.toLowerCase()+'Radio')
+        //Store Data obj in element
+        .data('data', this)
         //Render button
         .append(
             $('<input>')
