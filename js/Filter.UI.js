@@ -39,17 +39,8 @@ Filter.UI = {
 
             //Method to check the value of a UI option
             e.getOption = function(o) {
-                //Find option container element
-                o = e.children('.options')
-                    .find('.filterOption-' + o);
-                //Process checkbox options
-                if(o.hasClass('optionCheckbox'))
-                    return o.find('input').is(':checked');
-                //Process radio options
-                if(o.hasClass('optionRadio'))
-                    return o.find(':checked').val();
-                //Process all other options
-                return o.find('input').val();
+                return e.find('.options .filterOption-'+o)
+                    .data('value');
             };
 
             //'Abstract' method ensuring .getFilter calls always 'work'
