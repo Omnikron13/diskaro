@@ -61,10 +61,9 @@ Filter.UI.Data = {
         });
         //Add method to get Filter object
         e.getFilter = function() {
-            var d = e.find('.dataButtonset').data('data');
-            return typeof d === 'undefined'?
+            return typeof e.data('data') === 'undefined'?
                 null:
-                Filter[type](d, e.getOption('Recursive'), e.getOption('Negate'));
+                Filter[type](e.data('data'), e.getOption('Recursive'), e.getOption('Negate'));
         };
         return e;
     },
