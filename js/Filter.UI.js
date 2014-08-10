@@ -119,6 +119,10 @@ Filter.UI = {
                         ];
                     })
                 )
+                //Store option value/state on changes
+                .on('change', function() {
+                    $(this).data('value', $(this).find(':checked').val());
+                })
             ;
         },
     }
