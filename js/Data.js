@@ -32,6 +32,7 @@ Data.method('renderRadio', function(prefix) {
         //Add class for generic selection
         .addClass('dataRadio')
         .addClass(this.type.toLowerCase()+'Radio')
+        //Render button
         .append(
             $('<input>')
                 .attr('id', idStr)
@@ -39,6 +40,7 @@ Data.method('renderRadio', function(prefix) {
                 .attr('name', prefix + this.type)
                 .val(this.id)
         )
+        //Render label
         .append(
             $('<label>')
                 .attr('for', idStr)
