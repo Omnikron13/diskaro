@@ -43,6 +43,10 @@ DataList.UI = {
                         ;
                     })
                 )
+                //Catch button selection & store selected Data obj
+                .on('change', function(ev) {
+                    $(this).data('data', $(ev.target).data('data'));
+                })
                 .buttonset()
             ;
         }
