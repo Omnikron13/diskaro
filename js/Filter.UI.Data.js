@@ -51,6 +51,11 @@ Filter.UI.Data = {
                         .addClass('body')
                         //Add class for specific selection (e.g. .dataFilter>.body.buttons)
                         .addClass('buttons')
+                        //Catch radio/data selection & store Data obj in main element
+                        .on('change', function() {
+                            $(this).parents('.dataFilter')
+                                .data('data', $(this).data('data'));
+                        })
                 )
             ;
         });
