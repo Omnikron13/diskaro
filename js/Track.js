@@ -38,8 +38,11 @@ function Track(json) {
 Track.method('renderTR', function(columns) {
     var that = this;
     return $('<tr>')
+        //Add generic selection class
         .addClass('trackItem')
+        //Render mouseover text
         .attr('title', this.getTitleString())
+        //Render cells
         .append($.map(columns, function(c) {
             return c.renderTD(that);
         }))
