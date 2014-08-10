@@ -46,5 +46,5 @@ DataList.UI = {
                 .buttonset()
             ;
         }
-    }
+    },
 };
