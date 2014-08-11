@@ -54,24 +54,21 @@ Filter.UI.Data = {
                         //Catch radio/data selection
                         .on('change', function() {
                             //Store Data obj in main element
-                            $(this).parents('.dataFilter')
-                                .data('data', $(this).data('data'));
+                            e.data('data', $(this).data('data'));
                             //Check for stored Filter obj
-                            if($(this).parents('.dataFilter').data('filter')) {
+                            if(e.data('filter')) {
                                 //Stored filter exists; update it
-                                $(this).parents('.dataFilter')
-                                    .data('filter').data = $(this).data('data');
+                                e.data('filter').data = $(this).data('data');
                             } else {
                                 //Stored filter doesn't exist; create it
-                                $(this).parents('.dataFilter')
-                                    .data(
-                                        'filter',
-                                        Filter[type](
-                                            e.data('data'),
-                                            e.data('options').Recursive,
-                                            e.data('options').Negate
-                                        )
-                                    );
+                                e.data(
+                                    'filter',
+                                    Filter[type](
+                                        e.data('data'),
+                                        e.data('options').Recursive,
+                                        e.data('options').Negate
+                                    )
+                                );
                             }
                             //Trigger custom event to indicate .data('filter') change
                             $(this).trigger('filterUpdate');
