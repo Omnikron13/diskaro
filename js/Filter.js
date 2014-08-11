@@ -73,6 +73,14 @@ Filter.Regex = function(regex, caseSensitive, negate) {
             negate: this.negate
         };
     };
+    //Method to generate human-readable version of the Filter
+    f.toString = function() {
+        return _('Regex')
+            + ': '
+            + (this.negate?'!':'')
+            + this.genRegex()
+        ;
+    };
     return f;
 };
 
