@@ -31,8 +31,8 @@ Filter.UI.Data = {
                     .addClass('buttons')
                     .html(_(type + ' list loading') + '...')
             )
-            //Store human-readable filterStr on changes
-            .on('change', function() {
+            //Store human-readable filterStr on filter changes
+            .on('filterUpdate', function() {
                 //Abort string generation if no Data obj selected
                 if(typeof e.data('data') === 'undefined') return;
                 //Generate string
