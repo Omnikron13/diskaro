@@ -72,6 +72,16 @@ Filter.UI.Regex = {
                 if(e.getOption('Negate')) s = '!' + s;
                 e.data('filterStr', s);
             })
+            //Catch option value/state changes
+            .on('optionUpdate', function(ev, name, val) {
+                //Check for CaseSensitive change & existing Filter obj
+                if(name == 'CaseSensitive' && $(this).data('filter')) {
+                    //Update case sensitive flag
+                    $(this).data('filter').caseSensitive = val;
+                    //Trigger custom event to indicate .data('filter') change
+                    $(this).trigger('filterUpdate');
+                }
+            })
         ;
 
         //Method to generate the PCRE/PHP regex str
