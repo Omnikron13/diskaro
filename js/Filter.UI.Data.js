@@ -37,8 +37,8 @@ Filter.UI.Data = {
                 if(typeof e.data('data') === 'undefined') return;
                 //Generate string
                 var s = e.data('data').name;
-                if(e.getOption('Negate')) s = '!' + s;
-                if(e.getOption('Recursive')) s += '*';
+                if(e.data('options')['Negate']) s = '!' + s;
+                if(e.data('options')['Recursive']) s += '*';
                 e.data('filterStr', s);
             })
             //Catch option value/state changes
