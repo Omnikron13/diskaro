@@ -73,6 +73,11 @@ Filter.UI.Tabs = {
                 collapsible: true,
                 active: false,
             })
+            //Catch filter state changes from tabbed Filter.UI
+            .on('filterUpdate', function(ev, f) {
+                //Store new Filter in main .filterTabs element
+                $(this).data('filter', f);
+            })
             //Update stored Filter, type str & human-readable str and trigger
             //change event on open/close/switch tab
             .on('tabsactivate', function(ev, u) {
