@@ -8,6 +8,8 @@ Filter.UI = {
         //Function for creating core (empty) Filter UI elements
         render: function(type, options, prefix) {
             var e = $('<fieldset>')
+                //Initialise stored filter 'variable'
+                .data('filter', null)
                 //Store filter type string
                 .data('type', type)
                 //Create options object for later use
