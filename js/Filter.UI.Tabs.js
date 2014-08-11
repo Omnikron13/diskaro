@@ -93,8 +93,8 @@ Filter.UI.Tabs = {
                             filterType: f.data('type'),
                         });
                 }
-                //Retrigger as a change event
-                e.trigger('change');
+                //Retrigger as a filterUpdate event
+                e.trigger('filterUpdate', e.data('filter'));
             })
         ;
         //Rendering done
