@@ -54,17 +54,7 @@ Filter.UI.Tabs = {
                     return $(Filter.UI.Tabs.tabTag)
                         .attr('id', tabID + i)
                         .addClass('filterTab')
-                        .append(
-                            f
-                                //Update stored Filter, type str & human-readable str on Filter.UI change
-                                .on('change', function() {
-                                    e.data({
-                                        filter: f.data('filter'),
-                                        filterType: f.data('type'),
-                                        filterStr: f.data('filterStr'),
-                                    });
-                                })
-                        )
+                        .append(f)
                     ;
                 })
             )
