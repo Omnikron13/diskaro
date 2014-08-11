@@ -4,6 +4,12 @@ function Filter(type, negate) {
     //Set common properties
     this.type = type;
     this.negate = typeof negate=='undefined'?false:negate;
+    //Fallback method to generate generic human-readable version
+    this.toString = function() {
+        return (this.negate?'!':'')
+            + _(this.type)
+        ;
+    };
 };
 
 //Encode the filter as JSON in a format understood by Filter::load()
