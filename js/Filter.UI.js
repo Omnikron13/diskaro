@@ -50,11 +50,6 @@ Filter.UI = {
                 })
             ;
 
-            //'Abstract' method ensuring .getFilter calls always 'work'
-            e.getFilter = function() {
-                return null;
-            };
-
             return e;
         },
 
