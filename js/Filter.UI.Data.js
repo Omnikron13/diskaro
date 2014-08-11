@@ -42,11 +42,11 @@ Filter.UI.Data = {
                 e.data('filterStr', s);
             })
             //Catch option value/state changes
-            .on('optionUpdate', function(ev, name) {
+            .on('optionUpdate', function(ev, name, val) {
                 //Check for Recursive change & existing Filter obj
                 if(name == 'Recursive' && $(this).data('filter')) {
                     //Update stored filter
-                    $(this).data('filter').recursive = $(ev.target).data('value');
+                    $(this).data('filter').recursive = val;
                     //Trigger custom event to indicate .data('filter') change
                     $(this).trigger('filterUpdate');
                 }
