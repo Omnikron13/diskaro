@@ -41,6 +41,15 @@ Filter.data = function(type, data, recursive, negate) {
             negate: this.negate
         };
     };
+    //Method to generate human-readable version of the Filter
+    f.toString = function() {
+        return _(data.type)
+            + ': '
+            + (f.negate?'!':'')
+            + f.data.name
+            + (f.recursive?'*':'')
+        ;
+    };
     return f;
 };
 
