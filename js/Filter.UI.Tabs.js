@@ -82,24 +82,19 @@ Filter.UI.Tabs = {
                 //Tab was opened/switched...
                 $(this).trigger('tabOpen', u);
             })
-            //Update stored Filter, type str & human-readable str and trigger
-            //change event on open/close/switch tab
-            .on('tabsactivate', function(ev, u) {
-                //Tab was closed...
-                if(Object.keys(u.newPanel).length == 0)
-                    e.data('filter', null);
-                //Tab was opened/switched
-                else {
-                    var f = u.newPanel.find('.filter');
-                    //...but there is no Filter stored
-                    if(!f.data('filter'))
-                        e.data('filter', null);
-                    //...and there is a Filter stored
-                    else
-                        e.data('filter', f.data('filter'));
-                }
+            //Catch tab open(/switch) events
+            .on('tabOpen', function(ev, u) {
+                //Store Filter object (or null) from new tab in .filterTabs
+                $(this).data('filter', u.newPanel.find('.filter').data('filter') || null);
                 //Retrigger as a filterUpdate event
-                e.trigger('filterUpdate', e.data('filter'));
+                $(this).trigger('filterUpdate', $(this).data('filter'));
+            })
+            //Catch tab close events
+            .on('tabClose', function(ev, u) {
+                //Null the stored Filter obj
+                e.data('filter', null);
+                //Retrigger as a filterUpdate event
+                $(this).trigger('filterUpdate', null);
             })
         ;
         //Rendering done
