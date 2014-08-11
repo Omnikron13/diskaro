@@ -43,9 +43,26 @@ Filter.UI.Regex = {
                             .attr('name', 'regexField')
                             .attr('type', Filter.UI.Regex.fieldType)
                             .attr('placeholder', Filter.UI.Regex.regexPlaceholderStr)
-                            //Pass on /actual/ changes to the regex as a change event
+                            //Catch /actual/ changes to the regex input
                             .on('input', function() {
-                                e.trigger('change');
+                                //Store raw (without // or flags) regex
+                                e.data('regex', $(this).val());
+                                //Check if Filter obj is stored already
+                                if(e.data('filter')) {
+                                    //Filter obj exists; update regex
+                                    e.data('filter').regex = e.data('regex');
+                                } else {
+                                    //Filter obj doesn't exist; create it
+                                    e.data(
+                                        'filter',
+                                        Filter.Regex(
+                                            e.data('regex'),
+                                            e.data('options')['CaseSensitive'],
+                                            e.data('options')['Negate']
+                                        )
+                                    );
+                                }
+                                e.trigger('filterUpdate');
                             })
                     )
             )
