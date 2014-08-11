@@ -33,6 +33,7 @@ Filter.data = function(type, data, recursive, negate) {
     var f = new Filter(type, negate);
     f.data = data;
     f.recursive = typeof recursive=='undefined'?false:recursive;
+    //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
             id: this.data.id,
@@ -47,6 +48,7 @@ Filter.data = function(type, data, recursive, negate) {
 Filter.Regex = function(regex, negate) {
     var f = new Filter('RegexFilter', negate);
     f.regex = regex;
+    //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
             regex: this.regex,
@@ -61,6 +63,7 @@ Filter.Compound = function(filters, operator, negate) {
     var f = new Filter('CompoundFilter', negate);
     f.filters = filters;
     f.operator = operator;
+    //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
             filters: this.filters.map(function(x, i) {
