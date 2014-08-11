@@ -68,6 +68,20 @@ Filter.UI.Tabs = {
                 //Store new Filter in main .filterTabs element
                 $(this).data('filter', f);
             })
+            //Catch tab open/close/switch events & retrigger specific events
+            .on('tabsactivate', function(ev, u) {
+                //Tab was closed...
+                if(Object.keys(u.newPanel).length == 0) {
+                    $(this).trigger('tabClose', u);
+                    return;
+                }
+                //Tab was switched...
+                if(Object.keys(u.oldPanel).length != 0) {
+                    $(this).trigger('tabSwitch', u);
+                }
+                //Tab was opened/switched...
+                $(this).trigger('tabOpen', u);
+            })
             //Update stored Filter, type str & human-readable str and trigger
             //change event on open/close/switch tab
             .on('tabsactivate', function(ev, u) {
