@@ -66,12 +66,6 @@ Filter.UI.Regex = {
                             })
                     )
             )
-            //Store human-readable filterStr on changes
-            .on('change', function() {
-                var s = e.getRegex();
-                if(e.getOption('Negate')) s = '!' + s;
-                e.data('filterStr', s);
-            })
             //Catch option value/state changes
             .on('optionUpdate', function(ev, name, val) {
                 //Check for CaseSensitive change & existing Filter obj

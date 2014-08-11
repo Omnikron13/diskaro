@@ -31,16 +31,6 @@ Filter.UI.Data = {
                     .addClass('buttons')
                     .html(_(type + ' list loading') + '...')
             )
-            //Store human-readable filterStr on filter changes
-            .on('filterUpdate', function() {
-                //Abort string generation if no Data obj selected
-                if(typeof e.data('data') === 'undefined') return;
-                //Generate string
-                var s = e.data('data').name;
-                if(e.data('options')['Negate']) s = '!' + s;
-                if(e.data('options')['Recursive']) s += '*';
-                e.data('filterStr', s);
-            })
             //Catch option value/state changes
             .on('optionUpdate', function(ev, name, val) {
                 //Check for Recursive change & existing Filter obj
