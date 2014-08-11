@@ -54,12 +54,6 @@ Filter.UI = {
                 })
             ;
 
-            //Method to check the value of a UI option
-            e.getOption = function(o) {
-                return e.find('.options .filterOption-'+o)
-                    .data('value');
-            };
-
             //'Abstract' method ensuring .getFilter calls always 'work'
             e.getFilter = function() {
                 return null;
