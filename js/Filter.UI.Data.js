@@ -38,7 +38,7 @@ Filter.UI.Data = {
                     //Update stored filter
                     $(this).data('filter').recursive = val;
                     //Trigger custom event to indicate .data('filter') change
-                    $(this).trigger('filterUpdate');
+                    $(this).trigger('filterUpdate', $(this).data('filter'));
                 }
             })
         ;
@@ -71,7 +71,7 @@ Filter.UI.Data = {
                                 );
                             }
                             //Trigger custom event to indicate .data('filter') change
-                            $(this).trigger('filterUpdate');
+                            $(this).trigger('filterUpdate', e.data('filter'));
                         })
                 )
             ;

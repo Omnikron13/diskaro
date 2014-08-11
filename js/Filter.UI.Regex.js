@@ -62,7 +62,7 @@ Filter.UI.Regex = {
                                         )
                                     );
                                 }
-                                e.trigger('filterUpdate');
+                                e.trigger('filterUpdate', e.data('filter'));
                             })
                     )
             )
@@ -73,7 +73,7 @@ Filter.UI.Regex = {
                     //Update case sensitive flag
                     $(this).data('filter').caseSensitive = val;
                     //Trigger custom event to indicate .data('filter') change
-                    $(this).trigger('filterUpdate');
+                    $(this).trigger('filterUpdate', $(this).data('filter'));
                 }
             })
         ;

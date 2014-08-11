@@ -45,7 +45,7 @@ Filter.UI = {
                         //Update stored filter
                         $(this).data('filter').negate = val;
                         //Trigger custom event to indicate .data('filter') change
-                        $(this).trigger('filterUpdate');
+                        $(this).trigger('filterUpdate', $(this).data('filter'));
                     }
                 })
             ;
