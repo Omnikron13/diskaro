@@ -86,7 +86,7 @@ Filter.UI.Tabs = {
                 else {
                     var f = u.newPanel.find('.filter');
                     //...but there is no Filter stored
-                    if(typeof f.data('filter') == 'undefined')
+                    if(!f.data('filter'))
                         e.data({
                             filter: null,
                             filterType: null,
