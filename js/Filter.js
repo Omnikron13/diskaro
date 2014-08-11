@@ -57,7 +57,9 @@ Filter.data = function(type, data, recursive, negate) {
 
 //Static method to create RegexFilter objects
 Filter.Regex = function(regex, negate) {
+    //Create base Filter obj
     var f = new Filter('RegexFilter', negate);
+    //Add specific properties
     f.regex = regex;
     //Method to generate plain obj version for JSON encoding
     f.getData = function() {
