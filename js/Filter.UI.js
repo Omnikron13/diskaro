@@ -48,10 +48,6 @@ Filter.UI = {
                         $(this).trigger('filterUpdate');
                     }
                 })
-                //Update stored Filter on (bubbled) change events
-                .on('change', function() {
-                    e.data('filter', e.getFilter());
-                })
             ;
 
             //'Abstract' method ensuring .getFilter calls always 'work'
