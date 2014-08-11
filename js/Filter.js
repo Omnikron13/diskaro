@@ -99,6 +99,14 @@ Filter.Compound = function(filters, operator, negate) {
             negate: this.negate
         };
     };
+    //Method to generate human-readable version of the Filter
+    f.toString = function() {
+        return _('Compound')
+            + ': '
+            + (this.negate?'!':'')
+            + _(this.operator)
+        ;
+    };
     return f;
 };
 
