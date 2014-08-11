@@ -73,25 +73,16 @@ Filter.UI.Tabs = {
             .on('tabsactivate', function(ev, u) {
                 //Tab was closed...
                 if(Object.keys(u.newPanel).length == 0)
-                    e.data({
-                        filter: null,
-                        filterType: null,
-                    });
+                    e.data('filter', null);
                 //Tab was opened/switched
                 else {
                     var f = u.newPanel.find('.filter');
                     //...but there is no Filter stored
                     if(!f.data('filter'))
-                        e.data({
-                            filter: null,
-                            filterType: null,
-                        });
+                        e.data('filter', null);
                     //...and there is a Filter stored
                     else
-                        e.data({
-                            filter: f.data('filter'),
-                            filterType: f.data('type'),
-                        });
+                        e.data('filter', f.data('filter'));
                 }
                 //Retrigger as a filterUpdate event
                 e.trigger('filterUpdate', e.data('filter'));
