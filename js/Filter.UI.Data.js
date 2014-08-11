@@ -41,6 +41,16 @@ Filter.UI.Data = {
                 if(e.getOption('Recursive')) s += '*';
                 e.data('filterStr', s);
             })
+            //Catch option value/state changes
+            .on('optionUpdate', function(ev, name) {
+                //Check for Recursive change & existing Filter obj
+                if(name == 'Recursive' && $(this).data('filter')) {
+                    //Update stored filter
+                    $(this).data('filter').recursive = $(ev.target).data('value');
+                    //Trigger custom event to indicate .data('filter') change
+                    $(this).trigger('filterUpdate');
+                }
+            })
         ;
         //Replace placeholder when complete DataList of [type] is loaded
         $.when(DataList.All.loaded(type)).done(function() {
