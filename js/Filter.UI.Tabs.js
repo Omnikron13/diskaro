@@ -85,7 +85,7 @@ Filter.UI.Tabs = {
             //Catch tab open(/switch) events
             .on('tabOpen', function(ev, u) {
                 //Store Filter object (or null) from new tab in .filterTabs
-                $(this).data('filter', u.newPanel.find('.filter').data('filter') || null);
+                $(this).data('filter', u.newPanel.find('.filter').data('filter'));
                 //Retrigger as a filterUpdate event
                 $(this).trigger('filterUpdate', $(this).data('filter'));
             })
