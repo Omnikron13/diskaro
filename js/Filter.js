@@ -30,7 +30,9 @@ Filter.method('constraint', function() {
 
 //Static method to create arbitrary DataFilter objects
 Filter.data = function(type, data, recursive, negate) {
+    //Create base Filter obj
     var f = new Filter(type, negate);
+    //Add specific properties
     f.data = data;
     f.recursive = recursive || false;
     //Method to generate plain obj version for JSON encoding
