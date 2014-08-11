@@ -40,6 +40,13 @@ Filter.UI = {
                     ev.stopPropagation();
                     //Store new value/state in main .filter element
                     $(this).data('options')[name] = $(ev.target).data('value');
+                    //Check for Negate change & existing filter
+                    if(name == 'Negate' && $(this).data('filter')) {
+                        //Update stored filter
+                        $(this).data('filter').negate = $(ev.target).data('value');
+                        //Trigger custom event to indicate .data('filter') change
+                        $(this).trigger('filterUpdate');
+                    }
                 })
                 //Update stored Filter on (bubbled) change events
                 .on('change', function() {
