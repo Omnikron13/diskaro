@@ -89,12 +89,6 @@ Filter.UI.Data = {
                 )
             ;
         });
-        //Add method to get Filter object
-        e.getFilter = function() {
-            return typeof e.data('data') === 'undefined'?
-                null:
-                Filter[type](e.data('data'), e.getOption('Recursive'), e.getOption('Negate'));
-        };
         return e;
     },
 
