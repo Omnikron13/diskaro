@@ -1,6 +1,7 @@
 //require_once(CrockfordSugar.js)
 
 function Filter(type, negate) {
+    //Set common properties
     this.type = type;
     this.negate = typeof negate=='undefined'?false:negate;
 };
