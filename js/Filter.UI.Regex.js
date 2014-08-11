@@ -91,14 +91,6 @@ Filter.UI.Regex = {
             ;
         };
 
-        //Method to return a Filter object based on options/entered regex
-        e.getFilter = function() {
-            return Filter.Regex(
-                e.getRegex(),
-                e.getOption('Negate')
-            );
-        };
-
         return e;
     }
 };
