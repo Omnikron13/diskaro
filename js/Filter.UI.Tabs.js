@@ -91,7 +91,6 @@ Filter.UI.Tabs = {
                         e.data({
                             filter: f.data('filter'),
                             filterType: f.data('type'),
-                            filterStr: f.data('filterStr'),
                         });
                 }
                 //Retrigger as a change event
