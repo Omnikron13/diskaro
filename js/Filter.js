@@ -56,15 +56,20 @@ Filter.data = function(type, data, recursive, negate) {
 };
 
 //Static method to create RegexFilter objects
-Filter.Regex = function(regex, negate) {
+Filter.Regex = function(regex, caseSensitive, negate) {
     //Create base Filter obj
     var f = new Filter('RegexFilter', negate);
     //Add specific properties
     f.regex = regex;
+    f.caseSensitive = caseSensitive || false;
+    //Method to generate full regex str (with // & flags)
+    f.genRegex = function() {
+        return '/' + this.regex + '/' + (this.caseSensitive?'':'i');
+    };
     //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
-            regex: this.regex,
+            regex: this.genRegex(),
             negate: this.negate
         };
     };
