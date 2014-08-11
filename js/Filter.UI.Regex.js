@@ -78,13 +78,6 @@ Filter.UI.Regex = {
             })
         ;
 
-        //Method to generate the PCRE/PHP regex str
-        e.getRegex = function() {
-            return '/' + e.find('.regexField').val() + '/'
-                + (e.getOption('CaseSensitive')?'':'i')
-            ;
-        };
-
         return e;
     }
 };
