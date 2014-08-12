@@ -91,6 +91,12 @@ Filter.Compound = function(filters, operator, negate) {
     //Add specific properties
     f.filters = filters;
     f.operator = operator;
+    //Method to filter out empty/null filters
+    f.getFilters = function() {
+        return this.filters.filter(function(x) {
+            return x;
+        });
+    }
     //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
