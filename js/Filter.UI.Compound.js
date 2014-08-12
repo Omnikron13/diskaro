@@ -32,6 +32,8 @@ Filter.UI.Compound = {
             ),
             prefix
         )
+            //Init constituent Filter storage
+            .data('filters', [])
             //Add accordion container
             .append(
                 $('<div>') //Shouldn't be hard coded
@@ -194,6 +196,8 @@ Filter.UI.Compound = {
                                 f.toString()
                         )
                     ;
+                    //Store Filter obj in array (in case main Filter isn't/can't init)
+                    cf.data('filters')[index] = f;
                 })
             ;
         },
