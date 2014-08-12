@@ -8,7 +8,6 @@ Track.UI = {
         items: [
             //Edit: open dialogue box where the user can edit Track data
             {title: _('Edit'), action: function(ev, ui) {
-                //Track.UI.Edit(ui.target.parents('.trackItem').data('track'));
                 Track.UI.Edit.renderDialogue(ui.target.parents('.trackItem').data('track'));
             }}
         ],
