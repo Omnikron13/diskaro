@@ -234,14 +234,14 @@ Filter.UI.Compound = {
                     u.newHeader
                         //Select/target Filter/Atom body
                         .next()
+                            //Null its filter
+                            .trigger('filterUpdate', null)
                             //Remove Filter/Atom element & reselect header
                             .remove()
                             .end()
                         //Remove header element
                         .remove()
                     ;
-                    //Trigger change/filter updates
-                    f.trigger('change');
                 })
             ;
         },
