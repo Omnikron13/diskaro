@@ -70,17 +70,19 @@ Filter.UI.Tabs = {
             })
             //Catch tab open/close/switch events & retrigger specific events
             .on('tabsactivate', function(ev, u) {
+                //Prevent retriggering events on other Tabs widgets
+                ev.stopPropagation();
                 //Tab was closed...
                 if(Object.keys(u.newPanel).length == 0) {
-                    $(this).trigger('tabClose', u);
+                    $(this).triggerHandler('tabClose', u);
                     return;
                 }
                 //Tab was switched...
                 if(Object.keys(u.oldPanel).length != 0) {
-                    $(this).trigger('tabSwitch', u);
+                    $(this).triggerHandler('tabSwitch', u);
                 }
                 //Tab was opened/switched...
-                $(this).trigger('tabOpen', u);
+                $(this).triggerHandler('tabOpen', u);
             })
             //Catch tab open(/switch) events
             .on('tabOpen', function(ev, u) {
