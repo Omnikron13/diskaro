@@ -180,15 +180,16 @@ Filter.UI.Compound = {
                 .addClass('atom')
                 //Disable collapsing - would null the filter
                 .tabs('option', 'collapsible', false)
-                .on('change', function() {
-                    $(this).prev()
-                        //Find actual header text & update it
-                        .find('.text')
-                            .html(
-                                $(this).data('filter') === null?
-                                    Filter.UI.Compound.emptyFilterStr:
-                                    _($(this).data('filterType')) + ': ' + $(this).data('filterStr')
-                            )
+                //Catch filter updates from the Filter.UI.Tabs
+                .on('filterUpdate', function(ev, f) {
+                    //Find header actual text wrapper
+                    $(this).prev().find('.text')
+                        //Update it
+                        .html(
+                            f == null?
+                                Filter.UI.Compound.emptyFilterStr:
+                                f.toString()
+                        )
                     ;
                 })
             ;
