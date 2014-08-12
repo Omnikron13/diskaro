@@ -230,11 +230,14 @@ Filter.UI.Compound = {
                 .on('click', function(ev) {
                     //Prevent click bubbling to accordion header
                     ev.stopPropagation();
-                    //Remove header & content
+                    //Clean & remove Atom
                     u.newHeader
+                        //Select/target Filter/Atom body
                         .next()
+                            //Remove Filter/Atom element & reselect header
                             .remove()
                             .end()
+                        //Remove header element
                         .remove()
                     ;
                     //Trigger change/filter updates
