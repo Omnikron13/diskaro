@@ -183,6 +183,8 @@ Filter.UI.Compound = {
                 .tabs('option', 'collapsible', false)
                 //Catch filter updates from the Filter.UI.Tabs
                 .on('filterUpdate', function(ev, f) {
+                    //Prevent (further) bubbling
+                    ev.stopPropagation();
                     //Find header actual text wrapper
                     $(this).prev().find('.text')
                         //Update it
