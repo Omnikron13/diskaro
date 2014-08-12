@@ -100,7 +100,7 @@ Filter.Compound = function(filters, operator, negate) {
     //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
-            filters: this.filters.map(function(x, i) {
+            filters: this.getFilters().map(function(x) {
                 return x.encode();
             }),
             operator: this.operator,
