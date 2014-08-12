@@ -28,7 +28,7 @@ Track.UI = {
     Edit: {
         //Function to render a Dialog widget with controls for editing Track data
         renderDialogue: function(t) {
-            $('<div>')
+            return $('<div>')
                 //Add selection class
                 .addClass('editTrack')
                 //Set dialogue title (render in top bar)
