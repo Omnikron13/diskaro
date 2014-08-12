@@ -86,7 +86,9 @@ Filter.Regex = function(regex, caseSensitive, negate) {
 
 //Static method to create CompoundFilter objects
 Filter.Compound = function(filters, operator, negate) {
+    //Create base Filter obj
     var f = new Filter('CompoundFilter', negate);
+    //Add specific properties
     f.filters = filters;
     f.operator = operator;
     //Method to generate plain obj version for JSON encoding
