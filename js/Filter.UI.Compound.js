@@ -94,6 +94,14 @@ Filter.UI.Compound = {
                 if(e.getOption('Negate')) s = '!' + s;
                 e.data('filterStr', s);
             })
+            //Catch option value/state changes
+            .on('optionUpdate', function(ev, name, val) {
+                //Check for Operator change & existing Filter obj
+                if(name == 'Operator' && $(this).data('filter')) {
+                    $(this).data('filter').operator = val;
+                    $(this).trigger('filterUpdate', $(this).data('filter'));
+                }
+            })
         ;
 
         //Add method to create Filter obj from UI state
