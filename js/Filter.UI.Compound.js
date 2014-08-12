@@ -198,6 +198,21 @@ Filter.UI.Compound = {
                     ;
                     //Store Filter obj in array (in case main Filter isn't/can't init)
                     cf.data('filters')[index] = f;
+                    //Check if Filter hasn't been initialised
+                    if(!cf.data('filter')) {
+                        //Can't init if no operator selected
+                        if(!cf.data('options')['Operator']) return;
+                        //Initialise from stored filters
+                        cf.data(
+                            'filter',
+                            Filter.Compound(
+                                cf.data('filters'),
+                                cf.data('options')['Operator'],
+                                cf.data('options')['Negate']
+                            )
+                        );
+                    }
+                    cf.trigger('filterUpdate', cf.data('filter'));
                 })
             ;
         },
