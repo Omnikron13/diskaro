@@ -88,12 +88,6 @@ Filter.UI.Compound = {
                         }
                     })
             )
-            //Store human-readable string on changes
-            .on('change', function() {
-                var s = e.getOption('Operator');
-                if(e.getOption('Negate')) s = '!' + s;
-                e.data('filterStr', s);
-            })
             //Catch option value/state changes
             .on('optionUpdate', function(ev, name, val) {
                 //Check for Operator change & existing Filter obj
