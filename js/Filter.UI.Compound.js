@@ -67,6 +67,7 @@ Filter.UI.Compound = {
                             u.newPanel
                                 .replaceWith(
                                     Filter.UI.Compound.Atom.renderBody(
+                                        e,
                                         prefix,
                                         index++,
                                         atoms
@@ -166,7 +167,7 @@ Filter.UI.Compound = {
         },
 
         //Render actual Filter.UI.Tabs element (to replace placeholder)
-        renderBody: function(prefix, index, filters) {
+        renderBody: function(cf, prefix, index, filters) {
             return Filter.UI.Tabs.render(
                 $.map(filters, function(f, i) {
                     return f.render.apply(
