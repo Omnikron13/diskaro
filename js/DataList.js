@@ -9,6 +9,17 @@ function DataList(type, items) {
     };
 };
 
+//Method for adding new (unique) Data objects to the list
+DataList.method('add', function(d) {
+    //Fail if types don't match
+    if(d.type != this.type) return this;
+    //Fail if d is already in the list
+    if(this.list.indexOf(d) != -1) return this;
+    //Add the item
+    this.list.push(d);
+    return this;
+});
+
 //Default toString() - join names, optionally with glue
 DataList.method('toString', function(glue) {
     glue = glue || '';
