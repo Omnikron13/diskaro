@@ -6,6 +6,15 @@ Data.Release = function(json) {
     var r = new Data('Release', json);
     r.year = json.year;
     r.label = json.label===null?null:Data.Label(json.label);
+    //Override generic .toJSON() from Data to include year & label
+    r.toJSON = function() {
+        return {
+            id    : r.id,
+            name  : r.name,
+            year  : r.year,
+            label : r.label,
+        };
+    };
     return r;
 };
 
