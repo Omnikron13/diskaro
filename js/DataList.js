@@ -28,6 +28,11 @@ DataList.method('toString', function(glue) {
     }).join(glue);
 });
 
+//'Magic' method to ensure correct JSON encoding
+DataList.method('toJSON', function() {
+    return this.list;
+});
+
 //Sort the underlying array, optionally with arbitrary sort
 DataList.method('sort', function(cb) {
     this.list.sort(cb || function(a, b) {
