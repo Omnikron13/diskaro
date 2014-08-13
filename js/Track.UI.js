@@ -27,6 +27,7 @@ Track.UI = {
     Edit: {
         //Function to render a Dialog widget with controls for editing Track data
         renderDialogue: function(t) {
+            var _t = t.clone();
             return $('<div>')
                 //Add selection class
                 .addClass('editTrack')
@@ -42,16 +43,16 @@ Track.UI = {
                 .append(
                     $('<input>')
                         .attr('id', 'trackNameField')
-                        .val(t.name)
+                        .val(_t.name)
                 )
                 //Render Artists section
                 //Render Genres section
                 .append(
-                    Track.UI.Edit.renderDataList(t.genres, _('Genres'))
+                    Track.UI.Edit.renderDataList(_t.genres, _('Genres'))
                 )
                 //Render Tags section
                 .append(
-                    Track.UI.Edit.renderDataList(t.tags, _('Tags'))
+                    Track.UI.Edit.renderDataList(_t.tags, _('Tags'))
                 )
                 //Create & show dialogue box
                 .dialog({
