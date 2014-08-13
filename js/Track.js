@@ -34,6 +34,20 @@ function Track(json) {
     });
 };
 
+//'Magic' method to ensure correct JSON encoding
+Track.method('toJSON', function() {
+    return {
+        id          : this.id,
+        name        : this.name,
+        path        : this.path,
+        release     : this.release,
+        trackNumber : this.trackNumber,
+        genres      : this.genres,
+        tags        : this.tags,
+        artistLinks : this.artistLinks,
+    };
+});
+
 //Generate a <tr> element of the track from given TrackColumns
 Track.method('renderTR', function(columns) {
     var that = this;
