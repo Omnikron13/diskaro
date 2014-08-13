@@ -58,6 +58,7 @@ Track.UI = {
                     modal: true,
                     resizable: false,
                     draggable: false,
+                    closeOnEscape: true,
                     buttons: [
                         {text: _('Cancel'), click: function() {
                             $(this).dialog('destroy');
