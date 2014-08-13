@@ -38,6 +38,7 @@ Track.UI = {
                         .attr('for', 'trackNameField')
                         .html(_('Title'))
                 )
+                //Render actual input box
                 .append(
                     $('<input>')
                         .attr('id', 'trackNameField')
