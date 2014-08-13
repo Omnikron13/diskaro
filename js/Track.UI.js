@@ -58,6 +58,13 @@ Track.UI = {
                 .append(
                     Track.UI.Edit.renderDataList(_t.tags, _('Tags'))
                 )
+                //Internal event for shorthand save & close/destroy
+                .on('saveAndClose', function(ev, t) {
+                    $(this)
+                        .trigger('save', t)
+                        .dialog('destroy')
+                    ;
+                })
                 //Create & show dialogue box
                 .dialog({
                     modal: true,
