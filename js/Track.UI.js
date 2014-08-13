@@ -75,7 +75,11 @@ Track.UI = {
                         {text: _('Cancel'), click: function() {
                             $(this).dialog('destroy');
                         }},
-                        {text: _('Save')},
+                        {text: _('Save'), click: function() {
+                            $(this)
+                                .triggerHandler('saveAndClose', _t)
+                            ;
+                        }},
                     ],
                 })
             ;
