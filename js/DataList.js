@@ -9,12 +9,22 @@ function DataList(type, items) {
     };
 };
 
+//Method to check if a given Data object is in the list
+DataList.method('contains', function(d) {
+    //Assume it cannot be if types don't match
+    if(this.type != d.type) return false;
+    //Check for id match
+    return this.list.some(function(x) {
+        return d.id == x.id;
+    });
+});
+
 //Method for adding new (unique) Data objects to the list
 DataList.method('add', function(d) {
     //Fail if types don't match
     if(d.type != this.type) return this;
     //Fail if d is already in the list
-    if(this.list.indexOf(d) != -1) return this;
+    if(this.contains(d)) return this;
     //Add the item
     this.list.push(d);
     return this;
