@@ -45,7 +45,7 @@ TrackList.method('renderTable', function() {
         )
         //Render track rows
         .append($.map(this.list, function(t, i) {
-            return t.renderTR(that.columns)
+            return Track.UI.Row.render(t, that.columns)
                 .on('dblclick', function() {
                     that.trackDblClick(i);
                 })
