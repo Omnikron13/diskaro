@@ -10,6 +10,17 @@ function Data(type, json) {
         this.parentIDs = json.parentIDs;
 };
 
+//'Magic' method to ensure correct generic JSON encoding
+Data.method('toJSON', function() {
+    var j = {
+        id: this.id,
+        name: this.name,
+    };
+    if(this.hasOwnProperty('parentIDs'))
+        j.parentIDs = this.parentIDs;
+    return j;
+});
+
 //Render the Data as an <li> DOM element
 Data.method('renderLI', function() {
     return $('<li>')
