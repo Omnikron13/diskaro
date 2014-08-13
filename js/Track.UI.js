@@ -44,6 +44,10 @@ Track.UI = {
                     $('<input>')
                         .attr('id', 'trackNameField')
                         .val(_t.name)
+                        //Update .name of Track being edited on changes
+                        .on('change', function() {
+                            _t.name = $(this).val();
+                        })
                 )
                 //Render Artists section
                 //Render Genres section
