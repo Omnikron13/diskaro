@@ -48,6 +48,11 @@ Track.method('toJSON', function() {
     };
 });
 
+//Shorthand method to copy object by serialise/deserialise
+Track.method('clone', function() {
+    return new Track(JSON.parse(JSON.stringify(this)));
+});
+
 //Generate a <tr> element of the track from given TrackColumns
 Track.method('renderTR', function(columns) {
     var that = this;
