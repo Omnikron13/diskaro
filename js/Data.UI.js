@@ -7,6 +7,8 @@ Data.UI = {
         //Function to render <li> (jQuery) element from Data obj
         render: function(d) {
             return $('<li>')
+                //Store original Data obj
+                .data('data', d)
                 //Add generic selection class
                 .addClass('dataItem')
                 //Add specific selecion class (e.g. .dataItem.Genre)
