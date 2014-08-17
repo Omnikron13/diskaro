@@ -65,6 +65,8 @@ $.extend(_._strings, {
     'Remixer'  : '',
     'Vocals'   : '',
     //Misc.
+    'Play'        : '',
+    'Edit'        : '',
     'Unknown'     : '',
     'Loading'     : '',
     'Remove'      : '',
