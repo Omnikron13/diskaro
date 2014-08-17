@@ -53,23 +53,6 @@ Track.method('clone', function() {
     return new Track(JSON.parse(JSON.stringify(this)));
 });
 
-//Generate a <tr> element of the track from given TrackColumns
-Track.method('renderTR', function(columns) {
-    var that = this;
-    return $('<tr>')
-        //Add generic selection class
-        .addClass('trackItem')
-        //Store original Track obj
-        .data('track', this)
-        //Render mouseover text
-        .attr('title', this.getTitleString())
-        //Render cells
-        .append($.map(columns, function(c) {
-            return c.renderTD(that);
-        }))
-    ;
-});
-
 //Should probably be more flexible/configurable
 Track.method('getTitleString', function() {
     var that = this;
