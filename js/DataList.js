@@ -51,22 +51,6 @@ DataList.method('sort', function(cb) {
     return this;
 });
 
-//Render the list as a <ul> DOM element
-DataList.method('renderUL', function() {
-    var that = this;
-    return $('<ul>')
-        .addClass('dataList')
-        .addClass(this.type.toLowerCase()+'List')
-        .append($.map(this.list, function(d, i) {
-            return d.renderLI()
-                .on('click', function() {
-                    that.processCallbacks('itemClick', i);
-                })
-            ;
-        }))
-    ;
-});
-
 //Register a new callback function in the .callbacks array
 DataList.method('addCallback', function(e, cb) {
     if(!this.callbacks.hasOwnProperty(e))
