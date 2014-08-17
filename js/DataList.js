@@ -51,25 +51,6 @@ DataList.method('sort', function(cb) {
     return this;
 });
 
-//Register a new callback function in the .callbacks array
-DataList.method('addCallback', function(e, cb) {
-    if(!this.callbacks.hasOwnProperty(e))
-        this.callbacks[e] = [];
-    this.callbacks[e].push(cb);
-    return this;
-});
-
-//Process the registered callbacks for a given event, passing each a .type 
-//object and the internal index of the object
-DataList.method('processCallbacks', function(e, i) {
-    if(!this.callbacks.hasOwnProperty(e)) return this;
-    var that = this;
-    this.callbacks[e].forEach(function(cb) {
-        cb(that.list[i], i);
-    });
-    return this;
-});
-
 //Shorthand static to create Artist DataList objects
 DataList.Artist = function(artists) {
     return new DataList('Artist', artists);
