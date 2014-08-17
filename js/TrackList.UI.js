@@ -74,6 +74,10 @@ TrackList.UI = {
                                     })
                                 )
                             ;
+                            //If a sort column is active retrigger the sort
+                            if(that.data('sortColumn')) {
+                                that.data('sortColumn').trigger('sort', that.data('sort'));
+                            }
                         })
                 })
                 //Trigger inital load/output
