@@ -65,20 +65,13 @@ DataList.UI = {
                         .html(legend)
                 )
                 .append(
-                    $.map(dl.list, function(d, i) {
-                        return d.renderRadio(prefix)
-                            .on('click', function() {
-                                dl.processCallbacks('itemClick', i);
-                            })
-                            .on('change', function() {
-                                dl.processCallbacks('itemChange', i);
-                            })
-                        ;
+                    dl.list.map(function(d) {
+                        return Data.UI.Radio.render(d, prefix);
                     })
                 )
                 //Catch button selection & store selected Data obj
-                .on('change', function(ev) {
-                    $(this).data('data', $(ev.target).data('data'));
+                .on('dataSelect', function(ev, d) {
+                    $(this).data('data', d);
                 })
                 .buttonset()
             ;
