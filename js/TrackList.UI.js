@@ -7,6 +7,8 @@ TrackList.UI = {
         //Function to render <table> from a TrackList
         render: function(tl, columns) {
             return $('<table>')
+                //Initialise internal TrackList object
+                .data('tracklist', new TrackList([]))
                 //Add selection class
                 .addClass('trackList')
                 //Render headings row
@@ -55,6 +57,36 @@ TrackList.UI = {
                             .appendTo($(this))
                             .end()
                     ;
+                })
+                //Event to load & output new TrackList from given Filter
+                .on('load', function(ev, f) {
+                    //Store 'this' for callbacks
+                    var that = $(this);
+                    //Load Tracks from DB & defer output
+                    $.when(that.data('tracklist').load(f))
+                        .done(function() {
+                            that
+                                //Clear old Track.UI.Row elements
+                                .find('.trackItem')
+                                    .remove()
+                                    .end()
+                                //Render new Track.UI.Row elements
+                                .append(
+                                    that.data('tracklist').list.map(function(t, i) {
+                                        return Track.UI.Row.render(t, columns)
+                                            //Custom event to start Track playing
+                                            .on('play', function() {
+                                                that.data('tracklist').play(i);
+                                            })
+                                            //Retrigger double clicks as play events
+                                            .on('dblclick', function() {
+                                                $(this).triggerHandler('play')
+                                            })
+                                        ;
+                                    })
+                                )
+                            ;
+                        })
                 })
             ;
         },
