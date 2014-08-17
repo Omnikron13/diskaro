@@ -31,6 +31,7 @@ TrackList.UI = {
                     }
                     //Sort the Track.UI.Row elements
                     $(this)
+                        //Select Track.UI.Row elements
                         .find('.trackItem')
                             //Temporarily remove them from the DOM
                             .detach()
