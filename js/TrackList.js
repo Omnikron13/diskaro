@@ -78,12 +78,6 @@ TrackList.method('playRandom', function() {
     return this.play(i);
 });
 
-//Method to update the browser output
-TrackList.method('update', function() {
-    $('#trackList').replaceWith(this.renderTable());
-    return this;
-});
-
 //Static member defining a default set of TrackColumns to render
 TrackList.defaultColumns = [
     new TrackColumn('#', TrackColumn.renderNumber, TrackColumn.sortNumber),
