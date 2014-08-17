@@ -129,6 +129,12 @@ Track.UI = {
                                 });
                         })
                 )
+                //Catch 'add' events on the main element
+                .on('add', function(ev, d) {
+                    //...and defer them to the DataList.UI.UL element
+                    $(this).find('.dataList')
+                        .triggerHandler('add', d);
+                })
             ;
             return e;
         },
