@@ -6,6 +6,10 @@ Track.UI = {
     Context: {
         //Array of items in the menu
         items: [
+            //Play: start Track playing
+            {title: _('Play'), action: function(ev, ui) {
+                ui.target.parents('.trackItem').triggerHandler('play');
+            }},
             //Edit: open dialogue box where the user can edit Track data
             {title: _('Edit'), action: function(ev, ui) {
                 var tr = ui.target.parents('.trackItem');
