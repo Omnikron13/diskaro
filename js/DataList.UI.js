@@ -58,7 +58,7 @@ DataList.UI = {
             return $(DataList.UI.Buttonset.mainTag)
                 .attr('id', prefix + dl.type + 'Buttonset')
                 .addClass('dataButtonset')
-                .addClass(dl.type.toLowerCase() + 'Buttonset')
+                .addClass(dl.type)
                 .append(
                     $(DataList.UI.Buttonset.headerTag)
                         .addClass('header')
