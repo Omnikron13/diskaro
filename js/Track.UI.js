@@ -97,7 +97,7 @@ Track.UI = {
 
         //Function for rendering DataList output/edit sections
         renderDataList: function(dl, head) {
-            return $('<fieldset>')
+            var e = $('<fieldset>')
                 .addClass('editList')
                 //Render section header/legend
                 .append(
@@ -130,6 +130,7 @@ Track.UI = {
                         })
                 )
             ;
+            return e;
         },
     },
 };
