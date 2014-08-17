@@ -5,7 +5,7 @@ TrackList.UI = {
     //Subnamespace for <table> output
     Table: {
         //Function to render <table> from a TrackList
-        render: function(tl, columns) {
+        render: function(columns, filter) {
             return $('<table>')
                 //Initialise internal TrackList object
                 .data('tracklist', new TrackList([]))
@@ -13,21 +13,6 @@ TrackList.UI = {
                 .addClass('trackList')
                 //Render headings row
                 .append(TrackList.UI.Table.renderHeadings(columns))
-                //Render Track rows
-                .append(
-                    tl.list.map(function(t, i) {
-                        return Track.UI.Row.render(t, columns)
-                            //Custom event to start Track playing
-                            .on('play', function() {
-                                tl.play(i);
-                            })
-                            //Retrigger double clicks as play events
-                            .on('dblclick', function() {
-                                $(this).triggerHandler('play')
-                            })
-                        ;
-                    })
-                )
                 //Event to sort Track.UI.Row elements with Track sort callback
                 .on('sort', function(ev, s) {
                     //If no previous sort heading stored
@@ -88,6 +73,8 @@ TrackList.UI = {
                             ;
                         })
                 })
+                //Trigger inital load/output
+                .trigger('load', filter)
             ;
         },
 
