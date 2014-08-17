@@ -24,11 +24,6 @@ TrackList.method('load', function(f) {
     }, f);
 });
 
-//Method to process track double clicks
-TrackList.method('trackDblClick', function(index) {
-    this.play(index);
-});
-
 //Method to sort the tracklist - just defers to list.sort()
 TrackList.method('sort', function(sort) {
     this.list.sort(sort);
