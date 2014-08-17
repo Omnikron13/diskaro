@@ -1,7 +1,38 @@
 //require_once(DataList.js)
+//require_once(Data.UI.js)
 
 //UI 'namespace' for jQuery UI functionality
 DataList.UI = {
+    //Subnamespace for creating unordered list (<ul>) UI elements
+    UL: {
+        //Function to create actual <ul> element
+        render: function(dl) {
+            return $('<ul>')
+                //Store original DataList object
+                .data('datalist', dl)
+                //Add generic selection class
+                .addClass('dataList')
+                //Add specific selection class (e.g. .dataList.Genre)
+                .addClass(dl.type)
+                //Render Data.UI.LI elements
+                .append(
+                    dl.list.map(function(d, i) {
+                        return Data.UI.LI.render(d);
+                    })
+                )
+                //Event to add Data obj to the underlying list & UI output
+                .on('add', function(ev, d) {
+                    //Abort if Data obj already in list
+                    if(dl.contains(d)) return;
+                    //Add to DataList
+                    dl.add(d);
+                    //Add to UI output
+                    $(this).append(Data.UI.LI.render(d));
+                })
+            ;
+        },
+    },
+
     Buttonset: {
         //Determines which HTML tag the Buttonset container should be
         mainTag: '<div>',
