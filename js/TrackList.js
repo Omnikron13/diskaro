@@ -24,37 +24,6 @@ TrackList.method('load', function(f) {
     }, f);
 });
 
-//Renders a <table> element of the track list
-TrackList.method('renderTable', function() {
-    var that = this;
-    return $('<table>')
-        .attr('id', 'trackList')
-        .addClass('trackList')
-        //Render headings row
-        .append($('<tr>')
-            .addClass('trackListHeadings')
-            .attr('id', 'trackListHeadings')
-            .append($.map(this.columns, function(c, i) {
-                return c.renderTH()
-                    .on('click', function() {
-                        that.headingClick(i);
-                    })
-                    .addClass(i === that.sortColumn?(that.sortAsc?'sortAsc':'sortDesc'):'')
-                ;
-            }))
-        )
-        //Render track rows
-        .append($.map(this.list, function(t, i) {
-            return Track.UI.Row.render(t, that.columns)
-                .on('dblclick', function() {
-                    that.trackDblClick(i);
-                })
-                .addClass(t.id === that.active?'trackActive':'')
-            ;
-        }))
-    ;
-});
-
 //Method to process track double clicks
 TrackList.method('trackDblClick', function(index) {
     this.play(index);
