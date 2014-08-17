@@ -33,6 +33,8 @@ DataList.UI = {
         },
     },
 
+    //Subnamespace for creating jQuery UI Buttonset elements which allow the
+    //user to select a single Data object from an arbitrary DataList
     Buttonset: {
         //Determines which HTML tag the Buttonset container should be
         mainTag: '<div>',
