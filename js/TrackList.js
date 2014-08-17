@@ -29,19 +29,6 @@ TrackList.method('trackDblClick', function(index) {
     this.play(index);
 });
 
-//Method to process heading (<th>) clicks
-TrackList.method('headingClick', function(i) {
-    if(this.sortColumn == i) {
-        this.list.reverse();
-        this.sortAsc = !this.sortAsc;
-    } else {
-        this.sort(this.columns[i].sort);
-        this.sortColumn = i;
-        this.sortAsc = true;
-    }
-    this.update();
-});
-
 //Method to sort the tracklist - just defers to list.sort()
 TrackList.method('sort', function(sort) {
     this.list.sort(sort);
