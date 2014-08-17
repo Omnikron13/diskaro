@@ -123,7 +123,8 @@ Track.UI = {
                                     DataList.UI.Dialogue.render(DataList.All[dl.type], 'add')
                                         //Catch selected Data obj on save
                                         .on('save', function(ev, d) {
-                                            //--Actual add logic here--
+                                            //Add selected Data obj to main list
+                                            e.trigger('add', d);
                                         })
                                     ;
                                 });
