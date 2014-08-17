@@ -107,7 +107,7 @@ Track.UI = {
                 )
                 //Render DataList as a list
                 .append(
-                    dl.renderUL()
+                    DataList.UI.UL.render(dl)
                 )
                 //Render an 'Add' button
                 .append(
