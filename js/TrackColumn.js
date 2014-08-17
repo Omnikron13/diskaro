@@ -54,18 +54,17 @@ TrackColumn.renderRelease = function(track) {
 };
 
 TrackColumn.renderGenres = function(track) {
-    return TrackColumn.renderTD(track.genres.renderUL());
+    return TrackColumn.renderTD(DataList.UI.UL.render(track.genres));
 };
 
 TrackColumn.renderTags = function(track) {
-    return TrackColumn.renderTD(track.tags.renderUL());
+    return TrackColumn.renderTD(DataList.UI.UL.render(track.tags));
 };
 
 TrackColumn.renderRole = function(role) {
     return function(track) {
         return TrackColumn.renderTD(
-            track.getArtistsByRole(role)
-                .renderUL()
+            DataList.UI.UL.render(track.getArtistsByRole(role))
         );
     }
 };
