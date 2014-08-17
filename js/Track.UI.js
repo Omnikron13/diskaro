@@ -15,7 +15,7 @@ Track.UI = {
                         tr.triggerHandler('updateTrack', _t);
                     })
                 ;
-            }}
+            }},
         ],
 
         //Function to initialise the menu on given selector (or body)
