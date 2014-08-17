@@ -121,6 +121,7 @@ Track.UI = {
                                 .done(function() {
                                     //Create/Display selection dialogue
                                     DataList.UI.Dialogue.render(DataList.All[dl.type], 'add')
+                                        //Catch selected Data obj on save
                                         .on('save', function(ev, d) {
                                             //--Actual add logic here--
                                         })
