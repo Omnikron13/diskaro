@@ -21,15 +21,6 @@ Data.method('toJSON', function() {
     return j;
 });
 
-//Render the Data as an <li> DOM element
-Data.method('renderLI', function() {
-    return $('<li>')
-        .addClass('dataItem')
-        .addClass(this.type.toLowerCase()+'Item')
-        .html(this.name)
-    ;
-});
-
 //Render the Data as a radio button wrapped in a span, using the optional
 //prefix param to disambiguate id attributes if multiple buttons based on the
 //same Data object are needed
