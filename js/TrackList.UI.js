@@ -16,21 +16,23 @@ TrackList.UI = {
                 //Event to sort Track.UI.Row elements with Track sort callback
                 .on('sort', function(ev, s) {
                     //If no previous sort heading stored
-                    if(!$(this).data('sort'))
+                    if(!$(this).data('sortColumn'))
                         //Store triggering (jQuery) element
-                        $(this).data('sort', $(ev.target));
+                        $(this).data('sortColumn', $(ev.target));
                     //If a sort heading is stored
                     else {
                         //Check if it is the same heading as triggering this sort
-                        if($(this).data('sort').get(0) != ev.target) {
+                        if($(this).data('sortColumn').get(0) != ev.target) {
                             //It isn't; clear the old heading sort class
-                            $(this).data('sort').trigger('sortNone')
+                            $(this).data('sortColumn').trigger('sortNone')
                             //...and store the new heading
-                            $(this).data('sort', $(ev.target));
+                            $(this).data('sortColumn', $(ev.target));
                         }
                     }
                     //Sort the Track.UI.Row elements
                     $(this)
+                        //Store raw sort function
+                        .data('sort', s)
                         //Select Track.UI.Row elements
                         .find('.trackItem')
                             //Temporarily remove them from the DOM
