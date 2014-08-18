@@ -8,7 +8,7 @@ Track.UI = {
         items: [
             //Play: start Track playing
             {title: _('Play'), action: function(ev, ui) {
-                ui.target.parents('.trackItem').triggerHandler('play');
+                ui.target.parents('.trackItem').trigger('play');
             }},
             //Edit: open dialogue box where the user can edit Track data
             {title: _('Edit'), action: function(ev, ui) {
