@@ -46,26 +46,6 @@ TrackList.method('trackIndex', function() {
     return index;
 });
 
-//Method to play given track
-TrackList.method('play', function(index) {
-    Player.play(this.list[index]);
-    return this;
-});
-
-//Method to play the next track in the list
-TrackList.method('playNext', function() {
-    if(this.shuffle) return this.playRandom();
-    if(this.active === null) return this.play(0);
-    return this.play((this.trackIndex(this.active)+1)%this.list.length);
-});
-
-//Method to play a random track from .list (excluding .active)
-TrackList.method('playRandom', function() {
-    var i = Math.floor(Math.random()*this.list.length);
-    if(i === this.trackIndex(this.active)) i = (i+1)%this.list.length;
-    return this.play(i);
-});
-
 //Static member defining a default set of TrackColumns to render
 TrackList.defaultColumns = [
     new TrackColumn('#', TrackColumn.renderNumber, TrackColumn.sortNumber),
