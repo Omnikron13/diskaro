@@ -2,10 +2,11 @@
 var Player = $('<audio>')
     .attr('id', 'audioPlayer')
     .attr('controls', 'true')
-    .append($('<source>')
-        .attr('id', 'audioPlayerSource')
-        .attr('src', '_.ogg')
-        .attr('type', 'audio/ogg')
+    .append(
+        $('<source>')
+            .attr('id', 'audioPlayerSource')
+            .attr('src', '_.ogg')
+            .attr('type', 'audio/ogg')
     )
     //Event to load & play a Track obj immediately
     .on('playTrack', function(ev, t) {
