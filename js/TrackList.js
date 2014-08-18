@@ -30,14 +30,6 @@ TrackList.method('sort', function(sort) {
     return this;
 });
 
-//Method to set the active track index
-TrackList.method('setActive', function(index) {
-    this.active = this.list[index].id;
-    $('.trackActive').removeClass('trackActive');
-    $('.trackItem:nth-child('+(index+2)+')').addClass('trackActive');
-    return this;
-});
-
 //Method to find a .list index from a track id.
 //Returns null if the id can't be found.
 TrackList.method('trackIndex', function() {
@@ -54,7 +46,6 @@ TrackList.method('trackIndex', function() {
 
 //Method to play given track
 TrackList.method('play', function(index) {
-    this.setActive(index);
     Player.play(this.list[index]);
     return this;
 });
