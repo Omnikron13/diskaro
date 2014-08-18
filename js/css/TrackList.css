@@ -35,7 +35,7 @@
         padding: 0.1em 0;
     }
         /* Active track row */
-        .trackList .trackActive {
+        .trackList .trackItem.active {
             font-weight: bold;
         }
         /* Alternating track row rules */
