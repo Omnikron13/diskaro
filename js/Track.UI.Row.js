@@ -18,7 +18,11 @@ Track.UI.Row = {
                     }))
             })
             //Event to flag this row as active (& unflag other rows)
-            .on('setActive', function() {
+            //Optionally aborts if stored track doesn't match passed Track obj
+            .on('setActive', function(ev, t) {
+                //Track obj was passed but doesn't match; abort
+                if(t && t.id != $(this).data('track').id) return false;
+                //Either no Track obj passed or does match; set active
                 $(this)
                     //Add active/playing class
                     .addClass('active')
