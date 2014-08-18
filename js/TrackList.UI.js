@@ -54,6 +54,8 @@ TrackList.UI = {
                     $.when(that.data('tracklist').load(f))
                         .done(function() {
                             that
+                                //Clear saved active Track.UI.Row
+                                .removeData('activeRow')
                                 //Clear old Track.UI.Row elements
                                 .find('.trackItem')
                                     .remove()
