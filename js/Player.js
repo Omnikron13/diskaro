@@ -35,14 +35,3 @@ Player.init = function(selector) {
     $(selector || '#audioPlayer').replaceWith(this);
     return this;
 };
-
-//Method to load & start playing a Track
-Player.play = function(track) {
-    this.children('source')
-        .attr('src', track.path);
-    this
-        .trigger('load')
-        .trigger('play')
-    ;
-    return this;
-};
