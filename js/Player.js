@@ -36,17 +36,6 @@ Player.init = function(selector) {
     return this;
 };
 
-//Method to attach Player events to the relevant TrackList callbacks
-Player.link = function(tracklist) {
-    this
-        .off('ended')
-        .on('ended', function() {
-            tracklist.playNext();
-        })
-    ;
-    return this;
-};
-
 //Method to load & start playing a Track
 Player.play = function(track) {
     this.children('source')
