@@ -17,8 +17,8 @@ Track.UI.Row = {
                         return c.renderTD(t);
                     }))
             })
-            //Event to trigger immediate playback of this Track
-            .on('play', function() {
+            //Event to flag this row as active (& unflag other rows)
+            .on('setActive', function() {
                 $(this)
                     //Add active/playing class
                     .addClass('active')
@@ -26,6 +26,11 @@ Track.UI.Row = {
                     .siblings('.trackItem.active')
                         .removeClass('active')
                 ;
+            })
+            //Event to trigger immediate playback of this Track
+            .on('play', function() {
+                //Trigger setActive to update active flag
+                $(this).triggerHandler('setActive');
                 //Tell Player to start playing this Track now
                 Player.trigger('playTrack', $(this).data('track'));
             })
