@@ -67,6 +67,8 @@ $.extend(_._strings, {
     //Misc.
     'Play'        : '',
     'Edit'        : '',
+    'Save'        : '',
+    'Cancel'      : '',
     'Unknown'     : '',
     'Loading'     : '',
     'Remove'      : '',
