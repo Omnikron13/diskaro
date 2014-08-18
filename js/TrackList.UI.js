@@ -71,6 +71,10 @@ TrackList.UI = {
                             }
                         })
                 })
+                //Event to trigger play on Track.UI.Row at (post-sort) index
+                .on('playIndex', function(ev, i) {
+                    $(this).find('.trackItem').eq(i).trigger('play');
+                })
                 //Trigger inital load/output
                 .trigger('load', filter)
             ;
