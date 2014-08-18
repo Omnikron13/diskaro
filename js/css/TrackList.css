@@ -9,25 +9,25 @@
     user-select:none;
 }
     /* Table headings row */
-    .trackListHeadings {
+    .trackList .headings {
         text-align:left;
         border-bottom: thin solid var(--bgc-10);
         cursor: pointer;
     }
         /* Column heading cells */
-        .trackListHeadings>th {
+        .trackList .headings>th {
         }
-            .trackListHeadings>th:hover {
+            .trackList .headings>th:hover {
                 background-color: var(--bgc-01);
             }
             /* Column headings sort rules */
-            .trackListHeadings>th:not(.sortAsc):not(.sortDesc)::after {
+            .trackList .headings>th:not(.sortAsc):not(.sortDesc)::after {
                 content: ' -';
             }
-            .trackListHeadings>th.sortAsc::after {
+            .trackList .headings>th.sortAsc::after {
                 content: ' ↑';
             }
-            .trackListHeadings>th.sortDesc::after {
+            .trackList .headings>th.sortDesc::after {
                 content: ' ↓';
             }
     /* Track rows */
