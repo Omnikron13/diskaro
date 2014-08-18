@@ -37,7 +37,7 @@ Track.UI.Row = {
             //Event to trigger immediate playback of this Track
             .on('play', function() {
                 //Trigger setActive to update active flag
-                $(this).triggerHandler('setActive');
+                $(this).trigger('setActive');
                 //Tell Player to start playing this Track now
                 Player.trigger('playTrack', $(this).data('track'));
             })
