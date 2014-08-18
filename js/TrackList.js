@@ -18,6 +18,8 @@ function TrackList(json, columns) {
 
 //Pull a list of tracks from the DB with optional filter
 TrackList.method('load', function(f) {
+    //Store Filter object
+    this.filter = f;
     var that = this;
     return Track.load(function(tracks) {
         that.list = tracks;
