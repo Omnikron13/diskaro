@@ -71,6 +71,25 @@ TrackList.UI = {
                             }
                         })
                 })
+                //Catch bubbled play events from Track.UI.Row elements
+                .on('play', function(ev) {
+                    //Save 'this' ref for closure
+                    var that = $(this);
+                    Player
+                        //Clear any existing playNext callback(s)
+                        .off('playNext')
+                        //Bind new playNext callback
+                        .on('playNext', function() {
+                            //Get next Track.UI.Row element
+                            var next = $(ev.target).next('.trackItem');
+                            //Trigger play on next (or first) Track.UI.Row
+                            if(next.length > 0)
+                                next.trigger('play');
+                            else
+                                that.trigger('playIndex', 0);
+                        })
+                    ;
+                })
                 //Event to trigger play on Track.UI.Row at (post-sort) index
                 .on('playIndex', function(ev, i) {
                     $(this).find('.trackItem').eq(i).trigger('play');
