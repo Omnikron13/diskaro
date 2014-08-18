@@ -8,6 +8,7 @@ Track.UI.Row = {
         return $('<tr>')
             //Add generic selection class
             .addClass('trackItem')
+
             //Custom event used to update/change the inernal Track obj
             .on('updateTrack', function(ev, t) {
                 $(this)
@@ -17,6 +18,7 @@ Track.UI.Row = {
                         return c.renderTD(t);
                     }))
             })
+
             //Event to flag this row as active (& unflag other rows)
             //Optionally aborts if stored track doesn't match passed Track obj
             .on('setActive', function(ev, t) {
@@ -31,6 +33,7 @@ Track.UI.Row = {
                         .removeClass('active')
                 ;
             })
+
             //Event to trigger immediate playback of this Track
             .on('play', function() {
                 //Trigger setActive to update active flag
@@ -38,10 +41,12 @@ Track.UI.Row = {
                 //Tell Player to start playing this Track now
                 Player.trigger('playTrack', $(this).data('track'));
             })
+
             //Trigger playback on double-click
             .on('dblclick', function() {
                 $(this).trigger('play');
             })
+
             //Initialise output
             .trigger('updateTrack', track)
         ;
