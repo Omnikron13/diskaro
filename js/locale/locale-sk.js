@@ -75,5 +75,5 @@ $.extend(_._strings, {
     'Shuffle'     : '',
     'Shuffle Off' : '',
     'Shuffle On'  : '',
+    */
 });
-*/
