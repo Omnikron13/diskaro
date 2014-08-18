@@ -61,16 +61,7 @@ TrackList.UI = {
                                 //Render new Track.UI.Row elements
                                 .append(
                                     that.data('tracklist').list.map(function(t, i) {
-                                        return Track.UI.Row.render(t, columns)
-                                            //Custom event to start Track playing
-                                            .on('play', function() {
-                                                that.data('tracklist').play(i);
-                                            })
-                                            //Retrigger double clicks as play events
-                                            .on('dblclick', function() {
-                                                $(this).triggerHandler('play')
-                                            })
-                                        ;
+                                        return Track.UI.Row.render(t, columns);
                                     })
                                 )
                             ;
