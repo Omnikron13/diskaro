@@ -104,6 +104,11 @@ TrackList.UI = {
                             .trigger('setActive', t)
                     ;
                 })
+                //Catch setActive events bubbling from Track.UI.Row
+                .on('setActive', function(ev) {
+                    //Store new active Track.UI.Row element
+                    $(this).data('activeRow', $(ev.target));
+                })
                 //Trigger inital load/output
                 .trigger('load', filter)
             ;
