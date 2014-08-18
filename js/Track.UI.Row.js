@@ -24,6 +24,10 @@ Track.UI.Row = {
                 //Tell Player to start playing this Track now
                 Player.play($(this).data('track'));
             })
+            //Trigger playback on double-click
+            .on('dblclick', function() {
+                $(this).trigger('play');
+            })
             //Initialise output
             .trigger('updateTrack', track)
         ;
