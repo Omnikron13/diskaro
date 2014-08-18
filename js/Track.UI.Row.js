@@ -27,7 +27,7 @@ Track.UI.Row = {
                         .removeClass('active')
                 ;
                 //Tell Player to start playing this Track now
-                Player.play($(this).data('track'));
+                Player.trigger('playTrack', $(this).data('track'));
             })
             //Trigger playback on double-click
             .on('dblclick', function() {
