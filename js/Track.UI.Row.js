@@ -1,4 +1,5 @@
 //require_once(Track.UI.js)
+//require_once(Player.js)
 
 //Namespace for table row (<tr>) output
 Track.UI.Row = {
@@ -15,6 +16,13 @@ Track.UI.Row = {
                     .html($.map(columns, function(c) {
                         return c.renderTD(t);
                     }))
+            })
+            //Event to trigger immediate playback of this Track
+            .on('play', function() {
+                //Add active/playing class
+                $(this).addClass('active');
+                //Tell Player to start playing this Track now
+                Player.play($(this).data('track'));
             })
             //Initialise output
             .trigger('updateTrack', track)
