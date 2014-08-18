@@ -1,19 +1,20 @@
 //Localisation string overrides template
 $.extend(_._strings, {
     //Data types/classes
-    'Artist':   '',
-    'Artists':  '',
-    'Genre':    '',
-    'Genres':   '',
-    'Label':    '',
-    'Labels':   '',
-    'Release':  '',
-    'Releases': '',
-    'Role':     '',
-    'Roles':    '',
-    'Tag':      '',
-    'Tags':     '',
+    'Artist':   'Umelec',
+    'Artists':  'Umelci',
+    'Genre':    'Žáner',
+    'Genres':   'Žánre',
+    'Label':    'Vydavateľstvo',
+    'Labels':   'Vydavateľstvá',
+    'Release':  'Album',
+    'Releases': 'Albumy',
+    'Role':     'Rola',
+    'Roles':    'Role',
+    'Tag':      'Značka',
+    'Tags':     'Značky',
     //DataList.UI default legend/header
+    /*
     'Select Artist'  : '',
     'Select Genre'   : '',
     'Select Label'   : '',
@@ -75,3 +76,4 @@ $.extend(_._strings, {
     'Shuffle Off' : '',
     'Shuffle On'  : '',
 });
+*/
