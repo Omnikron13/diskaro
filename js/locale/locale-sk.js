@@ -1,18 +1,18 @@
 //Localisation string overrides template
 $.extend(_._strings, {
     //Data types/classes
-    'Artist':   'Umelec',
-    'Artists':  'Umelci',
-    'Genre':    'Žáner',
-    'Genres':   'Žánre',
-    'Label':    'Vydavateľstvo',
-    'Labels':   'Vydavateľstvá',
-    'Release':  'Album',
-    'Releases': 'Albumy',
-    'Role':     'Rola',
-    'Roles':    'Role',
-    'Tag':      'Značka',
-    'Tags':     'Značky',
+    'Artist'   : 'Umelec',
+    'Artists'  : 'Umelci',
+    'Genre'    : 'Žáner',
+    'Genres'   : 'Žánre',
+    'Label'    : 'Vydavateľstvo',
+    'Labels'   : 'Vydavateľstvá',
+    'Release'  : 'Album',
+    'Releases' : 'Albumy',
+    'Role'     : 'Rola',
+    'Roles'    : 'Role',
+    'Tag'      : 'Značka',
+    'Tags'     : 'Značky',
     //DataList.UI default legend/header
     /*
     'Select Artist'  : '',
