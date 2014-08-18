@@ -11,6 +11,8 @@ var Player = $('<audio>')
     //Event to load & play a Track obj immediately
     .on('playTrack', function(ev, t) {
         $(this)
+            //Store Track obj
+            .data('track', t)
             //Update source tag
             .children('source')
                 .attr('src', t.path)
