@@ -94,6 +94,13 @@ TrackList.UI = {
                 .on('playIndex', function(ev, i) {
                     $(this).find('.trackItem').eq(i).trigger('play');
                 })
+                //Event to flag Track.UI.Row as active based on arbitrary Track obj
+                .on('setActiveTrack', function(ev, t) {
+                    $(this)
+                        .find('.trackItem')
+                            .trigger('setActive', t)
+                    ;
+                })
                 //Trigger inital load/output
                 .trigger('load', filter)
             ;
