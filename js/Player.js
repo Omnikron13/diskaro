@@ -20,6 +20,12 @@ var Player = $('<audio>')
             .trigger('play')
         ;
     })
+    //Catch ended/track finished events
+    .on('ended', function() {
+        //Trigger custom event to start next Track playing - behaviour
+        //defined externally by e.g. TrackList.UI.Table
+        $(this).trigger('playNext');
+    })
 ;
 
 //Method to insert the Player object into the DOM
