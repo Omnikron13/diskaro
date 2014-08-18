@@ -19,8 +19,13 @@ Track.UI.Row = {
             })
             //Event to trigger immediate playback of this Track
             .on('play', function() {
-                //Add active/playing class
-                $(this).addClass('active');
+                $(this)
+                    //Add active/playing class
+                    .addClass('active')
+                    //Clear active class from any other active rows
+                    .siblings('.trackItem.active')
+                        .removeClass('active')
+                ;
                 //Tell Player to start playing this Track now
                 Player.play($(this).data('track'));
             })
