@@ -69,6 +69,9 @@ TrackList.UI = {
                             if(that.data('sortColumn')) {
                                 that.data('sortColumn').trigger('sort', that.data('sort'));
                             }
+                            //If there is an active track attempt to re-flag it
+                            if(Player.data('track'))
+                                that.trigger('setActiveTrack', Player.data('track'));
                         })
                 })
                 //Catch bubbled play events from Track.UI.Row elements
