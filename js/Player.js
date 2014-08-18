@@ -7,6 +7,18 @@ var Player = $('<audio>')
         .attr('src', '_.ogg')
         .attr('type', 'audio/ogg')
     )
+    //Event to load & play a Track obj immediately
+    .on('playTrack', function(ev, t) {
+        $(this)
+            //Update source tag
+            .children('source')
+                .attr('src', t.path)
+                .end()
+            //Load file & start playback
+            .trigger('load')
+            .trigger('play')
+        ;
+    })
 ;
 
 //Method to insert the Player object into the DOM
