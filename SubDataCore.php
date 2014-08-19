@@ -71,6 +71,26 @@ abstract class SubDataCore extends DataCore {
         return $json;
     }
 
+    //Override DataCore->update() to add/remove parents
+    public function update($data) {
+        //Let DataCore perform its updates
+        parent::update($data);
+        //Convert new parent IDs into objects
+        $newParents = array_map(function($pid) {
+            return new static($pid);
+        }, $data->parentIDs);
+        //Get old parent objects
+        $oldParents = $this->getParents();
+        //Add parents
+        foreach(array_diff($newParents, $oldParents) as $p) {
+            $this->addParent($p);
+        }
+        //Remove parents
+        foreach(array_diff($oldParents, $newParents) as $p) {
+            $this->removeParent($p);
+        }
+    }
+
     //Static methods
     public static function getLeaves() {
         $mainTable = static::getMainTable();
