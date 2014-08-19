@@ -89,6 +89,7 @@ abstract class SubDataCore extends DataCore {
         foreach(array_diff($oldParents, $newParents) as $p) {
             $this->removeParent($p);
         }
+        return $this;
     }
 
     //Static methods
