@@ -174,30 +174,9 @@ class Track extends DataCore {
         //Update trackNumber if different
         if($data->trackNumber != $this->getTrackNumber())
             $this->setTrackNumber($data->trackNumber);
-        //Convert new genres into objects
-        $data->genres = array_map(function($g) {
-            return new Genre($g->id);
-        }, $data->genres);
-        //Add genres
-        foreach(array_diff($data->genres, $this->getGenres()) as $g) {
-            $this->addGenre($g);
-        }
-        //Remove genres
-        foreach(array_diff($this->getGenres(), $data->genres) as $g) {
-            $this->removeGenre($g);
-        }
-        //Convert new tags into objects
-        $data->tags = array_map(function($t) {
-            return new Tag($t->id);
-        }, $data->tags);
-        //Add tags
-        foreach(array_diff($data->tags, $this->getTags()) as $t) {
-            $this->addTag($t);
-        }
-        //Remove tags
-        foreach(array_diff($this->getTags(), $data->tags) as $t) {
-            $this->removeTag($t);
-        }
+        //Update data arrays (genres & tags)
+        $this->updateData($data->genres, 'Genre');
+        $this->updateData($data->tags, 'Tag');
         //Convert new artistLinks into artist/role pairs
         $data->artistLinks = array_map(function($al) {
             return [
