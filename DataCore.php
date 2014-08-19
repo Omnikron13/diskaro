@@ -90,6 +90,13 @@ abstract class DataCore implements JsonSerializable {
         return new static($db->lastInsertId());
     }
 
+    //Method to add new DB records based on JSON input (e.g. from a UI)
+    //Should be overridden down the inheritance chain as needed.
+    public static function addJSON($json) {
+        $json = json_decode($json);
+        return static::add($json->name);
+    }
+
     public static function getAll() {
         $db = static::getDB();
         $query = $db->prepare('SELECT id FROM '.static::getMainTable().';');
