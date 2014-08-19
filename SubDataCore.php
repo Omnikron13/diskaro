@@ -16,6 +16,19 @@ abstract class SubDataCore extends DataCore {
         $query->execute();
     }
 
+    //Method to remove parent link from the DB
+    public function removeParent($parent) {
+        //Fail if link doesn't exist (would fail silently anyway, which might be better?)
+        if(!in_array($parent, $this->getParents()))
+            throw new Exception('Cannot remove parent'); //Should be custom
+        //Remove DB record
+        $db = static::getDB();
+        $query = $db->prepare('DELETE FROM '.static::getSubTable().' WHERE parentID=:pid AND childID=:cid;');
+        $query->bindParam(':pid', $parent->getID(), PDO::PARAM_INT);
+        $query->bindParam(':cid', $this->getID(), PDO::PARAM_INT);
+        $query->execute();
+    }
+
     public function getParents() {
         return array_map(function($pid) {
             return new static($pid);
