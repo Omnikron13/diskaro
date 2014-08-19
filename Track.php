@@ -225,6 +225,26 @@ class Track extends DataCore {
         return $this;
     }
 
+    //Method to abstract the update() logic for (Sub)DataCore arrays
+    protected function updateData($data, $class) {
+        //Construct get/add/remove method strings
+        $get    = 'get'.$class.'s';
+        $add    = 'add'.$class;
+        $remove = 'remove'.$class;
+        //Convert data array to objects
+        $data = array_map(function($d) use ($class) {
+            return new $class($d->id);
+        }, $data);
+        //Add data links
+        foreach(array_diff($data, $this->$get()) as $d) {
+            $this->$add($d);
+        }
+        //Remove data links
+        foreach(array_diff($this->$get(), $data) as $d) {
+            $this->$remove($d);
+        }
+    }
+
     //Override DataCore->add() to allow optional release & trackNumber
     public static function add($name, $path, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
