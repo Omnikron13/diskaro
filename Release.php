@@ -36,7 +36,10 @@ class Release extends DataCore {
         $this->year = $year;
     }
     public function setLabel($label) {
-        $this->setField('labelID', $label->getID(), PDO::PARAM_INT);
+        if($label != null)
+            $this->setField('labelID', $label->getID(), PDO::PARAM_INT);
+        else
+            $this->setField('labelID', NULL, PDO::PARAM_NULL);
         $this->label = $label;
     }
 
