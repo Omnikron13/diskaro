@@ -97,6 +97,18 @@ abstract class DataCore implements JsonSerializable {
         return static::add($json->name);
     }
 
+    //Method to delete a record from the DB
+    public static function remove($id) {
+        //If passed a DataCore obj extract just the id
+        if(is_a($id, 'DataCore'))
+            $id = $id->getID();
+        //Remove specified record from DB
+        $db = static::getDB();
+        $query = $db->prepare('DELETE FROM '.static::getMainTable().' WHERE id=:id;');
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+    }
+
     public static function getAll() {
         $db = static::getDB();
         $query = $db->prepare('SELECT id FROM '.static::getMainTable().';');
