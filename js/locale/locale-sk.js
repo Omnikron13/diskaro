@@ -14,13 +14,13 @@ $.extend(_._strings, {
     'Tag'      : 'Značka',
     'Tags'     : 'Značky',
     //DataList.UI default legend/header
+    'Select Artist'  : 'Výber umelca',
+    'Select Genre'   : 'Výber źánru',
+    'Select Label'   : 'Výber vydavateľstva',
+    'Select Release' : 'Výber albumu',
+    'Select Role'    : 'Výber role',
+    'Select Tag'     : 'Výber značky',
     /*
-    'Select Artist'  : '',
-    'Select Genre'   : '',
-    'Select Label'   : '',
-    'Select Release' : '',
-    'Select Role'    : '',
-    'Select Tag'     : '',
     //TrackList/TrackColumn headings (excluding Data type/class)
     '#':     '',
     'Title': '',
