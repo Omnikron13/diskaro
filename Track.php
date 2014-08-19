@@ -210,16 +210,18 @@ class Track extends DataCore {
         $get    = 'get'.$class.'s';
         $add    = 'add'.$class;
         $remove = 'remove'.$class;
+        //Get old/current data array
+        $oldData = $this->$get();
         //Convert data array to objects
         $data = array_map(function($d) use ($class) {
             return new $class($d->id);
         }, $data);
         //Add data links
-        foreach(array_diff($data, $this->$get()) as $d) {
+        foreach(array_diff($data, $oldData) as $d) {
             $this->$add($d);
         }
         //Remove data links
-        foreach(array_diff($this->$get(), $data) as $d) {
+        foreach(array_diff($oldData, $data) as $d) {
             $this->$remove($d);
         }
     }
