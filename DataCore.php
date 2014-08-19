@@ -78,6 +78,7 @@ abstract class DataCore implements JsonSerializable {
         //Update name if different
         if($data->name != $this->getName())
             $this->setName($data->name);
+        return $this;
     }
 
     //Static methods
