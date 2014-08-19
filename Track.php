@@ -158,6 +158,73 @@ class Track extends DataCore {
         $array = array_values($array);
     }
 
+    //Override DataCore->update() to update path, release, trackNumber, genres, tags & artistLinks
+    public function update($data) {
+        //Let DataCore perform its updates
+        parent::update($data);
+        //Update path if different
+        if($data->path != $this->getPath())
+            $this->setPath($data->path);
+        //Convert new release to object (if applicable)
+        if($data->release != null)
+            $data->release = new Release($data->release->id);
+        //Update release if different
+        if($data->release != $this->getRelease())
+            $this->setRelease($data->release);
+        //Update trackNumber if different
+        if($data->trackNumber != $this->getTrackNumber())
+            $this->setTrackNumber($data->trackNumber);
+        //Convert new genres into objects
+        $data->genres = array_map(function($g) {
+            return new Genre($g->id);
+        }, $data->genres);
+        //Add genres
+        foreach(array_diff($data->genres, $this->getGenres()) as $g) {
+            $this->addGenre($g);
+        }
+        //Remove genres
+        foreach(array_diff($this->getGenres(), $data->genres) as $g) {
+            $this->removeGenre($g);
+        }
+        //Convert new tags into objects
+        $data->tags = array_map(function($t) {
+            return new Tag($t->id);
+        }, $data->tags);
+        //Add tags
+        foreach(array_diff($data->tags, $this->getTags()) as $t) {
+            $this->addTag($t);
+        }
+        //Remove tags
+        foreach(array_diff($this->getTags(), $data->tags) as $t) {
+            $this->removeTag($t);
+        }
+        //Convert new artistLinks into artist/role pairs
+        $data->artistLinks = array_map(function($al) {
+            return [
+                new Artist($al->artist->id),
+                new Role($al->role->id),
+            ];
+        }, $data->artistLinks);
+        //Convert old artistLinks into artist/role pairs
+        $artistLinks = array_map(function($al) {
+            return [
+                $al->getArtist(),
+                $al->getRole(),
+            ];
+        }, $this->getArtistLinks());
+        //Add Artists/ArtistLinks
+        foreach($data->artistLinks as $al) {
+            if(!in_array($al, $artistLinks))
+                $this->addArtist($al[0], $al[1]);
+        }
+        //Remove Artists/ArtistLinks
+        foreach($artistLinks as $al) {
+            if(!in_array($al, $data->artistLinks))
+                $this->removeArtist($al[0], $al[1]);
+        }
+        return $this;
+    }
+
     //Override DataCore->add() to allow optional release & trackNumber
     public static function add($name, $path, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
