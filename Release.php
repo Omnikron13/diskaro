@@ -54,6 +54,22 @@ class Release extends DataCore {
         return $json;
     }
 
+    //Override DataCore->update() to update year & label
+    public function update($data) {
+        //Let DataCore perform its updates
+        parent::update($data);
+        //Update year if different
+        if($data->year != $this->getYear())
+            $this->setYear($data->year);
+        //Convert new label to object (if applicable)
+        if($data->label != null)
+            $data->label = new Label($data->label->id);
+        //Update label if different
+        if($data->label != $this->getLabel())
+            $this->setLabel($data->label);
+        return $this;
+    }
+
     //Implement abstract static methods from DataCore
     public static function getMainTable() {
         return 'releases';
