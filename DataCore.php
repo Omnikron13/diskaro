@@ -107,6 +107,7 @@ abstract class DataCore implements JsonSerializable {
         $query = $db->prepare('DELETE FROM '.static::getMainTable().' WHERE id=:id;');
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
+        return $query->rowCount();
     }
 
     public static function getAll() {
