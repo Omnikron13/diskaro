@@ -4,6 +4,12 @@ namespace Request;
 
 require_once('Request.php');
 
+//Require all PHP files in the filter dir to ensure all Filter classes
+//are available for the 'filter' constraint
+foreach(glob('filter/*.php') as $f) {
+    require_once($f);
+}
+
 //Class to handle requests to read (JSON) data from the DB
 class Get extends Request {
     //type/data pair specifying which data to pull from the DB
