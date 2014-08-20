@@ -47,6 +47,7 @@ abstract class Request {
         if(static::COMPRESS)
             header('Content-Encoding: gzip');
         echo $this;
+        die();
     }
 
     //Method to generate a failed response string
