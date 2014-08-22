@@ -32,6 +32,8 @@ DataList.method('add', function(d) {
 
 //Method for removing Data objects from the list
 DataList.method('remove', function(d) {
+    //Abort if given Data obj isn't the stored type
+    if(this.type != d.type) return this;
     //Init variable to hold matching index (if any)
     var index = -1;
     //Iterate Data objects
