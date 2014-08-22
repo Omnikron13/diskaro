@@ -16,12 +16,15 @@ abstract class Request {
 
     //Data class/type the Request relates to (eg. Genre, Track, etc.)
     protected $class = null;
+    //
+    protected $data = null;
     //JSON response string
     protected $response = null;
 
     //Base constructor
     protected function __construct($data) {
         $this->class = $data['class'];
+        $this->data  = $data['data'];
     }
 
     //Stringify to (possibly compressed) JSON response str
