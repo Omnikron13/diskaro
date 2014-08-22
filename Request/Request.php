@@ -16,7 +16,7 @@ abstract class Request {
 
     //Data class/type the Request relates to (eg. Genre, Track, etc.)
     protected $class = null;
-    //
+    //Extra data expected by specific Request types
     protected $data = null;
     //JSON response string
     protected $response = null;
