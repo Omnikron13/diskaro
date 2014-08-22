@@ -15,8 +15,14 @@ Track.UI = {
                 var tr = ui.target.parents('.trackItem');
                 Track.UI.Edit.renderDialogue(tr.data('track'))
                     .on('save', function(ev, _t) {
-                        //--SEND CHANGES TO DB--
-                        tr.triggerHandler('updateTrack', _t);
+                        Request.Update('Track', _t)
+                            .process(function(response) {
+                                //Abort UI update if request failed
+                                if(!response.success) return;
+                                //Update UI
+                                tr.triggerHandler('updateTrack', new Track(response.data));
+                            })
+                        ;
                     })
                 ;
             }},
