@@ -29,6 +29,19 @@ DataList.UI = {
                     //Add to UI output
                     $(this).append(Data.UI.LI.render(d));
                 })
+                //Event to remove Data obj & corresponding Data.UI.LI element from list
+                .on('removeData', function(ev, d) {
+                    //Remove obj from underlying list
+                    dl.remove(d);
+                    //Find & remove corresponding Data.UI.LI element
+                    $(this)
+                        .find('.dataItem')
+                            .each(function() {
+                                if($(this).data('data').id == d.id)
+                                    $(this).remove();
+                            })
+                    ;
+                })
             ;
         },
     },
