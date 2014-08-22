@@ -90,7 +90,7 @@ DataList.UI = {
                 })
                 .buttonset()
             ;
-        }
+        },
     },
 
     //Subnamespace for creating UI dialogue boxes for users to select from a DataList
