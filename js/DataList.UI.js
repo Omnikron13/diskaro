@@ -80,6 +80,10 @@ DataList.UI = {
                         .addClass('header')
                         .html(legend)
                 )
+                //Render search box
+                .append(
+                    DataList.UI.Buttonset.renderSearch()
+                )
                 //Render Data.UI.Radio buttons
                 .append(
                     dl.list.map(function(d) {
