@@ -110,9 +110,12 @@ Track.method('getArtistsByRole', function(role) {
 //Static method which requests an (optionally filtered) list of tracks from
 //the DB and passes a list of Track objects to the provided callback
 Track.load = function(cb, f) {
-    return new Request('Track', f?f.constraint():null)
-        .pull(function(json) {
-            cb(json.map(function(t) {
+    return Request.Get('Track', f?f.constraint():null)
+        .process(function(response) {
+            //Abort if Request failed (not sure how best to handle failure here)
+            if(!response.success) return;
+            //Invoke callback on success
+            cb(response.data.map(function(t) {
                 return new Track(t);
             }));
         })

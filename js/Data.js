@@ -24,9 +24,12 @@ Data.method('toJSON', function() {
 //Static method which requests an (optionally filtered) list of 'type' data
 //from the DB and passes a list of Data objects to the provided callback
 Data.load = function(type, cb, f) {
-    return new Request(type, f?f.constraint():null)
-        .pull(function(json) {
-            cb(json.map(function(d) {
+    return Request.Get(type, f?f.constraint():null)
+        .process(function(response) {
+            //Abort if Request failed (not sure how best to handle failure here)
+            if(!response.success) return;
+            //Invoke callback on success
+            cb(response.data.map(function(d) {
                 return Data[type](d);
             }));
         })
