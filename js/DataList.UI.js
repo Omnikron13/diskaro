@@ -91,6 +91,54 @@ DataList.UI = {
                 .buttonset()
             ;
         },
+
+        //Default UI strings for search box
+        searchHeaderStr     : _('Search'),
+        searchLabelStr      : _('Search'),
+        searchPlaceholderStr: _('Search') + '...',
+
+        //Function for rendering a search box to filter out .dataRadio elements by regex
+        renderSearch: function() {
+            return $('<fieldset>')
+                //Add class for generic selection (e.g. .dataButtonset>.search)
+                .addClass('search')
+                //Render legend/header
+                .append(
+                    $('<legend>')
+                        .addClass('header')
+                        .html(DataList.UI.Buttonset.searchHeaderStr)
+                )
+                //Render field label
+                .append(
+                    $('<label>')
+                        .attr('for', 'search')
+                        .html(DataList.UI.Buttonset.searchLabelStr)
+                )
+                //Render actual search box/field
+                .append(
+                    $('<input>')
+                        .attr('type', 'search')
+                        .attr('name', 'search')
+                        .attr('placeholder', DataList.UI.Buttonset.searchPlaceholderStr)
+                        //Show/Hide DataList Buttons on search string changes
+                        .on('input', function() {
+                            //Create regex from entered string
+                            var regex = new RegExp($(this).val(), 'i');
+                            //Find button elements & iterate
+                            $(this).parents('.dataButtonset')
+                                .find('.dataRadio')
+                                    .each(function() {
+                                        //Show/Hide based on regex match
+                                        if(regex.test($(this).find('.ui-button-text').html()))
+                                            $(this).show();
+                                        else
+                                            $(this).hide();
+                                    })
+                            ;
+                        })
+                )
+            ;
+        },
     },
 
     //Subnamespace for creating UI dialogue boxes for users to select from a DataList
