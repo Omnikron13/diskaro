@@ -142,6 +142,19 @@ Track.UI = {
                     $(this).find('.dataList')
                         .triggerHandler('add', d);
                 })
+                //Added context menu (jQuery UI plugin) to the Data.UI.LI elements
+                .contextmenu({
+                    delegate: '.dataItem',
+                    //Define menu items
+                    menu: [
+                        //Remove: Remove Data obj from DataList & remove Data.UI.LI element
+                        {title: _('Remove'), action: function(ev, ui) {
+                            $(ui.target)
+                                .trigger('removeData', $(ui.target).data('data'))
+                            ;
+                        }},
+                    ],
+                })
             ;
             return e;
         },
