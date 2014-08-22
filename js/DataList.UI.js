@@ -74,11 +74,13 @@ DataList.UI = {
                 .addClass('dataButtonset')
                 //Add specific selection class (e.g. .dataButtonset.Genre)
                 .addClass(dl.type)
+                //Render header
                 .append(
                     $(DataList.UI.Buttonset.headerTag)
                         .addClass('header')
                         .html(legend)
                 )
+                //Render Data.UI.Radio buttons
                 .append(
                     dl.list.map(function(d) {
                         return Data.UI.Radio.render(d, prefix);
