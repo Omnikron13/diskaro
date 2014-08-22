@@ -30,6 +30,24 @@ DataList.method('add', function(d) {
     return this;
 });
 
+//Method for removing Data objects from the list
+DataList.method('remove', function(d) {
+    //Init variable to hold matching index (if any)
+    var index = -1;
+    //Iterate Data objects
+    this.list.some(function(x, i) {
+        //Continue iterating if no match
+        if(d.id != x.id) return false;
+        //Set matching index var & stop iterating
+        index = i;
+        return true;
+    });
+    //Remove matching Data obj (if any)
+    if(index > -1)
+        this.list.splice(index, 1);
+    return this;
+});
+
 //Default toString() - join names, optionally with glue
 DataList.method('toString', function(glue) {
     glue = glue || '';
