@@ -78,15 +78,18 @@ Track.UI = {
                         .append(
                             Data.UI.Span.render(_t.release)
                         )
-                        //Render trackNumber field
+                        //Render trackNumber field (container)
                         .append(
                             $('<span>')
+                                //Add selection class
                                 .addClass('trackNumber')
+                                //Render input label
                                 .append(
                                     $('<label>')
                                         .attr('for', 'trackNumberField')
                                         .html(_('Track Number'))
                                 )
+                                //Render actual input field
                                 .append(
                                     $('<input>')
                                         .attr('id', 'trackNumberField')
