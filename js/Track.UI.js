@@ -71,6 +71,49 @@ Track.UI = {
                                 })
                         )
                 )
+                //Render Release/# section
+                .append(
+                    Track.UI.Edit.renderSection('release', _('Release'))
+                        //Render Release object
+                        .append(
+                            Data.UI.Span.render(_t.release)
+                        )
+                        //Render trackNumber field
+                        .append(
+                            $('<span>')
+                                .addClass('trackNumber')
+                                .append(
+                                    $('<label>')
+                                        .attr('for', 'trackNumberField')
+                                        .html(_('Track Number'))
+                                )
+                                .append(
+                                    $('<input>')
+                                        .attr('id', 'trackNumberField')
+                                        .attr('type', 'number')
+                                        //Render empty/placeholder text
+                                        .attr('placeholder', _('#'))
+                                        //Init value to current .trackNumber
+                                        .val(_t.trackNumber)
+                                        //Catch input changes/typing & update Track
+                                        .on('input', function() {
+                                            //Get new value (str)
+                                            var s = $(this).val();
+                                            //If blank set trackNumber to null/unknown
+                                            if(s == '') {
+                                                _t.trackNumber = null;
+                                                return;
+                                            }
+                                            //Convert new value to int
+                                            var i = parseInt(s, 10);
+                                            //If conversion fails, abort
+                                            if(Number.isNaN(i)) return;
+                                            //Set new trackNumber
+                                            _t.trackNumber = i;
+                                        })
+                                )
+                        )
+                )
                 //Render Artists section
                 //Render Genres section
                 .append(
