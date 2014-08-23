@@ -62,6 +62,8 @@ Track.UI = {
                         .append(
                             $('<input>')
                                 .attr('id', 'trackNameField')
+                                //Render empty/placeholder text
+                                .attr('placeholder', _('Title') + '...')
                                 .val(_t.name)
                                 //Update .name of Track being edited on changes
                                 .on('change', function() {
