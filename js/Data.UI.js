@@ -24,6 +24,8 @@ Data.UI = {
                 //If this is a basic Data.UI element update HTML
                 if($(this).html() == old.name)
                     $(this).html(d.name);
+                //Trigger event to alert containers (e.g. DataList.UI)
+                $(this).trigger('dataUpdate', {old:old, new:d});
             })
         ;
     },
