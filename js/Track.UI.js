@@ -76,7 +76,7 @@ Track.UI = {
                     Track.UI.Edit.renderSection('release', _('Release'))
                         //Render Release object
                         .append(
-                            Data.UI.Span.render(_t.release)
+                            Data.UI.Span(_t.release)
                         )
                         //Render trackNumber field (container)
                         .append(
