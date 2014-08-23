@@ -13,6 +13,18 @@ Data.UI = {
             .addClass(d.type)
             //Render output text/html
             .html(d.name)
+            //Event to update internal Data obj & possibly UI output
+            .on('updateData', function(ev, d) {
+                //Get current/old Data obj
+                var old = $(this).data('data');
+                //Abort update if new/old type don't match
+                if(old.type != d.type) return;
+                //Store new Data obj
+                $(this).data('data', d);
+                //If this is a basic Data.UI element update HTML
+                if($(this).html() == old.name)
+                    $(this).html(d.name);
+            })
         ;
     },
 
