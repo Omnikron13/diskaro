@@ -213,6 +213,13 @@ DataList.UI = {
                         .dialog('destroy')
                     ;
                 })
+                //Catch setSelected events triggered on DataList.UI.Dialogue element
+                .on('setSelected', function(ev, d) {
+                    //Retrigger the event on the DataList.UI.Buttonset
+                    $(this).find('.dataButtonset')
+                        .triggerHandler('setSelected', d)
+                    ;
+                })
                 //Create Dialog widget
                 .dialog({
                     width: 'auto',
