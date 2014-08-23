@@ -51,19 +51,23 @@ Track.UI = {
                 .attr('title', _('Edit Track'))
                 //Render Title/Name section
                 .append(
-                    $('<label>')
-                        .attr('for', 'trackNameField')
-                        .html(_('Title'))
-                )
-                //Render actual input box
-                .append(
-                    $('<input>')
-                        .attr('id', 'trackNameField')
-                        .val(_t.name)
-                        //Update .name of Track being edited on changes
-                        .on('change', function() {
-                            _t.name = $(this).val();
-                        })
+                    Track.UI.Edit.renderSection('title', _('Title'))
+                        //Render input label
+                        .append(
+                            $('<label>')
+                                .attr('for', 'trackNameField')
+                                .html(_('Title'))
+                        )
+                        //Render actual input box
+                        .append(
+                            $('<input>')
+                                .attr('id', 'trackNameField')
+                                .val(_t.name)
+                                //Update .name of Track being edited on changes
+                                .on('change', function() {
+                                    _t.name = $(this).val();
+                                })
+                        )
                 )
                 //Render Artists section
                 //Render Genres section
