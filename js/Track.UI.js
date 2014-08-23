@@ -137,6 +137,7 @@ Track.UI = {
                 .dialog({
                     modal: true,
                     resizable: false,
+                    width: 400,
                     draggable: false,
                     closeOnEscape: true,
                     buttons: [
