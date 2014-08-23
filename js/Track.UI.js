@@ -156,6 +156,8 @@ Track.UI = {
         //Function for rendering DataList output/edit sections
         renderDataList: function(dl, head) {
             var e = Track.UI.Edit.renderSection('editList', head)
+                //Add specific selection class (e.g. .editList.Genre)
+                .addClass(dl.type)
                 //Render DataList as a list
                 .append(
                     DataList.UI.UL.render(dl)
