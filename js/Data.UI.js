@@ -51,13 +51,11 @@ Data.UI = {
         render: function(d, prefix) {
             //Construct id/for attr string
             var idStr = prefix + d.type + 'Radio-' + d.id;
-            return $('<span>')
-                //Store original Data obj
-                .data('data', d)
+            return Data.UI.render(d, 'span')
+                //Clear default .html() (from Data.UI.render())
+                .empty()
                 //Add generic selection class
                 .addClass('dataRadio')
-                //Add specific selecion class (e.g. .dataRadio.Genre)
-                .addClass(d.type)
                 //Render control/button
                 .append(
                     $('<input>')
