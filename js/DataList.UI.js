@@ -99,6 +99,15 @@ DataList.UI = {
                 .on('dataSelect', function(ev, d) {
                     $(this).data('data', d);
                 })
+                //Event to select/check arbitrary Data.UI.Radio programatically
+                .on('setSelected', function(ev, d) {
+                    //Select Data.UI.Radio <input> matching given Data id
+                    $(this).find('input[value="'+d.id+'"]')
+                        //Check it & refresh jQuery UI Button
+                        .prop('checked', true)
+                        .button('refresh')
+                    ;
+                })
                 .buttonset()
             ;
         },
