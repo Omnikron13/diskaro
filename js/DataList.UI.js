@@ -42,6 +42,11 @@ DataList.UI = {
                             })
                     ;
                 })
+                //Catch dataUpdate events from Data.UI elements
+                .on('dataUpdate', function(ev, d) {
+                    //Update stored DataList to reflect change
+                    $(this).data('datalist').replace(d.old, d.new);
+                })
             ;
         },
     },
