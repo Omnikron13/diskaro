@@ -76,47 +76,4 @@ Filter.UI.Data = {
         });
         return e;
     },
-
-    //Render a search section/field for filtering the DataList.UI Buttons
-    renderSearch: function() {
-        return $('<fieldset>')
-            //Add class for generic selection (e.g. .dataFilter>.search)
-            .addClass('search')
-            //Render legend/header
-            .append(
-                $('<legend>')
-                    .addClass('header')
-                    .html(Filter.UI.Data.searchHeaderStr)
-            )
-            //Render field label
-            .append(
-                $('<label>')
-                    .attr('for', 'search')
-                    .html(Filter.UI.Data.searchLabelStr)
-            )
-            //Render actual search box/field
-            .append(
-                $('<input>')
-                    .attr('type', 'search')
-                    .attr('name', 'search')
-                    .attr('placeholder', Filter.UI.Data.searchPlaceholderStr)
-                    //Show/Hide DataList Buttons on search string changes
-                    .on('input', function() {
-                        //Create regex from entered string
-                        var regex = new RegExp($(this).val(), 'i');
-                        //Find button elements & iterate
-                        $(this).parents('.dataFilter')
-                            .find('.body.buttons>.dataRadio')
-                                .each(function() {
-                                    //Show/Hide based on regex match
-                                    if(regex.test($(this).find('.ui-button-text').html()))
-                                        $(this).show();
-                                    else
-                                        $(this).hide();
-                                })
-                        ;
-                    })
-            )
-        ;
-    },
 };
