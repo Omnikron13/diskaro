@@ -50,6 +50,24 @@ DataList.method('remove', function(d) {
     return this;
 });
 
+//Method for replacing a given Data obj with another Data obj
+DataList.method('replace', function(o, n) {
+    //Abort if given old Data obj isn't the stored type
+    if(this.type != o.type) return this;
+    //Abort if given new Data obj isn't the stored type
+    if(this.type != n.type) return this;
+    //Save this for closure
+    var that = this;
+    //Iterate Data objects
+    this.list.some(function(x, i) {
+        //Continue iterating if no match
+        if(o.id != x.id) return false;
+        //Replace Data obj at index & stop iterating
+        that.list[i] = n;
+        return true
+    });
+});
+
 //Default toString() - join names, optionally with glue
 DataList.method('toString', function(glue) {
     glue = glue || '';
