@@ -155,14 +155,7 @@ Track.UI = {
 
         //Function for rendering DataList output/edit sections
         renderDataList: function(dl, head) {
-            var e = $('<fieldset>')
-                .addClass('editList')
-                //Render section header/legend
-                .append(
-                    $('<legend>')
-                        .addClass('header')
-                        .html(head)
-                )
+            var e = Track.UI.Edit.renderSection('editList', head)
                 //Render DataList as a list
                 .append(
                     DataList.UI.UL.render(dl)
