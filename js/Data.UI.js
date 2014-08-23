@@ -16,6 +16,11 @@ Data.UI = {
         ;
     },
 
+    //Shorthand for rendering Data.UI <span> element
+    Span: function(d) {
+        return Data.UI.render(d, 'span');
+    },
+
     //Subnamespace for ul/ol item (<li>) output
     LI: {
         //Function to render <li> (jQuery) element from Data obj
