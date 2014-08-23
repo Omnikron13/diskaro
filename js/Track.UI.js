@@ -76,7 +76,14 @@ Track.UI = {
                     Track.UI.Edit.renderSection('release', _('Release'))
                         //Render Release object
                         .append(
-                            Data.UI.Span(_t.release)
+                            //Check if release is null
+                            _t.release ?
+                                //It isn't; render Data.UI element for it
+                                Data.UI.Span(_t.release) :
+                                //It is; render uknown/placeholder
+                                $('<p>')
+                                    .addClass('null')
+                                    .html(_('Unknown'))
                         )
                         //Render trackNumber field (container)
                         .append(
