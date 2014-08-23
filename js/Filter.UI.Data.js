@@ -20,8 +20,6 @@ Filter.UI.Data = {
         )
             //Add generic filter type class
             .addClass('dataFilter')
-            //Add search section element
-            .append(Filter.UI.Data.renderSearch())
             //Add placeholder for main DataList selection element
             .append(
                 $('<p>')
