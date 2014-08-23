@@ -66,7 +66,7 @@ Track.UI = {
                                 .attr('placeholder', _('Title') + '...')
                                 .val(_t.name)
                                 //Update .name of Track being edited on changes
-                                .on('change', function() {
+                                .on('input', function() {
                                     _t.name = $(this).val();
                                 })
                         )
