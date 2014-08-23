@@ -162,5 +162,21 @@ Track.UI = {
             ;
             return e;
         },
+
+        //Function for rendering a section container
+        renderSection: function(name, head) {
+            return $('<fieldset>')
+                //Add generic selection class
+                .addClass('section')
+                //Add specific selection class
+                .addClass(name)
+                //Render header
+                .append(
+                    $('<legend>')
+                        .addClass('header')
+                        .html(head)
+                )
+            ;
+        },
     },
 };
