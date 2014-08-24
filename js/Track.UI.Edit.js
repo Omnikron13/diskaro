@@ -146,6 +146,95 @@ Track.UI.Edit = {
                 )
             ;
         },
+
+        //Subnamespace for rendering Release/# sections
+        Release: {
+            render: function(_t) {
+                return Track.UI.Edit.Section.render('release', _('Release'))
+                    //Render Release object/placeholder
+                    .append(
+                        Track.UI.Edit.Section.Release.renderData(_t.release)
+                            .on('dataUpdate', function(ev, d) {
+                                console.log('update',d);
+                                _t.release = d.new;
+                            })
+                    )
+                    //Render trackNumber field (container)
+                    .append(
+                        $('<span>')
+                            //Add sub-section selection class
+                            .addClass('trackNumber')
+                            //Render input label
+                            .append(
+                                $('<label>')
+                                    .attr('for', 'trackNumberField')
+                                    .html(_('Track Number'))
+                            )
+                            //Render actual input field
+                            .append(
+                                $('<input>')
+                                    .attr('id', 'trackNumberField')
+                                    .attr('type', 'number')
+                                    //Render empty/placeholder text
+                                    .attr('placeholder', _('#'))
+                                    //Init value to current .trackNumber
+                                    .val(_t.trackNumber)
+                                    //Catch input changes/typing & update Track
+                                    .on('input', function() {
+                                        //Get new value (str)
+                                        var s = $(this).val();
+                                        //If blank set trackNumber to null/unknown
+                                        if(s == '') {
+                                            _t.trackNumber = null;
+                                            return;
+                                        }
+                                        //Convert new value to int
+                                        var i = parseInt(s, 10);
+                                        //If conversion fails, abort
+                                        if(Number.isNaN(i)) return;
+                                        //Set new trackNumber
+                                        _t.trackNumber = i;
+                                    })
+                            )
+                    )
+                ;
+            },
+
+            //Function to render Release obj or null/placeholder
+            renderData: function(r) {
+                return $('<span>')
+                    //Add sub-section selection class
+                    .addClass('release')
+                    //Render Data.UI/placeholder
+                    .append(
+                        //Check if Release is null
+                        r ?
+                            //Not null; render Data.UI
+                            Data.UI.Span(r)
+                        : //Is null; render placeholder
+                        $('<p>')
+                            .addClass('null')
+                            .html(_('Unknown'))
+                    )
+                    .on('click', '.null', function() {
+                        //Save this for closure
+                        var that = $(this);
+                        //Create/display Release selection dialogue
+                        DataList.UI.Dialogue.Release('select', function(dl) {
+                            dl
+                                //Replace placeholder with Data.UI on save
+                                .on('save', function(ev, d) {
+                                    that
+                                        .trigger('dataUpdate', {old:null, new:d})
+                                        .replaceWith(Data.UI.Span(d))
+                                    ;
+                                })
+                            ;
+                        });
+                    })
+                ;
+            },
+        },
     },
 
     //Function for rendering DataList output/edit sections
