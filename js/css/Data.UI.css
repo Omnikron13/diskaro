@@ -1,0 +1,45 @@
+/*--------------------------------*
+ * Data.UI Main/Generic Container *
+ *--------------------------------*/
+.data {
+    /* Round corners */
+    border-radius: 0.3em;
+    /* Apply global theme colours */
+    background: var(--bgc-02);
+    border: thin solid var(--bgc-desat-07);
+    /* Add padding to make more 'buttony' */
+    padding: 0.15em 0.4em 0.3em 0.4em;
+    /* Prevents wrapping over lines */
+    display: inline-block;
+}
+    /* Mouseover */
+    .data:hover {
+        /* Apply global theme colours */
+        background: var(--bgc-03);
+        border: thin solid var(--bgc-07);
+    }
+    /* Selected/Active */
+    .data.selected {
+        /* Apply global theme colours */
+        background: var(--bgc-04);
+        border: thin solid var(--bgc-10);
+    }
+/*-------------------------*
+ * Data.UI.Radio Overrides *
+ *-------------------------*/
+.dataRadio {
+    /* Fix extra top padding which appears from nowhere */
+    padding-top: 0;
+}
+    /* Internal jQuery UI Button */
+    .dataRadio>.ui-button {
+        /* Strip default styling */
+        background: none;
+        border: none;
+        margin: 0;
+    }
+        /* Internal jQuery UI Button actual text */
+        .dataRadio>.ui-button>.ui-button-text {
+            /* Strip bloat */
+            padding: 0;
+        }
