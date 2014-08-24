@@ -129,6 +129,25 @@ Track.UI.Edit = {
         ;
     },
 
+    //Subnamespace for section rendering
+    Section: {
+        //Utility function for rendering a generic/base section container
+        render: function(name, head) {
+            return $('<fieldset>')
+                //Add generic selection class
+                .addClass('section')
+                //Add specific selection class
+                .addClass(name)
+                //Render header
+                .append(
+                    $('<legend>')
+                        .addClass('header')
+                        .html(head)
+                )
+            ;
+        },
+    },
+
     //Function for rendering DataList output/edit sections
     renderDataList: function(dl, head) {
         var e = Track.UI.Edit.renderSection('editList', head)
