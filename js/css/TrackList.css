@@ -74,6 +74,11 @@
         .trackList .dataList>.dataItem {
             /* Render on a single line */
             display: inline;
+            /* Strip default Data.UI styling */
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
         }
             .trackList .dataList>.dataItem:not(:last-child)::after {
                 /* Insert spacer between each item */
