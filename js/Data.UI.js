@@ -27,6 +27,23 @@ Data.UI = {
                 //Trigger event to alert containers (e.g. DataList.UI)
                 $(this).trigger('dataUpdate', {old:old, new:d});
             })
+            //Event to open a dialogue allowing the user to change this Data obj
+            .on('updateDialogue', function() {
+                //Store Data.UI element & Data obj for closures
+                var that = $(this);
+                var data = that.data('data');
+                $.when(DataList.All.loaded(data.type))
+                    .done(function() {
+                        //Create/Display selection dialogue
+                        DataList.UI.Dialogue.render(DataList.All[data.type], 'edit')
+                            .trigger('setSelected', data)
+                            //Catch selected Data obj on save
+                            .on('save', function(ev, d) {
+                                that.trigger('updateData', d);
+                            })
+                        ;
+                    });
+            })
         ;
     },
 
