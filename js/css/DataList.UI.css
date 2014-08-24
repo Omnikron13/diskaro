@@ -59,32 +59,3 @@
                 /* Apply global theme colours */
                 background: var(--bgc-01);
             }
-    /*-----------------*
-     * Buttons Section *
-     *-----------------*/
-    .dataButtonset .ui-button {
-        /* Round corners */
-        border-radius: 0.3em;
-        /* Space buttons a little (right & bottom) */
-        margin: 0 var(--control-spacing) var(--control-spacing) 0;
-        /* Apply global theme colours */
-        background: var(--bgc-02);
-        border: thin solid var(--bgc-desat-07);
-    }
-        /* Label/text */
-        .dataButtonset .ui-button-text {
-            /* Reduce bloat */
-            padding: 0.2em 0.4em;
-        }
-        /* Mouseover */
-        .dataButtonset .ui-button:hover {
-            /* Apply global theme colours */
-            background: var(--bgc-03);
-            border: thin solid var(--bgc-07);
-        }
-        /* Selected/Active */
-        .dataButtonset .ui-button.ui-state-active {
-            /* Apply global theme colours */
-            background: var(--bgc-04);
-            border: thin solid var(--bgc-10);
-        }
