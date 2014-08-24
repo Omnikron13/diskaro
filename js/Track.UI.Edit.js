@@ -12,25 +12,7 @@ Track.UI.Edit = {
             .attr('title', _('Edit Track'))
             //Render Title/Name section
             .append(
-                Track.UI.Edit.Section.render('title', _('Title'))
-                    //Render input label
-                    .append(
-                        $('<label>')
-                            .attr('for', 'trackNameField')
-                            .html(_('Title'))
-                    )
-                    //Render actual input box
-                    .append(
-                        $('<input>')
-                            .attr('id', 'trackNameField')
-                            //Render empty/placeholder text
-                            .attr('placeholder', _('Title') + '...')
-                            .val(_t.name)
-                            //Update .name of Track being edited on changes
-                            .on('input', function() {
-                                _t.name = $(this).val();
-                            })
-                    )
+                Track.UI.Edit.Section.Title(_t)
             )
             //Render Release/# section
             .append(
