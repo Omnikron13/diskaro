@@ -34,59 +34,7 @@ Track.UI.Edit = {
             )
             //Render Release/# section
             .append(
-                Track.UI.Edit.Section.render('release', _('Release'))
-                    //Render Release object
-                    .append(
-                        //Check if release is null
-                        _t.release ?
-                            //It isn't; render Data.UI element for it
-                            Data.UI.Span(_t.release)
-                                .on('dataUpdate', function(ev, d) {
-                                    _t.release = d.new;
-                                })
-                            : //It is; render uknown/placeholder
-                            $('<p>')
-                                .addClass('null')
-                                .html(_('Unknown'))
-                    )
-                    //Render trackNumber field (container)
-                    .append(
-                        $('<span>')
-                            //Add selection class
-                            .addClass('trackNumber')
-                            //Render input label
-                            .append(
-                                $('<label>')
-                                    .attr('for', 'trackNumberField')
-                                    .html(_('Track Number'))
-                            )
-                            //Render actual input field
-                            .append(
-                                $('<input>')
-                                    .attr('id', 'trackNumberField')
-                                    .attr('type', 'number')
-                                    //Render empty/placeholder text
-                                    .attr('placeholder', _('#'))
-                                    //Init value to current .trackNumber
-                                    .val(_t.trackNumber)
-                                    //Catch input changes/typing & update Track
-                                    .on('input', function() {
-                                        //Get new value (str)
-                                        var s = $(this).val();
-                                        //If blank set trackNumber to null/unknown
-                                        if(s == '') {
-                                            _t.trackNumber = null;
-                                            return;
-                                        }
-                                        //Convert new value to int
-                                        var i = parseInt(s, 10);
-                                        //If conversion fails, abort
-                                        if(Number.isNaN(i)) return;
-                                        //Set new trackNumber
-                                        _t.trackNumber = i;
-                                    })
-                            )
-                    )
+                Track.UI.Edit.Section.Release.render(_t)
             )
             //Render Artists section
             //Render Genres section
