@@ -95,9 +95,17 @@ DataList.UI = {
                         return Data.UI.Radio.render(d, prefix);
                     })
                 )
-                //Catch button selection & store selected Data obj
+                //Catch button selection
                 .on('dataSelect', function(ev, d) {
-                    $(this).data('data', d);
+                    $(this)
+                        //Store selected Data obj
+                        .data('data', d)
+                        //Remove old selected class
+                        .find('.selected')
+                            .removeClass('selected')
+                    ;
+                    //Add new selected class
+                    $(ev.target).addClass('selected');
                 })
                 //Event to select/check arbitrary Data.UI.Radio programatically
                 .on('setSelected', function(ev, d) {
