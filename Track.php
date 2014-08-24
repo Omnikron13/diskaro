@@ -96,6 +96,7 @@ class Track extends DataCore {
             $this->setField('releaseID', $release->getID(), PDO::PARAM_INT);
         else
             $this->setField('releaseID', NULL, PDO::PARAM_NULL);
+        $this->release = $release;
     }
 
     public function setTrackNumber($trackNumber) {
