@@ -89,6 +89,11 @@ DataList.method('sort', function(cb) {
     return this;
 });
 
+//Sugar to allow DataList to be .map()'d like an array
+DataList.method('map', function(cb, that) {
+    return this.list.map(cb, that);
+});
+
 //Shorthand static to create Artist DataList objects
 DataList.Artist = function(artists) {
     return new DataList('Artist', artists);
