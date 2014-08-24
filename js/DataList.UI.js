@@ -180,6 +180,9 @@ DataList.UI = {
         saveStr  : _('Save'),
         cancelStr: _('Cancel'),
 
+        //Default jQuery UI position option
+        position: {my: 'center', at: 'center', of: window},
+
         //Main render function for creating actual Dialog UI widget
         render: function(dl, prefix, options) {
             //Set defaults
@@ -236,6 +239,7 @@ DataList.UI = {
                     modal: true,
                     resizable: false,
                     draggable: false,
+                    position: DataList.UI.Dialogue.position,
                     buttons: [
                         //Cancel: close/destroy without saving selection
                         {text: cancelStr, click: function() {
