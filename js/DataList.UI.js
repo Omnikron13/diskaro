@@ -258,5 +258,37 @@ DataList.UI = {
                 })
             ;
         },
+
+        //Utility function to create a DataList.UI.Dialogue of a given
+        //complete DataList. Accepts a callback so the calling code can
+        //access the created element (e.g. to add handlers, etc.)
+        renderAll: function(type, prefix, cb) {
+            //Check load full list
+            $.when(DataList.All.loaded(type))
+                .done(function() {
+                    //Create/Display dialogue & pass it to the callback
+                    cb(DataList.UI.Dialogue.render(DataList.All[type], prefix));
+                });
+        },
+
+        //Shorthand functions for calling .renderAll() for each Data type
+        Artist: function(prefix, cb) {
+            return DataList.UI.Dialogue.renderAll('Artist', prefix, cb);
+        },
+        Genre: function(prefix, cb) {
+            return DataList.UI.Dialogue.renderAll('Genre', prefix, cb);
+        },
+        Release: function(prefix, cb) {
+            return DataList.UI.Dialogue.renderAll('Release', prefix, cb);
+        },
+        Role: function(prefix, cb) {
+            return DataList.UI.Dialogue.renderAll('Role', prefix, cb);
+        },
+        Label: function(prefix, cb) {
+            return DataList.UI.Dialogue.renderAll('Label', prefix, cb);
+        },
+        Tag: function(prefix, cb) {
+            return DataList.UI.Dialogue.renderAll('Tag', prefix, cb);
+        },
     },
 };
