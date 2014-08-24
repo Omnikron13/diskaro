@@ -95,6 +95,30 @@ Track.UI.Edit = {
             ;
         },
 
+        //Function for rendering Title sections
+        Title: function(_t) {
+            return Track.UI.Edit.Section.render('title', _('Title'))
+                //Render input label
+                .append(
+                    $('<label>')
+                        .attr('for', 'trackNameField')
+                        .html(_('Title'))
+                )
+                //Render actual input box
+                .append(
+                    $('<input>')
+                        .attr('id', 'trackNameField')
+                        //Render empty/placeholder text
+                        .attr('placeholder', _('Title') + '...')
+                        .val(_t.name)
+                        //Update .name of Track being edited on changes
+                        .on('input', function() {
+                            _t.name = $(this).val();
+                        })
+                )
+            ;
+        },
+
         //Subnamespace for rendering Release/# sections
         Release: {
             render: function(_t) {
