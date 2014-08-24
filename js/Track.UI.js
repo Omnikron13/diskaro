@@ -206,6 +206,12 @@ Track.UI = {
                     delegate: '.dataItem',
                     //Define menu items
                     menu: [
+                        //Edit: Open DataList selection dialogue change this Data item
+                        {title: _('Edit'), action: function(ev, ui) {
+                            $(ui.target)
+                                .trigger('updateDialogue')
+                            ;
+                        }},
                         //Remove: Remove Data obj from DataList & remove Data.UI.LI element
                         {title: _('Remove'), action: function(ev, ui) {
                             $(ui.target)
