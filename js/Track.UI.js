@@ -79,8 +79,11 @@ Track.UI = {
                             //Check if release is null
                             _t.release ?
                                 //It isn't; render Data.UI element for it
-                                Data.UI.Span(_t.release) :
-                                //It is; render uknown/placeholder
+                                Data.UI.Span(_t.release)
+                                    .on('dataUpdate', function(ev, d) {
+                                        _t.release = d.new;
+                                    })
+                                : //It is; render uknown/placeholder
                                 $('<p>')
                                     .addClass('null')
                                     .html(_('Unknown'))
