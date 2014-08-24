@@ -116,6 +116,8 @@ DataList.UI = {
                         //Check it & refresh jQuery UI Button
                         .prop('checked', true)
                         .button('refresh')
+                        //Manually trigger change event for handlers
+                        .trigger('change')
                     ;
                 })
                 .buttonset()
