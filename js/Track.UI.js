@@ -173,10 +173,6 @@ Track.UI = {
                 //Render DataList as a list
                 .append(
                     DataList.UI.UL.render(dl)
-                        //Retrigger left-click on Data.UI.LI as right-click (for menu)
-                        .on('click', '.dataItem', function() {
-                            $(this).trigger('contextmenu');
-                        })
                 )
                 //Render an 'Add' button
                 .append(
