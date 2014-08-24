@@ -109,7 +109,6 @@ Track.UI.Edit = {
                     .append(
                         Track.UI.Edit.Section.Release.renderData(_t.release)
                             .on('dataUpdate', function(ev, d) {
-                                console.log('update',d);
                                 _t.release = d.new;
                             })
                     )
