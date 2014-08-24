@@ -76,6 +76,8 @@ DataList.UI = {
             return $(DataList.UI.Buttonset.mainTag)
                 .attr('id', prefix + dl.type + 'Buttonset')
                 //Add generic selection class
+                .addClass('dataList')
+                //Add semi-specific selection class
                 .addClass('dataButtonset')
                 //Add specific selection class (e.g. .dataButtonset.Genre)
                 .addClass(dl.type)
