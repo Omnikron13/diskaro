@@ -1,3 +1,13 @@
+/*------------------------------------*
+ * DataList.UI Main/Generic Container *
+ *------------------------------------*/
+.dataList {
+}
+    /* Internal Data.UI (generic) elements */
+    .dataList>.data {
+        /* Space elements a little (right & bottom) */
+        margin: 0 var(--control-spacing) var(--control-spacing) 0;
+    }
 /*--------------------------------------*
  * DataList.UI.Buttonset Main Container *
  *--------------------------------------*/
