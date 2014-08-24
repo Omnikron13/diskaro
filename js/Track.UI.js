@@ -140,6 +140,10 @@ Track.UI = {
                         .dialog('destroy')
                     ;
                 })
+                //Delegated handler to open selection dialogue on Data.UI click
+                .on('click', '.data', function(ev) {
+                    $(ev.target).trigger('updateDialogue');
+                })
                 //Create & show dialogue box
                 .dialog({
                     modal: true,
