@@ -39,11 +39,11 @@ Track.UI.Edit = {
             //Render Artists section
             //Render Genres section
             .append(
-                Track.UI.Edit.Section.renderDataList(_t.genres, _('Genres'))
+                Track.UI.Edit.Section.Genres(_t)
             )
             //Render Tags section
             .append(
-                Track.UI.Edit.Section.renderDataList(_t.tags, _('Tags'))
+                Track.UI.Edit.Section.Tags(_t)
             )
             //Internal event for shorthand save & close/destroy
             .on('saveAndClose', function(ev, t) {
@@ -182,6 +182,16 @@ Track.UI.Edit = {
                     })
                 ;
             },
+        },
+
+        //Subnamespace for rendering Genres sections
+        Genres: function(_t) {
+            return Track.UI.Edit.Section.renderDataList(_t.genres, _('Genres'))
+        },
+
+        //Subnamespace for rendering Tags sections
+        Tags: function(_t) {
+            return Track.UI.Edit.Section.renderDataList(_t.tags, _('Tags'))
         },
 
         //Utility function for rendering DataList output/edit sections
