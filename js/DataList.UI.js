@@ -226,6 +226,11 @@ DataList.UI = {
                         .dialog('destroy')
                     ;
                 })
+                //Catch text input (probably from search box) event
+                .on('input', function() {
+                    //Reset dialogue position to centre
+                    $(this).dialog('option', 'position', DataList.UI.Dialogue.position);
+                })
                 //Catch setSelected events triggered on DataList.UI.Dialogue element
                 .on('setSelected', function(ev, d) {
                     //Retrigger the event on the DataList.UI.Buttonset
