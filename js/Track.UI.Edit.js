@@ -12,7 +12,7 @@ Track.UI.Edit = {
             .attr('title', _('Edit Track'))
             //Render Title/Name section
             .append(
-                Track.UI.Edit.renderSection('title', _('Title'))
+                Track.UI.Edit.Section.render('title', _('Title'))
                     //Render input label
                     .append(
                         $('<label>')
@@ -34,7 +34,7 @@ Track.UI.Edit = {
             )
             //Render Release/# section
             .append(
-                Track.UI.Edit.renderSection('release', _('Release'))
+                Track.UI.Edit.Section.render('release', _('Release'))
                     //Render Release object
                     .append(
                         //Check if release is null
@@ -150,7 +150,7 @@ Track.UI.Edit = {
 
     //Function for rendering DataList output/edit sections
     renderDataList: function(dl, head) {
-        var e = Track.UI.Edit.renderSection('editList', head)
+        var e = Track.UI.Edit.Section.render('editList', head)
             //Add specific selection class (e.g. .editList.Genre)
             .addClass(dl.type)
             //Render DataList as a list
@@ -205,21 +205,5 @@ Track.UI.Edit = {
             })
         ;
         return e;
-    },
-
-    //Function for rendering a section container
-    renderSection: function(name, head) {
-        return $('<fieldset>')
-            //Add generic selection class
-            .addClass('section')
-            //Add specific selection class
-            .addClass(name)
-            //Render header
-            .append(
-                $('<legend>')
-                    .addClass('header')
-                    .html(head)
-            )
-        ;
     },
 };
