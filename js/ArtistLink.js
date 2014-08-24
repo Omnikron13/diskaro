@@ -3,8 +3,7 @@
 
 function ArtistLink(json) {
     this.artist = Data.Artist(json.artist);
-    //should convert this to objects...
-    this.role = json.role;
+    this.role = Data.Role(json.role);
 }
 
 ArtistLink.method('isRole', function(role) {
