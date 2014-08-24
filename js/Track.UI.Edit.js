@@ -39,11 +39,11 @@ Track.UI.Edit = {
             //Render Artists section
             //Render Genres section
             .append(
-                Track.UI.Edit.renderDataList(_t.genres, _('Genres'))
+                Track.UI.Edit.Section.renderDataList(_t.genres, _('Genres'))
             )
             //Render Tags section
             .append(
-                Track.UI.Edit.renderDataList(_t.tags, _('Tags'))
+                Track.UI.Edit.Section.renderDataList(_t.tags, _('Tags'))
             )
             //Internal event for shorthand save & close/destroy
             .on('saveAndClose', function(ev, t) {
@@ -183,64 +183,64 @@ Track.UI.Edit = {
                 ;
             },
         },
-    },
 
-    //Function for rendering DataList output/edit sections
-    renderDataList: function(dl, head) {
-        var e = Track.UI.Edit.Section.render('editList', head)
-            //Add specific selection class (e.g. .editList.Genre)
-            .addClass(dl.type)
-            //Render DataList as a list
-            .append(
-                DataList.UI.UL.render(dl)
-            )
-            //Render an 'Add' button
-            .append(
-                $('<button>')
-                    .addClass('add')
-                    .attr('type', 'button')
-                    .html(_('Add'))
-                    .on('click', function() {
-                        //Check load full list
-                        $.when(DataList.All.loaded(dl.type))
-                            .done(function() {
-                                //Create/Display selection dialogue
-                                DataList.UI.Dialogue.render(DataList.All[dl.type], 'add')
-                                    //Catch selected Data obj on save
-                                    .on('save', function(ev, d) {
-                                        //Add selected Data obj to main list
-                                        e.trigger('add', d);
-                                    })
-                                ;
-                            });
-                    })
-            )
-            //Catch 'add' events on the main element
-            .on('add', function(ev, d) {
-                //...and defer them to the DataList.UI.UL element
-                $(this).find('.dataList')
-                    .triggerHandler('add', d);
-            })
-            //Added context menu (jQuery UI plugin) to the Data.UI.LI elements
-            .contextmenu({
-                delegate: '.dataItem',
-                //Define menu items
-                menu: [
-                    //Edit: Open DataList selection dialogue change this Data item
-                    {title: _('Edit'), action: function(ev, ui) {
-                        $(ui.target)
-                            .trigger('updateDialogue')
-                        ;
-                    }},
-                    //Remove: Remove Data obj from DataList & remove Data.UI.LI element
-                    {title: _('Remove'), action: function(ev, ui) {
-                        $(ui.target)
-                            .trigger('removeData', $(ui.target).data('data'))
-                        ;
-                    }},
-                ],
-            })
-        ;
-        return e;
+        //Utility function for rendering DataList output/edit sections
+        renderDataList: function(dl, head) {
+            var e = Track.UI.Edit.Section.render('editList', head)
+                //Add specific selection class (e.g. .editList.Genre)
+                .addClass(dl.type)
+                //Render DataList as a list
+                .append(
+                    DataList.UI.UL.render(dl)
+                )
+                //Render an 'Add' button
+                .append(
+                    $('<button>')
+                        .addClass('add')
+                        .attr('type', 'button')
+                        .html(_('Add'))
+                        .on('click', function() {
+                            //Check load full list
+                            $.when(DataList.All.loaded(dl.type))
+                                .done(function() {
+                                    //Create/Display selection dialogue
+                                    DataList.UI.Dialogue.render(DataList.All[dl.type], 'add')
+                                        //Catch selected Data obj on save
+                                        .on('save', function(ev, d) {
+                                            //Add selected Data obj to main list
+                                            e.trigger('add', d);
+                                        })
+                                    ;
+                                });
+                        })
+                )
+                //Catch 'add' events on the main element
+                .on('add', function(ev, d) {
+                    //...and defer them to the DataList.UI.UL element
+                    $(this).find('.dataList')
+                        .triggerHandler('add', d);
+                })
+                //Added context menu (jQuery UI plugin) to the Data.UI.LI elements
+                .contextmenu({
+                    delegate: '.dataItem',
+                    //Define menu items
+                    menu: [
+                        //Edit: Open DataList selection dialogue change this Data item
+                        {title: _('Edit'), action: function(ev, ui) {
+                            $(ui.target)
+                                .trigger('updateDialogue')
+                            ;
+                        }},
+                        //Remove: Remove Data obj from DataList & remove Data.UI.LI element
+                        {title: _('Remove'), action: function(ev, ui) {
+                            $(ui.target)
+                                .trigger('removeData', $(ui.target).data('data'))
+                            ;
+                        }},
+                    ],
+                })
+            ;
+            return e;
+        },
     },
 };
