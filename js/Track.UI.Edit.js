@@ -246,6 +246,8 @@ Track.UI.Edit = {
                             .addClass('artists')
                             .append(
                                 DataList.UI.UL.render(_t.getArtistsByRole(r))
+                                    //Render 'Add' button
+                                    .add(DataList.UI.UL.AddButton())
                             )
                     )
                 ;
