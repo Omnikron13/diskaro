@@ -220,6 +220,14 @@ Track.UI.Edit = {
                     //Catch changes to Role objects
                     .on('dataUpdate', '.cell.role', function(ev, d) {
                     })
+                    //Catch Data objects added to the Artist DataLists
+                    .on('add', '.dataList', function(ev, d) {
+                        //Add new ArtistLink to Track obj
+                        _t.artistLinks.push(new ArtistLink({
+                            artist : d,
+                            role   : $(this).parents('.row').data('role'),
+                        }));
+                    })
                 ;
             },
 
