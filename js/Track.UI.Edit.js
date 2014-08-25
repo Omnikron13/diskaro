@@ -207,6 +207,22 @@ Track.UI.Edit = {
                             ;
                         });
                     })
+                    //Catch remove event on the Release Data.UI
+                    .on('removeData', '.data', function() {
+                        $(this)
+                            //Trigger a dataUpdate to null the Track Release obj
+                            .trigger('dataUpdate', {
+                                old: $(this).data('data'),
+                                new: null
+                            })
+                            //Replace the Data.UI with null/placeholder
+                            .replaceWith(
+                                $('<p>')
+                                    .addClass('null')
+                                    .html(_('Unknown'))
+                            )
+                        ;
+                    })
                 ;
             },
         },
