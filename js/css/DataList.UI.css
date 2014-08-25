@@ -8,6 +8,10 @@
         /* Space elements a little (right & bottom) */
         margin: 0 var(--control-spacing) var(--control-spacing) 0;
     }
+    /* DataList.UI.UL.AddButton element */
+    .dataList+button.add {
+        display: inline-block;
+    }
 /*--------------------------------------*
  * DataList.UI.Buttonset Main Container *
  *--------------------------------------*/
