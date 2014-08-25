@@ -291,6 +291,14 @@ Track.UI.Edit = {
                                     .add(DataList.UI.UL.AddButton())
                             )
                     )
+                    //Catch removeData events from Artist/Role being removed
+                    .on('removeData', function(ev, d) {
+                        //Trigger appropriate event to alert the main element
+                        if($(ev.target).hasClass('Artist'))
+                            $(this).trigger('artistRemove', d);
+                        if($(ev.target).hasClass('Role'))
+                            $(this).trigger('roleRemove', d);
+                    })
                 ;
             },
         },
