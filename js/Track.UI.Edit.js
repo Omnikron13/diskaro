@@ -219,6 +219,20 @@ Track.UI.Edit = {
                     })
                     //Catch changes to Role objects
                     .on('dataUpdate', '.cell.role', function(ev, d) {
+                        //Select main row element
+                        $(ev.target).parents('.row')
+                            //Update stored Role obj
+                            .data('role', d.new)
+                            //Select & iterate Artist Data.UI elements
+                            .find('.data.Artist')
+                                .each(function(i, a) {
+                                    //Update Track ArtistLink objects
+                                    _t.setArtistLink(
+                                        {artist: $(a).data('data'), role: d.old},
+                                        {artist: $(a).data('data'), role: d.new}
+                                    );
+                                })
+                        ;
                     })
                     //Catch Data objects added to the Artist DataLists
                     .on('add', '.dataList', function(ev, d) {
