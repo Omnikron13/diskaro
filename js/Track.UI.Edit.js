@@ -261,6 +261,11 @@ Track.UI.Edit = {
                             role   : $(this).parents('.row').data('role'),
                         }));
                     })
+                    //Catch artistRemove events from table rows
+                    .on('artistRemove', '.row', function(ev, d) {
+                        //Remove the relevant ArtistLink from Track obj
+                        _t.removeArtistLink({artist: d, role: $(this).data('role')});
+                    })
                 ;
             },
 
