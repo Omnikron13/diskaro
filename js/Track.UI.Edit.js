@@ -19,6 +19,9 @@ Track.UI.Edit = {
                 Track.UI.Edit.Section.Release.render(_t)
             )
             //Render Artists section
+            .append(
+                Track.UI.Edit.Section.Artists.render(_t)
+            )
             //Render Genres section
             .append(
                 Track.UI.Edit.Section.Genres(_t)
