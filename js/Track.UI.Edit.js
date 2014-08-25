@@ -59,6 +59,25 @@ Track.UI.Edit = {
                     }},
                 ],
             })
+            //Add context menu (jQuery UI plugin) to Data.UI elements
+            .contextmenu({
+                delegate: '.data',
+                //Define menu items
+                menu: [
+                    //Edit: Open DataList selection dialogue change this Data item
+                    {title: _('Edit'), action: function(ev, ui) {
+                        $(ui.target)
+                            .trigger('updateDialogue')
+                        ;
+                    }},
+                    //Remove: Remove Data obj from DataList & remove Data.UI.LI element
+                    {title: _('Remove'), action: function(ev, ui) {
+                        $(ui.target)
+                            .trigger('removeData', $(ui.target).data('data'))
+                        ;
+                    }},
+                ],
+            })
         ;
     },
 
@@ -297,25 +316,6 @@ Track.UI.Edit = {
                         //Render an 'Add' button
                         .add(DataList.UI.UL.AddButton())
                 )
-                //Added context menu (jQuery UI plugin) to the Data.UI.LI elements
-                .contextmenu({
-                    delegate: '.dataItem',
-                    //Define menu items
-                    menu: [
-                        //Edit: Open DataList selection dialogue change this Data item
-                        {title: _('Edit'), action: function(ev, ui) {
-                            $(ui.target)
-                                .trigger('updateDialogue')
-                            ;
-                        }},
-                        //Remove: Remove Data obj from DataList & remove Data.UI.LI element
-                        {title: _('Remove'), action: function(ev, ui) {
-                            $(ui.target)
-                                .trigger('removeData', $(ui.target).data('data'))
-                            ;
-                        }},
-                    ],
-                })
             ;
             return e;
         },
