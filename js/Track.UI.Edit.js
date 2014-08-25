@@ -226,6 +226,25 @@ Track.UI.Edit = {
                                 })
                             )
                     )
+                    //Render button for adding new Role rows
+                    .append(
+                        $('<button>')
+                            .addClass('add')
+                            .attr('type', 'button')
+                            .html(_('Add Role'))
+                            .on('click', function() {
+                                var that = $(this);
+                                DataList.UI.Dialogue.Role('add', function(dl) {
+                                    dl.on('save', function(ev, d) {
+                                        that.prev('table')
+                                            .append(
+                                                Track.UI.Edit.Section.Artists.renderRow(_t, d)
+                                            )
+                                        ;
+                                    });
+                                });
+                            })
+                    )
                     //Catch changes to Artist objects
                     .on('dataUpdate', '.cell.artists', function(ev, d) {
                         //Extract corresponding Role object
