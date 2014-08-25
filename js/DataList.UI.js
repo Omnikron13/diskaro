@@ -49,6 +49,34 @@ DataList.UI = {
                 })
             ;
         },
+
+        //Function to render an 'Add' button (which must be inserted
+        //immediately after the DataList.UI.UL element to work!)
+        AddButton: function(text) {
+            //Variable to hold DataList.UI.UL ref for closure
+            var ul = null;
+            //Render button element
+            return $('<button>')
+                //Add selection class
+                .addClass('add')
+                .attr('type', 'button')
+                //Set button text to given str or default
+                .html(text || _('Add'))
+                //Catch click events
+                .on('click', function() {
+                    //Set the DataList.UI.UL ref if it isn't already
+                    if(!ul) ul = $(this).prev('.dataList');
+                    //Create/Display selection dialogue
+                    DataList.UI.Dialogue[ul.data('datalist').type]('add', function(dl) {
+                        //Catch the selected Data obj
+                        dl.on('save', function(ev, d) {
+                            //Tell the DataList.UI.UL to add the Data obj
+                            ul.trigger('add', d);
+                        });
+                    });
+                })
+            ;
+        },
     },
 
     //Subnamespace for creating jQuery UI Buttonset elements which allow the
