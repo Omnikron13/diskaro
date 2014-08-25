@@ -189,6 +189,66 @@ Track.UI.Edit = {
             },
         },
 
+        //Subnamespace for rendering Artists sections
+        Artists: {
+            //Function to render main section element
+            render: function(_t) {
+                return Track.UI.Edit.Section.render('artists', _('Artists'))
+                    //Render Role/Artists table
+                    .append(
+                        $('<table>')
+                            .append(
+                                //Render a row for each unique Role
+                                _t.getRoles().map(function(r) {
+                                    return Track.UI.Edit.Section.Artists.renderRow(_t, r);
+                                })
+                        )
+                    )
+                    //Catch changes to Artist objects
+                    .on('dataUpdate', '.cell.artists', function(ev, d) {
+                        //Extract corresponding Role object
+                        var r = $(ev.target).parents('.row').data('role');
+                        //Update ArtistLink obj
+                        _t.setArtistLink(
+                            {artist: d.old, role: r},
+                            {artist: d.new, role: r}
+                        );
+                    })
+                    //Catch changes to Role objects
+                    .on('dataUpdate', '.cell.role', function(ev, d) {
+                    })
+                ;
+            },
+
+            //Function to render a table row from Track & Role obj
+            renderRow: function(_t, r) {
+                return $('<tr>')
+                    //Store Role obj
+                    .data('role', r)
+                    //Add selection class
+                    .addClass('row')
+                    //Render Role cell
+                    .append(
+                        $('<td>')
+                            .addClass('cell')
+                            .addClass('role')
+                            .append(
+                                Data.UI.Span(r)
+                            )
+                    )
+                    //Render Artist(s) cell
+                    .append(
+                        $('<td>')
+                            .addClass('cell')
+                            .addClass('artists')
+                            .append(
+                                DataList.UI.UL.render(_t.getArtistsByRole(r))
+                            )
+                    )
+                ;
+            },
+        },
+
         //Subnamespace for rendering Genres sections
         Genres: function(_t) {
             return Track.UI.Edit.Section.renderDataList(_t.genres, _('Genres'))
