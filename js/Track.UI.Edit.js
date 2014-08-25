@@ -270,27 +270,8 @@ Track.UI.Edit = {
                 //Render DataList as a list
                 .append(
                     DataList.UI.UL.render(dl)
-                )
-                //Render an 'Add' button
-                .append(
-                    $('<button>')
-                        .addClass('add')
-                        .attr('type', 'button')
-                        .html(_('Add'))
-                        .on('click', function() {
-                            //Check load full list
-                            $.when(DataList.All.loaded(dl.type))
-                                .done(function() {
-                                    //Create/Display selection dialogue
-                                    DataList.UI.Dialogue.render(DataList.All[dl.type], 'add')
-                                        //Catch selected Data obj on save
-                                        .on('save', function(ev, d) {
-                                            //Add selected Data obj to main list
-                                            e.trigger('add', d);
-                                        })
-                                    ;
-                                });
-                        })
+                        //Render an 'Add' button
+                        .add(DataList.UI.UL.AddButton())
                 )
                 //Catch 'add' events on the main element
                 .on('add', function(ev, d) {
