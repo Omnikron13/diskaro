@@ -224,7 +224,7 @@ Track.UI.Edit = {
                                 _t.getRoles().map(function(r) {
                                     return Track.UI.Edit.Section.Artists.renderRow(_t, r);
                                 })
-                        )
+                            )
                     )
                     //Catch changes to Artist objects
                     .on('dataUpdate', '.cell.artists', function(ev, d) {
