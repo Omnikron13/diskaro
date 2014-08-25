@@ -273,12 +273,6 @@ Track.UI.Edit = {
                         //Render an 'Add' button
                         .add(DataList.UI.UL.AddButton())
                 )
-                //Catch 'add' events on the main element
-                .on('add', function(ev, d) {
-                    //...and defer them to the DataList.UI.UL element
-                    $(this).find('.dataList')
-                        .triggerHandler('add', d);
-                })
                 //Added context menu (jQuery UI plugin) to the Data.UI.LI elements
                 .contextmenu({
                     delegate: '.dataItem',
