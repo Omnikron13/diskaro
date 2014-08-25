@@ -26,3 +26,8 @@ body {
     /* Fix weird indent repositioning adds */
     left: 0;
 }
+
+/* Hack to fix context menus behind Dialog widgets */
+.ui-menu {
+    z-index: 1000;
+}
