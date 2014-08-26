@@ -76,6 +76,9 @@ DataList.UI.Tree = {
     Genre: function() {
         return DataList.UI.Tree.all('Genre');
     },
+    Label: function() {
+        return DataList.UI.Tree.all('Label');
+    },
     Release: function() {
         return DataList.UI.Tree.all('Release');
     },
