@@ -25,6 +25,13 @@ DataList.method('getRoots', function() {
     });
 });
 
+//Method to filter childless Data objects from .list
+DataList.method('getLeaves', function() {
+    return this.list.filter(function(d) {
+        return d.childIDs.length == 0;
+    });
+});
+
 //Method to check if a given Data object is in the list
 DataList.method('contains', function(d) {
     //Assume it cannot be if types don't match
