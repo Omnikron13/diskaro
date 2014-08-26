@@ -43,6 +43,18 @@ abstract class SubDataCore extends DataCore {
         return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
+    //Method to add child link to the DB
+    public function addChild($child) {
+        //Delegate to child's addParent() logic
+        $child->addParent($this);
+    }
+
+    //Method to remove child link from the DB
+    public function removeChild($child) {
+        //Delegate to child's removeParent() logic
+        $child->removeParent($this);
+    }
+
     public function getChildren($recursive = false) {
         $children = array_map(function($cid) {
             return new static($cid);
