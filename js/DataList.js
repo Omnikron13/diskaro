@@ -18,6 +18,13 @@ DataList.method('getIdIndex', function() {
     return index;
 });
 
+//Method to filter parentless Data objects from .list
+DataList.method('getRoots', function() {
+    return this.list.filter(function(d) {
+        return d.parentIDs.length == 0;
+    });
+});
+
 //Method to check if a given Data object is in the list
 DataList.method('contains', function(d) {
     //Assume it cannot be if types don't match
