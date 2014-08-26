@@ -8,6 +8,8 @@ function Data(type, json) {
     this.name = json.name;
     if(json.hasOwnProperty('parentIDs'))
         this.parentIDs = json.parentIDs;
+    if(json.hasOwnProperty('childIDs'))
+        this.childIDs = json.childIDs;
 };
 
 //'Magic' method to ensure correct generic JSON encoding
@@ -18,6 +20,8 @@ Data.method('toJSON', function() {
     };
     if(this.hasOwnProperty('parentIDs'))
         j.parentIDs = this.parentIDs;
+    if(this.hasOwnProperty('childIDs'))
+        j.childIDs = this.childIDs;
     return j;
 });
 
