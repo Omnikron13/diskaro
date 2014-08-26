@@ -6,7 +6,7 @@ DataList.UI.Tree = {
     render: function(dl) {
         //Store id-indexed Data obj list (array-like-obj)
         var index = dl.getIdIndex();
-        return $('<div>')
+        return $('<ul>')
             //Store original DataList obj
             .data('datalist', dl)
             //Add generic selection class
@@ -26,7 +26,7 @@ DataList.UI.Tree = {
 
     //Function to render an individual branch from Data obj & id-index
     renderBranch: function(d, index) {
-        return $('<div>')
+        return $('<li>')
             //Add generic selection class
             .addClass('branch')
             //Add root/leaf selection class(es) if appropriate
@@ -36,11 +36,17 @@ DataList.UI.Tree = {
             .append(
                 Data.UI.render(d, 'h1')
             )
-            //Render child branches (as applicable)
+            //Render children container
             .append(
-                d.childIDs.map(function(cid) {
-                    return DataList.UI.Tree.renderBranch(index[cid], index);
-                })
+                $('<ul>')
+                    //Add selection class
+                    .addClass('children')
+                    //Render child branches (as applicable)
+                    .append(
+                        d.childIDs.map(function(cid) {
+                            return DataList.UI.Tree.renderBranch(index[cid], index);
+                        })
+                    )
             )
         ;
     },
