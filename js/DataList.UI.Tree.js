@@ -68,4 +68,21 @@ DataList.UI.Tree = {
         //Return placeholder
         return e;
     },
+
+    //Shorthands for creating DataList.All.* trees
+    Artist: function() {
+        return DataList.UI.Tree.all('Artist');
+    },
+    Genre: function() {
+        return DataList.UI.Tree.all('Genre');
+    },
+    Release: function() {
+        return DataList.UI.Tree.all('Release');
+    },
+    Role: function() {
+        return DataList.UI.Tree.all('Role');
+    },
+    Tag: function() {
+        return DataList.UI.Tree.all('Tag');
+    },
 };
