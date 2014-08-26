@@ -9,6 +9,15 @@ function DataList(type, items) {
     };
 };
 
+//Method to create an id indexed array-like-obj from .list
+DataList.method('getIdIndex', function() {
+    var index = {};
+    this.list.forEach(function(d) {
+        index[d.id] = d;
+    });
+    return index;
+});
+
 //Method to check if a given Data object is in the list
 DataList.method('contains', function(d) {
     //Assume it cannot be if types don't match
