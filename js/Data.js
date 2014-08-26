@@ -25,6 +25,11 @@ Data.method('toJSON', function() {
     return j;
 });
 
+//Shorthand method to copy object by serialise/deserialise
+Data.method('clone', function() {
+    return Data[this.type](JSON.parse(JSON.stringify(this)));
+});
+
 //Static method which requests an (optionally filtered) list of 'type' data
 //from the DB and passes a list of Data objects to the provided callback
 Data.load = function(type, cb, f) {
