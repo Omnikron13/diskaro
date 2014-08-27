@@ -36,6 +36,17 @@ DataList.method('getLeaves', function() {
     });
 });
 
+//Method to return a subset DataList from id array (N.b. Behaviour when
+//requesting ids not present in the list is undefined)
+DataList.method('getSubset', function(ids) {
+    //Get/store id index (save on method calls)
+    var index = this.getIdIndex();
+    //Return new DataList obj
+    return DataList[this.type](ids.map(function(id) {
+        return index[id];
+    }));
+});
+
 //Method to check if a given Data object is in the list
 DataList.method('contains', function(d) {
     //Assume it cannot be if types don't match
