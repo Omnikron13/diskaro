@@ -40,10 +40,8 @@ DataList.method('getLeaves', function() {
 DataList.method('contains', function(d) {
     //Assume it cannot be if types don't match
     if(this.type != d.type) return false;
-    //Check for id match
-    return this.list.some(function(x) {
-        return d.id == x.id;
-    });
+    //Check & return whether given Data objs .id is in the index
+    return this.getIdIndex().hasOwnProperty(d.id);
 });
 
 //Method for adding new (unique) Data objects to the list
@@ -52,47 +50,41 @@ DataList.method('add', function(d) {
     if(d.type != this.type) return this;
     //Fail if d is already in the list
     if(this.contains(d)) return this;
-    //Add the item
+    //Add item to list
     this.list.push(d);
+    //Add item to index
+    this.getIdIndex()[d.id] = d;
+    //Return this (allows chaining)
     return this;
 });
 
 //Method for removing Data objects from the list
 DataList.method('remove', function(d) {
-    //Abort if given Data obj isn't the stored type
-    if(this.type != d.type) return this;
-    //Init variable to hold matching index (if any)
-    var index = -1;
-    //Iterate Data objects
-    this.list.some(function(x, i) {
-        //Continue iterating if no match
-        if(d.id != x.id) return false;
-        //Set matching index var & stop iterating
-        index = i;
-        return true;
-    });
-    //Remove matching Data obj (if any)
-    if(index > -1)
-        this.list.splice(index, 1);
+    //Abort if given Data obj isn't in the list
+    if(!this.contains(d)) return this;
+    //Get index (& perhaps create JIT)
+    var i = this.getIdIndex();
+    //Remove Data obj from list
+    this.list.splice(this.list.indexOf(i[d.id]), 1);
+    //Remove Data obj from index
+    delete i[d.id];
+    //Return this (allows chaining)
     return this;
 });
 
 //Method for replacing a given Data obj with another Data obj
 DataList.method('replace', function(o, n) {
-    //Abort if given old Data obj isn't the stored type
-    if(this.type != o.type) return this;
+    //Abort if given old Data obj isn't in the list
+    if(!this.contains(o)) return this;
     //Abort if given new Data obj isn't the stored type
     if(this.type != n.type) return this;
-    //Save this for closure
-    var that = this;
-    //Iterate Data objects
-    this.list.some(function(x, i) {
-        //Continue iterating if no match
-        if(o.id != x.id) return false;
-        //Replace Data obj at index & stop iterating
-        that.list[i] = n;
-        return true
-    });
+    //Abort if given new Data obj /is/ in the list
+    if(this.contains(n)) return this;
+    //Delegate to .add()/.remove() & return this (allows chaining)
+    return this
+        .remove(o)
+        .add(n)
+    ;
 });
 
 //Default toString() - join names, optionally with glue
