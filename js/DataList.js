@@ -22,6 +22,11 @@ DataList.method('getIdIndex', function() {
     return this.index;
 });
 
+//Method to return array of all stored Data obj .id properties
+DataList.method('getIDs', function() {
+    return Object.getOwnPropertyNames(this.getIdIndex());
+});
+
 //Method to filter parentless Data objects from .list
 DataList.method('getRoots', function() {
     return this.list.filter(function(d) {
