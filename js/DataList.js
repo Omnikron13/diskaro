@@ -170,3 +170,46 @@ DataList.All = {
         });
     },
 };
+
+/*-------------------------*
+ | Data class enhancements |
+ *-------------------------*/
+//Method to convert parentIDs to DataList (accessed by callback)
+Data.method('getParentList', function(cb) {
+    //Abort if Data obj doesn't support parents
+    if(!this.hasOwnProperty('parentIDs')) return this;
+    //Check if Data obj actually /has/ any parents
+    if(this.parentIDs.length == 0) {
+        //It doesn't; pass empty DataList to callback & abort
+        cb(DataList[this.type]([]));
+        return this;
+    }
+    //Save this for closure
+    var that = this;
+    //Defer til DataList.All.* is loaded
+    $.when(DataList.All.loaded(this.type))
+        .done(function() {
+            cb(DataList.All[that.type].getSubset(that.parentIDs));
+        });
+    return this;
+});
+
+//Method to convert childIDs to DataList (accessed by callback)
+Data.method('getChildList', function(cb) {
+    //Abort if Data obj doesn't support children
+    if(!this.hasOwnProperty('childIDs')) return this;
+    //Check if Data obj actually /has/ any children
+    if(this.childIDs.length == 0) {
+        //It doesn't; pass empty DataList to callback & abort
+        cb(DataList[this.type]([]));
+        return this;
+    }
+    //Save this for closure
+    var that = this;
+    //Defer til DataList.All.* is loaded
+    $.when(DataList.All.loaded(this.type))
+        .done(function() {
+            cb(DataList.All[that.type].getSubset(that.childIDs));
+        });
+    return this;
+});
