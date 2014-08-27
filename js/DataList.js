@@ -4,9 +4,6 @@
 function DataList(type, items) {
     this.type = type;
     this.list = items;
-    this.callbacks = {
-        itemClick: []
-    };
 };
 
 //Method to create an id indexed array-like-obj from .list
