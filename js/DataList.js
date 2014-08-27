@@ -6,13 +6,20 @@ function DataList(type, items) {
     this.list = items;
 };
 
-//Method to create an id indexed array-like-obj from .list
+//Method to return an id indexed array-like-obj from .list
 DataList.method('getIdIndex', function() {
-    var index = {};
+    //If the index already exists, simply return it
+    if(this.index) return this.index;
+    //Init the actual obj
+    this.index = {};
+    //Store this for closure
+    var that = this;
+    //Iterate .list array & populate index
     this.list.forEach(function(d) {
-        index[d.id] = d;
+        that.index[d.id] = d;
     });
-    return index;
+    //Return the new index
+    return this.index;
 });
 
 //Method to filter parentless Data objects from .list
