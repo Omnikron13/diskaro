@@ -16,7 +16,7 @@ DataList.UI = {
                 .addClass(dl.type)
                 //Render Data.UI.LI elements
                 .append(
-                    dl.list.map(function(d, i) {
+                    dl.map(function(d, i) {
                         return Data.UI.LI.render(d);
                     })
                 )
@@ -121,7 +121,7 @@ DataList.UI = {
                 )
                 //Render Data.UI.Radio buttons
                 .append(
-                    dl.list.map(function(d) {
+                    dl.map(function(d) {
                         return Data.UI.Radio.render(d, prefix);
                     })
                 )
