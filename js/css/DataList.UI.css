@@ -2,6 +2,11 @@
  * DataList.UI Main/Generic Container *
  *------------------------------------*/
 .dataList {
+    /* Strip whatever bloat exists by default */
+    margin: 0;
+    padding: 0;
+    /* Assume inline is the most convenient default display type */
+    display: inline;
 }
     /* Internal Data.UI (generic) elements */
     .dataList>.data {
