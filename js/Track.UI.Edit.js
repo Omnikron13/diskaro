@@ -45,7 +45,7 @@ Track.UI.Edit = {
             .dialog({
                 modal: true,
                 resizable: false,
-                width: 400,
+                width: 800,
                 draggable: false,
                 closeOnEscape: true,
                 buttons: [
