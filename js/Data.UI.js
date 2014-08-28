@@ -25,13 +25,14 @@ Data.UI = {
                 var old = $(this).data('data');
                 //Abort update if new/old type don't match
                 if(old.type != d.type) return;
-                //Store new Data obj
-                $(this).data('data', d);
-                //If this is a basic Data.UI element update HTML
-                if($(this).children().length == 0)
-                    $(this).html(d.name);
-                //Trigger event to alert containers (e.g. DataList.UI)
-                $(this).trigger('dataUpdate', {old:old, new:d});
+                $(this)
+                    //Store new Data obj
+                    .data('data', d)
+                    //Update UI output
+                    .trigger('updateOutput')
+                    //Trigger event to alert containers (e.g. DataList.UI)
+                    .trigger('dataUpdate', {old:old, new:d})
+                ;
             })
             //Event to open a dialogue allowing the user to change this Data obj
             .on('updateDialogue', function() {
