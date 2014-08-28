@@ -103,6 +103,15 @@ DataList.method('replace', function(o, n) {
     ;
 });
 
+//Method to update a given Data obj 'in place' (not breaking refs)
+DataList.method('update', function(d) {
+    //Abort if given Data obj isn't in the list
+    if(!this.contains(d)) return this;
+    //Delegate updating to appropriate Data obj
+    this.getIdIndex()[d.id].update(d);
+    return this;
+});
+
 //Default toString() - join names, optionally with glue
 DataList.method('toString', function(glue) {
     glue = glue || '';
