@@ -120,3 +120,14 @@ Data.UI = {
         },
     },
 };
+
+/*-------------------------*
+ | Data class enhancements |
+ *-------------------------*/
+//Add method to generate Data.UI CSS class str (e.g. .data.Genre.id-1)
+Data.method('getSelectionClass', function() {
+    return '.data'
+        + '.' + this.type
+        + '.id-' + this.id
+    ;
+});
