@@ -11,6 +11,8 @@ Data.UI = {
             .addClass('data')
             //Add specific selecion class (e.g. .data.Genre)
             .addClass(d.type)
+            //Add (very specific) id selection class (e.g. .data.Genre.id-1)
+            .addClass('id-' + d.id)
             //Render output text/html
             .html(d.name)
             //Event to update/refresh UI output from stored Data obj
@@ -26,6 +28,9 @@ Data.UI = {
                 //Abort update if new/old type don't match
                 if(old.type != d.type) return;
                 $(this)
+                    //Update id selection class
+                    .removeClass('id-' + old.id)
+                    .addClass('id-' + d.id)
                     //Store new Data obj
                     .data('data', d)
                     //Update UI output
