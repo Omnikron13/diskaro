@@ -13,6 +13,12 @@ Data.UI = {
             .addClass(d.type)
             //Render output text/html
             .html(d.name)
+            //Event to update/refresh UI output from stored Data obj
+            .on('updateOutput', function() {
+                //If this is a basic Data.UI element update HTML
+                if($(this).children().length == 0)
+                    $(this).html($(this).data('data').name);
+            })
             //Event to update internal Data obj & possibly UI output
             .on('updateData', function(ev, d) {
                 //Get current/old Data obj
