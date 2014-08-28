@@ -105,8 +105,8 @@ Data.UI = {
                     //Retrigger custom event on main element (passing selected Data obj)
                     $(this).trigger('dataSelect', $(this).data('data'));
                 })
-                //Catch updateData events
-                .on('updateData', function(ev, d) {
+                //Catch updateOutput events
+                .on('updateOutput', function() {
                     //Update button-text/label
                     $(this).find('.ui-button-text')
                         .html($(this).data('data').name);
