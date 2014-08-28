@@ -30,6 +30,22 @@ Data.method('clone', function() {
     return Data[this.type](JSON.parse(JSON.stringify(this)));
 });
 
+//Method to update Data obj props 'in place' (won't break refs)
+Data.method('update', function(d) {
+    //Abort update if type or id don't match
+    if(d.type != this.type) return this;
+    if(d.id != this.id) return this;
+    //Update name
+    this.name = d.name;
+    //Update parent/child ids (if appropriate)
+    if(this.hasOwnProperty('parentIDs'))
+        this.parentIDs = d.parentIDs;
+    if(this.hasOwnProperty('childIDs'))
+        this.childIDs = d.childIDs;
+    //Enable chaining
+    return this;
+});
+
 //Static method which requests an (optionally filtered) list of 'type' data
 //from the DB and passes a list of Data objects to the provided callback
 Data.load = function(type, cb, f) {
