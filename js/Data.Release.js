@@ -15,6 +15,17 @@ Data.Release = function(json) {
             label : r.label,
         };
     };
+    //Override generic .update() to update year/label
+    r.update = function(d) {
+        //Abort update if type or id don't match
+        if(d.type != this.type) return this;
+        if(d.id != this.id) return this;
+        //Update Release specific properties
+        this.year = d.year;
+        this.label = d.label;
+        //Call generic .update() & return
+        return Data.prototype.update.call(this, d);
+    };
     return r;
 };
 
