@@ -22,7 +22,7 @@ Data.UI = {
                 //Store new Data obj
                 $(this).data('data', d);
                 //If this is a basic Data.UI element update HTML
-                if($(this).html() == old.name)
+                if($(this).children().length == 0)
                     $(this).html(d.name);
                 //Trigger event to alert containers (e.g. DataList.UI)
                 $(this).trigger('dataUpdate', {old:old, new:d});
