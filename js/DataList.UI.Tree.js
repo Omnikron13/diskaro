@@ -82,6 +82,18 @@ DataList.UI.Tree = {
                 //Prevent propagation
                 return false;
             })
+            //Event to check/update .leaf class for this branch
+            .on('updateLeafClass', function() {
+                //Get number of child branches
+                var c = $(this).children('.children').children('.branch').length;
+                //Add/Remove class as appropriate
+                if($(this).hasClass('leaf') && c != 0)
+                    $(this).removeClass('leaf');
+                if(!$(this).hasClass('leaf') && c == 0)
+                    $(this).addClass('leaf');
+                //Stop propagation
+                return false;
+            })
         ;
     },
 
