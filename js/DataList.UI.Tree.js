@@ -31,6 +31,8 @@ DataList.UI.Tree = {
             .data('data', d)
             //Add generic selection class
             .addClass('branch')
+            //Add Data id selection class (e.g. .branch.id-1)
+            .addClass('id-' + d.id)
             //Add root/leaf selection class(es) if appropriate
             .addClass(d.parentIDs.length == 0?'root':'')
             .addClass(d.childIDs.length == 0?'leaf':'')
