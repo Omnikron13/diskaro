@@ -39,7 +39,7 @@ DataList.UI.Tree = {
                 d.parentIDs.forEach(function(pid) {
                     that.find('.branch' + '.id-' + pid)
                         .each(function() {
-                            $(this).triggerHandler('updateBranch');
+                            $(this).trigger('addChild', d);
                         });
                 });
             })
