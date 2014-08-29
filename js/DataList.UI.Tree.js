@@ -52,6 +52,30 @@ DataList.UI.Tree = {
                         })
                     )
             )
+            //Event to add new child branches & remove orphaned ones
+            .on('updateChildren', function() {
+                //Store branch element ref for closures
+                var that = $(this);
+                //Get Data obj (save on method calls)
+                var d = $(this).data('data');
+                //Get Data obj .id of each child branch element
+                var cids = $(this).children('.children').children('.branch')
+                    .map(function(i, e) {
+                        return $(e).data('data').id;
+                    })
+                    .get()
+                ;
+                //Remove orphaned children
+                cids.diff(d.childIDs).forEach(function(id) {
+                    that.trigger('removeChild', index[id]);
+                });
+                //Add missing children
+                d.childIDs.diff(cids).forEach(function(id) {
+                    that.trigger('addChild', index[id]);
+                });
+                //Stop propagation
+                return false;
+            })
             //Event to remove this branch
             .on('removeBranch', function() {
                 //Remove self
