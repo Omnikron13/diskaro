@@ -21,6 +21,31 @@ DataList.UI.Tree = {
                     return DataList.UI.Tree.renderBranch(d, index);
                 })
             )
+            //Event instructing tree to update branch(es) matching Data obj
+            .on('updateBranch', function(ev, d) {
+                //Store tree element ref for closures
+                var that = $(this);
+                $(this)
+                    //Update .root branches (so they can remove themselves
+                    //if they should no longer be roots)
+                    .find('.branch.root')
+                        .trigger('updateBranch')
+                        .end()
+                    //Update all branches representing the Data obj which changed
+                    .find('.branch' + '.id-' + d.id)
+                        .each(function() {
+                            $(this).trigger('updateBranch')
+                        })
+                        .end()
+                ;
+                //Update all branches the changed Data obj lists as parents
+                d.parentIDs.forEach(function(pid) {
+                    that.find('.branch' + '.id-' + pid)
+                        .each(function() {
+                            $(this).triggerHandler('updateBranch');
+                        });
+                });
+            })
             //Catch addRoot from parentless branches being removed
             .on('addRoot', function(ev, d) {
                 //Abort add if root already exists
