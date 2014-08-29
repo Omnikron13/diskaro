@@ -21,6 +21,15 @@ DataList.UI.Tree = {
                     return DataList.UI.Tree.renderBranch(d, index);
                 })
             )
+            //Catch addRoot from parentless branches being removed
+            .on('addRoot', function(ev, d) {
+                //Abort add if root already exists
+                if($(this).find('.branch.root' + '.id-' + d.id).length != 0) return;
+                //Add new root branch
+                $(this).append(
+                    DataList.UI.Tree.renderBranch(d, index)
+                );
+            })
         ;
     },
 
