@@ -114,6 +114,9 @@ DataList.UI.Tree = {
             })
             //Event to remove this branch
             .on('removeBranch', function() {
+                //If this has no parents tell tree to add it as new root
+                if($(this).data('data').parentIDs.length == 0)
+                    $(this).trigger('addRoot', d);
                 //Remove self
                 $(this).remove();
                 //Prevent propagation
