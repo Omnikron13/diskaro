@@ -59,6 +59,29 @@ DataList.UI.Tree = {
                 //Prevent propagation
                 return false;
             })
+            //Event to add a new child branch to this branch
+            .on('addChild', function(ev, d) {
+                //Select children container element
+                $(this).children('.children')
+                    //Add new branch element from given Data obj
+                    .append(
+                        DataList.UI.Tree.renderBranch(d, index)
+                    );
+                //Prevent propagation
+                return false;
+            })
+            //Event to remove a given child branch from this branch
+            .on('removeChild', function(ev, d) {
+                //Select children container element
+                $(this).children('.children')
+                    //Select specific child branch by id
+                    .children('.branch' + '.id-' + d.id)
+                        //Instruct it to remove itself
+                        .trigger('removeBranch')
+                ;
+                //Prevent propagation
+                return false;
+            })
         ;
     },
 
