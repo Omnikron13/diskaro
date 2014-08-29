@@ -157,12 +157,15 @@ DataList.UI.Tree = {
             })
             //Event to add a new child branch to this branch
             .on('addChild', function(ev, d) {
-                //Select children container element
-                $(this).children('.children')
-                    //Add new branch element from given Data obj
-                    .append(
-                        DataList.UI.Tree.renderBranch(d, index)
-                    );
+                //Get children container element
+                var c = $(this).children('.children');
+                //Abort add if child branch already exists
+                if(c.children('.branch' + '.id-' + d.id).length != 0)
+                    return false;
+                //Add new branch element from given Data obj
+                c.append(
+                    DataList.UI.Tree.renderBranch(d, index)
+                );
                 //Prevent propagation
                 return false;
             })
