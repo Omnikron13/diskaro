@@ -26,11 +26,8 @@ DataList.UI.Tree = {
                 //Store tree element ref for closures
                 var that = $(this);
                 $(this)
-                    //Update .root branches (so they can remove themselves
-                    //if they should no longer be roots)
-                    .find('.branch.root')
-                        .trigger('updateBranch')
-                        .end()
+                    //Check/remove .root flagged branches
+                    .trigger('updateRoots')
                     //Update all branches representing the Data obj which changed
                     .find('.branch' + '.id-' + d.id)
                         .each(function() {
