@@ -52,6 +52,13 @@ DataList.UI.Tree = {
                         })
                     )
             )
+            //Event to remove this branch
+            .on('removeBranch', function() {
+                //Remove self
+                $(this).remove();
+                //Prevent propagation
+                return false;
+            })
         ;
     },
 
