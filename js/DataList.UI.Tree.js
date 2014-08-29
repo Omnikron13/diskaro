@@ -27,6 +27,8 @@ DataList.UI.Tree = {
     //Function to render an individual branch from Data obj & id-index
     renderBranch: function(d, index) {
         return $('<li>')
+            //Store main Data obj for easier access
+            .data('data', d)
             //Add generic selection class
             .addClass('branch')
             //Add root/leaf selection class(es) if appropriate
