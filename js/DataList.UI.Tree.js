@@ -100,17 +100,8 @@ DataList.UI.Tree = {
                 var that = $(this);
                 //Store internal Data obj for easier access
                 var d = $(this).data('data');
-                //Root specific integrity check
-                if($(this).hasClass('root')) {
-                    //Check if this .root now has parents
-                    if(d.parentIDs.length != 0) {
-                        //It does; remove self & abort updating
-                        $(this).trigger('removeBranch');
-                        return false;
-                    }
-                }
                 //Not-Root specific integrity check
-                else {
+                if(!$(this).hasClass('root')) {
                     //Get parent branch Data obj
                     var p = $(this).parents('.branch').data('data');
                     //Check if this Data obj references parent branch
