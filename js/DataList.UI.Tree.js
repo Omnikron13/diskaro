@@ -46,6 +46,17 @@ DataList.UI.Tree = {
                         });
                 });
             })
+            //Event to remove .root branches which now have parents
+            .on('updateRoots', function() {
+                //Select & iterate .root branches
+                $(this).find('.branch.root')
+                    .each(function(){
+                        //If branch now has parents, remove it
+                        if($(this).data('data').parentIDs.length != 0)
+                            $(this).remove();
+                    })
+                ;
+            })
             //Catch addRoot from parentless branches being removed
             .on('addRoot', function(ev, d) {
                 //Abort add if root already exists
