@@ -52,6 +52,42 @@ DataList.UI.Tree = {
                         })
                     )
             )
+            //Event to perform any UI updates necessary based on stored Data obj
+            .on('updateBranch', function() {
+                //Store branch element ref for closures
+                var that = $(this);
+                //Store internal Data obj for easier access
+                var d = $(this).data('data');
+                //Root specific integrity check
+                if($(this).hasClass('root')) {
+                    //Check if this .root now has parents
+                    if(d.parentIDs.length != 0) {
+                        //It does; remove self & abort updating
+                        $(this).trigger('removeBranch');
+                        return false;
+                    }
+                }
+                //Not-Root specific integrity check
+                else {
+                    //Get parent branch Data obj
+                    var p = $(this).parents('.branch').data('data');
+                    //Check if this Data obj references parent branch
+                    if(!d.parentIDs.some(function(pid) {
+                        return pid == p.id;
+                    })) {
+                        //It doesn't; remove self & abort updating
+                        $(this).trigger('removeBranch');
+                        return false;
+                    }
+                }
+                //Delegate to specific update events
+                $(this)
+                    .trigger('updateChildren')
+                    .trigger('updateLeafClass')
+                ;
+                //Stop propagation
+                return false;
+            })
             //Event to add new child branches & remove orphaned ones
             .on('updateChildren', function() {
                 //Store branch element ref for closures
