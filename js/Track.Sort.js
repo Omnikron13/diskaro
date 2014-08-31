@@ -30,20 +30,6 @@ Track.Sort = {
         },
     },
 
-    //Sort by .genres
-    Genres: {
-        Asc: function(a, b) {
-            var x = DataList.Sort.Asc(a.genres, b.genres);
-            if(x == 0) return Track.Sort.Title.Asc(a, b);
-            return x;
-        },
-        Desc: function(a, b) {
-            var x = DataList.Sort.Desc(a.genres, b.genres);
-            if(x == 0) return Track.Sort.Title.Asc(a, b);
-            return x;
-        },
-    },
-
     //Sort by .release.label
     Label: {
         Asc: function(a, b) {
@@ -104,20 +90,6 @@ Track.Sort = {
         },
     },
 
-    //Sort by .tags
-    Tags: {
-        Asc: function(a, b) {
-            var x = DataList.Sort.Asc(a.tags, b.tags);
-            if(x == 0) return Track.Sort.Title.Asc(a, b);
-            return x;
-        },
-        Desc: function(a, b) {
-            var x = DataList.Sort.Desc(a.tags, b.tags);
-            if(x == 0) return Track.Sort.Title.Asc(a, b);
-            return x;
-        },
-    },
-
     //Function to generate asc/desc pair to sort by DataList returned by getDL
     DataList: function(getDL) {
         return {
@@ -139,6 +111,16 @@ Track.Sort = {
         });
     },
 };
+
+//Shorthand for .genres Track.Sort.DataList sort
+Track.Sort.Genres = Track.Sort.DataList(function(t) {
+    return t.genres;
+});
+
+//Shorthand for .tags Track.Sort.DataList sort
+Track.Sort.Tags = Track.Sort.DataList(function(t) {
+    return t.tags;
+});
 
 //Shorthand for primary artist Role (default; 'Artist') callbacks
 Track.Sort.Role.Artist = Track.Sort.Role('Artist');
