@@ -30,16 +30,6 @@ Track.Sort = {
         },
     },
 
-    //Shorthand for sorting by 'Artist' Role
-    Artists: {
-        Asc: function(a, b) {
-            return Track.Sort.Role.Asc('Artist')(a, b);
-        },
-        Desc: function(a, b) {
-            return Track.Sort.Role.Desc('Artist')(a, b);
-        },
-    },
-
     //Sort by .genres
     Genres: {
         Asc: function(a, b) {
@@ -128,21 +118,22 @@ Track.Sort = {
         },
     },
 
-    //Function to generate callback which sorts by artists matching given Role
-    Role: {
-        Asc: function(r) {
-            return function(a, b) {
+    //Function to generate asc/desc pair to sort by artists matching given Role
+    Role: function(r) {
+        return {
+            Asc: function(a, b) {
                 var x = DataList.Sort.Asc(a.getArtistsByRole(r), b.getArtistsByRole(r));
                 if(x == 0) return Track.Sort.Title.Asc(a, b);
                 return x;
-            };
-        },
-        Desc: function(r) {
-            return function(a, b) {
+            },
+            Desc: function(a, b) {
                 var x = DataList.Sort.Desc(a.getArtistsByRole(r), b.getArtistsByRole(r));
                 if(x == 0) return Track.Sort.Title.Asc(a, b);
                 return x;
-            };
-        },
+            },
+        };
     },
 };
+
+//Shorthand for primary artist Role (default; 'Artist') callbacks
+Track.Sort.Role.Artist = Track.Sort.Role('Artist');
