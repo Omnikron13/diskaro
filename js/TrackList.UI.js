@@ -10,6 +10,8 @@ TrackList.UI = {
             return $('<table>')
                 //Initialise internal TrackList object
                 .data('tracklist', new TrackList([]))
+                //Store Track.UI.Column array (for updates etc.)
+                .data('columns', columns)
                 //Add selection class
                 .addClass('trackList')
                 //Render headings row
@@ -64,7 +66,7 @@ TrackList.UI = {
                                 //Render new Track.UI.Row elements
                                 .append(
                                     that.data('tracklist').list.map(function(t, i) {
-                                        return Track.UI.Row.render(t, columns);
+                                        return Track.UI.Row.render(t, that.data('columns'));
                                     })
                                 )
                             ;
