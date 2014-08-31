@@ -168,3 +168,40 @@ DataList.Label = function(labels) {
 DataList.Tag = function(tags) {
     return new DataList('Tag', tags);
 };
+
+//Namespace for callbacks to .sort() arrays of DataList objects
+DataList.Sort = {
+    //Var controlling where to sort empty against non-empty list
+    //(-1 for empty at top, 1 for empty at bottom)
+    nullSort: -1,
+
+    //Function to sort in ascending order
+    Asc: function(a, b) {
+        //Both empty; no sort
+        if(a.list.length == 0 && b.list.length == 0)
+            return 0;
+        //First empty; sort by nullSort setting
+        if(a.list.length == 0)
+            return DataList.Sort.nullSort;
+        //Second empty; sort by nullSort setting
+        if(b.list.length == 0)
+            return DataList.Sort.nullSort - DataList.Sort.nullSort * 2;
+        //Sort by concatenated Data obj .name
+        return a.toString().localeCompare(b.toString());
+    },
+
+    //Function to sort in descending order
+    Desc: function(a, b) {
+        //Both empty; no sort
+        if(a.list.length == 0 && b.list.length == 0)
+            return 0;
+        //First empty; sort by nullSort setting
+        if(a.list.length == 0)
+            return DataList.Sort.nullSort;
+        //Second empty; sort by nullSort setting
+        if(b.list.length == 0)
+            return DataList.Sort.nullSort - DataList.Sort.nullSort * 2;
+        //Sort by concatenated Data obj .name
+        return b.toString().localeCompare(a.toString());
+    },
+};
