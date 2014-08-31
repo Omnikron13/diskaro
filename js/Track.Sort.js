@@ -118,20 +118,25 @@ Track.Sort = {
         },
     },
 
-    //Function to generate asc/desc pair to sort by artists matching given Role
-    Role: function(r) {
+    //Function to generate asc/desc pair to sort by DataList returned by getDL
+    DataList: function(getDL) {
         return {
             Asc: function(a, b) {
-                var x = DataList.Sort.Asc(a.getArtistsByRole(r), b.getArtistsByRole(r));
-                if(x == 0) return Track.Sort.Title.Asc(a, b);
-                return x;
+                var x = DataList.Sort.Asc(getDL(a), getDL(b));
+                return x == 0 ? Track.Sort.Title.Asc(a, b) : x;
             },
             Desc: function(a, b) {
-                var x = DataList.Sort.Desc(a.getArtistsByRole(r), b.getArtistsByRole(r));
-                if(x == 0) return Track.Sort.Title.Asc(a, b);
-                return x;
+                var x = DataList.Sort.Desc(getDL(a), getDL(b));
+                return x == 0 ? Track.Sort.Title.Asc(a, b) : x;
             },
         };
+    },
+
+    //Shorthand for creating .getArtistsByRole() Track.Sort.DataList pair
+    Role: function(r) {
+        return Track.Sort.DataList(function(t) {
+            return t.getArtistsByRole(r);
+        });
     },
 };
 
