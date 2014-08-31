@@ -198,20 +198,7 @@ DataList.UI.Tree = {
 
     //Utility function to render DataList.UI.Tree from DataList.All.*
     all: function(type) {
-        //Create placeholder
-        var e = $('<p>')
-            .addClass('placeholder')
-            .html(_(type + ' list loading') + '...')
-        ;
-        //Defer main rendering til DataList.All is ready
-        $.when(DataList.All.loaded(type))
-            .done(function() {
-                e.replaceWith(
-                    DataList.UI.Tree.render(DataList.All[type])
-                );
-            });
-        //Return placeholder
-        return e;
+        return DataList.UI.Tree.render(DataList.All[type]);
     },
 
     //Shorthands for creating DataList.All.* trees
