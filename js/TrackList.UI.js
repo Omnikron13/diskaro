@@ -1,4 +1,5 @@
 //require_once(TrackList.js)
+//require_once(Track.UI.Row.js)
 
 //UI 'namespace' for UI functionality
 TrackList.UI = {
@@ -124,13 +125,13 @@ TrackList.UI = {
                 //Render actual heading cells
                 .append(
                     columns.map(function(c, i) {
-                        return c.renderTH()
+                        return c.renderHeading()
                             //Event to trigger asc. sort on this column
                             .on('sortAsc', function() {
                                 $(this)
                                     .addClass('sortAsc')
                                     .removeClass('sortDesc')
-                                    .trigger('sort', c.sort)
+                                    .trigger('sort', c.sort.Asc)
                                 ;
                             })
                             //Event to trigger desc. sort on this column
@@ -138,9 +139,7 @@ TrackList.UI = {
                                 $(this)
                                     .addClass('sortDesc')
                                     .removeClass('sortAsc')
-                                    .trigger('sort', function(a, b) {
-                                        return c.sort(a, b) * -1;
-                                    })
+                                    .trigger('sort', c.sort.Desc)
                                 ;
                             })
                             //Event to clear sort on this column

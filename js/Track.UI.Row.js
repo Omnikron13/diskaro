@@ -1,4 +1,5 @@
 //require_once(Track.UI.js)
+//require_once(Track.UI.Column.js)
 //require_once(Player.js)
 
 //Namespace for table row (<tr>) output
@@ -14,8 +15,8 @@ Track.UI.Row = {
                 $(this)
                     .data('track', t)
                     .attr('title', t.getTitleString())
-                    .html($.map(columns, function(c) {
-                        return c.renderTD(t);
+                    .html(columns.map(function(c) {
+                        return c.renderCell(t);
                     }))
             })
 
