@@ -1,13 +1,11 @@
 //require_once(CrockfordSugar.js)
 //require_once(Player.js)
 //require_once(Track.js)
-//require_once(TrackColumn.js)
 
-function TrackList(json, columns) {
+function TrackList(json) {
     this.list = json.map(function(t) {
         return new Track(t);
     });
-    this.columns = columns || TrackList.defaultColumns;
     this.active = null; //id of active/playing track
     //Currently sorted column & sort order flag
     this.sortColumn = null;
@@ -45,13 +43,3 @@ TrackList.method('trackIndex', function() {
     });
     return index;
 });
-
-//Static member defining a default set of TrackColumns to render
-TrackList.defaultColumns = [
-    new TrackColumn('#', TrackColumn.renderNumber, TrackColumn.sortNumber),
-    new TrackColumn('Title', TrackColumn.renderTitle, TrackColumn.sortTitle),
-    new TrackColumn('Artists', TrackColumn.renderRole('Artist'), TrackColumn.sortRole('Artist')),
-    new TrackColumn('Release', TrackColumn.renderRelease, TrackColumn.sortRelease),
-    new TrackColumn('Genres', TrackColumn.renderGenres, TrackColumn.sortGenres),
-    new TrackColumn('Tags', TrackColumn.renderTags, TrackColumn.sortTags)
-];
