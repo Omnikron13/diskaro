@@ -151,6 +151,12 @@ Track.method('getRelease', function() {
     return this.releaseObj;
 });
 
+//Shorthand for this Track objs Data.Release .getLabel()
+Track.method('getLabel', function() {
+    var r = this.getRelease();
+    return r ? r.getLabel() : null;
+});
+
 //Getter to return DataList obj from stored genreIDs
 Track.method('getGenres', function() {
     //If Genre DataList isn't cached, convert genreIDs
