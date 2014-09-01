@@ -118,3 +118,36 @@ Data.method('update', function(d) {
     //Enable chaining
     return this;
 });
+
+/*--------------------------*
+ | Track class enhancements |
+ *--------------------------*/
+
+//Getter to return Data obj (or null) from stored releaseID
+Track.method('getRelease', function() {
+    //Return null immediately if releaseID is nulled
+    if(!this.releaseID) return null;
+    //If a Data.Release obj isn't cached, convert relaseID
+    if(!this.releaseObj)
+        this.releaseObj = DataList.All.Release.getIdIndex()[this.releaseID];
+    //Return (cached) Data.Release obj
+    return this.releaseObj;
+});
+
+//Getter to return DataList obj from stored genreIDs
+Track.method('getGenres', function() {
+    //If Genre DataList isn't cached, convert genreIDs
+    if(!this.genreList)
+        this.genreList = DataList.All.Genre.getSubset(this.genreIDs);
+    //Return (cached) DataList
+    return this.genreList.sort();
+});
+
+//Getter to return DataList obj from stored tagIDs
+Track.method('getTags', function() {
+    //If Tag DataList isn't cached, convert tagIDs
+    if(!this.tagList)
+        this.tagList = DataList.All.Tag.getSubset(this.tagIDs);
+    //Return (cached) DataList
+    return this.tagList.sort();
+});
