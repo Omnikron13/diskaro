@@ -4,7 +4,6 @@
 Track.UI.Edit = {
     //Function to render a Dialog widget with controls for editing Track data
     renderDialogue: function(t) {
-        var _t = t.clone();
         return $('<div>')
             //Add selection class
             .addClass('editTrack')
@@ -16,6 +15,13 @@ Track.UI.Edit = {
                     return s(_t);
                 })
             )
+            //Catch save event & update Track obj
+            .on('save', function(ev, t) {
+                //Trigger save event on all sections to process changes
+                $(this).find('.section').each(function() {
+                    $(this).triggerHandler('save');
+                });
+            })
             //Internal event for shorthand save & close/destroy
             .on('saveAndClose', function(ev, t) {
                 $(this)
@@ -40,7 +46,7 @@ Track.UI.Edit = {
                     }},
                     {text: _('Save'), click: function() {
                         $(this)
-                            .triggerHandler('saveAndClose', _t)
+                            .triggerHandler('saveAndClose', t)
                         ;
                     }},
                 ],
@@ -86,7 +92,7 @@ Track.UI.Edit = {
         },
 
         //Function for rendering Title sections
-        Title: function(_t) {
+        Title: function(t) {
             return Track.UI.Edit.Section.render('title', _('Title'))
                 //Render input label
                 .append(
@@ -100,25 +106,22 @@ Track.UI.Edit = {
                         .attr('id', 'trackNameField')
                         //Render empty/placeholder text
                         .attr('placeholder', _('Title') + '...')
-                        .val(_t.name)
-                        //Update .name of Track being edited on changes
-                        .on('input', function() {
-                            _t.name = $(this).val();
-                        })
+                        .val(t.name)
                 )
+                //Catch save event & update Track obj .name
+                .on('save', function() {
+                    t.name = $(this).find('#trackNameField').val();
+                })
             ;
         },
 
         //Subnamespace for rendering Release/# sections
         Release: {
-            render: function(_t) {
+            render: function(t) {
                 return Track.UI.Edit.Section.render('release', _('Release'))
                     //Render Release object/placeholder
                     .append(
-                        Track.UI.Edit.Section.Release.renderData(_t.release)
-                            .on('dataUpdate', function(ev, d) {
-                                _t.release = d.new;
-                            })
+                        Track.UI.Edit.Section.Release.renderData(t.release)
                     )
                     //Render trackNumber field (container)
                     .append(
@@ -139,25 +142,18 @@ Track.UI.Edit = {
                                     //Render empty/placeholder text
                                     .attr('placeholder', _('#'))
                                     //Init value to current .trackNumber
-                                    .val(_t.trackNumber)
-                                    //Catch input changes/typing & update Track
-                                    .on('input', function() {
-                                        //Get new value (str)
-                                        var s = $(this).val();
-                                        //If blank set trackNumber to null/unknown
-                                        if(s == '') {
-                                            _t.trackNumber = null;
-                                            return;
-                                        }
-                                        //Convert new value to int
-                                        var i = parseInt(s, 10);
-                                        //If conversion fails, abort
-                                        if(Number.isNaN(i)) return;
-                                        //Set new trackNumber
-                                        _t.trackNumber = i;
-                                    })
+                                    .val(t.trackNumber)
                             )
                     )
+                    //Catch save event & update Track obj release & number
+                    .on('save', function() {
+                        //Update Track release id/obj
+                        var r = $(this).find('.data.Release').data('data');
+                        t.setRelease(r);
+                        //Update Track number
+                        var s = $(this).find('#trackNumberField').val();
+                        t.setTrackNumber(s);
+                    })
                 ;
             },
 
@@ -216,15 +212,15 @@ Track.UI.Edit = {
         //Subnamespace for rendering Artists sections
         Artists: {
             //Function to render main section element
-            render: function(_t) {
+            render: function(t) {
                 return Track.UI.Edit.Section.render('artists', _('Artists'))
                     //Render Role/Artists table
                     .append(
                         $('<table>')
                             .append(
                                 //Render a row for each unique Role
-                                _t.getRoles().map(function(r) {
-                                    return Track.UI.Edit.Section.Artists.renderRow(_t, r);
+                                t.getRoles().map(function(r) {
+                                    return Track.UI.Edit.Section.Artists.renderRow(t, r);
                                 })
                             )
                     )
@@ -240,58 +236,38 @@ Track.UI.Edit = {
                                     dl.on('save', function(ev, d) {
                                         that.prev('table')
                                             .append(
-                                                Track.UI.Edit.Section.Artists.renderRow(_t, d)
+                                                Track.UI.Edit.Section.Artists.renderRow(t, d)
                                             )
                                         ;
                                     });
                                 });
                             })
                     )
-                    //Catch changes to Artist objects
-                    .on('dataUpdate', '.cell.artists', function(ev, d) {
-                        //Extract corresponding Role object
-                        var r = $(ev.target).parents('.row').data('role');
-                        //Update ArtistLink obj
-                        _t.setArtistLink(
-                            {artist: d.old, role: r},
-                            {artist: d.new, role: r}
-                        );
-                    })
-                    //Catch changes to Role objects
-                    .on('dataUpdate', '.cell.role', function(ev, d) {
-                        //Select main row element
-                        $(ev.target).parents('.row')
-                            //Update stored Role obj
-                            .data('role', d.new)
-                            //Select & iterate Artist Data.UI elements
-                            .find('.data.Artist')
-                                .each(function(i, a) {
-                                    //Update Track ArtistLink objects
-                                    _t.setArtistLink(
-                                        {artist: $(a).data('data'), role: d.old},
-                                        {artist: $(a).data('data'), role: d.new}
-                                    );
-                                })
-                        ;
-                    })
-                    //Catch Data objects added to the Artist DataLists
-                    .on('add', '.dataList', function(ev, d) {
-                        //Add new ArtistLink to Track obj
-                        _t.artistLinks.push(new ArtistLink({
-                            artist : d,
-                            role   : $(this).parents('.row').data('role'),
-                        }));
-                    })
-                    //Catch artistRemove events from table rows
-                    .on('artistRemove', '.row', function(ev, d) {
-                        //Remove the relevant ArtistLink from Track obj
-                        _t.removeArtistLink({artist: d, role: $(this).data('role')});
+                    //Catch save event & update Track obj ArtistLinks
+                    .on('save', function() {
+                        //Init array to hold new ArtistLink objs
+                        var links = [];
+                        //Iterate table (Role) rows
+                        $(this).find('.row').each(function() {
+                            //Get Role obj for new ArtistLink objs
+                            var r = $(this).find('.data.Role').data('data');
+                            //Iterate Artist Data.UI elements
+                            $(this).find('.data.Artist').each(function() {
+                                //Add new ArtistLink obj to array
+                                links.push(new ArtistLink({
+                                    role   : r,
+                                    artist : $(this).data('data'),
+                                }));
+                            });
+                        });
+                        //Replace Track obj's ArtistLink array
+                        t.setArtistLinks(links);
                     })
                 ;
             },
 
             //Function to render a table row from Track & Role obj
-            renderRow: function(_t, r) {
+            renderRow: function(t, r) {
                 return $('<tr>')
                     //Store Role obj
                     .data('role', r)
@@ -312,7 +288,7 @@ Track.UI.Edit = {
                             .addClass('cell')
                             .addClass('artists')
                             .append(
-                                DataList.UI.UL.render(_t.getArtistsByRole(r))
+                                DataList.UI.UL.render(t.getArtistsByRole(r))
                                     //Render 'Add' button
                                     .add(DataList.UI.UL.AddButton())
                             )
@@ -330,17 +306,30 @@ Track.UI.Edit = {
         },
 
         //Subnamespace for rendering Genres sections
-        Genres: function(_t) {
-            return Track.UI.Edit.Section.renderDataList(_t.genres, _('Genres'))
+        Genres: function(t) {
+            return Track.UI.Edit.Section.renderDataList(t.getGenres(), _('Genres'))
+                //Catch save event & update Track obj Genre id/obj list
+                .on('save', function() {
+                    var dl = $(this).find('.dataList').data('datalist');
+                    t.setGenres(dl);
+                })
+            ;
         },
 
         //Subnamespace for rendering Tags sections
-        Tags: function(_t) {
-            return Track.UI.Edit.Section.renderDataList(_t.tags, _('Tags'))
+        Tags: function(t) {
+            return Track.UI.Edit.Section.renderDataList(t.getTags(), _('Tags'))
+                //Catch save event & update Track obj Tag id/obj list
+                .on('save', function() {
+                    var dl = $(this).find('.dataList').data('datalist');
+                    t.setTags(dl);
+                })
+            ;
         },
 
         //Utility function for rendering DataList output/edit sections
         renderDataList: function(dl, head) {
+            var dl = dl.clone();
             var e = Track.UI.Edit.Section.render('editList', head)
                 //Add specific selection class (e.g. .editList.Genre)
                 .addClass(dl.type)

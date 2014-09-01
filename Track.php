@@ -176,17 +176,17 @@ class Track extends DataCore {
         if($data->path != $this->getPath())
             $this->setPath($data->path);
         //Convert new release to object (if applicable)
-        if($data->release != null)
-            $data->release = new Release($data->release->id);
+        if($data->releaseID != null)
+            $release = new Release($data->releaseID);
         //Update release if different
-        if($data->release != $this->getRelease())
-            $this->setRelease($data->release);
+        if($release != $this->getRelease())
+            $this->setRelease($release);
         //Update trackNumber if different
         if($data->trackNumber != $this->getTrackNumber())
             $this->setTrackNumber($data->trackNumber);
         //Update data arrays (genres & tags)
-        $this->updateData($data->genres, 'Genre');
-        $this->updateData($data->tags, 'Tag');
+        $this->updateData($data->genreIDs, 'Genre');
+        $this->updateData($data->tagIDs, 'Tag');
         //Convert new artistLinks into artist/role pairs
         $data->artistLinks = array_map(function($al) {
             return [
@@ -223,8 +223,8 @@ class Track extends DataCore {
         //Get old/current data array
         $oldData = $this->$get();
         //Convert data array to objects
-        $data = array_map(function($d) use ($class) {
-            return new $class($d->id);
+        $data = array_map(function($id) use ($class) {
+            return new $class($id);
         }, $data);
         //Add data links
         foreach(array_diff($data, $oldData) as $d) {
