@@ -53,6 +53,11 @@ DataList.method('getSubset', function(ids) {
     }));
 });
 
+//Method to return a (shallow) copy of the DataList
+DataList.method('clone', function() {
+    return new DataList(this.type, this.list.slice(0));
+});
+
 //Method to check if a given Data object is in the list
 DataList.method('contains', function(d) {
     //Assume it cannot be if types don't match
