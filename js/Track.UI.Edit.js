@@ -369,3 +369,12 @@ Track.UI.Edit = {
         },
     },
 };
+
+//Array holding render functions for default 'all' sections
+Track.UI.Edit.Section.All = [
+    Track.UI.Edit.Section.Title,
+    Track.UI.Edit.Section.Release.render,
+    Track.UI.Edit.Section.Artists.render,
+    Track.UI.Edit.Section.Genres,
+    Track.UI.Edit.Section.Tags,
+];
