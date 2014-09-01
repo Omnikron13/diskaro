@@ -12,7 +12,7 @@ Track.UI.Edit = {
             //Render sections from .Section.All array
             .append(
                 Track.UI.Edit.Section.All.map(function(s) {
-                    return s(_t);
+                    return s(t);
                 })
             )
             //Catch save event & update Track obj
