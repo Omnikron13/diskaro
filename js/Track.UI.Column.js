@@ -143,7 +143,7 @@ Track.UI.Column.Release = new Track.UI.Column(
     }
 );
 
-//Basic Release Label (.release.label) Column
+//Basic Release Label Column
 Track.UI.Column.Label = new Track.UI.Column(
     //Internal column/cell name
     'label',
@@ -153,13 +153,12 @@ Track.UI.Column.Label = new Track.UI.Column(
     Track.Sort.Label,
     //Function to render .html() content
     function(t) {
-        var r = t.getRelease();
-        return r && r.label ? r.label.name : _('Unknown');
+        var l = t.getLabel();
+        return l ? l.name : _('Unknown');
     },
     //Function to check if cell is null/empty
     function(t) {
-        var r = t.getRelease();
-        return !(r && r.label);
+        return !t.getLabel();
     }
 );
 
