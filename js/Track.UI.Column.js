@@ -1,5 +1,6 @@
 //require_once(Track.UI.js)
 //require_once(Track.Sort.js)
+//require_once(DataList.All.js)
 
 //Constructor for Track table column objects (for rendering <th>/<td> cells)
 Track.UI.Column = function(name, head, sort, renderContent, isNull) {
@@ -133,11 +134,12 @@ Track.UI.Column.Release = new Track.UI.Column(
     Track.Sort.Release,
     //Function to render .html() content
     function(t) {
-        return t.release ? t.release.name : _('Unknown');
+        var r = t.getRelease();
+        return r ? r.name : _('Unknown');
     },
     //Function to check if cell is null/empty
     function(t) {
-        return !t.release;
+        return !t.getRelease();
     }
 );
 
@@ -151,11 +153,13 @@ Track.UI.Column.Label = new Track.UI.Column(
     Track.Sort.Label,
     //Function to render .html() content
     function(t) {
-        return t.release && t.release.label ? t.release.label.name : _('Unknown');
+        var r = t.getRelease();
+        return r && r.label ? r.label.name : _('Unknown');
     },
     //Function to check if cell is null/empty
     function(t) {
-        return !(t.release && t.release.label);
+        var r = t.getRelease();
+        return !(r && r.label);
     }
 );
 
@@ -164,7 +168,7 @@ Track.UI.Column.Genres = Track.UI.Column.DataList(
     'genres',
     _('Genres'),
     function(t) {
-        return t.genres;
+        return t.getGenres();
     }
 );
 
@@ -173,7 +177,7 @@ Track.UI.Column.Tags = Track.UI.Column.DataList(
     'tags',
     _('Tags'),
     function(t) {
-        return t.tags;
+        return t.getTags();
     }
 );
 
