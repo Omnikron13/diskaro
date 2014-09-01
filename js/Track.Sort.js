@@ -1,4 +1,5 @@
 //require_once(Track.js)
+//require_once(DataList.All.js)
 
 //Namespace for predefined .sort() callbacks for arrays of Track objs
 Track.Sort = {
@@ -33,8 +34,10 @@ Track.Sort = {
     //Sort by .release.label
     Label: {
         Asc: function(a, b) {
-            var al = a.release ? a.release.label : null;
-            var bl = b.release ? b.release.label : null;
+            var ar = a.getRelease();
+            var br = b.getRelease();
+            var al = ar ? ar.label : null;
+            var bl = br ? br.label : null;
             if(al == null && bl == null)
                 var x = 0;
             else if(al == null)
@@ -47,8 +50,10 @@ Track.Sort = {
             return x;
         },
         Desc: function(a, b) {
-            var al = a.release ? a.release.label : null;
-            var bl = b.release ? b.release.label : null;
+            var ar = a.getRelease();
+            var br = b.getRelease();
+            var al = ar ? ar.label : null;
+            var bl = br ? br.label : null;
             if(al == null && bl == null)
                 var x = 0;
             else if(al == null)
@@ -65,26 +70,30 @@ Track.Sort = {
     //Sort by .release
     Release: {
         Asc: function(a, b) {
-            if(a.release == null && b.release == null)
+            var ar = a.getRelease();
+            var br = b.getRelease();
+            if(ar == null && br == null)
                 var x = 0;
-            else if(a.release == null)
+            else if(ar == null)
                 var x = Track.Sort.nullSort;
-            else if(b.release == null)
+            else if(br == null)
                 var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
             else
-                var x = a.release.name.localeCompare(b.release.name);
+                var x = ar.name.localeCompare(br.name);
             if(x == 0) return Track.Sort.Number.Asc(a, b);
             return x;
         },
         Desc: function(a, b) {
-            if(a.release == null && b.release == null)
+            var ar = a.getRelease();
+            var br = b.getRelease();
+            if(ar == null && br == null)
                 var x = 0;
-            else if(a.release == null)
+            else if(ar == null)
                 var x = Track.Sort.nullSort;
-            else if(b.release == null)
+            else if(br == null)
                 var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
             else
-                var x = b.release.name.localeCompare(a.release.name);
+                var x = br.name.localeCompare(ar.name);
             if(x == 0) return Track.Sort.Number.Asc(a, b);
             return x;
         },
@@ -114,12 +123,12 @@ Track.Sort = {
 
 //Shorthand for .genres Track.Sort.DataList sort
 Track.Sort.Genres = Track.Sort.DataList(function(t) {
-    return t.genres;
+    return t.getGenres();
 });
 
 //Shorthand for .tags Track.Sort.DataList sort
 Track.Sort.Tags = Track.Sort.DataList(function(t) {
-    return t.tags;
+    return t.getTags();
 });
 
 //Shorthand for primary artist Role (default; 'Artist') callbacks
