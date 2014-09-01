@@ -54,47 +54,6 @@ Track.method('getTitleString', function() {
     return str;
 });
 
-//Method to get DataList of unique artists (no role info...)
-Track.method('getArtists', function() {
-    return DataList.Artist(
-        //Remove duplicates
-        $.unique(
-            //Extract Artist objects from ArtistLinks
-            this.artistLinks.map(function(link) {
-                return link.artist;
-            })
-        )
-    );
-});
-
-//Method to get DataList of unique roles (no artist info...)
-// breaks $.unique() on nulls!
-Track.method('getRoles', function() {
-    return DataList.Role(
-        //Remove duplicates
-        $.unique(
-            //Extract Role objects from ArtistLinks
-            this.artistLinks.map(function(link) {
-                return link.role;
-            })
-        )
-    );
-});
-
-//Returns an array of artist objects filtered by role
-Track.method('getArtistsByRole', function(role) {
-    return DataList.Artist(
-        //Filter down ArtistLink objects
-        this.artistLinks.filter(function(link) {
-            return link.isRole(role);
-        })
-            //Extract Artist objects from ArtistLinks
-            .map(function(link) {
-                return link.artist;
-            })
-    );
-});
-
 //Setter method to set .trackNumber from int/string/null
 Track.method('setTrackNumber', function(i) {
     //If given a string, attempt to convert it to int

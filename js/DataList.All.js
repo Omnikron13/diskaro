@@ -175,6 +175,38 @@ Track.method('getTags', function() {
     return this.tagList.sort();
 });
 
+//Getter to return (unique) Artist DataList from .artistLinks
+Track.method('getArtists', function() {
+    return DataList.Artist($.unique(
+        this.artistLinks.map(function(al) {
+            return al.getArtist();
+        })
+    ));
+});
+
+//Getter to return (unique) Role DataList from .artistLinks
+Track.method('getRoles', function() {
+    return DataList.Role($.unique(
+        this.artistLinks.map(function(al) {
+            return al.getRole();
+        })
+    ));
+});
+
+//Getter to return Artist DataList from .artistLinks, filtered by role
+Track.method('getArtistsByRole', function(role) {
+    return DataList.Artist(
+        //Filter down ArtistLink objects
+        this.artistLinks.filter(function(link) {
+            return link.isRole(role);
+        })
+            //Extract Artist objects from ArtistLinks
+            .map(function(link) {
+                return link.getArtist();
+            })
+    );
+});
+
 //Setter to change stored Release id/obj from given Release obj
 Track.method('setRelease', function(r) {
     //If passed null/undefined/etc. null Track release
