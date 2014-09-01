@@ -125,6 +125,12 @@ Track.method('setTrackNumber', function(i) {
     return this;
 });
 
+//Setter to completely replace ArtistLink array
+Track.method('setArtistLinks', function(al) {
+    this.artistLinks = al;
+    return this;
+});
+
 //Method to find a given ArtistLink (or plain obj) and change it
 Track.method('setArtistLink', function(o, n) {
     //Iterate ArtistLink array
