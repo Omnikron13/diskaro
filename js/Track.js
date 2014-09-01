@@ -11,23 +11,7 @@ function Track(json) {
     this.id = json.id;
     this.name = json.name;
     this.path = json.path;
-    //Set release or null/unknown
-    this.release = json.release === null?
-        null:
-        Data.Release(json.release);
     this.trackNumber = json.trackNumber===null?'':json.trackNumber;
-    //Convert genres to DataList
-    this.genres = DataList.Genre(
-        json.genres.map(function(g) {
-            return Data.Genre(g);
-        })
-    ).sort();
-    //Convert tags to DataList
-    this.tags = DataList.Tag(
-        json.tags.map(function(t) {
-            return Data.Tag(t);
-        })
-    ).sort();
     this.artistLinks = json.artistLinks.map(function(link) {
         return new ArtistLink(link);
     });
@@ -43,10 +27,7 @@ Track.method('toJSON', function() {
         id          : this.id,
         name        : this.name,
         path        : this.path,
-        release     : this.release,
         trackNumber : this.trackNumber,
-        genres      : this.genres,
-        tags        : this.tags,
         artistLinks : this.artistLinks,
         //Serialise plain id references
         releaseID   : this.releaseID,
