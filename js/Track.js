@@ -114,6 +114,17 @@ Track.method('getArtistsByRole', function(role) {
     );
 });
 
+//Setter method to set .trackNumber from int/string/null
+Track.method('setTrackNumber', function(i) {
+    //If given a string, attempt to convert it to int
+    if(typeof i == 'string')
+        i = Number.parseInt(i, 10);
+    //Update track number to new int or null it
+    this.trackNumber = Number.isNaN(i) ? null : i;
+    //Enable chaining
+    return this;
+});
+
 //Method to find a given ArtistLink (or plain obj) and change it
 Track.method('setArtistLink', function(o, n) {
     //Iterate ArtistLink array
