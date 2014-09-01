@@ -119,6 +119,23 @@ Data.method('update', function(d) {
     return this;
 });
 
+/*---------------------------*
+ | Data.Release enhancements |
+ *---------------------------*/
+
+//Getter to return Data.Label obj (or null) from stored labelID
+Data.method('getLabel', function() {
+    //Abort if this isn't a Data.Release
+    if(this.type != 'Release') return null;
+    //Return null if this Release has no Label id
+    if(!this.labelID) return null;
+    //If Data.Label obj isn't cached, convert labelID
+    if(!this.labelObj)
+        this.labelObj = DataList.All.Label.getIdIndex()[this.labelID];
+    //Return (cached) Data.Label obj
+    return this.labelObj;
+});
+
 /*--------------------------*
  | Track class enhancements |
  *--------------------------*/
