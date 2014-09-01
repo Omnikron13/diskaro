@@ -151,3 +151,44 @@ Track.method('getTags', function() {
     //Return (cached) DataList
     return this.tagList.sort();
 });
+
+//Setter to change stored Release id/obj from given Release obj
+Track.method('setRelease', function(r) {
+    //If passed null/undefined/etc. null Track release
+    if(!r) {
+        this.releaseID = null;
+        this.releaseObj = null;
+        return this;
+    }
+    //If passed int assume id & get Release obj
+    if(Number.isInteger(r))
+        r = DataList.All.Release.getIdIndex()[r];
+    //Set Track release & return this for chaining
+    this.releaseID = r.id;
+    this.releaseObj = r;
+    return this;
+});
+
+//Setter to change stored Genre id array/DataList from given id array/DataList
+Track.method('setGenres', function(gl) {
+    //If not passed a DataList assume id array & convert
+    if(!gl instanceof DataList)
+        gl = DataList.All.Genre.getIdIndex().getSubset(gl);
+    //Set Genre id array & (cached) DataList
+    this.genreIDs = gl.getIDs();
+    this.genreList = gl;
+    //Enable chaining
+    return this;
+});
+
+//Setter to change stored Tag id array/DataList from given id array/DataList
+Track.method('setTags', function(tl) {
+    //If not passed a DataList assume id array & convert
+    if(!tl instanceof DataList)
+        tl = DataList.All.Tag.getIdIndex().getSubset(tl);
+    //Set Tag id array & (cached) DataList
+    this.tagIDs = tl.getIDs();
+    this.tagList = tl;
+    //Enable chaining
+    return this;
+});
