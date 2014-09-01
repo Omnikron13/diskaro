@@ -76,12 +76,21 @@ class Track extends DataCore {
     //Override jsonSerialize to include release & track number
     public function jsonSerialize() {
         $json = parent::jsonSerialize();
+        //Serialise full objects
         $json['path'] = $this->getPath();
         $json['release'] = $this->release==NULL?NULL:$this->release->jsonSerialize();
         $json['trackNumber'] = $this->trackNumber;
         $json['genres'] = $this->genres;
         $json['tags'] = $this->tags;
         $json['artistLinks'] = $this->artistLinks;
+        //Serialise object IDs
+        $json['releaseID'] = $this->release ? $this->release->getID() : NULL;
+        $json['genreIDs'] = array_map(function($g) {
+            return $g->getID();
+        }, $this->genres);
+        $json['tagIDs'] = array_map(function($t) {
+            return $t->getID();
+        }, $this->tags);
         return $json;
     }
 
