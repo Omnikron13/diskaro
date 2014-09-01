@@ -31,6 +31,10 @@ function Track(json) {
     this.artistLinks = json.artistLinks.map(function(link) {
         return new ArtistLink(link);
     });
+    //Store plain id references to other (Data) objs
+    this.releaseID = json.releaseID;
+    this.genreIDs = json.genreIDs;
+    this.tagIDs = json.tagIDs;
 };
 
 //'Magic' method to ensure correct JSON encoding
@@ -44,6 +48,10 @@ Track.method('toJSON', function() {
         genres      : this.genres,
         tags        : this.tags,
         artistLinks : this.artistLinks,
+        //Serialise plain id references
+        releaseID   : this.releaseID,
+        genreIDs    : this.genreIDs,
+        tagIDs      : this.tagIDs,
     };
 });
 
