@@ -196,6 +196,7 @@ Track.UI.Column.All = [
     Track.UI.Column.Title,
     Track.UI.Column.Role.Artists,
     Track.UI.Column.Release,
+    Track.UI.Column.Label,
     Track.UI.Column.Genres,
     Track.UI.Column.Tags,
 ];
