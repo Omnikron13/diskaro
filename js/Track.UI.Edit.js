@@ -10,25 +10,11 @@ Track.UI.Edit = {
             .addClass('editTrack')
             //Set dialogue title (render in top bar)
             .attr('title', _('Edit Track'))
-            //Render Title/Name section
+            //Render sections from .Section.All array
             .append(
-                Track.UI.Edit.Section.Title(_t)
-            )
-            //Render Release/# section
-            .append(
-                Track.UI.Edit.Section.Release.render(_t)
-            )
-            //Render Artists section
-            .append(
-                Track.UI.Edit.Section.Artists.render(_t)
-            )
-            //Render Genres section
-            .append(
-                Track.UI.Edit.Section.Genres(_t)
-            )
-            //Render Tags section
-            .append(
-                Track.UI.Edit.Section.Tags(_t)
+                Track.UI.Edit.Section.All.map(function(s) {
+                    return s(_t);
+                })
             )
             //Internal event for shorthand save & close/destroy
             .on('saveAndClose', function(ev, t) {
