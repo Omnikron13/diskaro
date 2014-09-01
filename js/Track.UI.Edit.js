@@ -121,7 +121,7 @@ Track.UI.Edit = {
                 return Track.UI.Edit.Section.render('release', _('Release'))
                     //Render Release object/placeholder
                     .append(
-                        Track.UI.Edit.Section.Release.renderData(t.release)
+                        Track.UI.Edit.Section.Release.renderData(t.getRelease())
                     )
                     //Render trackNumber field (container)
                     .append(
