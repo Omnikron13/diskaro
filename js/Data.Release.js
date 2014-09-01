@@ -5,14 +5,15 @@
 Data.Release = function(json) {
     var r = new Data('Release', json);
     r.year = json.year;
-    r.label = json.label===null?null:Data.Label(json.label);
+    //Store id reference to Data.Label or null
+    r.labelID = json.labelID;
     //Override generic .toJSON() from Data to include year & label
     r.toJSON = function() {
         return {
-            id    : r.id,
-            name  : r.name,
-            year  : r.year,
-            label : r.label,
+            id      : r.id,
+            name    : r.name,
+            year    : r.year,
+            labelID : r.labelID,
         };
     };
     //Override generic .update() to update year/label
@@ -22,7 +23,8 @@ Data.Release = function(json) {
         if(d.id != this.id) return this;
         //Update Release specific properties
         this.year = d.year;
-        this.label = d.label;
+        //Update Data.Label id reference
+        this.labelID = d.labelID;
         //Call generic .update() & return
         return Data.prototype.update.call(this, d);
     };

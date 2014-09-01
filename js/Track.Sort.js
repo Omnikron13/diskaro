@@ -31,13 +31,11 @@ Track.Sort = {
         },
     },
 
-    //Sort by .release.label
+    //Sort by Release Label
     Label: {
         Asc: function(a, b) {
-            var ar = a.getRelease();
-            var br = b.getRelease();
-            var al = ar ? ar.label : null;
-            var bl = br ? br.label : null;
+            var al = a.getLabel();
+            var bl = b.getLabel();
             if(al == null && bl == null)
                 var x = 0;
             else if(al == null)
@@ -50,10 +48,8 @@ Track.Sort = {
             return x;
         },
         Desc: function(a, b) {
-            var ar = a.getRelease();
-            var br = b.getRelease();
-            var al = ar ? ar.label : null;
-            var bl = br ? br.label : null;
+            var al = a.getLabel();
+            var bl = b.getLabel();
             if(al == null && bl == null)
                 var x = 0;
             else if(al == null)

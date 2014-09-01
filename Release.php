@@ -47,10 +47,8 @@ class Release extends DataCore {
     public function jsonSerialize() {
         $json = parent::jsonSerialize();
         $json['year'] = $this->year;
-        if($this->label != NULL)
-            $json['label'] = $this->label->jsonSerialize();
-        else
-            $json['label'] = NULL;
+        //Serialise Label id or null
+        $json['labelID'] = $this->label ? $this->label->getID() : NULL;
         return $json;
     }
 
@@ -62,11 +60,11 @@ class Release extends DataCore {
         if($data->year != $this->getYear())
             $this->setYear($data->year);
         //Convert new label to object (if applicable)
-        if($data->label != null)
-            $data->label = new Label($data->label->id);
+        if($data->labelID != null)
+            $label = new Label($data->labelID);
         //Update label if different
-        if($data->label != $this->getLabel())
-            $this->setLabel($data->label);
+        if($label != $this->getLabel())
+            $this->setLabel($label);
         return $this;
     }
 
