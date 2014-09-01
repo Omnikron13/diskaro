@@ -215,3 +215,37 @@ Track.method('setTags', function(tl) {
     //Enable chaining
     return this;
 });
+
+/*-------------------------------*
+ | ArtistLink class enhancements |
+ *-------------------------------*/
+
+//Getter to return Data.Role obj (or null) from stored roleID
+ArtistLink.method('getRole', function() {
+    //If a Data.Role obj isn't cached, convert roleID
+    if(!this.roleObj)
+        this.roleObj = DataList.All.Role.getIdIndex()[this.roleID];
+    //Return (cached) Data.Role obj
+    return this.roleObj;
+});
+
+//Getter to return Data.Artist obj (or null) from stored artistID
+ArtistLink.method('getArtist', function() {
+    //If a Data.Artist obj isn't cached, convert artistID
+    if(!this.artistObj)
+        this.artistObj = DataList.All.Artist.getIdIndex()[this.artistID];
+    //Return (cached) Data.Artist obj
+    return this.artistObj;
+});
+
+//Override .isRole() to allow checking by .name
+ArtistLink.method('isRole', function(r) {
+    //If passed string, check against Role .name
+    if(typeof r == 'string')
+        return r == this.getRole().name;
+    //If passed int, check against id
+    if(Number.isInteger(r))
+        return r == this.roleID;
+    //Not str or int, assume object; check id
+    return r.id == this.roleID;
+});
