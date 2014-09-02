@@ -12,6 +12,17 @@ function Data(type, json) {
         this.childIDs = json.childIDs;
 };
 
+//Function to create a null/dummy/placeholder Data obj
+Data.Null = function(type, name) {
+    return new Data(
+        type,
+        {
+            id   : 'null',
+            name : name || _('Unknown'),
+        }
+    );
+};
+
 //'Magic' method to ensure correct generic JSON encoding
 Data.method('toJSON', function() {
     var j = {
