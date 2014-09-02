@@ -1,3 +1,4 @@
+//require_once(UI.js)
 //require_once(Data.UI.js)
 //require_once(DataList.UI.js)
 
@@ -77,11 +78,7 @@ Data.UI.Edit = {
 
         //Function for rendering Name (.name) section
         Name: function(d) {
-            return Data.UI.Edit.Section.render('name', _('Name'))
-                .append(
-                    $('<input>')
-                        .val(d.name)
-                )
+            return UI.Edit.Section.Input('name', _('Name'), d.name)
                 .on('save', function() {
                     d.name = $(this).find('input').val();
                 })
