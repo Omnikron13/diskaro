@@ -79,6 +79,48 @@ var UI = {
                     )
                 ;
             },
+
+            //Utility function to render section consistin of an editable DataList.UI.UL
+            DataList: function(name, head, dl) {
+                //Create shallow copy of DataList to enable aborting cleanly
+                dl = dl.clone();
+                //Render section element
+                return UI.Edit.Section.render(name, head)
+                    //Add generic selection class
+                    .addClass('editList')
+                    //Add semi-specific selection class (e.g. .editList.Genre)
+                    .addClass(dl.type)
+                    //Render DataList element
+                    .append(
+                        DataList.UI.UL.render(dl)
+                            //Render an 'Add' button
+                            .add(DataList.UI.UL.AddButton())
+                    )
+                    //Open selection dialogue on Data.UI click
+                    .on('click', '.data', function() {
+                        $(this).trigger('updateDialogue');
+                    })
+                    //Add context menu (jQuery UI plugin) to Data.UI elements
+                    .contextmenu({
+                        delegate: '.data',
+                        //Define menu items
+                        menu: [
+                            //Edit: Open DataList selection dialogue change this Data item
+                            {title: _('Edit'), action: function(ev, ui) {
+                                $(ui.target)
+                                    .trigger('updateDialogue')
+                                ;
+                            }},
+                            //Remove: Remove Data obj from DataList & remove Data.UI.LI element
+                            {title: _('Remove'), action: function(ev, ui) {
+                                $(ui.target)
+                                    .trigger('removeData', $(ui.target).data('data'))
+                                ;
+                            }},
+                        ],
+                    })
+                ;
+            },
         },
     },
 };
