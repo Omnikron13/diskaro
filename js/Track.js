@@ -71,36 +71,6 @@ Track.method('setArtistLinks', function(al) {
     return this;
 });
 
-//Method to find a given ArtistLink (or plain obj) and change it
-Track.method('setArtistLink', function(o, n) {
-    //Iterate ArtistLink array
-    this.artistLinks.some(function(al) {
-        //Continue iterating if Artist objs don't match
-        if(al.artist.id != o.artist.id) return false;
-        //Continue iterating if Role objs don't match
-        if(al.role.id != o.role.id) return false;
-        //Update matching ArtistLink obj
-        al.artist = n.artist;
-        al.role = n.role;
-        //Stop iterating
-        return true;
-    });
-});
-
-//Method to find & remove a given ArtistLink (or plain obj)
-Track.method('removeArtistLink', function(al) {
-    //Start iterating ArtistLink array
-    this.artistLinks.some(function(x, i, a) {
-        //Continue iterating if Artist objs don't match
-        if(x.artist.id != al.artist.id) return false;
-        //Continue iterating if Role objs don't match
-        if(x.role.id != al.role.id) return false;
-        //Remove matching ArtistLink & stop iterating
-        a.splice(i, 1);
-        return true;
-    });
-});
-
 //Static method which requests an (optionally filtered) list of tracks from
 //the DB and passes a list of Track objects to the provided callback
 Track.load = function(cb, f) {
