@@ -135,7 +135,7 @@ Track.UI.Column.Release = new Track.UI.Column(
     //Function to render .html() content
     function(t) {
         var r = t.getRelease();
-        return r ? r.name : _('Unknown');
+        return r ? Data.UI.Span(r) : _('Unknown');
     },
     //Function to check if cell is null/empty
     function(t) {
@@ -154,7 +154,7 @@ Track.UI.Column.Label = new Track.UI.Column(
     //Function to render .html() content
     function(t) {
         var l = t.getLabel();
-        return l ? l.name : _('Unknown');
+        return l ? Data.UI.Span(l) : _('Unknown');
     },
     //Function to check if cell is null/empty
     function(t) {
