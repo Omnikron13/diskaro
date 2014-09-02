@@ -161,7 +161,7 @@ Track.UI.Edit = {
                             .addClass('cell')
                             .addClass('role')
                             .append(
-                                Data.UI.Span(r)
+                                Data.UI.Select('Role', r, {allowNull: false})
                             )
                     )
                     //Render Artist(s) cell
