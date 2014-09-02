@@ -134,7 +134,7 @@ Track.UI.Edit = {
         Artists: {
             //Function to render main section element
             render: function(t) {
-                return Track.UI.Edit.Section.render('artists', _('Artists'))
+                return UI.Edit.Section.render('artists', _('Artists'))
                     //Render Role/Artists table
                     .append(
                         $('<table>')
