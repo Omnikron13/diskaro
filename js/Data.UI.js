@@ -18,6 +18,7 @@ Data.UI = {
             .html(d.name)
             //Getter event to return stored Data obj (with .triggerHandler())
             .on('getData', function() {
+                if($(this).hasClass('id-null')) return null;
                 return $(this).data('data');
             })
             //Event to update/refresh UI output from stored Data obj
