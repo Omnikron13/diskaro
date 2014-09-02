@@ -226,9 +226,9 @@ Track.UI.Edit = {
             },
         },
 
-        //Subnamespace for rendering Genres sections
+        //Function for rendering Genres sections
         Genres: function(t) {
-            return Track.UI.Edit.Section.renderDataList(t.getGenres(), _('Genres'))
+            return UI.Edit.Section.DataList('genres', _('Genres'), t.getGenres())
                 //Catch save event & update Track obj Genre id/obj list
                 .on('save', function() {
                     var dl = $(this).find('.dataList').data('datalist');
@@ -237,9 +237,9 @@ Track.UI.Edit = {
             ;
         },
 
-        //Subnamespace for rendering Tags sections
+        //Function for rendering Tags sections
         Tags: function(t) {
-            return Track.UI.Edit.Section.renderDataList(t.getTags(), _('Tags'))
+            return UI.Edit.Section.DataList('tags', _('Tags'), t.getTags())
                 //Catch save event & update Track obj Tag id/obj list
                 .on('save', function() {
                     var dl = $(this).find('.dataList').data('datalist');
