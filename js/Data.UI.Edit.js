@@ -5,8 +5,6 @@
 Data.UI.Edit = {
     //Function to create & display an edit dialogue
     render: function(d) {
-        //Create temporary copy of Data obj to allow abort
-        var _d = d.clone();
         //Render dialogue container
         return $('<div>')
             //Add generic selection class
@@ -14,15 +12,15 @@ Data.UI.Edit = {
             //Add semi-specific selection class (e.g. .data.edit)
             .addClass('edit')
             //Add specific selection class (e.g. .data.edit.Genre)
-            .addClass(_d.type)
+            .addClass(d.type)
             //Set dialogue title (render in top bar)
-            .attr('title', _('Edit ' + _d.type))
+            .attr('title', _('Edit ' + d.type))
             //Render all sections (defined by .Section.All array)
             .append(
-                Data.UI.Edit.Section.renderAll(_d)
+                Data.UI.Edit.Section.renderAll(d)
             )
             //Catch save event & update Data obj
-            .on('save', function(ev, _d) {
+            .on('save', function(ev, d) {
                 //Trigger save event on all sections to process changes
                 $(this).find('.section').each(function() {
                     $(this).triggerHandler('save');
@@ -31,7 +29,7 @@ Data.UI.Edit = {
             //Shorthand event to trigger 'save' & destroy/close dialogue
             .on('saveAndClose', function() {
                 $(this)
-                    .trigger('save', _d)
+                    .trigger('save', d)
                     .dialog('destroy')
                 ;
             })
@@ -78,22 +76,22 @@ Data.UI.Edit = {
         },
 
         //Function for rendering Name (.name) section
-        Name: function(_d) {
+        Name: function(d) {
             return Data.UI.Edit.Section.render('name', _('Name'))
                 .append(
                     $('<input>')
-                        .val(_d.name)
+                        .val(d.name)
                 )
                 .on('save', function() {
-                    _d.name = $(this).find('input').val();
+                    d.name = $(this).find('input').val();
                 })
             ;
         },
 
         //Function for rendering Parents (.parentIDs) section
-        Parents: function(_d) {
+        Parents: function(d) {
             return Data.UI.Edit.Section.renderDataList(
-                _d,
+                d,
                 'parents',
                 _('Parents'),
                 'parentIDs',
@@ -102,9 +100,9 @@ Data.UI.Edit = {
         },
 
         //Function for rendering Children (.childIDs) section
-        Children: function(_d) {
+        Children: function(d) {
             return Data.UI.Edit.Section.renderDataList(
-                _d,
+                d,
                 'children',
                 _('Children'),
                 'childIDs',
@@ -114,22 +112,22 @@ Data.UI.Edit = {
 
         //Utility function to render a DataList section from Data obj, section
         //name/header str, Data property to update & method to get the DataList
-        renderDataList: function(_d, name, head, prop, get) {
+        renderDataList: function(d, name, head, prop, get) {
             //Render section container element
             var e = Data.UI.Edit.Section.render(name, head)
                 //Render placeholder for DataList
                 .append(
                     $('<p>')
                         .addClass('placeholder')
-                        .html(_(_d.type + ' list loading') + '...')
+                        .html(_(d.type + ' list loading') + '...')
                 )
                 //Update Data obj on 'save' events
                 .on('save', function() {
-                    _d[prop] = $(this).data('datalist').getIDs();
+                    d[prop] = $(this).data('datalist').getIDs();
                 })
             ;
             //Defer DataList.UI rendering
-            _d[get](function(dl) {
+            d[get](function(dl) {
                 e
                     //Store DataList obj on main .section element
                     .data('datalist', dl)
@@ -146,9 +144,9 @@ Data.UI.Edit = {
         },
 
         //Utility function to render 'all' defined sections
-        renderAll: function(_d) {
+        renderAll: function(d) {
             return Data.UI.Edit.Section.All.map(function(s) {
-                return s(_d);
+                return s(d);
             });
         },
     },
