@@ -30,10 +30,6 @@ Track.UI.Edit = {
                     .dialog('destroy')
                 ;
             })
-            //Delegated handler to open selection dialogue on Data.UI click
-            .on('click', '.data:not(.Release)', function(ev) {
-                $(ev.target).trigger('updateDialogue');
-            })
             //Create & show dialogue box
             .dialog({
                 modal: true,
@@ -48,25 +44,6 @@ Track.UI.Edit = {
                     {text: _('Save'), click: function() {
                         $(this)
                             .triggerHandler('saveAndClose', t)
-                        ;
-                    }},
-                ],
-            })
-            //Add context menu (jQuery UI plugin) to Data.UI elements
-            .contextmenu({
-                delegate: '.data',
-                //Define menu items
-                menu: [
-                    //Edit: Open DataList selection dialogue change this Data item
-                    {title: _('Edit'), action: function(ev, ui) {
-                        $(ui.target)
-                            .trigger('updateDialogue')
-                        ;
-                    }},
-                    //Remove: Remove Data obj from DataList & remove Data.UI.LI element
-                    {title: _('Remove'), action: function(ev, ui) {
-                        $(ui.target)
-                            .trigger('removeData', $(ui.target).data('data'))
                         ;
                     }},
                 ],
@@ -212,6 +189,29 @@ Track.UI.Edit = {
                                 DataList.UI.UL.render(t.getArtistsByRole(r))
                                     //Render 'Add' button
                                     .add(DataList.UI.UL.AddButton())
+                                    //Open selection dialogue on Data.UI click
+                                    .on('click', '.data', function() {
+                                        $(this).trigger('updateDialogue');
+                                    })
+                                    //Add context menu (jQuery UI plugin) to Data.UI elements
+                                    .contextmenu({
+                                        delegate: '.data',
+                                        //Define menu items
+                                        menu: [
+                                            //Edit: Open DataList selection dialogue change this Data item
+                                            {title: _('Edit'), action: function(ev, ui) {
+                                                $(ui.target)
+                                                    .trigger('updateDialogue')
+                                                ;
+                                            }},
+                                            //Remove: Remove Data obj from DataList & remove Data.UI.LI element
+                                            {title: _('Remove'), action: function(ev, ui) {
+                                                $(ui.target)
+                                                    .trigger('removeData', $(ui.target).data('data'))
+                                                ;
+                                            }},
+                                        ],
+                                    })
                             )
                     )
                     //Catch removeData events from Artist/Role being removed
