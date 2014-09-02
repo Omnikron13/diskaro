@@ -16,6 +16,10 @@ Data.UI = {
             .addClass('id-' + d.id)
             //Render output text/html
             .html(d.name)
+            //Getter event to return stored Data obj (with .triggerHandler())
+            .on('getData', function() {
+                return $(this).data('data');
+            })
             //Event to update/refresh UI output from stored Data obj
             .on('updateOutput', function() {
                 //If this is a basic Data.UI element update HTML
