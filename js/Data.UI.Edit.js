@@ -60,22 +60,6 @@ Data.UI.Edit = {
 
     //Subnamespace for section rendering code
     Section: {
-        //Utility function to render base section container element
-        render: function(name, head) {
-            return $('<fieldset>')
-                //Add generic selection class
-                .addClass('section')
-                //Add specific selection class (e.g. .section.parents)
-                .addClass(name)
-                //Render header element
-                .append(
-                    $('<legend>')
-                        .addClass('header')
-                        .html(head)
-                )
-            ;
-        },
-
         //Function for rendering Name (.name) section
         Name: function(d) {
             return UI.Edit.Section.Input('name', _('Name'), d.name)
