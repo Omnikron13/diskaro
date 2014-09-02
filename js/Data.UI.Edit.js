@@ -87,57 +87,22 @@ Data.UI.Edit = {
 
         //Function for rendering Parents (.parentIDs) section
         Parents: function(d) {
-            return Data.UI.Edit.Section.renderDataList(
-                d,
-                'parents',
-                _('Parents'),
-                'parentIDs',
-                'getParentList'
-            );
+            return UI.Edit.Section.DataList('parents', _('Parents'), d.getParents())
+                .on('save', function() {
+                    var dl = $(this).find('.dataList').data('datalist');
+                    d.setParents(dl);
+                })
+            ;
         },
 
         //Function for rendering Children (.childIDs) section
         Children: function(d) {
-            return Data.UI.Edit.Section.renderDataList(
-                d,
-                'children',
-                _('Children'),
-                'childIDs',
-                'getChildList'
-            );
-        },
-
-        //Utility function to render a DataList section from Data obj, section
-        //name/header str, Data property to update & method to get the DataList
-        renderDataList: function(d, name, head, prop, get) {
-            //Render section container element
-            var e = Data.UI.Edit.Section.render(name, head)
-                //Render placeholder for DataList
-                .append(
-                    $('<p>')
-                        .addClass('placeholder')
-                        .html(_(d.type + ' list loading') + '...')
-                )
-                //Update Data obj on 'save' events
+            return UI.Edit.Section.DataList('children', _('Children'), d.getChildren())
                 .on('save', function() {
-                    d[prop] = $(this).data('datalist').getIDs();
+                    var dl = $(this).find('.dataList').data('datalist');
+                    d.setChildren(dl);
                 })
             ;
-            //Defer DataList.UI rendering
-            d[get](function(dl) {
-                e
-                    //Store DataList obj on main .section element
-                    .data('datalist', dl)
-                    //Replace placeholder with DataList.UI (+add button)
-                    .find('.placeholder')
-                        .replaceWith(
-                            DataList.UI.UL.render(dl)
-                                .add(DataList.UI.UL.AddButton())
-                        )
-                ;
-            });
-            //Return element for output while the DataList loads
-            return e;
         },
 
         //Utility function to render 'all' defined sections
