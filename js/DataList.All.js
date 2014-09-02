@@ -136,6 +136,25 @@ Data.method('getLabel', function() {
     return this.labelObj;
 });
 
+//Setter to change stored Label id & obj from given Label obj/id
+Data.method('setLabel', function(l) {
+    //Abort if this isn't a Data.Release
+    if(this.type != 'Release') return this;
+    //If passed null/undefined/etc. null Release Label
+    if(!l) {
+        this.labelID = null;
+        this.labelObj = null;
+        return this;
+    }
+    //If passed int assume id & get Label obj
+    if(Number.isInteger(l))
+        l = DataList.All.Label.getIdIndex()[l];
+    //Set Release Label & return this for chaining
+    this.labelID = l.id;
+    this.labelObj = l;
+    return this;
+});
+
 /*--------------------------*
  | Track class enhancements |
  *--------------------------*/
