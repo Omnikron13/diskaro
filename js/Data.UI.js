@@ -125,6 +125,47 @@ Data.UI = {
             ;
         },
     },
+
+    //Function to render a Data.UI.Span that the user can change
+    Select: function(type, d, options) {
+        //Init defaults
+        var allowNull = true;
+        var nullName = null;
+        //Override defaults as appropriate
+        if(options) {
+            if(options.allowNull === false && !d) return;
+            if(options.nullName) nullName = options.nullName;
+        }
+        //Render Data.UI element
+        return Data.UI.Span(d || Data.Null(type, nullName))
+            //Add selection class (e.g. .data.select)
+            .addClass('select')
+            //Open dialogue to choose new Data obj on click
+            .on('click', function() {
+                $(this).trigger('updateDialogue');
+            })
+            //Add context (right click) menu (jQuery UI plugin)
+            .contextmenu({
+                //Define menu items
+                menu: [
+                    //Edit: Open DataList selection dialogue change this Data item
+                    {title: _('Edit'), cmd: 'edit', action: function(ev, ui) {
+                        $(ui.target)
+                            .trigger('updateDialogue')
+                        ;
+                    }},
+                    //Remove: Null Data obj & Data.UI element
+                    {title: _('Remove'), cmd: 'remove', action: function(ev, ui) {
+                        $(ui.target)
+                            .trigger('updateData', Data.Null(type, nullName))
+                        ;
+                    }},
+                ],
+            })
+            //Show/hide the 'Remove' option according to if nulls are allowed
+            .contextmenu('showEntry', 'remove', allowNull)
+        ;
+    },
 };
 
 /*-------------------------*
