@@ -26,7 +26,7 @@ var UI = {
             Input: function(name, head, val, opt) {
                 //Set defaults
                 var label = head;
-                var placeholder = head;
+                var placeholder = head + '...';
                 var type = 'text';
                 //Check/Apply default overrides
                 if(opt) {
