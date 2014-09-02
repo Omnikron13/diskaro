@@ -31,7 +31,7 @@ Track.UI.Edit = {
                 ;
             })
             //Delegated handler to open selection dialogue on Data.UI click
-            .on('click', '.data', function(ev) {
+            .on('click', '.data:not(.Release)', function(ev) {
                 $(ev.target).trigger('updateDialogue');
             })
             //Create & show dialogue box
@@ -102,98 +102,32 @@ Track.UI.Edit = {
             ;
         },
 
-        //Subnamespace for rendering Release/# sections
-        Release: {
-            render: function(t) {
-                return Track.UI.Edit.Section.render('release', _('Release'))
-                    //Render Release object/placeholder
-                    .append(
-                        Track.UI.Edit.Section.Release.renderData(t.getRelease())
-                    )
-                    //Render trackNumber field (container)
-                    .append(
-                        $('<span>')
-                            //Add sub-section selection class
-                            .addClass('trackNumber')
-                            //Render input label
-                            .append(
-                                $('<label>')
-                                    .attr('for', 'trackNumberField')
-                                    .html(_('Track Number'))
-                            )
-                            //Render actual input field
-                            .append(
-                                $('<input>')
-                                    .attr('id', 'trackNumberField')
-                                    .attr('type', 'number')
-                                    //Render empty/placeholder text
-                                    .attr('placeholder', _('#'))
-                                    //Init value to current .trackNumber
-                                    .val(t.trackNumber)
-                            )
-                    )
-                    //Catch save event & update Track obj release & number
-                    .on('save', function() {
-                        //Update Track release id/obj
-                        var r = $(this).find('.data.Release').data('data');
-                        t.setRelease(r);
-                        //Update Track number
-                        var s = $(this).find('#trackNumberField').val();
-                        t.setTrackNumber(s);
-                    })
-                ;
-            },
+        //Function for rendering Release sections
+        Release: function(t) {
+            return UI.Edit.Section.Data('Release', t.getRelease())
+                .on('save', function() {
+                    var r = $(this).find('.data.Release').triggerHandler('getData');
+                    t.setRelease(r);
+                })
+            ;
+        },
 
-            //Function to render Release obj or null/placeholder
-            renderData: function(r) {
-                return $('<span>')
-                    //Add sub-section selection class
-                    .addClass('release')
-                    //Render Data.UI/placeholder
-                    .append(
-                        //Check if Release is null
-                        r ?
-                            //Not null; render Data.UI
-                            Data.UI.Span(r)
-                        : //Is null; render placeholder
-                        $('<p>')
-                            .addClass('null')
-                            .html(_('Unknown'))
-                    )
-                    .on('click', '.null', function() {
-                        //Save this for closure
-                        var that = $(this);
-                        //Create/display Release selection dialogue
-                        DataList.UI.Dialogue.Release('select', function(dl) {
-                            dl
-                                //Replace placeholder with Data.UI on save
-                                .on('save', function(ev, d) {
-                                    that
-                                        .trigger('dataUpdate', {old:null, new:d})
-                                        .replaceWith(Data.UI.Span(d))
-                                    ;
-                                })
-                            ;
-                        });
-                    })
-                    //Catch remove event on the Release Data.UI
-                    .on('removeData', '.data', function() {
-                        $(this)
-                            //Trigger a dataUpdate to null the Track Release obj
-                            .trigger('dataUpdate', {
-                                old: $(this).data('data'),
-                                new: null
-                            })
-                            //Replace the Data.UI with null/placeholder
-                            .replaceWith(
-                                $('<p>')
-                                    .addClass('null')
-                                    .html(_('Unknown'))
-                            )
-                        ;
-                    })
-                ;
-            },
+        //Function for rendering .trackNumber sections
+        Number: function(t) {
+            return UI.Edit.Section.Input(
+                'number',
+                _('Track Number'),
+                t.trackNumber,
+                {
+                    placeholder: _('#'),
+                    type: 'number',
+                }
+            )
+                .on('save', function() {
+                    var s = $(this).find('input').val();
+                    t.setTrackNumber(s);
+                })
+            ;
         },
 
         //Subnamespace for rendering Artists sections
@@ -335,7 +269,8 @@ Track.UI.Edit = {
 //Array holding render functions for default 'all' sections
 Track.UI.Edit.Section.All = [
     Track.UI.Edit.Section.Title,
-    Track.UI.Edit.Section.Release.render,
+    Track.UI.Edit.Section.Release,
+    Track.UI.Edit.Section.Number,
     Track.UI.Edit.Section.Artists.render,
     Track.UI.Edit.Section.Genres,
     Track.UI.Edit.Section.Tags,
