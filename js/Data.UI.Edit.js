@@ -4,7 +4,7 @@
 //Namespace for creating/displaying edit dialogues for Data objects
 Data.UI.Edit = {
     //Function to create & display an edit dialogue
-    render: function(d) {
+    render: function(d, sections) {
         //Render dialogue container
         return $('<div>')
             //Add generic selection class
@@ -17,7 +17,7 @@ Data.UI.Edit = {
             .attr('title', _('Edit ' + d.type))
             //Render all sections (defined by .Section.All array)
             .append(
-                Data.UI.Edit.Section.renderAll(d)
+                Data.UI.Edit.Section.renderAll(d, sections)
             )
             //Catch save event & update Data obj
             .on('save', function(ev, d) {
