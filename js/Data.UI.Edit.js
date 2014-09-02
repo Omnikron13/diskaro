@@ -144,8 +144,11 @@ Data.UI.Edit = {
         },
 
         //Utility function to render 'all' defined sections
-        renderAll: function(d) {
-            return Data.UI.Edit.Section.All.map(function(s) {
+        renderAll: function(d, all) {
+            //Set default if no array given
+            all = all || Data.UI.Edit.Section.All;
+            //Render defined (optionally type-specific) sections
+            return (all[d.type] || all).map(function(s) {
                 return s(d);
             });
         },
