@@ -247,22 +247,6 @@ Track.UI.Edit = {
                 })
             ;
         },
-
-        //Utility function for rendering DataList output/edit sections
-        renderDataList: function(dl, head) {
-            var dl = dl.clone();
-            var e = Track.UI.Edit.Section.render('editList', head)
-                //Add specific selection class (e.g. .editList.Genre)
-                .addClass(dl.type)
-                //Render DataList as a list
-                .append(
-                    DataList.UI.UL.render(dl)
-                        //Render an 'Add' button
-                        .add(DataList.UI.UL.AddButton())
-                )
-            ;
-            return e;
-        },
     },
 };
 
