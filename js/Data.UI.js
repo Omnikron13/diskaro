@@ -133,7 +133,7 @@ Data.UI = {
         var nullName = null;
         //Override defaults as appropriate
         if(options) {
-            if(options.allowNull === false && !d) return;
+            if(options.allowNull === false) allowNull = false;
             if(options.nullName) nullName = options.nullName;
         }
         //Render Data.UI element
