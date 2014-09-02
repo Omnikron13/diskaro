@@ -1,3 +1,4 @@
+//require_once(UI.js)
 //require_once(Track.UI.js)
 
 //Namespace for UI functionality for editing Track data
@@ -93,24 +94,10 @@ Track.UI.Edit = {
 
         //Function for rendering Title sections
         Title: function(t) {
-            return Track.UI.Edit.Section.render('title', _('Title'))
-                //Render input label
-                .append(
-                    $('<label>')
-                        .attr('for', 'trackNameField')
-                        .html(_('Title'))
-                )
-                //Render actual input box
-                .append(
-                    $('<input>')
-                        .attr('id', 'trackNameField')
-                        //Render empty/placeholder text
-                        .attr('placeholder', _('Title') + '...')
-                        .val(t.name)
-                )
+            return UI.Edit.Section.Input('title', _('Title'), t.name)
                 //Catch save event & update Track obj .name
                 .on('save', function() {
-                    t.name = $(this).find('#trackNameField').val();
+                    t.name = $(this).find('input').val();
                 })
             ;
         },
