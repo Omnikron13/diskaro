@@ -28,6 +28,16 @@ Data.Release = function(json) {
         //Call generic .update() & return
         return Data.prototype.update.call(this, d);
     };
+    //Add setter method to set year from int/str
+    r.setYear = function(y) {
+        //If given a str, attempt to convert to int
+        if(typeof y == 'string')
+            y = Number.parseInt(y, 10);
+        //Set year to valid number or null (for unknown)
+        this.year = Number.isNaN(y) ? null : y;
+        //Enable chaining
+        return this;
+    };
     return r;
 };
 
