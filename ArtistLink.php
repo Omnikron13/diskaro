@@ -47,8 +47,8 @@ class ArtistLink implements JsonSerializable {
     //Required by JsonSerializable
     public function jsonSerialize() {
         return [
-            'artist' => $this->artist,
-            'role'   => $this->role,
+            'roleID'   => $this->role->getID(),
+            'artistID' => $this->artist->getID(),
         ];
     }
 

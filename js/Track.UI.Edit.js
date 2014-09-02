@@ -255,8 +255,8 @@ Track.UI.Edit = {
                             $(this).find('.data.Artist').each(function() {
                                 //Add new ArtistLink obj to array
                                 links.push(new ArtistLink({
-                                    role   : r,
-                                    artist : $(this).data('data'),
+                                    roleID   : r.id,
+                                    artistID : $(this).data('data').id,
                                 }));
                             });
                         });

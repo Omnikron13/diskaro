@@ -2,8 +2,8 @@
 //require_once(Data.Artist.js)
 
 function ArtistLink(json) {
-    this.artist = Data.Artist(json.artist);
-    this.role = Data.Role(json.role);
+    this.artistID = json.artistID;
+    this.roleID = json.roleID;
 }
 
 ArtistLink.method('isRole', function(role) {

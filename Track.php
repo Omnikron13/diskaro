@@ -190,8 +190,8 @@ class Track extends DataCore {
         //Convert new artistLinks into artist/role pairs
         $data->artistLinks = array_map(function($al) {
             return [
-                new Artist($al->artist->id),
-                new Role($al->role->id),
+                new Artist($al->artistID),
+                new Role($al->roleID),
             ];
         }, $data->artistLinks);
         //Convert old artistLinks into artist/role pairs
