@@ -23,6 +23,27 @@ class Label extends SubDataCore {
         return $json;
     }
 
+    //Override DataCore->update() to update referencing Releases
+    public function update($data) {
+        //Let DataCore perform its updates
+        parent::update($data);
+        //Convert new releaseIDs to Release objects
+        $newReleases = array_map(function($rid) {
+            return new Release($rid);
+        }, $data->releaseIDs);
+        //Get current/old Release object array
+        $oldReleases = $this->getReleases();
+        //Iterate Releases to add to this Label
+        foreach(array_diff($oldReleases, $newReleases) as $r) {
+            $r->setLabel(null);
+        }
+        //Iterate Releases to remove from this Label
+        foreach(array_diff($newReleases, $oldReleases) as $r) {
+            $r->setLabel($this);
+        }
+        return $this;
+    }
+
     //Implement abstract static methods from DataCore
     public static function getMainTable() {
         return 'labels';
