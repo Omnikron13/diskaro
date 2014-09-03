@@ -14,6 +14,15 @@ class Label extends SubDataCore {
         }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
+    //Override jsonSerialize to include releaseIDs
+    public function jsonSerialize() {
+        $json = parent::jsonSerialize();
+        $json['releaseIDs'] = array_map(function($r) {
+            return $r->getID();
+        }, $this->getReleases());
+        return $json;
+    }
+
     //Implement abstract static methods from DataCore
     public static function getMainTable() {
         return 'labels';
