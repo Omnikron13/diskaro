@@ -194,10 +194,10 @@ DataList.UI.Tree = {
                 //Get number of child branches
                 var c = $(this).children('.children').children('.branch').length;
                 //Add/Remove class as appropriate
-                if($(this).hasClass('leaf') && c != 0)
-                    $(this).removeClass('leaf');
-                if(!$(this).hasClass('leaf') && c == 0)
+                if(c == 0)
                     $(this).addClass('leaf');
+                else
+                    $(this).removeClass('leaf');
                 //Stop propagation
                 return false;
             })
