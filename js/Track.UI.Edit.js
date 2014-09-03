@@ -170,32 +170,7 @@ Track.UI.Edit = {
                             .addClass('cell')
                             .addClass('artists')
                             .append(
-                                DataList.UI.UL.render(t.getArtistsByRole(r))
-                                    //Render 'Add' button
-                                    .add(DataList.UI.UL.AddButton())
-                                    //Open selection dialogue on Data.UI click
-                                    .on('click', '.data', function() {
-                                        $(this).trigger('updateDialogue');
-                                    })
-                                    //Add context menu (jQuery UI plugin) to Data.UI elements
-                                    .contextmenu({
-                                        delegate: '.data',
-                                        //Define menu items
-                                        menu: [
-                                            //Edit: Open DataList selection dialogue change this Data item
-                                            {title: _('Edit'), action: function(ev, ui) {
-                                                $(ui.target)
-                                                    .trigger('updateDialogue')
-                                                ;
-                                            }},
-                                            //Remove: Remove Data obj from DataList & remove Data.UI.LI element
-                                            {title: _('Remove'), action: function(ev, ui) {
-                                                $(ui.target)
-                                                    .trigger('removeData', $(ui.target).data('data'))
-                                                ;
-                                            }},
-                                        ],
-                                    })
+                                DataList.UI.UL.Edit(t.getArtistsByRole(r))
                             )
                     )
                     //Catch removeData events from Artist/Role being removed
