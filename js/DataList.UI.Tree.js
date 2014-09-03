@@ -150,13 +150,19 @@ DataList.UI.Tree = {
                 //If this has no parents tell tree to add it as new root
                 if($(this).data('data').parentIDs.length == 0)
                     $(this).trigger('addRoot', d);
+                //Store parent branch element
+                var p = $(this).parents('.branch').get(0);
                 //Remove self
                 $(this).remove();
+                //Instruct parent branch to recheck leaf status
+                $(p).trigger('updateLeafClass');
                 //Prevent propagation
                 return false;
             })
             //Event to add a new child branch to this branch
             .on('addChild', function(ev, d) {
+                //Remove leaf class (if applicable)
+                $(this).removeClass('leaf');
                 //Get children container element
                 var c = $(this).children('.children');
                 //Abort add if child branch already exists
@@ -178,6 +184,8 @@ DataList.UI.Tree = {
                         //Instruct it to remove itself
                         .trigger('removeBranch')
                 ;
+                //Recheck leaf class status
+                $(this).trigger('updateLeafClass');
                 //Prevent propagation
                 return false;
             })
