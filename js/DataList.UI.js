@@ -84,7 +84,6 @@ DataList.UI = {
             return DataList.UI.UL.render(dl)
                 //Open selection dialogue on Data.UI click
                 .on('click', '.data', function() {
-                    console.log('Zomg click!');
                     $(this).trigger('updateDialogue');
                 })
                 //Add context menu (jQuery UI plugin) to Data.UI elements
