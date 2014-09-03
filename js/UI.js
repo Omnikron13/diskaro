@@ -92,33 +92,8 @@ var UI = {
                     .addClass(dl.type)
                     //Render DataList element
                     .append(
-                        DataList.UI.UL.render(dl)
-                            //Render an 'Add' button
-                            .add(DataList.UI.UL.AddButton())
+                        DataList.UI.UL.Edit(dl)
                     )
-                    //Open selection dialogue on Data.UI click
-                    .on('click', '.data', function() {
-                        $(this).trigger('updateDialogue');
-                    })
-                    //Add context menu (jQuery UI plugin) to Data.UI elements
-                    .contextmenu({
-                        delegate: '.data',
-                        //Define menu items
-                        menu: [
-                            //Edit: Open DataList selection dialogue change this Data item
-                            {title: _('Edit'), action: function(ev, ui) {
-                                $(ui.target)
-                                    .trigger('updateDialogue')
-                                ;
-                            }},
-                            //Remove: Remove Data obj from DataList & remove Data.UI.LI element
-                            {title: _('Remove'), action: function(ev, ui) {
-                                $(ui.target)
-                                    .trigger('removeData', $(ui.target).data('data'))
-                                ;
-                            }},
-                        ],
-                    })
                 ;
             },
         },
