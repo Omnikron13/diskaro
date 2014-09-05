@@ -165,6 +165,20 @@ Data.method('update', function(d) {
             });
         });
     }
+    //Data.Release specific updates
+    if(this.type == 'Release') {
+        //Update Label id/obj if applicable
+        if(d.labelID != this.labelID) {
+            //Remove ref to this from old Label (if applicable)
+            var o = this.getLabel();
+            if(o) o.removeRelease(this);
+            //Add ref to this to new Label (if applicable)
+            var n = d.getLabel();
+            if(n) n.addRelease(this);
+            //Update stored Label id/obj
+            this.setLabel(n);
+        }
+    }
     //Enable chaining
     return this;
 });
