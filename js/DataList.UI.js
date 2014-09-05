@@ -89,7 +89,7 @@ DataList.UI = {
             return DataList.UI.UL.render(dl)
                 //Open selection dialogue on Data.UI click
                 .on('click', '.data', function() {
-                    $(this).trigger('updateDialogue');
+                    $(this).trigger('updateDialogue', dl);
                 })
                 //Add context menu (jQuery UI plugin) to Data.UI elements
                 .contextmenu({
@@ -99,7 +99,7 @@ DataList.UI = {
                         //Edit: Open DataList selection dialogue change this Data item
                         {title: _('Edit'), action: function(ev, ui) {
                             $(ui.target)
-                                .trigger('updateDialogue')
+                                .trigger('updateDialogue', dl)
                             ;
                         }},
                         //Remove: Remove Data obj from DataList & remove Data.UI.LI element
