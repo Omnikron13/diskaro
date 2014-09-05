@@ -51,12 +51,7 @@ abstract class Request {
 
     //Method to generate a failed response string
     protected function fail($code, $message, $data = null) {
-        $this->response = json_encode([
-            'success' => false,
-            'code'    => $code,
-            'message' => $message,
-            'data'    => $data,
-        ]);
+        $this->response = static::genFailStr($code, $message, $data);
         return $this;
     }
 
