@@ -89,6 +89,16 @@ abstract class Request {
         }
     }
 
+    //Static method to generate a failure response JSON string
+    protected static function genFailStr($code, $message, $data = NULL) {
+        return json_encode([
+            'success' => false,
+            'code'    => $code,
+            'message' => $message,
+            'data'    => $data,
+        ]);
+    }
+
     //Static method to perform actual output
     protected static function renderOutput($response) {
         //Set headers
