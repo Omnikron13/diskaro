@@ -21,12 +21,14 @@ Data.Release = function(json) {
         //Abort update if type or id don't match
         if(d.type != this.type) return this;
         if(d.id != this.id) return this;
+        //Call generic .update()
+        Data.prototype.update.call(this, d);
         //Update Release specific properties
         this.year = d.year;
         //Update Data.Label id reference
         this.labelID = d.labelID;
-        //Call generic .update() & return
-        return Data.prototype.update.call(this, d);
+        //Enable chaining
+        return this;
     };
     //Add setter method to set year from int/str
     r.setYear = function(y) {
