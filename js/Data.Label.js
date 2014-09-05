@@ -21,6 +21,28 @@ Data.Label = function(json) {
         //Enable chaining
         return this;
     };
+    //Add method to add new Release id ref
+    l.addRelease = function(r) {
+        //If r isn't a number, assume Data obj & get id
+        if(!Number.isInteger(r)) r = r.id;
+        //If r isn't in the array, add it
+        if(this.releaseIDs.indexOf(r) == -1)
+            this.releaseIDs.push(r);
+        //Enable chaining
+        return this;
+    };
+    //Add method to remove given Release id ref
+    l.removeRelease = function(r) {
+        //If r isn't a number, assume Data obj & get id
+        if(!Number.isInteger(r)) r = r.id;
+        //Get index of given id
+        var i = this.releaseIDs.indexOf(r);
+        //If if is in array, remove it
+        if(i != -1)
+            this.releaseIDs.splice(i, 1);
+        //Enable chaining
+        return this;
+    };
     return l;
 };
 
