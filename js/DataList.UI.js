@@ -319,6 +319,8 @@ DataList.UI = {
                         //All retriggered; nothing else to do
                         return;
                     }
+                    //Given something other than a Data obj; abort
+                    if(!(d instanceof Data)) return;
                     //Given Data obj; find buttonset & retrigger as removeData
                     $(this).find('.dataButtonset')
                         .trigger('removeData', d);
