@@ -94,7 +94,7 @@ abstract class DataCore implements JsonSerializable {
     //Should be overridden down the inheritance chain as needed.
     public static function addJSON($json) {
         $json = json_decode($json);
-        return static::add($json->name);
+        return static::add($json->name)->update($json);
     }
 
     //Method to delete a record from the DB
