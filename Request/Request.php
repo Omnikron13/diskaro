@@ -105,6 +105,16 @@ abstract class Request {
         //Prevent any further output
         die();
     }
+
+    //Static method designed to be used as an exception handler to ensure
+    //that a response string is /always/ returned when processing a Request
+    public static function exception_handler($e) {
+        static::renderOutput(static::genFailStr(
+            'GENERIC',
+            'Request failed due to an unknown error',
+            $e
+        ));
+    }
 }
 
 ?>
