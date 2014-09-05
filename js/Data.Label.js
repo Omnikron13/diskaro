@@ -12,6 +12,15 @@ Data.Label = function(json) {
         json.releaseIDs = this.releaseIDs;
         return json;
     };
+    //Override generic .update() to update releaseIDs
+    l.update = function(d) {
+        //Call generic .update()
+        Data.prototype.update.call(this, d);
+        //Update releaseIDs array
+        this.releaseIDs = d.releaseIDs;
+        //Enable chaining
+        return this;
+    };
     return l;
 };
 
