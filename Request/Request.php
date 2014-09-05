@@ -46,11 +46,7 @@ abstract class Request {
 
     //Method to process request & output JSON response str (with full headers)
     public function output() {
-        header('Content-Type: application/json');
-        if(static::COMPRESS)
-            header('Content-Encoding: gzip');
-        echo $this;
-        die();
+        static::renderOutput($this);
     }
 
     //Method to generate a failed response string
