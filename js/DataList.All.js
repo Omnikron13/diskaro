@@ -207,7 +207,7 @@ Data.method('getLabel', function() {
     //Return null if this Release has no Label id
     if(!this.labelID) return null;
     //If Data.Label obj isn't cached, convert labelID
-    if(!this.labelObj || this.labelObj.id != this.labelID)
+    if(!this.labelObj)
         this.labelObj = DataList.All.Label.getIdIndex()[this.labelID];
     //Return (cached) Data.Label obj
     return this.labelObj;
