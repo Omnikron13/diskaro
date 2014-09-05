@@ -179,6 +179,19 @@ Data.method('update', function(d) {
             this.setLabel(n);
         }
     }
+    //Data.Label specific updates
+    if(this.type == 'Label') {
+        //Get id index of all Data.Release objects
+        var index = DataList.All.Release.getIdIndex();
+        //Iterate over newly added Release IDs
+        d.releaseIDs.diff(this.releaseIDs).forEach(function(rid) {
+            index[rid].setLabel(that);
+        });
+        //Iterate over now removed Release IDs
+        this.releaseIDs.diff(d.releaseIDs).forEach(function(rid) {
+            index[rid].setLabel(null);
+        });
+    }
     //Enable chaining
     return this;
 });
