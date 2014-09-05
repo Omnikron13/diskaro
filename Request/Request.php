@@ -92,6 +92,18 @@ abstract class Request {
                 return new Invalid($data);
         }
     }
+
+    //Static method to perform actual output
+    protected static function renderOutput($response) {
+        //Set headers
+        header('Content-Type: application/json');
+        if(static::COMPRESS)
+            header('Content-Encoding: gzip');
+        //Output JSON response string
+        echo $response;
+        //Prevent any further output
+        die();
+    }
 }
 
 ?>
