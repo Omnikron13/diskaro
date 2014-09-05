@@ -23,6 +23,33 @@ DataList.All = {
             if(DataList.All.hasOwnProperty(type)) return DataList.All[type];
             //Create list from loaded data & return it
             DataList.All[type] = new DataList(type, ds);
+            //Override .add() method to update id refs bidirectionally
+            DataList.All[type].add = function(d) {
+                //Call original .add() to perform basic add
+                DataList.prototype.add.call(this, d);
+                //Abort if the original .add() appears to have failed
+                if(!this.getIdIndex()[d.id]) return this;
+                //Update parentIDs bidirectionally (if applicable)
+                if(d.hasOwnProperty('parentIDs'))
+                    d.getParents().list.forEach(function(p) {
+                        p.addChild(d);
+                    });
+                //Update childIDs bidirectionally (if applicable)
+                if(d.hasOwnProperty('childIDs'))
+                    d.getChildren().list.forEach(function(c) {
+                        c.addParent(d);
+                    });
+                //Update (Release) labelID birectionally (if applicable)
+                if(d.labelID)
+                    DataList.All.Label.getIdIndex()[d.labelID].addRelease(d);
+                //Update (Label) releaseIDs birectionally (if applicable)
+                if(d.hasOwnProperty('releaseIDs'))
+                    d.getReleases().list.forEach(function(r) {
+                        r.setLabel(d);
+                    });
+                //Enable chaining
+                return this;
+            };
             return DataList.All[type];
         });
     },
