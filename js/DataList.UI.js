@@ -22,12 +22,11 @@ DataList.UI = {
                 )
                 //Event to add Data obj to the underlying list & UI output
                 .on('add', function(ev, d) {
-                    //Abort if Data obj already in list
-                    if(dl.contains(d)) return;
                     //Add to DataList
                     dl.add(d);
-                    //Add to UI output
-                    $(this).append(Data.UI.LI.render(d));
+                    //Add to UI output (if not already)
+                    if($(this).children(d.getSelectionClass()).length == 0)
+                        $(this).append(Data.UI.LI.render(d));
                 })
                 //Event to remove Data obj & corresponding Data.UI.LI element from list
                 .on('removeData', function(ev, d) {
