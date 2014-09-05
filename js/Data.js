@@ -47,14 +47,12 @@ Data.method('addParent', function(d) {
     if(d.type != this.type) return this;
     //Abort if trying to add this as a parent of itself
     if(d.id == this.id) return this;
-    //Abort if given parent(ID) is already in array
-    if(this.parentIDs.indexOf(d.id) != -1) return this;
-    //Add new parent(ID) to this
-    this.parentIDs.push(d.id);
-    //Done if new parent already has child link
-    if(d.childIDs.indexOf(this.id) != -1) return this;
-    //Add corresponding child(ID) to new parent
-    d.childIDs.push(this.id);
+    //Add parent ID if not in array
+    if(this.parentIDs.indexOf(d.id) == -1)
+        this.parentIDs.push(d.id);
+    //Add child ID to parent (if not in array)
+    if(d.childIDs.indexOf(this.id) == -1)
+        d.childIDs.push(this.id);
     //Return this (enable chaining)
     return this;
 });
