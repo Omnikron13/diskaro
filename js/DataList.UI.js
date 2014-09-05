@@ -307,6 +307,22 @@ DataList.UI = {
                         .triggerHandler('setSelected', d)
                     ;
                 })
+                //Event to exclude/remove given Data obj(s) from the selection
+                .on('exclude', function(ev, d){
+                    //Given a DataList rather than Data obj
+                    if(d instanceof DataList) {
+                        var that = $(this);
+                        //Iterate Data objs & retrigger
+                        d.list.forEach(function(d) {
+                            that.trigger('exclude', d);
+                        });
+                        //All retriggered; nothing else to do
+                        return;
+                    }
+                    //Given Data obj; find buttonset & retrigger as removeData
+                    $(this).find('.dataButtonset')
+                        .trigger('removeData', d);
+                })
                 //Create Dialog widget
                 .dialog({
                     width: 'auto',
