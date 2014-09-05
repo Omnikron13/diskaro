@@ -68,11 +68,16 @@ DataList.UI = {
                     if(!ul) ul = $(this).prev('.dataList');
                     //Create/Display selection dialogue
                     DataList.UI.Dialogue[ul.data('datalist').type]('add', function(dl) {
-                        //Catch the selected Data obj
-                        dl.on('save', function(ev, d) {
-                            //Tell the DataList.UI.UL to add the Data obj
-                            ul.trigger('add', d);
-                        });
+                        //Select created DataList.UI.Dialogue element
+                        dl
+                            //Exclude Data objs already in list
+                            .trigger('exclude', ul.data('datalist'))
+                            //Catch the selected Data obj
+                            .on('save', function(ev, d) {
+                                //Tell the DataList.UI.UL to add the Data obj
+                                ul.trigger('add', d);
+                            })
+                        ;
                     });
                 })
             ;
