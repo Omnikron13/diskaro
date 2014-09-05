@@ -64,7 +64,7 @@ Data.UI.Edit = {
         Name: function(d) {
             return UI.Edit.Section.Input('name', _('Name'), d.name)
                 .on('save', function() {
-                    d.name = $(this).find('input').val();
+                    d.name = $(this).find('input').val() || null;
                 })
             ;
         },
