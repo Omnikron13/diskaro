@@ -232,6 +232,19 @@ Data.method('setLabel', function(l) {
     return this;
 });
 
+
+/*-------------------------*
+ | Data.Label enhancements |
+ *-------------------------*/
+
+//Getter to return Release DataList converted from .releaseIDs
+Data.method('getReleases', function() {
+    //Abort if this isn't a Data.Label
+    if(this.type != 'Label') return null;
+    //Return new DataList of Release objs referencing this
+    return DataList.All.Release.getSubset(this.releaseIDs);
+});
+
 /*--------------------------*
  | Track class enhancements |
  *--------------------------*/
