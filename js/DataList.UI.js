@@ -180,6 +180,13 @@ DataList.UI = {
                         .trigger('change')
                     ;
                 })
+                //Event to remove Data.UI.Radio matching given Data obj
+                .on('removeData', function(ev, d) {
+                    //Get matching Data.UI element
+                    var e = $(this).find(d.getSelectionClass());
+                    //If Data.UI(.Radio) isn't checked, remove it
+                    if(!e.children('input').prop('checked')) e.remove();
+                })
                 .buttonset()
             ;
         },
