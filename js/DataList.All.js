@@ -35,48 +35,34 @@ DataList.All = {
 Data.method('getParents', function() {
     //Abort if Data obj doesn't support parents
     if(!this.hasOwnProperty('parentIDs')) return null;
-    //If parents DataList isn't cached, convert .parentIDs
-    if(!this.parents)
-        this.parents = DataList.All[this.type].getSubset(this.parentIDs);
-    //Return (cached) parents DataList
-    return this.parents;
+    return DataList.All[this.type].getSubset(this.parentIDs);
 });
 
 //Getter method to return DataList of children from .childIDs
 Data.method('getChildren', function() {
     //Abort if Data obj doesn't support children
     if(!this.hasOwnProperty('childIDs')) return null;
-    //If childs DataList isn't cached, convert .childIDs
-    if(!this.children)
-        this.children = DataList.All[this.type].getSubset(this.childIDs);
-    //Return (cached) children DataList
-    return this.children;
+    return DataList.All[this.type].getSubset(this.childIDs);
 });
 
-//Setter method to set parentIDs & cached DataList from id-array/DataList
+//Setter method to set parentIDs from id-array/DataList
 Data.method('setParents', function(dl) {
     //Abort if Data obj doesn't support parents
-    if(!this.hasOwnProperty('parentIDs')) return null;
-    //If not passed a DataList assume id array & convert
-    if(!dl instanceof DataList)
-        dl = DataList.All[this.type].getSubset(dl);
-    //Set parent id array & (cached) DataList
-    this.parentIDs = dl.getIDs();
-    this.parents = dl;
+    if(!this.hasOwnProperty('parentIDs')) return this;
+    //If passed a DataList, get id array
+    if(dl instanceof DataList) dl = dl.getIDs();
+    this.parentIDs = dl;
     //Enable chaining
     return this;
 });
 
-//Setter method to set childIDs & cached DataList from id-array/DataList
+//Setter method to set childIDs from id-array/DataList
 Data.method('setChildren', function(dl) {
     //Abort if Data obj doesn't support children
-    if(!this.hasOwnProperty('childIDs')) return null;
-    //If not passed a DataList assume id array & convert
-    if(!dl instanceof DataList)
-        dl = DataList.All[this.type].getSubset(dl);
-    //Set child id array & (cached) DataList
-    this.childIDs = dl.getIDs();
-    this.children = dl;
+    if(!this.hasOwnProperty('childIDs')) return this;
+    //If passed a DataList, get id array
+    if(dl instanceof DataList) dl = dl.getIDs();
+    this.childIDs = dl;
     //Enable chaining
     return this;
 });
