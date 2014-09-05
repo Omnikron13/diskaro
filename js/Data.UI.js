@@ -46,7 +46,7 @@ Data.UI = {
                 ;
             })
             //Event to open a dialogue allowing the user to change this Data obj
-            .on('updateDialogue', function() {
+            .on('updateDialogue', function(ev, exclude) {
                 //Store Data.UI element & Data obj for closures
                 var that = $(this);
                 var data = that.data('data');
@@ -54,7 +54,10 @@ Data.UI = {
                     .done(function() {
                         //Create/Display selection dialogue
                         DataList.UI.Dialogue.render(DataList.All[data.type], 'edit')
+                            //Set initially selected Data (if any)
                             .trigger('setSelected', data)
+                            //Pass on exclude Data/DataList obj
+                            .trigger('exclude', exclude)
                             //Catch selected Data obj on save
                             .on('save', function(ev, d) {
                                 that.trigger('updateData', d);
