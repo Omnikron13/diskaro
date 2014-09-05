@@ -73,7 +73,7 @@ abstract class DataCore implements JsonSerializable {
     //values. Should be overridden as applicable down the inheritance chain.
     public function update($data) {
         //Abort if the passed obj doesn't correspond to the correct DB record
-        if($data->id != $this->getID())
+        if($data->id && $data->id != $this->getID())
             throw new Exception('Update ID mismatch'); //Should be custom
         //Update name if different
         if($data->name != $this->getName())
