@@ -50,3 +50,13 @@ Data.Label = function(json) {
 Data.Label.load = function(cb, f) {
     return Data.load('Label', cb, f);
 };
+
+//Static method to create an empty Data.Label obj
+Data.Label.New = function(name) {
+    return Data.Label({
+        name       : name,
+        parentIDs  : [],
+        childIDs   : [],
+        releaseIDs : [],
+    });
+};

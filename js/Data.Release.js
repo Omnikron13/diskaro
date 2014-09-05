@@ -47,3 +47,10 @@ Data.Release = function(json) {
 Data.Release.load = function(cb, f) {
     return Data.load('Release', cb, f);
 };
+
+//Static method to create an empty Data.Release obj
+Data.Release.New = function(name) {
+    return Data.Release({
+        name      : name,
+    });
+};

@@ -10,3 +10,12 @@ Data.Tag = function(json) {
 Data.Tag.load = function(cb, f) {
     return Data.load('Tag', cb, f);
 };
+
+//Static method to create an empty Data.Tag obj
+Data.Tag.New = function(name) {
+    return Data.Tag({
+        name      : name,
+        parentIDs : [],
+        childIDs  : [],
+    });
+};

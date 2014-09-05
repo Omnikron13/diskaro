@@ -10,3 +10,12 @@ Data.Artist = function(json) {
 Data.Artist.load = function(cb, f) {
     return Data.load('Artist', cb, f);
 };
+
+//Static method to create an empty Data.Artist obj
+Data.Artist.New = function(name) {
+    return Data.Artist({
+        name      : name,
+        parentIDs : [],
+        childIDs  : [],
+    });
+};

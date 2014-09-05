@@ -10,3 +10,12 @@ Data.Genre = function(json) {
 Data.Genre.load = function(cb, f) {
     return Data.load('Genre', cb, f);
 };
+
+//Static method to create an empty Data.Genre obj
+Data.Genre.New = function(name) {
+    return Data.Genre({
+        name      : name,
+        parentIDs : [],
+        childIDs  : [],
+    });
+};

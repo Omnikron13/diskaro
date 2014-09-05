@@ -10,3 +10,12 @@ Data.Role = function(json) {
 Data.Role.load = function(cb, f) {
     return Data.load('Role', cb, f);
 };
+
+//Static method to create an empty Data.Role obj
+Data.Role.New = function(name) {
+    return Data.Role({
+        name      : name,
+        parentIDs : [],
+        childIDs  : [],
+    });
+};
