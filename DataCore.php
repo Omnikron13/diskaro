@@ -5,6 +5,7 @@ require_once('DB.php');
 abstract class DataCore implements JsonSerializable {
     protected $id = NULL;
     protected $name = NULL;
+    protected $comments = NULL;
 
     //Constructor
     public function __construct($uid, $mode = 0) {
@@ -24,6 +25,7 @@ abstract class DataCore implements JsonSerializable {
 		$query->execute();
 		$query->bindColumn('id', $this->id, PDO::PARAM_INT);
 		$query->bindColumn('name', $this->name, PDO::PARAM_STR);
+		$query->bindColumn('comments', $this->comments, PDO::PARAM_STR);
         $this->constructorBindings($query);
 		$query->fetch(PDO::FETCH_BOUND);
     }
@@ -39,11 +41,18 @@ abstract class DataCore implements JsonSerializable {
     public function getName() {
         return $this->name;
     }
+    public function getComments() {
+        return $this->comments;
+    }
 
     //Set methods
     public function setName($name) {
         static::setField('name', $name, PDO::PARAM_STR);
         $this->name = $name;
+    }
+    public function setComments($comments) {
+        static::setField('comments', $comments, PDO::PARAM_STR);
+        $this->comments = $comments;
     }
 
     //Generic utility method for setting database fields
@@ -61,11 +70,12 @@ abstract class DataCore implements JsonSerializable {
     }
 
     //Required by JsonSerializable
-    //Serialises id & name
+    //Serialises id, name & comments
     public function jsonSerialize() {
         return [
-            'id'    => $this->getID(),
-            'name'  => $this->getName(),
+            'id'       => $this->getID(),
+            'name'     => $this->getName(),
+            'comments' => $this->getComments(),
         ];
     }
 
@@ -78,6 +88,9 @@ abstract class DataCore implements JsonSerializable {
         //Update name if different
         if($data->name != $this->getName())
             $this->setName($data->name);
+        //Update comments if different
+        if($data->comments != $this->getComments())
+            $this->setName($data->comments);
         return $this;
     }
 
