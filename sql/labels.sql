@@ -3,7 +3,8 @@
 *=============*/
 CREATE TABLE IF NOT EXISTS labels (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    comments TEXT
 );
 
 /*====================*
