@@ -33,7 +33,7 @@ Track.Sort = {
 
     //Sort by Release Label
     Label: {
-        Asc: function(a, b) {
+        Asc: function(a, b, invert) {
             var al = a.getLabel();
             var bl = b.getLabel();
             if(al == null && bl == null)
@@ -42,30 +42,21 @@ Track.Sort = {
                 var x = Track.Sort.nullSort;
             else if(bl == null)
                 var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
-            else
+            else {
                 var x = al.name.localeCompare(bl.name);
+                if(invert) x = x - x * 2;
+            }
             if(x == 0) return Track.Sort.Release.Asc(a, b);
             return x;
         },
         Desc: function(a, b) {
-            var al = a.getLabel();
-            var bl = b.getLabel();
-            if(al == null && bl == null)
-                var x = 0;
-            else if(al == null)
-                var x = Track.Sort.nullSort;
-            else if(bl == null)
-                var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
-            else
-                var x = bl.name.localeCompare(al.name);
-            if(x == 0) return Track.Sort.Release.Asc(a, b);
-            return x;
+            return Track.Sort.Label.Asc(a, b, true);
         },
     },
 
     //Sort by .release
     Release: {
-        Asc: function(a, b) {
+        Asc: function(a, b, invert) {
             var ar = a.getRelease();
             var br = b.getRelease();
             if(ar == null && br == null)
@@ -74,24 +65,15 @@ Track.Sort = {
                 var x = Track.Sort.nullSort;
             else if(br == null)
                 var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
-            else
+            else {
                 var x = ar.name.localeCompare(br.name);
+                if(invert) x = x - x * 2;
+            }
             if(x == 0) return Track.Sort.Number.Asc(a, b);
             return x;
         },
         Desc: function(a, b) {
-            var ar = a.getRelease();
-            var br = b.getRelease();
-            if(ar == null && br == null)
-                var x = 0;
-            else if(ar == null)
-                var x = Track.Sort.nullSort;
-            else if(br == null)
-                var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
-            else
-                var x = br.name.localeCompare(ar.name);
-            if(x == 0) return Track.Sort.Number.Asc(a, b);
-            return x;
+            return Track.Sort.Release.Asc(a, b, true);
         },
         //Sort by Track's Release .year
         Year: {
