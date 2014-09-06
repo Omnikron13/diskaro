@@ -142,6 +142,24 @@ Track.UI.Column.Release = new Track.UI.Column(
     }
 );
 
+//Basic Release .year Column
+Track.UI.Column.Release.Year = new Track.UI.Column(
+    //Internal column/cell name
+    'year',
+    //Column heading (<th>) UI str
+    _('Year'),
+    //Track .sort() callback
+    Track.Sort.Release.Year,
+    //Function to render .html() content
+    function(t) {
+        return t.getYear();
+    },
+    //Function to check if cell is null/empty
+    function(t) {
+        return !t.getYear();
+    }
+);
+
 //Basic Release Label Column
 Track.UI.Column.Label = new Track.UI.Column(
     //Internal column/cell name
