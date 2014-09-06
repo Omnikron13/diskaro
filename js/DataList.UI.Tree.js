@@ -67,6 +67,23 @@ DataList.UI.Tree = {
                     DataList.UI.Tree.renderBranch(d, index)
                 );
             })
+            //Event to add new branch(es) from new Data obj
+            .on('add', function(ev, d) {
+                //Add new Data obj to underlying DataList
+                dl.add(d);
+                //New Data obj should be a root branch
+                if(d.parentIDs.length == 0) {
+                    //Add Data as root & update existing roots
+                    $(this)
+                        .trigger('addRoot', d)
+                        .trigger('updateRoots')
+                    ;
+                    //Nothing else to do for root; return
+                    return;
+                }
+                //New Data obj shouldn't be root; delegate to updateBranch
+                $(this).trigger('updateBranch', d);
+            })
         ;
     },
 
