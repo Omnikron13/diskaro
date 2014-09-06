@@ -273,6 +273,12 @@ Track.method('getRelease', function() {
     return this.releaseObj;
 });
 
+//Shorthand to get this Track obj's Data.Releas .year (or null)
+Track.method('getYear', function() {
+    var r = this.getRelease();
+    return r ? r.year : null;
+});
+
 //Shorthand for this Track objs Data.Release .getLabel()
 Track.method('getLabel', function() {
     var r = this.getRelease();
