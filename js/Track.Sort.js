@@ -93,6 +93,28 @@ Track.Sort = {
             if(x == 0) return Track.Sort.Number.Asc(a, b);
             return x;
         },
+        //Sort by Track's Release .year
+        Year: {
+            Asc: function(a, b, invert) {
+                var ay = a.getYear();
+                var by = b.getYear();
+                if(ay == null && by == null)
+                    var x = 0;
+                else if(ay == null)
+                    var x = Track.Sort.nullSort;
+                else if(by == null)
+                    var x = Track.Sort.nullSort - Track.Sort.nullSort * 2;
+                else {
+                    var x = ay - by;
+                    if(invert) x = x - x * 2;
+                }
+                if(x == 0) return Track.Sort.Release.Asc(a, b);
+                return x;
+            },
+            Desc: function(a, b) {
+                return Track.Sort.Release.Year.Asc(a, b, true);
+            },
+        },
     },
 
     //Function to generate asc/desc pair to sort by DataList returned by getDL
