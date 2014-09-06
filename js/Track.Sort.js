@@ -100,11 +100,11 @@ Track.Sort = {
         return {
             Asc: function(a, b) {
                 var x = DataList.Sort.Asc(getDL(a), getDL(b));
-                return x == 0 ? Track.Sort.Title.Asc(a, b) : x;
+                return x == 0 ? Track.Sort.Release.Asc(a, b) : x;
             },
             Desc: function(a, b) {
                 var x = DataList.Sort.Desc(getDL(a), getDL(b));
-                return x == 0 ? Track.Sort.Title.Asc(a, b) : x;
+                return x == 0 ? Track.Sort.Release.Asc(a, b) : x;
             },
         };
     },
