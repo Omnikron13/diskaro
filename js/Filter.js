@@ -165,6 +165,11 @@ Filter.Release = function(rel, r, n) {
     return Filter.data('ReleaseFilter', rel, r, n);
 };
 
+//Shorthand to create LabelFilter objects
+Filter.Label = function(l, r, n) {
+    return Filter.data('LabelFilter', l, r, n);
+};
+
 //Shorthand to create RoleFilter objects
 Filter.Role = function(role, r, n) {
     return Filter.data('RoleFilter', role, r, n);
