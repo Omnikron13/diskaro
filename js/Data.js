@@ -43,6 +43,18 @@ Data.method('clone', function() {
     return Data[this.type](JSON.parse(JSON.stringify(this)));
 });
 
+//Basic setter for .name (chainable)
+Data.method('setName', function(s) {
+    this.name = s;
+    return this;
+});
+
+//Basic setter for .comments (chainable)
+Data.method('setComments', function(s) {
+    this.comments = s;
+    return this;
+});
+
 //Method to add parent(ID) link (& matching child(ID) link)
 Data.method('addParent', function(d) {
     //Abort if types don't match
