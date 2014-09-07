@@ -106,12 +106,10 @@ Data.method('update', function(d) {
     //Abort update if type or id don't match
     if(d.type != this.type) return this;
     if(d.id != this.id) return this;
-    //Update name
-    this.name = d.name;
-    //Update comments
-    this.comments = d.comments;
-    //Delegate further updates & return (chaining enabled)
+    //Delegate updates & return (chaining enabled)
     return this
+        .setName(d.name)
+        .setComments(d.comments)
         .updateParents(d.parentIDs)
         .updateChildren(d.childIDs)
     ;
