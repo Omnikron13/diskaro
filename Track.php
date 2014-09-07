@@ -243,7 +243,7 @@ class Track extends DataCore {
     }
 
     //Override DataCore->add() to allow optional release & trackNumber
-    public static function add($name, $path, $release = NULL, $trackNumber = NULL) {
+    public static function add($name, $path = NULL, $release = NULL, $trackNumber = NULL) {
         $db = self::getDB();
         $query = $db->prepare('INSERT INTO tracks(name, path, releaseID, trackNumber)
             VALUES(:name, :path, :releaseID, :trackNumber);');
