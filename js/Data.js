@@ -6,6 +6,7 @@ function Data(type, json) {
     this.type = type;
     this.id = json.id;
     this.name = json.name;
+    this.comments = json.comments;
     if(json.hasOwnProperty('parentIDs'))
         this.parentIDs = json.parentIDs;
     if(json.hasOwnProperty('childIDs'))
@@ -28,6 +29,7 @@ Data.method('toJSON', function() {
     var j = {
         id: this.id,
         name: this.name,
+        comments: this.comments,
     };
     if(this.hasOwnProperty('parentIDs'))
         j.parentIDs = this.parentIDs;
@@ -94,6 +96,8 @@ Data.method('update', function(d) {
     if(d.id != this.id) return this;
     //Update name
     this.name = d.name;
+    //Update comments
+    this.comments = d.comments;
     //Update parent/child ids (if appropriate)
     if(this.hasOwnProperty('parentIDs'))
         this.parentIDs = d.parentIDs;
