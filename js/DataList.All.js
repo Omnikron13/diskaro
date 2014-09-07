@@ -143,39 +143,33 @@ Data.method('update', function(d) {
     var that = this;
     //Update name
     this.name = d.name;
-    //Update parent/child ids (if appropriate)
+    //Update parent/child ids bidirectionally (if appropriate)
     if(this.hasOwnProperty('parentIDs')) {
-        //Defer til master list is loaded
-        $.when(DataList.All.loaded(this.type)).done(function() {
-            //Get master id index
-            var index = DataList.All[that.type].getIdIndex();
-            //Get & iterate added/new parentIDs
-            d.parentIDs.diff(that.parentIDs).forEach(function(id) {
-                //Add parent/child links
-                that.addParent(index[id]);
-            });
-            //Get & iterate removed parentIDs
-            that.parentIDs.diff(d.parentIDs).forEach(function(id) {
-                //Remove parent/child links
-                that.removeParent(index[id]);
-            });
+        //Get master id index
+        var index = DataList.All[that.type].getIdIndex();
+        //Get & iterate added/new parentIDs
+        d.parentIDs.diff(that.parentIDs).forEach(function(id) {
+            //Add parent/child links
+            that.addParent(index[id]);
+        });
+        //Get & iterate removed parentIDs
+        that.parentIDs.diff(d.parentIDs).forEach(function(id) {
+            //Remove parent/child links
+            that.removeParent(index[id]);
         });
     }
     if(this.hasOwnProperty('childIDs')) {
-        //Defer til master list is loaded
-        $.when(DataList.All.loaded(this.type)).done(function() {
-            //Get master id index
-            var index = DataList.All[that.type].getIdIndex();
-            //Get & iterate added/new childIDs
-            d.childIDs.diff(that.childIDs).forEach(function(id) {
-                //Add child/parent links
-                that.addChild(index[id]);
-            });
-            //Get & iterate removed childIDs
-            that.childIDs.diff(d.childIDs).forEach(function(id) {
-                //Remove child/parent links
-                that.removeChild(index[id]);
-            });
+        //Get master id index
+        var index = DataList.All[that.type].getIdIndex();
+        //Get & iterate added/new childIDs
+        d.childIDs.diff(that.childIDs).forEach(function(id) {
+            //Add child/parent links
+            that.addChild(index[id]);
+        });
+        //Get & iterate removed childIDs
+        that.childIDs.diff(d.childIDs).forEach(function(id) {
+            //Remove child/parent links
+            that.removeChild(index[id]);
         });
     }
     //Data.Release specific updates
