@@ -203,6 +203,46 @@ Data.method('update', function(d) {
     return this;
 });
 
+//Override .updateParents() to update IDs bidirectionally
+Data.method('updateParents', function(pids) {
+    //Abort if no parent IDs given (/probably/ not supported)
+    if(!pids) return this;
+    //Store this for closures
+    var that = this;
+    //Get master id index
+    var index = DataList.All[this.type].getIdIndex();
+    //Get, iterate & process added/new parent IDs
+    pids.diff(this.parentIDs).forEach(function(id) {
+        that.addParent(index[id]);
+    });
+    //Get, iterate & process removed parent IDs
+    this.parentIDs.diff(pids).forEach(function(id) {
+        that.removeParent(index[id]);
+    });
+    //Enable chaining
+    return this;
+});
+
+//Override .updateChildren() to update IDs bidirectionally
+Data.method('updateChildren', function(cids) {
+    //Abort if no child IDs given (/probably/ not supported)
+    if(!cids) return this;
+    //Store this for closures
+    var that = this;
+    //Get master id index
+    var index = DataList.All[this.type].getIdIndex();
+    //Get, iterate & process added/new child IDs
+    cids.diff(this.childIDs).forEach(function(id) {
+        that.addChild(index[id]);
+    });
+    //Get, iterate & process removed child IDs
+    this.childIDs.diff(cids).forEach(function(id) {
+        that.removeChild(index[id]);
+    });
+    //Enable chaining
+    return this;
+});
+
 /*---------------------------*
  | Data.Release enhancements |
  *---------------------------*/
