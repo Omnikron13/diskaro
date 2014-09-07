@@ -107,6 +107,22 @@ Data.method('update', function(d) {
     return this;
 });
 
+//Method to update/replace .parentIDs array (if appliable)
+Data.method('updateParents', function(pids) {
+    //Replace array (if parents are supported)
+    if(pids) this.parentIDs = pids;
+    //Enable chaining
+    return this;
+});
+
+//Method to update/replace .childIDs array (if applicable)
+Data.method('updateChildren', function(cids) {
+    //Replace array (if children are supported)
+    if(cids) this.childIDs = cids;
+    //Enable chaining
+    return this;
+});
+
 //Static method which requests an (optionally filtered) list of 'type' data
 //from the DB and passes a list of Data objects to the provided callback
 Data.load = function(type, cb, f) {
