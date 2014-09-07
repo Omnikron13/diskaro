@@ -69,6 +69,19 @@ Data.UI.Edit = {
             ;
         },
 
+        //Function for rendering Comments (.comments) section
+        Comments: function(d) {
+            return UI.Edit.Section.render('comments', _('Comments'))
+                .append(
+                    $('<textarea>')
+                        .attr('placeholder', _('Comments') + '...')
+                        .val(d.comments)
+                )
+                .on('save', function() {
+                    d.comments = $(this).find('textarea').val() || null;
+                })
+        },
+
         //Function for rendering Parents (.parentIDs) section
         Parents: function(d) {
             return UI.Edit.Section.DataList('parents', _('Parents'), d.getParents())
@@ -106,4 +119,5 @@ Data.UI.Edit.Section.All = [
     Data.UI.Edit.Section.Name,
     Data.UI.Edit.Section.Parents,
     Data.UI.Edit.Section.Children,
+    Data.UI.Edit.Section.Comments,
 ];
