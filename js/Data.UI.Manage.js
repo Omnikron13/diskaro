@@ -23,6 +23,10 @@ Data.UI.Manage = {
             .append(
                 Data.UI.Manage.Style[style](dl)
             )
+            //Event to simplify triggering 'add' on the DataList.UI
+            .on('addData', function(ev, d) {
+                $(this).children('.dataList').trigger('add', d);
+            })
             //Catch Data.UI click events & open edit dialogue
             .on('click', '.data', function(ev) {
                 //Save ref to DataList.UI element for closure(s)
