@@ -90,7 +90,7 @@ abstract class DataCore implements JsonSerializable {
             $this->setName($data->name);
         //Update comments if different
         if($data->comments != $this->getComments())
-            $this->setName($data->comments);
+            $this->setComments($data->comments);
         return $this;
     }
 
