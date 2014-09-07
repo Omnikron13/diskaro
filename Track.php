@@ -41,7 +41,7 @@ class Track extends DataCore {
     protected function loadLinks($table, $idField, &$array, $type) {
         $db = static::getDB();
 		$query = $db->prepare("SELECT $idField FROM $table WHERE trackID = :id;");
-		$query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
+		$query->bindValue(':id', $this->getID(), PDO::PARAM_INT);
 		$query->execute();
         $array = array_map(function($id) use($type) {
             $reflection = new ReflectionClass($type);
@@ -151,8 +151,8 @@ class Track extends DataCore {
     protected function addLink($link, $table, $idField, &$array) {
         $db = static::getDB();
         $query = $db->prepare("INSERT INTO $table(trackID, $idField) VALUES(:tid, :lid);");
-        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
-        $query->bindParam(':lid', $link->getID(), PDO::PARAM_INT);
+        $query->bindValue(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':lid', $link->getID(), PDO::PARAM_INT);
         $query->execute();
         $array[] = $link;
     }
@@ -161,8 +161,8 @@ class Track extends DataCore {
     protected function removeLink($link, $table, $idField, &$array) {
         $db = static::getDB();
         $query = $db->prepare("DELETE FROM $table WHERE trackID=:tid AND $idField=:lid;");
-        $query->bindParam(':tid', $this->getID(), PDO::PARAM_INT);
-        $query->bindParam(':lid', $link->getID(), PDO::PARAM_INT);
+        $query->bindValue(':tid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':lid', $link->getID(), PDO::PARAM_INT);
         $query->execute();
         unset($array[array_Search($link, $array)]);
         $array = array_values($array);
@@ -241,10 +241,10 @@ class Track extends DataCore {
         $db = self::getDB();
         $query = $db->prepare('INSERT INTO tracks(name, path, releaseID, trackNumber)
             VALUES(:name, :path, :releaseID, :trackNumber);');
-		$query->bindParam(':name', $name, PDO::PARAM_STR);
-		$query->bindParam(':path', $path, PDO::PARAM_STR);
-		$query->bindParam(':releaseID', ($release===NULL)?NULL:$release->getID(), PDO::PARAM_INT);
-		$query->bindParam(':trackNumber', $trackNumber, PDO::PARAM_INT);
+		$query->bindValue(':name', $name, PDO::PARAM_STR);
+		$query->bindValue(':path', $path, PDO::PARAM_STR);
+		$query->bindValue(':releaseID', ($release===NULL)?NULL:$release->getID(), PDO::PARAM_INT);
+		$query->bindValue(':trackNumber', $trackNumber, PDO::PARAM_INT);
 		$query->execute();
         return new self($db->lastInsertId());
     }
