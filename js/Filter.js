@@ -118,6 +118,33 @@ Filter.Compound = function(filters, operator, negate) {
     return f;
 };
 
+//Static method to create YearFilter objects
+Filter.Year = function(start, end, negate) {
+    //Create base Filter obj
+    var f = new Filter('YearFilter', negate);
+    //Add specific properties
+    f.start = start;
+    f.end   = end;
+    //Method to generate plain obj version for JSON encoding
+    f.getData = function() {
+        return {
+            start  : this.start,
+            end    : this.end,
+            negate : this.negate,
+        };
+    };
+    //Method to generate human-readable version of the Filter
+    f.toString = function() {
+        return _('Year')
+            + ': '
+            + (this.negate?'!':'')
+            + this.start
+            + (this.end ? '-' + this.end : '')
+        ;
+    };
+    return f;
+};
+
 //Shorthand to create TagFilter objects
 Filter.Tag = function(t, r, n) {
     return Filter.data('TagFilter', t, r, n);
