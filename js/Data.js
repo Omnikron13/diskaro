@@ -98,13 +98,11 @@ Data.method('update', function(d) {
     this.name = d.name;
     //Update comments
     this.comments = d.comments;
-    //Update parent/child ids (if appropriate)
-    if(this.hasOwnProperty('parentIDs'))
-        this.parentIDs = d.parentIDs;
-    if(this.hasOwnProperty('childIDs'))
-        this.childIDs = d.childIDs;
-    //Enable chaining
-    return this;
+    //Delegate further updates & return (chaining enabled)
+    return this
+        .updateParents(d.parentIDs)
+        .updateChildren(d.childIDs)
+    ;
 });
 
 //Method to update/replace .parentIDs array (if appliable)
