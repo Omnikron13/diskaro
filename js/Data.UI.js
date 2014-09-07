@@ -16,6 +16,8 @@ Data.UI = {
             .addClass('id-' + d.id)
             //Render output text/html
             .html(d.name)
+            //Render comments as mouseover text
+            .attr('title', d.comments)
             //Getter event to return stored Data obj (with .triggerHandler())
             .on('getData', function() {
                 if($(this).hasClass('id-null')) return null;
@@ -26,6 +28,8 @@ Data.UI = {
                 //If this is a basic Data.UI element update HTML
                 if($(this).children().length == 0)
                     $(this).html($(this).data('data').name);
+                //Update mouseover text (.comments)
+                $(this).attr('title', d.comments);
             })
             //Event to update internal Data obj & possibly UI output
             .on('updateData', function(ev, d) {
