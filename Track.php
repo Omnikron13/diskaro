@@ -58,6 +58,9 @@ class Track extends DataCore {
     public function getYear() {
         return $this->release ? $this->release->getYear() : NULL;
     }
+    public function getLabel() {
+        return $this->release ? $this->release->getLabel() : NULL;
+    }
     public function getTrackNumber() {
         return $this->trackNumber;
     }
