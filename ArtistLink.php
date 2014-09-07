@@ -13,7 +13,7 @@ class ArtistLink implements JsonSerializable {
         $this->id = $id;
         $db = static::getDB();
         $query = $db->prepare('SELECT artistID, roleID FROM trackArtists WHERE id=:id;');
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
         $query->execute();
         $query->bindColumn('artistID', $this->artist, PDO::PARAM_INT);
         $query->bindColumn('roleID', $this->role, PDO::PARAM_INT);
@@ -35,11 +35,11 @@ class ArtistLink implements JsonSerializable {
     public function setRole($role) {
         $db = static::getDB();
         $query = $db->prepare('UPDATE trackArtists SET roleID=:rid WHERE id=:id;');
-        $query->bindParam(':id', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':id', $this->getID(), PDO::PARAM_INT);
         if($role === NULL)
             $query->bindValue(':rid', NULL, PDO::PARAM_NULL);
         else
-            $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
+            $query->bindValue(':rid', $role->getID(), PDO::PARAM_INT);
         $query->execute();
         $this->role = $role;
     }
@@ -59,10 +59,10 @@ class ArtistLink implements JsonSerializable {
             $query = $db->prepare('SELECT id FROM trackArtists WHERE trackID=:tid AND artistID=:aid AND roleID ISNULL;');
         else {
             $query = $db->prepare('SELECT id FROM trackArtists WHERE trackID=:tid AND artistID=:aid AND roleID=:rid;');
-            $query->bindParam(':rid', $role->getID(), PDO::PARAM_INT);
+            $query->bindValue(':rid', $role->getID(), PDO::PARAM_INT);
         }
-        $query->bindParam(':tid', $track->getID(), PDO::PARAM_INT);
-        $query->bindParam(':aid', $artist->getID(), PDO::PARAM_INT);
+        $query->bindValue(':tid', $track->getID(), PDO::PARAM_INT);
+        $query->bindValue(':aid', $artist->getID(), PDO::PARAM_INT);
         $query->execute();
         $query->bindColumn('id', $id, PDO::PARAM_INT);
         $query->fetch(PDO::FETCH_BOUND);

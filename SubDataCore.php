@@ -11,8 +11,8 @@ abstract class SubDataCore extends DataCore {
         }
         $db = static::getDB();
         $query = $db->prepare('INSERT INTO '.static::getSubTable().'(parentID, childID) VALUES(:pid, :cid);');
-        $query->bindParam(':pid', $parent->getID(), PDO::PARAM_INT);
-        $query->bindParam(':cid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':pid', $parent->getID(), PDO::PARAM_INT);
+        $query->bindValue(':cid', $this->getID(), PDO::PARAM_INT);
         $query->execute();
     }
 
@@ -24,8 +24,8 @@ abstract class SubDataCore extends DataCore {
         //Remove DB record
         $db = static::getDB();
         $query = $db->prepare('DELETE FROM '.static::getSubTable().' WHERE parentID=:pid AND childID=:cid;');
-        $query->bindParam(':pid', $parent->getID(), PDO::PARAM_INT);
-        $query->bindParam(':cid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':pid', $parent->getID(), PDO::PARAM_INT);
+        $query->bindValue(':cid', $this->getID(), PDO::PARAM_INT);
         $query->execute();
     }
 
@@ -38,7 +38,7 @@ abstract class SubDataCore extends DataCore {
     protected function getParentIDs() {
         $db = static::getDB();
         $query = $db->prepare('SELECT parentID FROM '.static::getSubTable().' WHERE childID=:cid;');
-        $query->bindParam(':cid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':cid', $this->getID(), PDO::PARAM_INT);
         $query->execute();
         return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
@@ -70,7 +70,7 @@ abstract class SubDataCore extends DataCore {
     protected function getChildIDs() {
         $db = static::getDB();
         $query = $db->prepare('SELECT childID FROM '.static::getSubTable().' WHERE parentID=:pid;');
-        $query->bindParam(':pid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':pid', $this->getID(), PDO::PARAM_INT);
         $query->execute();
         return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }

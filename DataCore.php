@@ -13,13 +13,13 @@ abstract class DataCore implements JsonSerializable {
         switch($mode) {
             case 0:
 		        $query = $db->prepare('SELECT * FROM '.static::getMainTable().' WHERE id = :id;');
-		        $query->bindParam(':id', $uid, PDO::PARAM_INT);
+		        $query->bindValue(':id', $uid, PDO::PARAM_INT);
                 break;
             case 1:
                 if(!static::nameUnique())
                     throw new Exception('Cannot construct from name; not a unique identifier');
 		        $query = $db->prepare('SELECT * FROM '.static::getMainTable().' WHERE name = :name;');
-		        $query->bindParam(':name', $uid, PDO::PARAM_STR);
+		        $query->bindValue(':name', $uid, PDO::PARAM_STR);
                 break;
         }
 		$query->execute();
@@ -59,8 +59,8 @@ abstract class DataCore implements JsonSerializable {
     protected function setField($field, $value, $type) {
         $db = static::getDB();
         $query = $db->prepare('UPDATE '.static::getMainTable()." SET $field=:value WHERE id=:id;");
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
-        $query->bindParam(':value', $value, $type);
+        $query->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $query->bindValue(':value', $value, $type);
 		$query->execute();
     }
 
@@ -98,7 +98,7 @@ abstract class DataCore implements JsonSerializable {
     public static function add($name) {
         $db = static::getDB();
         $query = $db->prepare('INSERT INTO '.static::getMainTable().'(name) VALUES(:name);');
-		$query->bindParam(':name', $name, PDO::PARAM_STR);
+		$query->bindValue(':name', $name, PDO::PARAM_STR);
 		$query->execute();
         return new static($db->lastInsertId());
     }
@@ -118,7 +118,7 @@ abstract class DataCore implements JsonSerializable {
         //Remove specified record from DB
         $db = static::getDB();
         $query = $db->prepare('DELETE FROM '.static::getMainTable().' WHERE id=:id;');
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
         $query->execute();
         return $query->rowCount();
     }

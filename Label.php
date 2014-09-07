@@ -7,7 +7,7 @@ class Label extends SubDataCore {
     public function getReleases() {
         $db = static::getDB();
         $query = $db->prepare("SELECT id FROM releases WHERE labelID = :lid;");
-        $query->bindParam(':lid', $this->getID(), PDO::PARAM_INT);
+        $query->bindValue(':lid', $this->getID(), PDO::PARAM_INT);
         $query->execute();
         return array_map(function($id) {
             return new Release($id);
