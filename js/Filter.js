@@ -136,8 +136,8 @@ Filter.Year = function(start, end, negate) {
     //Method to generate plain obj version for JSON encoding
     f.getData = function() {
         return {
-            start  : this.start,
-            end    : this.end,
+            start  : this.getStart(),
+            end    : this.getEnd(),
             negate : this.negate,
         };
     };
@@ -147,7 +147,7 @@ Filter.Year = function(start, end, negate) {
             + ': '
             + (this.negate?'!':'')
             + this.start
-            + (this.end ? '-' + this.end : '')
+            + (this.getEnd() ? '-' + this.end : '')
         ;
     };
     return f;
