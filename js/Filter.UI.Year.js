@@ -119,6 +119,31 @@ Filter.UI.Year = {
                 //Stop propagation
                 return false;
             })
+
+            //Event to check/update .invalid class flags
+            .on('validate', function() {
+                //Get stored Filter obj
+                var f = $(this).data('filter');
+                //End field is empty/null
+                if(!f.end) {
+                    //Remove any/all .invalid flags
+                    $(this).find('input').removeClass('invalid');
+                    //Skip further checks
+                    return false;
+                }
+                //Check/update on input.start
+                if(!f.start)
+                    $(this).find('input.start').addClass('invalid');
+                else
+                    $(this).find('input.start').removeClass('invalid');
+                //Check/update on input.end
+                if(!f.getEnd())
+                    $(this).find('input.end').addClass('invalid');
+                else
+                    $(this).find('input.end').removeClass('invalid');
+                //Stop propagation
+                return false;
+            })
         ;
     },
 };
