@@ -43,7 +43,7 @@ DataList.UI.Tree = {
                 d.parentIDs.forEach(function(pid) {
                     that.find('.branch' + '.id-' + pid)
                         .each(function() {
-                            $(this).trigger('addChild', d);
+                            $(this).trigger('addChild', d.id);
                         });
                 });
             })
@@ -157,11 +157,11 @@ DataList.UI.Tree = {
                 ;
                 //Remove orphaned children
                 cids.diff(d.childIDs).forEach(function(id) {
-                    that.trigger('removeChild', index[id]);
+                    that.trigger('removeChild', id);
                 });
                 //Add missing children
                 d.childIDs.diff(cids).forEach(function(id) {
-                    that.trigger('addChild', index[id]);
+                    that.trigger('addChild', id);
                 });
                 //Stop propagation
                 return false;
@@ -181,27 +181,27 @@ DataList.UI.Tree = {
                 return false;
             })
             //Event to add a new child branch to this branch
-            .on('addChild', function(ev, d) {
+            .on('addChild', function(ev, id) {
                 //Remove leaf class (if applicable)
                 $(this).removeClass('leaf');
                 //Get children container element
                 var c = $(this).children('.children');
                 //Abort add if child branch already exists
-                if(c.children('.branch' + '.id-' + d.id).length != 0)
+                if(c.children('.branch' + '.id-' + id).length != 0)
                     return false;
                 //Add new branch element from given Data obj
                 c.append(
-                    DataList.UI.Tree.renderBranch(d, index)
+                    DataList.UI.Tree.renderBranch(index[id], index)
                 );
                 //Prevent propagation
                 return false;
             })
             //Event to remove a given child branch from this branch
-            .on('removeChild', function(ev, d) {
+            .on('removeChild', function(ev, id) {
                 //Select children container element
                 $(this).children('.children')
                     //Select specific child branch by id
-                    .children('.branch' + '.id-' + d.id)
+                    .children('.branch' + '.id-' + id)
                         //Instruct it to remove itself
                         .trigger('removeBranch')
                 ;
