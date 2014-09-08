@@ -122,6 +122,14 @@ Filter.Compound = function(filters, operator, negate) {
 Filter.Year = function(start, end, negate) {
     //Create base Filter obj
     var f = new Filter('YearFilter', negate);
+    //Add custom getters
+    f.getStart = function() {
+        return this.start;
+    };
+    f.getEnd = function() {
+        //Return end if valid, otherwise return null
+        return this.end < this.start ? null : this.end;
+    };
     //Add specific properties
     f.start = start;
     f.end   = end;
