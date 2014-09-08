@@ -25,6 +25,12 @@ DataList.UI.Tree = {
             .on('updateData', function(ev, d) {
                 $(this).trigger('updateBranch', d);
             })
+
+            //Retrigger generic 'removeData' events as removeBranch
+            .on('removeData', function(ev, d) {
+                $(this).trigger('removeBranch', d);
+            })
+
             //Event instructing tree to update branch(es) matching Data obj
             .on('updateBranch', function(ev, d) {
                 //Store tree element ref for closures
