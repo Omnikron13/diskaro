@@ -47,6 +47,20 @@ DataList.UI.Tree = {
                         });
                 });
             })
+
+            //Event instructing tree to remove branch(es) matching Data obj
+            .on('removeBranch', function(ev, d) {
+                //Select all branches matching given Data obj
+                $(this).find('.branch' + '.id-' + d.id)
+                    //Select & remove all child branches
+                    .children('.children').children('.branch')
+                        .trigger('removeBranch')
+                        .end().end()
+                    //Remova this branch
+                    .trigger('removeBranch')
+                ;
+            })
+
             //Event to remove .root branches which now have parents
             .on('updateRoots', function() {
                 //Select & iterate .root branches
