@@ -57,12 +57,11 @@ Data.UI.Manage = {
             .on('addData', function(ev, d) {
                 $(this).children('.dataList').trigger('add', d);
             })
-            //Catch Data.UI click events & open edit dialogue
-            .on('click', '.data', function(ev) {
+
+            //Event to open Data.UI.Edit dialogue for given Data obj
+            .on('editData', function(ev, d) {
                 //Save ref to DataList.UI element for closure(s)
-                var dlui = $(ev.delegateTarget).children('.dataList');
-                //Save ref to (master) Data obj for closure(s)
-                var d = $(this).triggerHandler('getData');
+                var dlui = $(this).children('.dataList');
                 //Render Data edit dialogue on (cloned) Data obj
                 Data.UI.Edit.render(d.clone())
                     //Catch (possibly) updated Data obj
@@ -87,6 +86,15 @@ Data.UI.Manage = {
                     })
                 ;
             })
+
+            //Catch Data.UI click events & open edit dialogue
+            .on('click', '.data', function(ev) {
+                //Get stored Data obj
+                var d = $(this).triggerHandler('getData');
+                //Instruct Data.UI.Manage element to open edit dialogue
+                $(this).trigger('editData', d);
+            })
+
         ;
     },
 
