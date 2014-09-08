@@ -42,7 +42,7 @@ Filter.UI.Year = {
                         $('<input>')
                             .addClass('start')
                             .attr('name', 'startField')
-                            .attr('type', 'text')
+                            .attr('type', 'number')
                             .attr('placeholder', Filter.UI.Year.startPlaceholder)
                             //Catch /actual/ changes to the field
                             .on('input', function() {
@@ -61,7 +61,7 @@ Filter.UI.Year = {
                         $('<input>')
                             .addClass('end')
                             .attr('name', 'endField')
-                            .attr('type', 'text')
+                            .attr('type', 'number')
                             .attr('placeholder', Filter.UI.Year.endPlaceholder)
                             //Catch /actual/ changes to the field
                             .on('input', function() {
