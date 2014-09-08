@@ -23,6 +23,36 @@ Data.UI.Manage = {
             .append(
                 Data.UI.Manage.Style[style](dl)
             )
+            //Render button for opening dialogue to create new Data obj
+            .append(
+                $('<button>')
+                    .attr('type', 'button')
+                    .html(_('Add New'))
+                    //Catch clicks & open dialogue
+                    .on('click', function() {
+                        //Save this for closure
+                        var that = $(this);
+                        //Create/Open edit dialogue on new/blank Data obj
+                        Data.UI.Edit.render(Data[type].New())
+                            //Catch new Data obj on save
+                            .on('save', function(ev, d) {
+                                //Send 'add' request to server
+                                Request.Add(type, d)
+                                    .process(function(response) {
+                                        //Alert & abort on failure
+                                        if(!response.success) {
+                                            window.alert(response.message);
+                                            return;
+                                        }
+                                        //Convert response JSON to Data obj
+                                        var d = Data[type](response.data);
+                                        //Add to DataList.UI (which will add to DataList.All)
+                                        that.trigger('addData', d);
+                                    });
+                            })
+                        ;
+                    })
+            )
             //Event to simplify triggering 'add' on the DataList.UI
             .on('addData', function(ev, d) {
                 $(this).children('.dataList').trigger('add', d);
