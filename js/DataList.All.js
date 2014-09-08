@@ -23,6 +23,7 @@ DataList.All = {
             if(DataList.All.hasOwnProperty(type)) return DataList.All[type];
             //Create list from loaded data & return it
             DataList.All[type] = new DataList(type, ds);
+
             //Override .add() method to update id refs bidirectionally
             DataList.All[type].add = function(d) {
                 //Call original .add() to perform basic add
