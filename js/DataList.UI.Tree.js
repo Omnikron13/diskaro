@@ -21,6 +21,7 @@ DataList.UI.Tree = {
                     return DataList.UI.Tree.renderBranch(d, index);
                 })
             )
+
             //Retrigger generic 'updateData' events as updateBranch
             .on('updateData', function(ev, d) {
                 $(this).trigger('updateBranch', d);
@@ -78,6 +79,7 @@ DataList.UI.Tree = {
                     })
                 ;
             })
+
             //Catch addRoot from parentless branches being removed
             .on('addRoot', function(ev, d) {
                 //Abort add if root already exists
@@ -87,6 +89,7 @@ DataList.UI.Tree = {
                     DataList.UI.Tree.renderBranch(d, index)
                 );
             })
+
             //Event to add new branch(es) from new Data obj
             .on('add', function(ev, d) {
                 //Add new Data obj to underlying DataList
