@@ -50,6 +50,27 @@ DataList.All = {
                 //Enable chaining
                 return this;
             };
+
+            //Override .remove() method to remove id refs from old parents/children
+            DataList.All[type].remove = function(d) {
+                //Remove ID refs from old parents (if applicable)
+                if(d.hasOwnProperty('parentIDs'))
+                    d.getParents().list.forEach(function(p) {
+                        var i = p.childIDs.indexOf(d.id);
+                        if(i != -1) p.childIDs.splice(i, 1);
+                    });
+                //Remove ID refs from old children (if applicable)
+                if(d.hasOwnProperty('childIDs'))
+                    d.getChildren().list.forEach(function(c) {
+                        var i = c.parentIDs.indexOf(d.id);
+                        if(i != -1) c.parentIDs.splice(i, 1);
+                    });
+                //Call original .remove() to complete remove
+                DataList.prototype.remove.call(this, d);
+                //Enable chaining
+                return this;
+            };
+
             return DataList.All[type];
         });
     },
