@@ -17,6 +17,8 @@ Filter.UI.Year = {
             null,
             prefix
         )
+            //Init (empty) Filter obj
+            .data('filter', Filter.Year(null, null))
             //Add year specific UI fields/controls
             .append(
                 $('<fieldset>')
@@ -73,32 +75,19 @@ Filter.UI.Year = {
 
             //Catch start year updates
             .on('updateStart', function(ev, y) {
-                //Start year has been nulled
-                if(!y) {
-                    $(this)
-                        //Null stored Filter obj
-                        .removeData('filter')
-                        //Alert parents that Filter is nulled
-                        .trigger('filterUpdate', null)
-                    ;
-                    //Stop propagation
-                    return false;
-                }
+                //Store new start year (or null it)
+                if(y) $(this).data('start', y);
+                else $(this).removeData('start');
                 //Get stored Filter obj
                 var f = $(this).data('filter');
-                //No filter stored; create one
-                if(!f) f = $(this).data(
-                    'filter',
-                    Filter.Year(
-                        y,
-                        $(this).data('end'),
-                        $(this).data('options')['Negate']
-                    )
-                ).data('filter');
-                //Filter obj was stored; update it
-                else f.start = y;
-                //Trigger filterUpdate to alert parents
-                $(this).trigger('filterUpdate', f);
+                //Update Filter obj
+                f.start = y;
+                $(this)
+                    //Trigger filterUpdate to alert parents
+                    .trigger('filterUpdate', f.start ? f : null)
+                    //Trigger validate to recheck .invalid flags
+                    .trigger('validate')
+                ;
                 //Stop propagation
                 return false;
             })
@@ -110,12 +99,14 @@ Filter.UI.Year = {
                 else $(this).removeData('end');
                 //Get stored Filter obj
                 var f = $(this).data('filter');
-                //Abort if there isn't a Filter to update
-                if(!f) return false;
                 //Update Filter obj
                 f.end = y;
-                //Trigger filterUpdate to alert parents
-                $(this).trigger('filterUpdate', f);
+                $(this)
+                    //Trigger filterUpdate to alert parents
+                    .trigger('filterUpdate', f.start ? f : null)
+                    //Trigger validate to recheck .invalid flags
+                    .trigger('validate')
+                ;
                 //Stop propagation
                 return false;
             })
