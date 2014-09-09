@@ -3,17 +3,6 @@
 require_once('SubDataCore.php');
 
 class Label extends SubDataCore {
-    //Get methods
-    public function getReleases() {
-        $db = static::getDB();
-        $query = $db->prepare("SELECT id FROM releases WHERE labelID = :lid;");
-        $query->bindValue(':lid', $this->getID(), PDO::PARAM_INT);
-        $query->execute();
-        return array_map(function($id) {
-            return new Release($id);
-        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
-    }
-
     //Override jsonSerialize to include releaseIDs
     public function jsonSerialize() {
         $json = parent::jsonSerialize();

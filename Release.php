@@ -87,4 +87,16 @@ class Release extends DataCore {
     }
 }
 
+//Add getReleases() method to Label - returns array of Release objects which
+//reference this Label with their labelID field in the DB
+Label::add_method('getReleases', function() {
+    $db = static::getDB();
+    $query = $db->prepare("SELECT id FROM releases WHERE labelID = :lid;");
+    $query->bindValue(':lid', $this->getID(), PDO::PARAM_INT);
+    $query->execute();
+    return array_map(function($id) {
+        return new Release($id);
+    }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+});
+
 ?>
