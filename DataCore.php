@@ -1,8 +1,11 @@
 <?php
 
 require_once('DB.php');
+require_once('TAddMethod.php');
 
 abstract class DataCore implements JsonSerializable {
+    use TAddMethod;
+
     protected $id = NULL;
     protected $name = NULL;
     protected $comments = NULL;
