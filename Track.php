@@ -275,4 +275,16 @@ class Track extends DataCore {
     }
 }
 
+//Add getTracks() method to Release - returns array of Track objects which
+//reference this Release with their releaseID field in the DB
+Release::add_method('getTracks', function() {
+    $db = static::getDB();
+    $query = $db->prepare('SELECT id FROM tracks WHERE releaseID=:id;');
+    $query->bindValue(':id', $this->getID(), PDO::PARAM_INT);
+    $query->execute();
+    return array_map(function($id) {
+        return new Track($id);
+    }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+});
+
 ?>
