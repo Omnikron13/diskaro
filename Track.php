@@ -378,4 +378,23 @@ Artist::addJsonField('trackIDs', function($d) {
     return $d->getTrackIDs();
 });
 
+//Add getTrackIDs() method to Role - returns array of IDs of Tracks which
+//reference this Role in the trackArtists DB table
+Role::add_method('getTrackIDs', function() {
+    return $this->getLinkIDs('trackArtists', 'roleID', 'trackID');
+});
+
+//Add getTracks() method to Role - returns array of Track objects which
+//reference this Role in the trackArtists DB table
+Role::add_method('getTracks', function() {
+    return array_map(function($id) {
+        return new Track($id);
+    }, $this->getTrackIDs());
+});
+
+//Add trackIDs field to serialised Role JSON
+Role::addJsonField('trackIDs', function($d) {
+    return $d->getTrackIDs();
+});
+
 ?>
