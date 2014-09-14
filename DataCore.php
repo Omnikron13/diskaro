@@ -201,4 +201,15 @@ abstract class DataCore implements JsonSerializable {
     public static abstract function getSchema();
 }
 
+//Set default JSON fields to serialise (id, name & comments)
+DataCore::addJsonField('id', function($d) {
+    return $d->getID();
+});
+DataCore::addJsonField('name', function($d) {
+    return $d->getName();
+});
+DataCore::addJsonField('comments', function($d) {
+    return $d->getComments();
+});
+
 ?>
