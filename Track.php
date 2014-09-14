@@ -328,4 +328,9 @@ Label::add_method('getTracks', function() {
     }, $this->getTrackIDs());
 });
 
+//Add trackIDs field to serialised Label JSON
+Label::addJsonField('trackIDs', function($d) {
+    return $d->getTrackIDs();
+});
+
 ?>
