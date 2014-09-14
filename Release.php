@@ -87,6 +87,15 @@ class Release extends DataCore {
     }
 }
 
+//Set default JSON fields to serialise (year & labelID)
+Release::addJsonField('year', function($d) {
+    return $d->getYear();
+});
+Release::addJsonField('labelID', function($d) {
+    $l = $d->getLabel();
+    return $l ? $l->getID() : null;
+});
+
 //Add getReleaseIDs() method to Label - returns array of IDs of Release
 //entries in the DB which list this Label with their labelID field
 Label::add_method('getReleaseIDs', function() {
