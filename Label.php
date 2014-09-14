@@ -3,15 +3,6 @@
 require_once('SubDataCore.php');
 
 class Label extends SubDataCore {
-    //Override jsonSerialize to include releaseIDs
-    public function jsonSerialize() {
-        $json = parent::jsonSerialize();
-        $json['releaseIDs'] = array_map(function($r) {
-            return $r->getID();
-        }, $this->getReleases());
-        return $json;
-    }
-
     //Override DataCore->update() to update referencing Releases
     public function update($data) {
         //Let DataCore perform its updates

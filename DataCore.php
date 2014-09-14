@@ -77,13 +77,11 @@ abstract class DataCore implements JsonSerializable {
     }
 
     //Required by JsonSerializable
-    //Serialises id, name & comments
+    //Serialises all appropriate fields defined in static::$jsonFields array
     public function jsonSerialize() {
-        return [
-            'id'       => $this->getID(),
-            'name'     => $this->getName(),
-            'comments' => $this->getComments(),
-        ];
+        return array_map(function($callback) {
+            return $callback($this);
+        }, static::getJsonFields());
     }
 
     //Method to update/edit DB record based on 'plain' object holding new

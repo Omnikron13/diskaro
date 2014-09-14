@@ -43,15 +43,6 @@ class Release extends DataCore {
         $this->label = $label;
     }
 
-    //Override jsonSerialize to include year & label
-    public function jsonSerialize() {
-        $json = parent::jsonSerialize();
-        $json['year'] = $this->year;
-        //Serialise Label id or null
-        $json['labelID'] = $this->label ? $this->label->getID() : NULL;
-        return $json;
-    }
-
     //Override DataCore->update() to update year & label
     public function update($data) {
         //Let DataCore perform its updates

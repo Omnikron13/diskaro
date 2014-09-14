@@ -75,15 +75,6 @@ abstract class SubDataCore extends DataCore {
         return array_map('intval', $query->fetchAll(PDO::FETCH_COLUMN, 0));
     }
 
-    //Override jsonSerialize to include parent/child IDs (should perhaps
-    // [optionally] be parents/children objects?
-    public function jsonSerialize() {
-        $json = parent::jsonSerialize();
-        $json['parentIDs'] = $this->getParentIDs();
-        $json['childIDs'] = $this->getChildIDs();
-        return $json;
-    }
-
     //Override DataCore->update() to add/remove parents/children
     public function update($data) {
         //Let DataCore perform its updates
