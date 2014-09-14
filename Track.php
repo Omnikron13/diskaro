@@ -302,15 +302,9 @@ Release::addJsonField('trackIDs', function($d) {
 //Add getTrackIDs() method to Label - returns array of IDs of Tracks which
 //reference this Label via their referenced Release's labelID field
 Label::add_method('getTrackIDs', function() {
-    $db = static::getDB();
-    $ids = array_map(function($id) use($db) {
-        $query = $db->prepare('SELECT id FROM tracks WHERE releaseID=:id;');
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
-        $query->execute();
-        return array_map(function($id) {
-            return intval($id);
-        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
-    }, $this->getReleaseIDs());
+    $ids = array_map(function($r) {
+        return $r->getLinkIDs('tracks', 'releaseID');
+    }, $this->getReleases());
     return count($ids) ? call_user_func_array('array_merge', $ids) : [];
 });
 
