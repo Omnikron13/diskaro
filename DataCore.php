@@ -10,6 +10,10 @@ abstract class DataCore implements JsonSerializable {
     protected $name = NULL;
     protected $comments = NULL;
 
+    //Init array to store field/callback pairs defining how to serialise
+    //this class & its children to JSON (via json_encode())
+    protected static $jsonFields = [];
+
     //Constructor
     public function __construct($uid, $mode = 0) {
         $db = static::getDB();
@@ -159,6 +163,22 @@ abstract class DataCore implements JsonSerializable {
                 throw new Exception('Unknown request constraint');
         }
         return json_encode($data);
+    }
+
+    //Method to add a new JSON field to serialised output of instances of this
+    //class, and a callback function to generate the field contents
+    public static function addJsonField($name, $callback) {
+        static::$jsonFields[get_called_class()][$name] = $callback;
+    }
+
+    //Method to get array of field/callback pairs of fields to serialise for
+    //this class, recursively merged with those of any/all parents
+    protected static function getJsonFields() {
+        $class  = get_called_class();
+        $parent = get_parent_class($class);
+        $fields = array_key_exists($class, static::$jsonFields) ?
+            static::$jsonFields[$class] : [];
+        return array_merge($fields, $parent ? $parent::getJsonFields() : []);
     }
 
     public static function getDB() {
