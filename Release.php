@@ -116,4 +116,9 @@ Label::add_method('getReleases', function() {
     }, $this->getReleaseIDs());
 });
 
+//Add releaseIDs to the fields Label serialises
+Label::addJsonField('releaseIDs', function($d) {
+    return $d->getReleaseIDs();
+});
+
 ?>
