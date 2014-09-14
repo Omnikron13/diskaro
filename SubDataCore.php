@@ -139,4 +139,12 @@ abstract class SubDataCore extends DataCore {
     public abstract static function getSubTable();
 }
 
+//Set default JSON fields to serialise (parentIDs & childIDs)
+SubDataCore::addJsonField('parentIDs', function($d) {
+    return $d->getParentIDs();
+});
+SubDataCore::addJsonField('childIDs', function($d) {
+    return $d->getChildIDs();
+});
+
 ?>
