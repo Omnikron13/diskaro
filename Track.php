@@ -275,6 +275,32 @@ class Track extends DataCore {
     }
 }
 
+//Set default JSON fields to serialise (path, releaseID, trackNumber,
+//genreIDs, tagIDs & artistLinks)
+Track::addJsonField('path', function($d) {
+    return $d->getPath();
+});
+Track::addJsonField('releaseID', function($d) {
+    $r = $d->getRelease();
+    return $r ? $r->getID() : null;
+});
+Track::addJsonField('trackNumber', function($d) {
+    return $d->getTrackNumber();
+});
+Track::addJsonField('genreIDs', function($d) {
+    return array_map(function($d) {
+        return $d->getID();
+    }, $d->getGenres());
+});
+Track::addJsonField('tagIDs', function($d) {
+    return array_map(function($d) {
+        return $d->getID();
+    }, $d->getTags());
+});
+Track::addJsonField('artistLinks', function($d) {
+    return $d->getArtistLinks();
+});
+
 //Add getTracks() method to Release - returns array of Track objects which
 //reference this Release with their releaseID field in the DB
 Release::add_method('getTracks', function() {
