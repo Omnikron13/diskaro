@@ -52,6 +52,17 @@ abstract class DataCore implements JsonSerializable {
         return $this->comments;
     }
 
+    //Method to get array of IDs of DB records which reference this from given table
+    protected function getLinkIDs($table, $thisIDField, $thatIDField = 'id') {
+        $db = static::getDB();
+        $query = $db->prepare("SELECT $thatIDField FROM $table WHERE $thisIDField=:id;");
+        $query->bindValue(':id', $this->getID(), PDO::PARAM_INT);
+        $query->execute();
+        return array_map(function($id) {
+            return intval($id, 10);
+        }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+    }
+
     //Set methods
     public function setName($name) {
         static::setField('name', $name, PDO::PARAM_STR);
