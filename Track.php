@@ -280,6 +280,18 @@ Track::addJsonField('artistLinks', function($d) {
     return $d->getArtistLinks();
 });
 
+//Add getTrackIDs() method to Release - returns array of IDs of Tracks which
+//reference this Release with their releaseID field in the DB
+Release::add_method('getTrackIDs', function() {
+    $db = static::getDB();
+    $query = $db->prepare('SELECT id FROM tracks WHERE releaseID=:id;');
+    $query->bindValue(':id', $this->getID(), PDO::PARAM_INT);
+    $query->execute();
+    return array_map(function($id) {
+        return intval($id, 10);
+    }, $query->fetchAll(PDO::FETCH_COLUMN, 0));
+});
+
 //Add getTracks() method to Release - returns array of Track objects which
 //reference this Release with their releaseID field in the DB
 Release::add_method('getTracks', function() {
