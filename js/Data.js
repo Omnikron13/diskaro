@@ -11,6 +11,8 @@ function Data(type, json) {
         this.parentIDs = json.parentIDs;
     if(json.hasOwnProperty('childIDs'))
         this.childIDs = json.childIDs;
+    if(json.hasOwnProperty('trackIDs'))
+        this.trackIDs = json.trackIDs;
 };
 
 //Function to create a null/dummy/placeholder Data obj
@@ -35,6 +37,8 @@ Data.method('toJSON', function() {
         j.parentIDs = this.parentIDs;
     if(this.hasOwnProperty('childIDs'))
         j.childIDs = this.childIDs;
+    if(this.hasOwnProperty('trackIDs'))
+        j.trackIDs = this.trackIDs;
     return j;
 });
 
