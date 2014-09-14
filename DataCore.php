@@ -58,10 +58,12 @@ abstract class DataCore implements JsonSerializable {
         $query = $db->prepare("SELECT $thatIDField FROM $table WHERE $thisIDField=:id;");
         $query->bindValue(':id', $this->getID(), PDO::PARAM_INT);
         $query->execute();
-        return array_unique(
-            array_map(function($id) {
-                return intval($id, 10);
-            }, $query->fetchAll(PDO::FETCH_COLUMN, 0))
+        return array_values(
+            array_unique(
+                array_map(function($id) {
+                    return intval($id, 10);
+                }, $query->fetchAll(PDO::FETCH_COLUMN, 0))
+            )
         );
     }
 
