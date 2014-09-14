@@ -320,4 +320,12 @@ Label::add_method('getTrackIDs', function() {
     return count($ids) ? call_user_func_array('array_merge', $ids) : [];
 });
 
+//Add getTracks() method to Label - returns array of Track objects which
+//reference this Label via their referenced Release's labelID field
+Label::add_method('getTracks', function() {
+    return array_map(function($id) {
+        return new Track($id);
+    }, $this->getTrackIDs());
+});
+
 ?>
