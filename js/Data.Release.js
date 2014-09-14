@@ -9,12 +9,12 @@ Data.Release = function(json) {
     r.labelID = json.labelID;
     //Override generic .toJSON() from Data to include year & label
     r.toJSON = function() {
-        return {
-            id      : r.id,
-            name    : r.name,
-            year    : r.year,
-            labelID : r.labelID,
-        };
+        //Get json obj from generic .toJSON()
+        var json = Data.prototype.toJSON.call(this);
+        //Add year & labelID
+        json.year = this.year;
+        json.labelID = this.labelID;
+        return json;
     };
     //Override generic .update() to update year/label
     r.update = function(d) {
