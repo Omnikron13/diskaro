@@ -300,4 +300,9 @@ Release::add_method('getTracks', function() {
     }, $this->getTrackIDs());
 });
 
+//Add trackIDs field to serialised Release JSON
+Release::addJsonField('trackIDs', function($d) {
+    return $d->getTrackIDs();
+});
+
 ?>
