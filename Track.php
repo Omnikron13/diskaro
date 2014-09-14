@@ -340,4 +340,23 @@ Genre::addJsonField('trackIDs', function($d) {
     return $d->getTrackIDs();
 });
 
+//Add getTrackIDs() method to Tag - returns array of IDs of Tracks which
+//reference this Tag in the trackTags DB table
+Tag::add_method('getTrackIDs', function() {
+    return $this->getLinkIDs('trackTags', 'tagID', 'trackID');
+});
+
+//Add getTracks() method to Tag - returns array of Track objects which
+//reference this Tag in the trackTags DB table
+Tag::add_method('getTracks', function() {
+    return array_map(function($id) {
+        return new Track($id);
+    }, $this->getTrackIDs());
+});
+
+//Add trackIDs field to serialised Tag JSON
+Tag::addJsonField('trackIDs', function($d) {
+    return $d->getTrackIDs();
+});
+
 ?>
