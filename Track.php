@@ -321,4 +321,23 @@ Label::addJsonField('trackIDs', function($d) {
     return $d->getTrackIDs();
 });
 
+//Add getTrackIDs() method to Genre - returns array of IDs of Tracks which
+//reference this Genre in the trackGenres DB table
+Genre::add_method('getTrackIDs', function() {
+    return $this->getLinkIDs('trackGenres', 'genreID', 'trackID');
+});
+
+//Add getTracks() method to Genre - returns array of Track objects which
+//reference this Genre in the trackGenres DB table
+Genre::add_method('getTracks', function() {
+    return array_map(function($id) {
+        return new Track($id);
+    }, $this->getTrackIDs());
+});
+
+//Add trackIDs field to serialised Genre JSON
+Genre::addJsonField('trackIDs', function($d) {
+    return $d->getTrackIDs();
+});
+
 ?>
