@@ -359,4 +359,23 @@ Tag::addJsonField('trackIDs', function($d) {
     return $d->getTrackIDs();
 });
 
+//Add getTrackIDs() method to Artist - returns array of IDs of Tracks which
+//reference this Artist in the trackArtists DB table
+Artist::add_method('getTrackIDs', function() {
+    return $this->getLinkIDs('trackArtists', 'artistID', 'trackID');
+});
+
+//Add getTracks() method to Artist - returns array of Track objects which
+//reference this Artist in the trackArtists DB table
+Artist::add_method('getTracks', function() {
+    return array_map(function($id) {
+        return new Track($id);
+    }, $this->getTrackIDs());
+});
+
+//Add trackIDs field to serialised Artist JSON
+Artist::addJsonField('trackIDs', function($d) {
+    return $d->getTrackIDs();
+});
+
 ?>
